@@ -1,7 +1,7 @@
 export const portfolioData = {
   // Personal Information
   personal: {
-    name: "JAYRAJD KAMALAKAR",
+    name: "JAYRAJ KAMALAKAR",
     title: "B.Tech CSE",
     initials: "JK",
     phone: "+91 90048-91569",
