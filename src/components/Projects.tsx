@@ -1,67 +1,144 @@
-import React from 'react';
-import { ExternalLink, Github, Calendar } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ExternalLink, Github, Calendar, ChevronDown, ChevronUp, Code, Eye } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 const Projects = () => {
   const { projects } = portfolioData;
+  const [expandedProjects, setExpandedProjects] = useState<number[]>([]);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const toggleExpanded = (index: number) => {
+    setExpandedProjects(prev => 
+      prev.includes(index) 
+        ? prev.filter(i => i !== index)
+        : [...prev, index]
+    );
+  };
 
   return (
-    <section className="py-20 px-6 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-purple-50 to-indigo-50"></div>
-      <div className="absolute top-0 right-1/4 w-80 h-80 bg-purple-200/40 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-indigo-200/40 rounded-full blur-3xl"></div>
+    <section 
+      id="projects"
+      ref={sectionRef}
+      className="py-20 px-6 relative overflow-hidden bg-gradient-to-b from-purple-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 transition-colors duration-500"
+    >
+      <div className="absolute top-0 right-1/4 w-80 h-80 bg-purple-200/40 dark:bg-purple-900/20 rounded-full blur-3xl transition-colors duration-500"></div>
+      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-indigo-200/40 dark:bg-indigo-900/20 rounded-full blur-3xl transition-colors duration-500"></div>
       
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold text-gray-800 mb-4">Projects</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-indigo-600 mx-auto rounded-full"></div>
+        <div className={`text-center mb-16 transition-all duration-1000 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}>
+          <h2 className="text-5xl font-bold text-gray-800 dark:text-gray-200 mb-4 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-300 cursor-default">
+            Projects
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-indigo-600 mx-auto rounded-full hover:w-32 transition-all duration-300"></div>
         </div>
         
         <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <div key={index} className="backdrop-blur-sm bg-white/80 p-8 rounded-2xl shadow-xl border border-white/20 hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] group">
-              <div className="mb-6">
-                <h3 className="text-2xl font-bold text-gray-800 mb-2 group-hover:text-purple-600 transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-purple-600 font-medium mb-2">{project.subtitle}</p>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Calendar size={16} />
-                  <span>{project.period}</span>
-                </div>
-              </div>
-              
-              <p className="text-gray-700 leading-relaxed mb-6">{project.description}</p>
-              
-              <div className="mb-6">
-                <h4 className="text-sm font-semibold text-gray-800 mb-3">Technologies Used:</h4>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech, i) => (
-                    <span key={i} className="px-3 py-1 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-full text-sm">
-                      {tech}
+          {projects.map((project, index) => {
+            const isExpanded = expandedProjects.includes(index);
+            return (
+              <div 
+                key={index} 
+                className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 p-8 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 group ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+                style={{ transitionDelay: `${index * 200}ms` }}
+              >
+                <div className="mb-6">
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300 flex-1">
+                      {project.title}
+                    </h3>
+                    <button
+                      onClick={() => toggleExpanded(index)}
+                      className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors duration-300 ml-2"
+                    >
+                      {isExpanded ? (
+                        <ChevronUp size={20} className="hover:animate-bounce" />
+                      ) : (
+                        <ChevronDown size={20} className="hover:animate-bounce" />
+                      )}
+                    </button>
+                  </div>
+                  <p className="text-purple-600 dark:text-purple-400 font-medium mb-2 group-hover:text-purple-700 dark:group-hover:text-purple-300 transition-colors duration-300">
+                    {project.subtitle}
+                  </p>
+                  <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                    <Calendar size={16} className="group-hover:animate-pulse" />
+                    <span className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300">
+                      {project.period}
                     </span>
-                  ))}
+                  </div>
+                </div>
+                
+                <div className={`overflow-hidden transition-all duration-500 ${
+                  isExpanded ? 'max-h-96 opacity-100' : 'max-h-20 opacity-80'
+                }`}>
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
+                    {project.description}
+                  </p>
+                </div>
+                
+                <div className="mb-6">
+                  <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-3 flex items-center gap-2">
+                    <Code size={16} className="text-indigo-600 dark:text-indigo-400" />
+                    Technologies Used:
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies.map((tech, i) => (
+                      <span 
+                        key={i} 
+                        className="px-3 py-1 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-full text-sm hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer"
+                        style={{ animationDelay: `${i * 50}ms` }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="flex gap-4">
+                  <a 
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 group/btn"
+                  >
+                    <Github size={16} className="group-hover/btn:animate-pulse" />
+                    Code
+                  </a>
+                  <a 
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 border-2 border-purple-500 dark:border-purple-400 text-purple-600 dark:text-purple-400 rounded-lg hover:bg-purple-500 dark:hover:bg-purple-600 hover:text-white transition-all duration-300 hover:scale-105 group/btn"
+                  >
+                    <Eye size={16} className="group-hover/btn:animate-pulse" />
+                    Demo
+                  </a>
                 </div>
               </div>
-              
-              <div className="flex gap-4">
-                <a 
-                  href={project.githubUrl}
-                  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg hover:shadow-lg transition-all hover:scale-105"
-                >
-                  <Github size={16} />
-                  Code
-                </a>
-                <a 
-                  href={project.demoUrl}
-                  className="flex items-center gap-2 px-4 py-2 border-2 border-purple-500 text-purple-600 rounded-lg hover:bg-purple-500 hover:text-white transition-all hover:scale-105"
-                >
-                  <ExternalLink size={16} />
-                  Demo
-                </a>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
