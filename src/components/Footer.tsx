@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, Twitter, Heart, ArrowUp } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 const Footer = () => {
   const { personal } = portfolioData;
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show scroll to top button when user has scrolled down more than 300px
+      setShowScrollTop(window.scrollY > 300);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -58,14 +69,16 @@ const Footer = () => {
         </div>
       </div>
       
-      {/* Scroll to Top Button */}
-      <button
-        onClick={scrollToTop}
-        className="fixed bottom-6 right-6 p-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 group z-40"
-        aria-label="Scroll to top"
-      >
-        <ArrowUp size={20} className="group-hover:animate-bounce" />
-      </button>
+      {/* Scroll to Top Button - Only show when not at top */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 p-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 group z-40 backdrop-blur-sm"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp size={20} className="group-hover:animate-bounce" />
+        </button>
+      )}
     </footer>
   );
 };

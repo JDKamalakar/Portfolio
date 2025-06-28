@@ -42,16 +42,46 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      // Create mailto link with form data
+      const subject = encodeURIComponent(`Portfolio Contact: Message from ${formData.name}`);
+      const body = encodeURIComponent(
+        `Name: ${formData.name}\n` +
+        `Email: ${formData.email}\n\n` +
+        `Message:\n${formData.message}\n\n` +
+        `---\nSent from Portfolio Website`
+      );
+      
+      const mailtoLink = `mailto:${personal.email}?subject=${subject}&body=${body}`;
+      
+      // Open email client
+      window.location.href = mailtoLink;
+      
+      // Show success message
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+        
+        setTimeout(() => {
+          setSubmitStatus('idle');
+        }, 3000);
+      }, 1000);
+      
+    } catch (error) {
       setIsSubmitting(false);
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '' });
+      setSubmitStatus('error');
       
       setTimeout(() => {
         setSubmitStatus('idle');
       }, 3000);
-    }, 2000);
+    }
+  };
+
+  const openGoogleMaps = () => {
+    const encodedAddress = encodeURIComponent(personal.fullAddress);
+    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+    window.open(mapsUrl, '_blank');
   };
 
   return (
@@ -112,17 +142,21 @@ const Contact = () => {
               </div>
             </a>
             
-            <div className="backdrop-blur-sm bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group cursor-default">
+            <button
+              onClick={openGoogleMaps}
+              className="w-full backdrop-blur-sm bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group"
+            >
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-indigo-500 dark:bg-indigo-600 rounded-full group-hover:scale-110 transition-transform duration-300">
                   <MapPin className="text-white group-hover:animate-pulse" size={24} />
                 </div>
-                <div>
+                <div className="text-left">
                   <h3 className="text-white font-semibold text-lg group-hover:text-indigo-300 transition-colors duration-300">Location</h3>
                   <p className="text-gray-300 dark:text-gray-400 group-hover:text-gray-200 dark:group-hover:text-gray-300 transition-colors duration-300">{personal.fullAddress}</p>
+                  <p className="text-xs text-blue-300 dark:text-blue-400 mt-1 group-hover:text-blue-200 dark:group-hover:text-blue-300 transition-colors duration-300">Click to open in Google Maps</p>
                 </div>
               </div>
-            </div>
+            </button>
           </div>
           
           {/* Contact Form */}
@@ -183,12 +217,12 @@ const Contact = () => {
                 {isSubmitting ? (
                   <>
                     <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                    Sending...
+                    Opening Email Client...
                   </>
                 ) : submitStatus === 'success' ? (
                   <>
                     <CheckCircle size={20} />
-                    Message Sent!
+                    Email Client Opened!
                   </>
                 ) : submitStatus === 'error' ? (
                   <>
@@ -198,10 +232,14 @@ const Contact = () => {
                 ) : (
                   <>
                     <Send size={20} className="group-hover:animate-pulse" />
-                    Send Message
+                    Send via Email
                   </>
                 )}
               </button>
+              
+              <p className="text-xs text-gray-400 dark:text-gray-500 text-center">
+                This will open your default email client with the message pre-filled
+              </p>
             </form>
           </div>
         </div>

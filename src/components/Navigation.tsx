@@ -46,7 +46,7 @@ const Navigation = () => {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-6 left-6 z-50 p-3 rounded-full backdrop-blur-sm bg-white/20 dark:bg-gray-800/20 border border-white/30 dark:border-gray-700/30 hover:bg-white/30 dark:hover:bg-gray-800/30 transition-all duration-300 hover:scale-110 md:hidden"
+        className="fixed top-6 left-6 z-50 p-3 rounded-full backdrop-blur-md bg-white/20 dark:bg-gray-800/20 border border-white/30 dark:border-gray-700/30 hover:bg-white/30 dark:hover:bg-gray-800/30 transition-all duration-300 hover:scale-110 md:hidden shadow-lg"
         aria-label="Toggle menu"
       >
         <div className="relative w-6 h-6">
@@ -65,9 +65,9 @@ const Navigation = () => {
         </div>
       </button>
 
-      {/* Desktop Navigation */}
+      {/* Desktop Navigation - Android 16 QPR1 Style */}
       <nav className="fixed left-6 top-1/2 transform -translate-y-1/2 z-40 hidden md:block">
-        <div className="backdrop-blur-sm bg-white/10 dark:bg-gray-800/10 rounded-2xl border border-white/20 dark:border-gray-700/20 p-2">
+        <div className="backdrop-blur-md bg-white/15 dark:bg-gray-800/15 rounded-2xl border border-white/25 dark:border-gray-700/25 p-2 shadow-xl">
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -76,13 +76,13 @@ const Navigation = () => {
                 onClick={() => scrollToSection(item.id)}
                 className={`group relative p-3 rounded-xl transition-all duration-300 hover:scale-110 block w-full mb-2 last:mb-0 ${
                   activeSection === item.id
-                    ? 'bg-blue-500 text-white'
-                    : 'text-white/70 dark:text-gray-300/70 hover:text-white dark:hover:text-gray-200 hover:bg-white/20 dark:hover:bg-gray-700/20'
+                    ? 'bg-blue-500/30 text-blue-600 dark:text-blue-400 shadow-lg backdrop-blur-sm'
+                    : 'text-white/80 dark:text-gray-300/80 hover:text-white dark:hover:text-gray-200 hover:bg-white/20 dark:hover:bg-gray-700/20'
                 }`}
                 title={item.label}
               >
                 <Icon size={20} />
-                <span className="absolute left-full ml-3 px-2 py-1 bg-gray-900 dark:bg-gray-700 text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                <span className="absolute left-full ml-3 px-3 py-2 bg-gray-900/90 dark:bg-gray-700/90 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap backdrop-blur-sm border border-white/10 shadow-lg">
                   {item.label}
                 </span>
               </button>
@@ -96,7 +96,7 @@ const Navigation = () => {
         isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
       }`}>
         <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
-        <div className={`absolute left-0 top-0 h-full w-80 max-w-[80vw] bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-r border-white/20 dark:border-gray-700/20 transform transition-transform duration-300 ${
+        <div className={`absolute left-0 top-0 h-full w-80 max-w-[80vw] backdrop-blur-md bg-white/95 dark:bg-gray-900/95 border-r border-white/20 dark:border-gray-700/20 transform transition-transform duration-300 shadow-2xl ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}>
           <div className="p-6 pt-20">
@@ -109,7 +109,7 @@ const Navigation = () => {
                   onClick={() => scrollToSection(item.id)}
                   className={`flex items-center gap-3 w-full p-3 rounded-xl transition-all duration-300 hover:scale-105 mb-2 ${
                     activeSection === item.id
-                      ? 'bg-blue-500 text-white'
+                      ? 'bg-blue-500 text-white shadow-lg'
                       : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                   }`}
                 >
