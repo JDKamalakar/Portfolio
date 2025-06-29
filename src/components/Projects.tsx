@@ -66,10 +66,11 @@ const Projects = () => {
             return (
               <div 
                 key={index} 
-                className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 group flex flex-col ${
+                className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 group flex flex-col cursor-pointer ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
                 style={{ transitionDelay: `${index * 200}ms` }}
+                onClick={() => toggleExpanded(index)}
               >
                 {/* Header Section */}
                 <div className="p-8 pb-6">
@@ -77,18 +78,19 @@ const Projects = () => {
                     <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300 flex-1 leading-tight">
                       {project.title}
                     </h3>
-                    {hasMoreContent && (
-                      <button
-                        onClick={() => toggleExpanded(index)}
-                        className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors duration-300 ml-4 flex-shrink-0"
-                      >
-                        {isExpanded ? (
-                          <ChevronUp size={20} className="hover:animate-bounce transition-transform duration-300" />
-                        ) : (
-                          <ChevronDown size={20} className="hover:animate-bounce transition-transform duration-300" />
-                        )}
-                      </button>
-                    )}
+                    <div className="flex items-center gap-2 ml-4 flex-shrink-0">
+                      {hasMoreContent && !isExpanded && (
+                        <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
+                      )}
+                      <span className="text-sm font-medium text-purple-600 dark:text-purple-400">
+                        {isExpanded ? 'Show Less' : 'Show More'}
+                      </span>
+                      {isExpanded ? (
+                        <ChevronUp size={20} className="text-purple-600 dark:text-purple-400 group-hover:animate-bounce transition-transform duration-300" />
+                      ) : (
+                        <ChevronDown size={20} className="text-purple-600 dark:text-purple-400 group-hover:animate-bounce transition-transform duration-300" />
+                      )}
+                    </div>
                   </div>
                   
                   <p className="text-purple-600 dark:text-purple-400 font-medium mb-3 group-hover:text-purple-700 dark:group-hover:text-purple-300 transition-colors duration-300">
@@ -132,6 +134,7 @@ const Projects = () => {
                         key={i} 
                         className="px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-full text-sm font-medium hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer"
                         style={{ animationDelay: `${i * 50}ms` }}
+                        onClick={(e) => e.stopPropagation()}
                       >
                         {tech}
                       </span>
@@ -147,6 +150,7 @@ const Projects = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 group/btn flex-1 justify-center"
+                      onClick={(e) => e.stopPropagation()}
                     >
                       <Github size={16} className="group-hover/btn:animate-pulse" />
                       <span className="font-medium">Code</span>
@@ -156,6 +160,7 @@ const Projects = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 px-6 py-3 border-2 border-purple-500 dark:border-purple-400 text-purple-600 dark:text-purple-400 rounded-lg hover:bg-purple-500 dark:hover:bg-purple-600 hover:text-white transition-all duration-300 hover:scale-105 group/btn flex-1 justify-center"
+                      onClick={(e) => e.stopPropagation()}
                     >
                       <Eye size={16} className="group-hover/btn:animate-pulse" />
                       <span className="font-medium">Demo</span>
