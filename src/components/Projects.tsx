@@ -79,9 +79,6 @@ const Projects = () => {
                       {project.title}
                     </h3>
                     <div className="flex items-center gap-2 ml-4 flex-shrink-0">
-                      {hasMoreContent && !isExpanded && (
-                        <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
-                      )}
                       <span className="text-sm font-medium text-purple-600 dark:text-purple-400">
                         {isExpanded ? 'Show Less' : 'Show More'}
                       </span>

@@ -89,9 +89,6 @@ const Education = () => {
                       </h4>
                       {hasInstitution && (
                         <div className="flex items-center gap-2 ml-2">
-                          {!isExpanded && (
-                            <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
-                          )}
                           {isExpanded ? (
                             <ChevronUp size={20} className="text-blue-600 dark:text-blue-400 group-hover:animate-bounce flex-shrink-0 transition-transform duration-300" />
                           ) : (
@@ -123,6 +120,12 @@ const Education = () => {
                         </span>
                       </div>
                     </div>
+                    
+                    {hasInstitution && !isExpanded && (
+                      <div className="flex justify-center mt-3">
+                        <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -156,9 +159,6 @@ const Education = () => {
                       </h4>
                       {hasInstitution && (
                         <div className="flex items-center gap-2 ml-2">
-                          {!isExpanded && (
-                            <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
-                          )}
                           {isExpanded ? (
                             <ChevronUp size={20} className="text-green-600 dark:text-green-400 group-hover:animate-bounce flex-shrink-0 transition-transform duration-300" />
                           ) : (
@@ -191,6 +191,12 @@ const Education = () => {
                         )}
                       </div>
                     </div>
+                    
+                    {hasInstitution && !isExpanded && (
+                      <div className="flex justify-center mt-3">
+                        <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
+                      </div>
+                    )}
                   </div>
                 );
               })}
