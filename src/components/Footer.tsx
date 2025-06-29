@@ -47,7 +47,7 @@ const Footer = () => {
   return (
     <div className="bg-gray-900 dark:bg-black py-12 px-6 relative">
       {/* Floating Footer Container with increased width */}
-      <footer className="max-w-8x2 mx-auto relative">
+      <footer className="max-w-8x4 mx-auto relative">
         {/* Main floating card with more padding appearance */}
         <div className="backdrop-blur-xl bg-white/10 dark:bg-white/5 rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/30 p-12 relative overflow-hidden hover:shadow-3xl hover:scale-[1.02] transition-all duration-500 group">
           {/* Floating background effects */}
