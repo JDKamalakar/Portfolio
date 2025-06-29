@@ -134,7 +134,7 @@ const Footer = () => {
               {/* Twitter Button */}
               <button
                 onClick={() => handleSocialClick('twitter', personal.socialLinks.twitter)}
-                className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl hover:bg-blue-500/30 dark:hover:bg-blue-600/30 transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg hover:shadow-blue-500/25 border border-white/10 overflow-hidden
+                className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg hover:shadow-blue-500/25 border border-white/10 overflow-hidden
                   ${likedButtons.has('twitter') ? 'animate-pulse bg-red-500/30 scale-125' : ''}
                 `}
                 aria-label="Twitter Profile"
