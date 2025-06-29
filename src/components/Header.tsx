@@ -116,25 +116,25 @@ const Header = () => {
         </h1>
         <p className="text-2xl md:text-3xl text-blue-200 dark:text-blue-300 mb-8 font-light hover:text-blue-100 dark:hover:text-blue-220 transition-colors duration-300 cursor-default">{personal.title}</p>
         
-        {/* Contact Info with animated icons */}
+        {/* Contact Info with animated icons and blue hover shadows */}
         <div className="flex flex-wrap justify-center gap-6 mb-8 text-lg">
           <a
             href={`tel:${personal.phone}`}
-            className="flex items-center gap-2 hover:text-blue-300 dark:hover:text-blue-200 transition-all duration-300 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-full hover:bg-white/20 dark:hover:bg-white/10 hover:scale-105 group border border-white/20"
+            className="flex items-center gap-2 hover:text-blue-300 dark:hover:text-blue-200 transition-all duration-300 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-full hover:bg-white/20 dark:hover:bg-white/10 hover:scale-105 group border border-white/20 hover:shadow-lg hover:shadow-blue-500/25"
           >
             <Phone size={20} className="group-hover:animate-pulse group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
             {personal.phone}
           </a>
           <a
             href={`mailto:${personal.email}`}
-            className="flex items-center gap-2 hover:text-blue-300 dark:hover:text-blue-200 transition-all duration-300 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-full hover:bg-white/20 dark:hover:bg-white/10 hover:scale-105 group border border-white/20"
+            className="flex items-center gap-2 hover:text-blue-300 dark:hover:text-blue-200 transition-all duration-300 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-full hover:bg-white/20 dark:hover:bg-white/10 hover:scale-105 group border border-white/20 hover:shadow-lg hover:shadow-blue-500/25"
           >
             <Mail size={20} className="group-hover:animate-pulse group-hover:scale-110 group-hover:-rotate-12 transition-all duration-300" />
             {personal.email}
           </a>
           <button
             onClick={openGoogleMaps}
-            className="flex items-center gap-2 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-full hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 group cursor-pointer hover:text-blue-300 dark:hover:text-blue-200 border border-white/20"
+            className="flex items-center gap-2 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-full hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 group cursor-pointer hover:text-blue-300 dark:hover:text-blue-200 border border-white/20 hover:shadow-lg hover:shadow-blue-500/25"
           >
             <MapPin size={20} className="group-hover:animate-pulse group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
             {personal.location}
