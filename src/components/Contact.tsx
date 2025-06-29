@@ -153,7 +153,6 @@ const Contact = () => {
                 <div className="text-left">
                   <h3 className="text-white font-semibold text-lg group-hover:text-indigo-300 transition-colors duration-300">Location</h3>
                   <p className="text-gray-300 dark:text-gray-400 group-hover:text-gray-200 dark:group-hover:text-gray-300 transition-colors duration-300">{personal.fullAddress}</p>
-                  <p className="text-xs text-blue-300 dark:text-blue-400 mt-1 group-hover:text-blue-200 dark:group-hover:text-blue-300 transition-colors duration-300">Click to open in Google Maps</p>
                 </div>
               </div>
             </button>

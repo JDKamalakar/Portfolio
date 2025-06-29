@@ -73,6 +73,7 @@ const Education = () => {
             <div className="space-y-6">
               {education.map((edu, index) => {
                 const isExpanded = expandedEducation.includes(index);
+                const hasInstitution = edu.institution && edu.institution.trim() !== '';
                 return (
                   <div 
                     key={index} 
@@ -87,9 +88,6 @@ const Education = () => {
                         {edu.degree}
                       </h4>
                       <div className="flex items-center gap-2 ml-2">
-                        {!isExpanded && (
-                          <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
-                        )}
                         {isExpanded ? (
                           <ChevronUp size={20} className="text-blue-600 dark:text-blue-400 group-hover:animate-bounce flex-shrink-0" />
                         ) : (
@@ -98,13 +96,17 @@ const Education = () => {
                       </div>
                     </div>
                     
-                    <div className={`overflow-hidden transition-all duration-500 ${
-                      isExpanded ? 'max-h-32 opacity-100' : 'max-h-16 opacity-80'
+                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                      isExpanded ? 'max-h-32' : 'max-h-16'
                     }`}>
-                      {isExpanded && (
-                        <p className="text-blue-600 dark:text-blue-400 font-medium mb-3 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
-                          {edu.institution}
-                        </p>
+                      {hasInstitution && (
+                        <div className={`transition-all duration-500 ease-in-out ${
+                          isExpanded ? 'opacity-100 max-h-8 mb-3' : 'opacity-0 max-h-0 mb-0'
+                        }`}>
+                          <p className="text-blue-600 dark:text-blue-400 font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
+                            {edu.institution}
+                          </p>
+                        </div>
                       )}
                       <div className="flex items-center justify-between text-gray-600 dark:text-gray-400">
                         <div className="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">
@@ -115,6 +117,12 @@ const Education = () => {
                           {edu.grade}
                         </span>
                       </div>
+                      
+                      {hasInstitution && !isExpanded && (
+                        <div className="flex justify-center mt-2">
+                          <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
+                        </div>
+                      )}
                     </div>
                   </div>
                 );
@@ -133,6 +141,7 @@ const Education = () => {
             <div className="space-y-6">
               {certifications.map((cert, index) => {
                 const isExpanded = expandedCertifications.includes(index);
+                const hasInstitution = cert.institution && cert.institution.trim() !== '';
                 return (
                   <div 
                     key={index} 
@@ -147,9 +156,6 @@ const Education = () => {
                         {cert.title}
                       </h4>
                       <div className="flex items-center gap-2 ml-2">
-                        {!isExpanded && cert.institution && (
-                          <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
-                        )}
                         {isExpanded ? (
                           <ChevronUp size={20} className="text-green-600 dark:text-green-400 group-hover:animate-bounce flex-shrink-0" />
                         ) : (
@@ -158,13 +164,17 @@ const Education = () => {
                       </div>
                     </div>
                     
-                    <div className={`overflow-hidden transition-all duration-500 ${
-                      isExpanded ? 'max-h-32 opacity-100' : 'max-h-16 opacity-80'
+                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                      isExpanded ? 'max-h-32' : 'max-h-16'
                     }`}>
-                      {isExpanded && cert.institution && (
-                        <p className="text-blue-600 dark:text-blue-400 font-medium mb-3 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
-                          {cert.institution}
-                        </p>
+                      {hasInstitution && (
+                        <div className={`transition-all duration-500 ease-in-out ${
+                          isExpanded ? 'opacity-100 max-h-8 mb-3' : 'opacity-0 max-h-0 mb-0'
+                        }`}>
+                          <p className="text-blue-600 dark:text-blue-400 font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
+                            {cert.institution}
+                          </p>
+                        </div>
                       )}
                       <div className="flex items-center justify-between text-gray-600 dark:text-gray-400">
                         <span className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-300">
@@ -176,6 +186,12 @@ const Education = () => {
                           </span>
                         )}
                       </div>
+                      
+                      {hasInstitution && !isExpanded && (
+                        <div className="flex justify-center mt-2">
+                          <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
+                        </div>
+                      )}
                     </div>
                   </div>
                 );

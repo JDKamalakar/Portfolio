@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Download, ExternalLink, Camera, Edit3 } from 'lucide-react';
+import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Download, ExternalLink, Camera } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 const Header = () => {
   const { personal } = portfolioData;
   const [isVisible, setIsVisible] = useState(false);
-  const [showPhotoEdit, setShowPhotoEdit] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -28,6 +27,12 @@ const Header = () => {
     }
   };
 
+  const openGoogleMaps = () => {
+    const encodedAddress = encodeURIComponent(personal.fullAddress);
+    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+    window.open(mapsUrl, '_blank');
+  };
+
   return (
     <header id="header" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900 transition-colors duration-500">
       {/* Background with blur effect */}
@@ -43,11 +48,7 @@ const Header = () => {
       }`}>
         {/* Profile Image */}
         <div className="mb-8 relative group">
-          <div 
-            className="w-48 h-48 mx-auto rounded-full bg-gradient-to-r from-blue-500 to-purple-600 p-1 shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 hover:scale-105 cursor-pointer relative"
-            onMouseEnter={() => setShowPhotoEdit(true)}
-            onMouseLeave={() => setShowPhotoEdit(false)}
-          >
+          <div className="w-48 h-48 mx-auto rounded-full bg-gradient-to-r from-blue-500 to-purple-600 p-1 shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 hover:scale-105 cursor-pointer relative">
             {/* Profile Photo Container */}
             <div className="w-full h-full rounded-full bg-gray-800 dark:bg-gray-700 flex items-center justify-center text-6xl font-bold transition-colors duration-300 group-hover:bg-gray-700 dark:group-hover:bg-gray-600 overflow-hidden">
               {personal.profilePhoto ? (
@@ -61,30 +62,14 @@ const Header = () => {
               )}
             </div>
             
-            {/* Photo Edit Overlay */}
-            {showPhotoEdit && (
-              <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center transition-all duration-300">
-                <label htmlFor="photo-upload" className="cursor-pointer flex flex-col items-center gap-2 text-white hover:text-blue-300 transition-colors duration-300">
-                  <Camera size={24} />
-                  <span className="text-xs font-medium">Change Photo</span>
-                </label>
-                <input
-                  id="photo-upload"
-                  type="file"
-                  accept="image/*"
-                  onChange={handlePhotoUpload}
-                  className="hidden"
-                />
-              </div>
-            )}
-          </div>
-          
-          {/* Edit Instructions */}
-          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-            <div className="bg-gray-900/90 text-white text-xs px-3 py-1 rounded-lg backdrop-blur-sm border border-white/10 whitespace-nowrap">
-              <Edit3 size={12} className="inline mr-1" />
-              Edit profilePhoto in portfolioData.ts
-            </div>
+            {/* Hidden Photo Upload Input */}
+            <input
+              id="photo-upload"
+              type="file"
+              accept="image/*"
+              onChange={handlePhotoUpload}
+              className="hidden"
+            />
           </div>
           
           <div className="absolute inset-0 w-48 h-48 mx-auto rounded-full bg-white/10 backdrop-blur-sm animate-ping opacity-20"></div>
@@ -112,10 +97,13 @@ const Header = () => {
             <Mail size={20} className="group-hover:animate-pulse" />
             {personal.email}
           </a>
-          <div className="flex items-center gap-2 backdrop-blur-sm bg-white/10 dark:bg-white/5 px-4 py-2 rounded-full hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 group cursor-default">
+          <button
+            onClick={openGoogleMaps}
+            className="flex items-center gap-2 backdrop-blur-sm bg-white/10 dark:bg-white/5 px-4 py-2 rounded-full hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 group cursor-pointer hover:text-blue-300 dark:hover:text-blue-200"
+          >
             <MapPin size={20} className="group-hover:animate-pulse" />
             {personal.location}
-          </div>
+          </button>
         </div>
         
         {/* Action Buttons */}

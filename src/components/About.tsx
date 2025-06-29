@@ -27,7 +27,7 @@ const About = () => {
 
   const getPreviewText = (text: string, maxLength: number = 200) => {
     if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength) + '...';
+    return text.substring(0, maxLength);
   };
 
   const hasMoreContent = personal.objective.length > 200;
@@ -57,18 +57,25 @@ const About = () => {
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
           }`}>
             <div className="relative">
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                {isExpanded ? personal.objective : getPreviewText(personal.objective)}
-              </p>
+              <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                isExpanded ? 'max-h-96' : 'max-h-32'
+              }`}>
+                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                  {isExpanded ? personal.objective : getPreviewText(personal.objective)}
+                </p>
+                
+                {hasMoreContent && !isExpanded && (
+                  <div className="flex justify-center mt-2">
+                    <MoreHorizontal size={20} className="text-gray-400 dark:text-gray-500 animate-pulse" />
+                  </div>
+                )}
+              </div>
               
               {hasMoreContent && (
                 <button
                   onClick={() => setIsExpanded(!isExpanded)}
-                  className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300 mb-6 group/btn"
+                  className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300 mt-4 group/btn"
                 >
-                  {!isExpanded && (
-                    <MoreHorizontal size={16} className="animate-pulse" />
-                  )}
                   <span className="font-medium">
                     {isExpanded ? 'Show Less' : 'Read More'}
                   </span>
@@ -81,7 +88,7 @@ const About = () => {
               )}
             </div>
             
-            <div className="space-y-4">
+            <div className="space-y-4 mt-6">
               {about.highlights.map((highlight, index) => (
                 <div 
                   key={index} 

@@ -89,9 +89,6 @@ const Experience = () => {
                   </div>
                   
                   <div className="mt-4 md:mt-0 flex items-center gap-2 text-blue-600 dark:text-blue-400">
-                    {!isExpanded && hasMoreContent && (
-                      <MoreHorizontal size={16} className="animate-pulse" />
-                    )}
                     <span className="text-sm font-medium">
                       {isExpanded ? 'Show Less' : 'Show More'}
                     </span>
@@ -103,7 +100,9 @@ const Experience = () => {
                   </div>
                 </div>
                 
-                <div className={`overflow-hidden transition-all duration-500`}>
+                <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                  isExpanded ? 'max-h-96' : 'max-h-32'
+                }`}>
                   <ul className="space-y-3">
                     {(isExpanded ? exp.achievements : previewAchievements).map((achievement, i) => (
                       <li 
@@ -117,6 +116,12 @@ const Experience = () => {
                       </li>
                     ))}
                   </ul>
+                  
+                  {hasMoreContent && !isExpanded && (
+                    <div className="flex justify-center mt-4">
+                      <MoreHorizontal size={20} className="text-gray-400 dark:text-gray-500 animate-pulse" />
+                    </div>
+                  )}
                 </div>
               </div>
             );
