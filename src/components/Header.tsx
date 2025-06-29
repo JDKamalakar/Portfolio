@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Download, ExternalLink, Camera, Heart } from 'lucide-react'; // Import Heart icon
+import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Download, ExternalLink, Camera, Heart } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 const Header = () => {
   const { personal } = portfolioData;
   const [isVisible, setIsVisible] = useState(false);
-  const [likedButtons, setLikedButtons] = useState<Set<string>>(new Set()); // State for liked buttons
+  const [likedButtons, setLikedButtons] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -40,17 +40,15 @@ const Header = () => {
 
   const openGoogleMaps = () => {
     const encodedAddress = encodeURIComponent(personal.fullAddress);
-    // Corrected Google Maps URL for direct search
-    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`; // Corrected Google Maps URL
     window.open(mapsUrl, '_blank');
   };
 
-  // New handler for social clicks with animation
   const handleSocialClick = (platform: string, url: string) => {
-    // Add like animation
+    // Add like animation and color pulse
     setLikedButtons(prev => new Set(prev).add(platform));
 
-    // Remove like animation after 2 seconds
+    // Remove animation and color after 2 seconds
     setTimeout(() => {
       setLikedButtons(prev => {
         const newSet = new Set(prev);
@@ -96,25 +94,16 @@ const Header = () => {
               )}
             </div>
             
-            {/* Hidden Photo Upload Input */}
-            <input
-              id="photo-upload"
-              type="file"
-              accept="image/*"
-              onChange={handlePhotoUpload}
-              className="hidden"
-            />
+            {/* This ping effect might be problematic if it overlaps content. Consider z-index if it causes issues. */}
+            <div className="absolute inset-0 w-48 h-48 mx-auto rounded-full bg-white/10 backdrop-blur-sm animate-ping opacity-20 -z-10"></div>
           </div>
-          
-          {/* This ping effect might be problematic if it overlaps content. Consider z-index if it causes issues. */}
-          <div className="absolute inset-0 w-48 h-48 mx-auto rounded-full bg-white/10 backdrop-blur-sm animate-ping opacity-20 -z-10"></div>
         </div>
         
         {/* Name and Title */}
         <h1 className="text-6xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent hover:from-blue-200 hover:to-purple-200 transition-all duration-300 cursor-default">
           {personal.name}
         </h1>
-        <p className="text-2xl md:text-3xl text-blue-200 dark:text-blue-300 mb-8 font-light hover:text-blue-100 dark:hover:text-blue-200 transition-colors duration-300 cursor-default">{personal.title}</p>
+        <p className="text-2xl md:text-3xl text-blue-200 dark:text-blue-300 mb-8 font-light hover:text-blue-100 dark:hover:text-blue-220 transition-colors duration-300 cursor-default">{personal.title}</p>
         
         {/* Contact Info with animated icons */}
         <div className="flex flex-wrap justify-center gap-6 mb-8 text-lg">
@@ -164,12 +153,12 @@ const Header = () => {
           {/* GitHub Button */}
           <button
             onClick={() => handleSocialClick('github', personal.socialLinks.github)}
-            className={`relative p-3 bg-white/10 dark:bg-white/5 backdrop-blur-md rounded-full hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300 hover:scale-110 hover:rotate-12 group border border-white/20 overflow-hidden
-              ${likedButtons.has('github') ? 'scale-125' : ''}
+            className={`relative p-3 backdrop-blur-md rounded-full transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden
+              ${likedButtons.has('github') ? 'bg-red-500/30 scale-125' : 'bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10'}
             `}
             aria-label="GitHub Profile"
           >
-            <Github size={24} className="group-hover:animate-pulse group-hover:scale-125 group-hover:-rotate-12 transition-all duration-300" />
+            <Github size={24} className={`transition-transform duration-300 ${likedButtons.has('github') ? 'scale-125 rotate-12' : 'group-hover:animate-pulse group-hover:scale-125 group-hover:-rotate-12'}`} />
             {likedButtons.has('github') && (
               <>
                 <Heart className="absolute -top-1 -right-1 w-3 h-3 text-red-400 animate-ping" />
@@ -181,12 +170,12 @@ const Header = () => {
           {/* LinkedIn Button */}
           <button
             onClick={() => handleSocialClick('linkedin', personal.socialLinks.linkedin)}
-            className={`relative p-3 bg-white/10 dark:bg-white/5 backdrop-blur-md rounded-full hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300 hover:scale-110 hover:rotate-12 group border border-white/20 overflow-hidden
-              ${likedButtons.has('linkedin') ? 'scale-125' : ''}
+            className={`relative p-3 backdrop-blur-md rounded-full transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden
+              ${likedButtons.has('linkedin') ? 'bg-red-500/30 scale-125' : 'bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10'}
             `}
             aria-label="LinkedIn Profile"
           >
-            <Linkedin size={24} className="group-hover:animate-pulse group-hover:scale-125 group-hover:rotate-12 transition-all duration-300" />
+            <Linkedin size={24} className={`transition-transform duration-300 ${likedButtons.has('linkedin') ? 'scale-125 -rotate-12' : 'group-hover:animate-pulse group-hover:scale-125 group-hover:rotate-12'}`} />
             {likedButtons.has('linkedin') && (
               <>
                 <Heart className="absolute -top-1 -right-1 w-3 h-3 text-red-400 animate-ping" />
@@ -198,12 +187,12 @@ const Header = () => {
           {/* Twitter Button */}
           <button
             onClick={() => handleSocialClick('twitter', personal.socialLinks.twitter)}
-            className={`relative p-3 bg-white/10 dark:bg-white/5 backdrop-blur-md rounded-full hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300 hover:scale-110 hover:rotate-12 group border border-white/20 overflow-hidden
-              ${likedButtons.has('twitter') ? 'scale-125' : ''}
+            className={`relative p-3 backdrop-blur-md rounded-full transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden
+              ${likedButtons.has('twitter') ? 'bg-red-500/30 scale-125' : 'bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10'}
             `}
             aria-label="Twitter Profile"
           >
-            <Twitter size={24} className="group-hover:animate-pulse group-hover:scale-125 group-hover:-rotate-12 transition-all duration-300" />
+            <Twitter size={24} className={`transition-transform duration-300 ${likedButtons.has('twitter') ? 'scale-125 rotate-12' : 'group-hover:animate-pulse group-hover:scale-125 group-hover:-rotate-12'}`} />
             {likedButtons.has('twitter') && (
               <>
                 <Heart className="absolute -top-1 -right-1 w-3 h-3 text-red-400 animate-ping" />
