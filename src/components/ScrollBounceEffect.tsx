@@ -77,23 +77,23 @@ const ScrollBounceEffect = () => {
           <div className={`transform transition-all duration-700 ease-out ${
             isVisible ? 'translate-y-0 scale-100' : '-translate-y-6 scale-75'
           }`}>
-            {/* Bounce Indicator */}
-            <div className="relative flex items-center justify-center">
-              {/* Ripple effects - properly centered */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-blue-500/20 dark:bg-blue-400/10 rounded-full animate-ping"></div>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-purple-500/20 dark:bg-purple-400/10 rounded-full animate-ping delay-200"></div>
+            {/* Bounce Indicator Container */}
+            <div className="relative w-6 h-6 flex items-center justify-center">
+              {/* Ripple effects - perfectly centered using same dimensions as main element */}
+              <div className="absolute inset-0 w-6 h-6 bg-blue-500/20 dark:bg-blue-400/10 rounded-full animate-ping scale-150"></div>
+              <div className="absolute inset-0 w-6 h-6 bg-purple-500/20 dark:bg-purple-400/10 rounded-full animate-ping scale-150 delay-200"></div>
               
               {/* Main bounce element */}
               <div className="w-6 h-6 bg-gradient-to-br from-blue-500/40 to-purple-600/40 dark:from-blue-400/30 dark:to-purple-500/30 rounded-full backdrop-blur-xl border border-white/40 dark:border-gray-700/40 flex items-center justify-center animate-bounce shadow-xl relative z-10">
                 <div className="w-3 h-3 bg-gradient-to-br from-blue-600 to-purple-700 rounded-full animate-pulse"></div>
               </div>
-              
-              {/* Text indicator */}
-              <div className="absolute top-12 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-                <span className="text-xs font-medium text-gray-700 dark:text-gray-300 bg-white/90 dark:bg-gray-800/90 px-2 py-1 rounded-full backdrop-blur-sm border border-white/40 dark:border-gray-700/40 shadow-lg">
-                  Top of page
-                </span>
-              </div>
+            </div>
+            
+            {/* Text indicator */}
+            <div className="absolute top-12 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
+              <span className="text-xs font-medium text-gray-700 dark:text-gray-300 bg-white/90 dark:bg-gray-800/90 px-2 py-1 rounded-full backdrop-blur-sm border border-white/40 dark:border-gray-700/40 shadow-lg">
+                Top of page
+              </span>
             </div>
           </div>
         </div>
@@ -105,18 +105,18 @@ const ScrollBounceEffect = () => {
           <div className={`transform transition-all duration-700 ease-out ${
             isVisible ? 'translate-y-0 scale-100' : 'translate-y-6 scale-75'
           }`}>
-            {/* Bounce Indicator */}
-            <div className="relative flex items-center justify-center">
-              {/* Text indicator */}
-              <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-                <span className="text-xs font-medium text-gray-700 dark:text-gray-300 bg-white/90 dark:bg-gray-800/90 px-2 py-1 rounded-full backdrop-blur-sm border border-white/40 dark:border-gray-700/40 shadow-lg">
-                  End of page
-                </span>
-              </div>
-              
-              {/* Ripple effects - properly centered */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-purple-500/20 dark:bg-purple-400/10 rounded-full animate-ping"></div>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-indigo-500/20 dark:bg-indigo-400/10 rounded-full animate-ping delay-200"></div>
+            {/* Text indicator */}
+            <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
+              <span className="text-xs font-medium text-gray-700 dark:text-gray-300 bg-white/90 dark:bg-gray-800/90 px-2 py-1 rounded-full backdrop-blur-sm border border-white/40 dark:border-gray-700/40 shadow-lg">
+                End of page
+              </span>
+            </div>
+            
+            {/* Bounce Indicator Container */}
+            <div className="relative w-6 h-6 flex items-center justify-center">
+              {/* Ripple effects - perfectly centered using same dimensions as main element */}
+              <div className="absolute inset-0 w-6 h-6 bg-purple-500/20 dark:bg-purple-400/10 rounded-full animate-ping scale-150"></div>
+              <div className="absolute inset-0 w-6 h-6 bg-indigo-500/20 dark:bg-indigo-400/10 rounded-full animate-ping scale-150 delay-200"></div>
               
               {/* Main bounce element */}
               <div className="w-6 h-6 bg-gradient-to-br from-purple-500/40 to-indigo-600/40 dark:from-purple-400/30 dark:to-indigo-500/30 rounded-full backdrop-blur-xl border border-white/40 dark:border-gray-700/40 flex items-center justify-center animate-bounce shadow-xl relative z-10">
