@@ -63,9 +63,9 @@ const Experience = () => {
             return (
               <div 
                 key={index} 
-                className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 p-8 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 group ${hasMoreContent ? 'cursor-pointer' : 'cursor-default'} ${
+                className={`backdrop-blur-md bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-xl border border-white/30 dark:border-gray-700/30 hover:shadow-2xl transition-all duration-500 group ${hasMoreContent ? 'cursor-pointer' : 'cursor-default'} ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                }`}
+                } ${isExpanded ? 'scale-[1.02] shadow-2xl' : 'hover:scale-[1.02]'}`}
                 style={{ transitionDelay: `${index * 200}ms` }}
                 onClick={() => hasMoreContent && toggleExpanded(index)}
               >
@@ -91,31 +91,35 @@ const Experience = () => {
                       <span className="text-sm font-medium">
                         {isExpanded ? 'Show Less' : 'Show More'}
                       </span>
-                      {isExpanded ? (
-                        <ChevronUp size={20} className="group-hover:animate-bounce transition-transform duration-300" />
-                      ) : (
-                        <ChevronDown size={20} className="group-hover:animate-bounce transition-transform duration-300" />
-                      )}
+                      <div className={`transform transition-all duration-500 ease-in-out ${
+                        isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'
+                      }`}>
+                        <ChevronDown size={20} className="group-hover:animate-bounce" />
+                      </div>
                     </div>
                   )}
                 </div>
                 
-                <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                <div className={`overflow-hidden transition-all duration-700 ease-in-out ${
                   isExpanded ? 'max-h-96' : 'max-h-32'
                 }`}>
-                  <ul className="space-y-3">
-                    {(isExpanded ? exp.achievements : previewAchievements).map((achievement, i) => (
-                      <li 
-                        key={i} 
-                        className="flex items-start gap-3 hover:translate-x-2 transition-all duration-300 group/item"
-                      >
-                        <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mt-2 flex-shrink-0 group-hover/item:scale-150 transition-transform duration-300"></div>
-                        <span className="text-gray-700 dark:text-gray-300 leading-relaxed group-hover/item:text-gray-900 dark:group-hover/item:text-gray-100 transition-colors duration-300">
-                          {achievement}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className={`transform transition-all duration-500 ${
+                    isExpanded ? 'translate-y-0 scale-100' : 'translate-y-0 scale-100'
+                  }`}>
+                    <ul className="space-y-3">
+                      {(isExpanded ? exp.achievements : previewAchievements).map((achievement, i) => (
+                        <li 
+                          key={i} 
+                          className="flex items-start gap-3 hover:translate-x-2 transition-all duration-300 group/item"
+                        >
+                          <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mt-2 flex-shrink-0 group-hover/item:scale-150 transition-transform duration-300"></div>
+                          <span className="text-gray-700 dark:text-gray-300 leading-relaxed group-hover/item:text-gray-900 dark:group-hover/item:text-gray-100 transition-colors duration-300">
+                            {achievement}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                   
                   {hasMoreContent && !isExpanded && (
                     <div className="flex justify-center mt-4">

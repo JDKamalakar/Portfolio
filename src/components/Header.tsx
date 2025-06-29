@@ -7,7 +7,19 @@ const Header = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    const headerElement = document.getElementById('header');
+    if (headerElement) {
+      observer.observe(headerElement);
+    }
+
+    return () => observer.disconnect();
   }, []);
 
   const handleDownloadCV = () => {
@@ -85,21 +97,21 @@ const Header = () => {
         <div className="flex flex-wrap justify-center gap-6 mb-8 text-lg">
           <a 
             href={`tel:${personal.phone}`} 
-            className="flex items-center gap-2 hover:text-blue-300 dark:hover:text-blue-200 transition-all duration-300 backdrop-blur-sm bg-white/10 dark:bg-white/5 px-4 py-2 rounded-full hover:bg-white/20 dark:hover:bg-white/10 hover:scale-105 group"
+            className="flex items-center gap-2 hover:text-blue-300 dark:hover:text-blue-200 transition-all duration-300 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-full hover:bg-white/20 dark:hover:bg-white/10 hover:scale-105 group border border-white/20"
           >
             <Phone size={20} className="group-hover:animate-pulse" />
             {personal.phone}
           </a>
           <a 
             href={`mailto:${personal.email}`} 
-            className="flex items-center gap-2 hover:text-blue-300 dark:hover:text-blue-200 transition-all duration-300 backdrop-blur-sm bg-white/10 dark:bg-white/5 px-4 py-2 rounded-full hover:bg-white/20 dark:hover:bg-white/10 hover:scale-105 group"
+            className="flex items-center gap-2 hover:text-blue-300 dark:hover:text-blue-200 transition-all duration-300 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-full hover:bg-white/20 dark:hover:bg-white/10 hover:scale-105 group border border-white/20"
           >
             <Mail size={20} className="group-hover:animate-pulse" />
             {personal.email}
           </a>
           <button
             onClick={openGoogleMaps}
-            className="flex items-center gap-2 backdrop-blur-sm bg-white/10 dark:bg-white/5 px-4 py-2 rounded-full hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 group cursor-pointer hover:text-blue-300 dark:hover:text-blue-200"
+            className="flex items-center gap-2 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-full hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 group cursor-pointer hover:text-blue-300 dark:hover:text-blue-200 border border-white/20"
           >
             <MapPin size={20} className="group-hover:animate-pulse" />
             {personal.location}
@@ -110,14 +122,14 @@ const Header = () => {
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           <button
             onClick={handleDownloadCV}
-            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 group"
+            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 group backdrop-blur-sm border border-white/20"
           >
             <Download size={20} className="group-hover:animate-bounce" />
             Download CV
           </button>
           <a
             href="#contact"
-            className="flex items-center gap-2 px-6 py-3 border-2 border-white/30 hover:border-white/50 rounded-full transition-all duration-300 hover:scale-105 hover:bg-white/10 group"
+            className="flex items-center gap-2 px-6 py-3 border-2 border-white/30 hover:border-white/50 rounded-full transition-all duration-300 hover:scale-105 hover:bg-white/10 group backdrop-blur-sm"
           >
             <ExternalLink size={20} className="group-hover:animate-pulse" />
             Get In Touch
@@ -128,7 +140,7 @@ const Header = () => {
         <div className="flex justify-center gap-4">
           <a 
             href={personal.socialLinks.github} 
-            className="p-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-full hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300 hover:scale-110 hover:rotate-12 group"
+            className="p-3 bg-white/10 dark:bg-white/5 backdrop-blur-md rounded-full hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300 hover:scale-110 hover:rotate-12 group border border-white/20"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -136,7 +148,7 @@ const Header = () => {
           </a>
           <a 
             href={personal.socialLinks.linkedin} 
-            className="p-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-full hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300 hover:scale-110 hover:rotate-12 group"
+            className="p-3 bg-white/10 dark:bg-white/5 backdrop-blur-md rounded-full hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300 hover:scale-110 hover:rotate-12 group border border-white/20"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -144,7 +156,7 @@ const Header = () => {
           </a>
           <a 
             href={personal.socialLinks.twitter} 
-            className="p-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-full hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300 hover:scale-110 hover:rotate-12 group"
+            className="p-3 bg-white/10 dark:bg-white/5 backdrop-blur-md rounded-full hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300 hover:scale-110 hover:rotate-12 group border border-white/20"
             target="_blank"
             rel="noopener noreferrer"
           >

@@ -101,7 +101,7 @@ const Navigation = () => {
         isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
       }`}>
         <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
-        <div className={`absolute left-0 top-0 h-full w-80 max-w-[80vw] backdrop-blur-md bg-white/95 dark:bg-gray-900/95 border-r border-white/20 dark:border-gray-700/20 transform transition-all duration-500 ease-out shadow-2xl ${
+        <div className={`absolute left-0 top-0 h-full w-80 max-w-[80vw] backdrop-blur-md bg-white/95 dark:bg-gray-900/95 border-r border-white/20 dark:border-gray-700/20 transform transition-all duration-500 ease-out shadow-2xl rounded-r-3xl ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}>
           <div className="p-6 pt-20">

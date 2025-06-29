@@ -51,16 +51,20 @@ const About = () => {
         </div>
         
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className={`backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 group ${hasMoreContent ? 'cursor-pointer' : 'cursor-default'} ${
+          <div className={`backdrop-blur-md bg-white/60 dark:bg-gray-800/60 p-8 rounded-2xl shadow-xl border border-white/30 dark:border-gray-700/30 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 group ${hasMoreContent ? 'cursor-pointer' : 'cursor-default'} ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-          }`} onClick={() => hasMoreContent && setIsExpanded(!isExpanded)}>
+          } ${isExpanded ? 'scale-[1.02] shadow-2xl' : ''}`} onClick={() => hasMoreContent && setIsExpanded(!isExpanded)}>
             <div className="relative">
-              <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
+              <div className={`overflow-hidden transition-all duration-700 ease-in-out ${
                 isExpanded ? 'max-h-96' : 'max-h-32'
               }`}>
-                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                  {isExpanded ? personal.objective : getPreviewText(personal.objective)}
-                </p>
+                <div className={`transform transition-all duration-500 ${
+                  isExpanded ? 'translate-y-0 scale-100' : 'translate-y-0 scale-100'
+                }`}>
+                  <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                    {isExpanded ? personal.objective : getPreviewText(personal.objective)}
+                  </p>
+                </div>
               </div>
               
               {hasMoreContent && (
@@ -80,11 +84,11 @@ const About = () => {
                     <span className="font-medium">
                       {isExpanded ? 'Show Less' : 'Read More'}
                     </span>
-                    {isExpanded ? (
-                      <ChevronUp size={16} className="group-hover/btn:animate-bounce transition-transform duration-300" />
-                    ) : (
-                      <ChevronDown size={16} className="group-hover/btn:animate-bounce transition-transform duration-300" />
-                    )}
+                    <div className={`transform transition-all duration-500 ease-in-out ${
+                      isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'
+                    }`}>
+                      <ChevronDown size={16} className="group-hover/btn:animate-bounce" />
+                    </div>
                   </button>
                 </div>
               )}
@@ -113,7 +117,7 @@ const About = () => {
           <div className={`space-y-6 ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
           } transition-all duration-1000 delay-300`}>
-            <div className="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 p-6 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/20 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 group">
+            <div className="backdrop-blur-md bg-white/60 dark:bg-gray-800/60 p-6 rounded-xl shadow-lg border border-white/30 dark:border-gray-700/30 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 group">
               <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
                 Languages
               </h3>
@@ -121,7 +125,7 @@ const About = () => {
                 {about.languages.map((lang, index) => (
                   <span 
                     key={lang} 
-                    className="px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full text-sm hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer"
+                    className="px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full text-sm hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer backdrop-blur-sm"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     {lang}
@@ -130,7 +134,7 @@ const About = () => {
               </div>
             </div>
             
-            <div className="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 p-6 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/20 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 group">
+            <div className="backdrop-blur-md bg-white/60 dark:bg-gray-800/60 p-6 rounded-xl shadow-lg border border-white/30 dark:border-gray-700/30 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 group">
               <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">
                 Hobbies
               </h3>
@@ -156,7 +160,7 @@ const About = () => {
                         href={link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3 py-1 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-full text-sm hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer"
+                        className="px-3 py-1 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-full text-sm hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer backdrop-blur-sm"
                         style={{ animationDelay: `${index * 50}ms` }}
                       >
                         {hobby}
@@ -167,7 +171,7 @@ const About = () => {
                   return (
                     <span 
                       key={hobby} 
-                      className="px-3 py-1 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-full text-sm hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer"
+                      className="px-3 py-1 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-full text-sm hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer backdrop-blur-sm"
                       style={{ animationDelay: `${index * 50}ms` }}
                     >
                       {hobby}

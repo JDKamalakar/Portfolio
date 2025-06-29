@@ -112,7 +112,7 @@ const Contact = () => {
           }`}>
             <a
               href={`tel:${personal.phone}`}
-              className="block backdrop-blur-sm bg-white/10 dark:bg-white/5 p-6 rounded-xl border dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group"
+              className="block backdrop-blur-md bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group"
             >
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-blue-500 dark:bg-blue-600 rounded-full group-hover:scale-110 transition-transform duration-300">
@@ -127,7 +127,7 @@ const Contact = () => {
             
             <a
               href={`mailto:${personal.email}`}
-              className="block backdrop-blur-sm bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group"
+              className="block backdrop-blur-md bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group"
             >
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-purple-500 dark:bg-purple-600 rounded-full group-hover:scale-110 transition-transform duration-300">
@@ -142,7 +142,7 @@ const Contact = () => {
             
             <button
               onClick={openGoogleMaps}
-              className="w-full backdrop-blur-sm bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group"
+              className="w-full backdrop-blur-md bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group"
             >
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-indigo-500 dark:bg-indigo-600 rounded-full group-hover:scale-110 transition-transform duration-300">
@@ -157,7 +157,7 @@ const Contact = () => {
           </div>
           
           {/* Contact Form */}
-          <div className={`backdrop-blur-sm bg-white/10 dark:bg-white/5 p-8 rounded-2xl border border-white/20 dark:border-white/10 hover:bg-white/15 dark:hover:bg-white/10 transition-all duration-500 ${
+          <div className={`backdrop-blur-md bg-white/10 dark:bg-white/5 p-8 rounded-2xl border border-white/20 dark:border-white/10 hover:bg-white/15 dark:hover:bg-white/10 transition-all duration-500 ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
           }`}>
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -203,7 +203,7 @@ const Contact = () => {
               <button 
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 ${
+                className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm ${
                   submitStatus === 'success' 
                     ? 'bg-green-500 hover:bg-green-600' 
                     : submitStatus === 'error'

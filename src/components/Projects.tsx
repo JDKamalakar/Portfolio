@@ -64,9 +64,9 @@ const Projects = () => {
             return (
               <div 
                 key={index} 
-                className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 group flex flex-col cursor-pointer ${
+                className={`backdrop-blur-md bg-white/70 dark:bg-gray-800/70 rounded-2xl shadow-xl border border-white/30 dark:border-gray-700/30 hover:shadow-2xl transition-all duration-500 group flex flex-col cursor-pointer ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                }`}
+                } ${isExpanded ? 'scale-[1.02] shadow-2xl' : 'hover:scale-[1.02]'}`}
                 style={{ transitionDelay: `${index * 200}ms` }}
                 onClick={() => toggleExpanded(index)}
               >
@@ -80,11 +80,11 @@ const Projects = () => {
                       <span className="text-sm font-medium text-purple-600 dark:text-purple-400">
                         {isExpanded ? 'Show Less' : 'Show More'}
                       </span>
-                      {isExpanded ? (
-                        <ChevronUp size={20} className="text-purple-600 dark:text-purple-400 group-hover:animate-bounce transition-transform duration-300" />
-                      ) : (
-                        <ChevronDown size={20} className="text-purple-600 dark:text-purple-400 group-hover:animate-bounce transition-transform duration-300" />
-                      )}
+                      <div className={`transform transition-all duration-500 ease-in-out ${
+                        isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'
+                      }`}>
+                        <ChevronDown size={20} className="text-purple-600 dark:text-purple-400 group-hover:animate-bounce" />
+                      </div>
                     </div>
                   </div>
                   
@@ -102,12 +102,16 @@ const Projects = () => {
                 
                 {/* Description Section */}
                 <div className="px-8 pb-6 flex-1">
-                  <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                  <div className={`overflow-hidden transition-all duration-700 ease-in-out ${
                     isExpanded ? 'max-h-96' : 'max-h-20'
                   }`}>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
-                      {isExpanded ? project.description : previewDescription}
-                    </p>
+                    <div className={`transform transition-all duration-500 ${
+                      isExpanded ? 'translate-y-0 scale-100' : 'translate-y-0 scale-100'
+                    }`}>
+                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
+                        {isExpanded ? project.description : previewDescription}
+                      </p>
+                    </div>
                   </div>
                   
                   {hasMoreContent && !isExpanded && (
@@ -127,7 +131,7 @@ const Projects = () => {
                     {project.technologies.map((tech, i) => (
                       <span 
                         key={i} 
-                        className="px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-full text-sm font-medium hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer"
+                        className="px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-full text-sm font-medium hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer backdrop-blur-sm"
                         style={{ animationDelay: `${i * 50}ms` }}
                         onClick={(e) => e.stopPropagation()}
                       >
@@ -144,7 +148,7 @@ const Projects = () => {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 group/btn flex-1 justify-center"
+                      className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 group/btn flex-1 justify-center backdrop-blur-sm"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <Github size={16} className="group-hover/btn:animate-pulse" />
@@ -154,7 +158,7 @@ const Projects = () => {
                       href={project.demoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-6 py-3 border-2 border-purple-500 dark:border-purple-400 text-purple-600 dark:text-purple-400 rounded-lg hover:bg-purple-500 dark:hover:bg-purple-600 hover:text-white transition-all duration-300 hover:scale-105 group/btn flex-1 justify-center"
+                      className="flex items-center gap-2 px-6 py-3 border-2 border-purple-500 dark:border-purple-400 text-purple-600 dark:text-purple-400 rounded-lg hover:bg-purple-500 dark:hover:bg-purple-600 hover:text-white transition-all duration-300 hover:scale-105 group/btn flex-1 justify-center backdrop-blur-sm"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <Eye size={16} className="group-hover/btn:animate-pulse" />

@@ -6,6 +6,7 @@ const Footer = () => {
   const { personal } = portfolioData;
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [likedButtons, setLikedButtons] = useState<string[]>([]);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,8 +14,23 @@ const Footer = () => {
       setShowScrollTop(window.scrollY > 300);
     };
 
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    const footerElement = document.querySelector('footer');
+    if (footerElement) {
+      observer.observe(footerElement);
+    }
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
   const scrollToTop = () => {
@@ -47,7 +63,9 @@ const Footer = () => {
   return (
     <div className="bg-gray-900 dark:bg-black py-12 px-6 relative">
       {/* Floating Footer Container with increased width */}
-      <footer className="max-w-8x4 mx-auto relative">
+      <footer className={`max-w-6xl mx-auto relative transition-all duration-1000 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      }`}>
         {/* Main floating card with more padding appearance */}
         <div className="backdrop-blur-xl bg-white/10 dark:bg-white/5 rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/30 p-12 relative overflow-hidden hover:shadow-3xl hover:scale-[1.02] transition-all duration-500 group">
           {/* Floating background effects */}
@@ -149,7 +167,7 @@ const Footer = () => {
       {/* Enhanced Scroll to Top Button */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 p-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 ease-out group z-50 backdrop-blur-sm border border-white/20 hover:-translate-y-2 ${
+        className={`fixed bottom-8 right-8 p-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 ease-out group z-50 backdrop-blur-md border border-white/20 hover:-translate-y-2 ${
           showScrollTop 
             ? 'opacity-100 scale-100 translate-y-0 rotate-0' 
             : 'opacity-0 scale-75 translate-y-8 rotate-45'

@@ -55,7 +55,7 @@ const Skills = () => {
         
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Skills with Progress Bars */}
-          <div className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 p-8 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 ${
+          <div className={`backdrop-blur-md bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-xl border border-white/30 dark:border-gray-700/30 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
           }`}>
             <div className="flex items-center gap-3 mb-8">
@@ -90,7 +90,7 @@ const Skills = () => {
           </div>
           
           {/* Expertise Areas */}
-          <div className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 p-8 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 ${
+          <div className={`backdrop-blur-md bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-xl border border-white/30 dark:border-gray-700/30 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
           }`}>
             <div className="flex items-center gap-3 mb-8">
@@ -101,7 +101,7 @@ const Skills = () => {
               {skills.expertise.map((item, index) => (
                 <div 
                   key={index} 
-                  className={`flex items-center gap-3 p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl hover:shadow-md hover:scale-105 transition-all duration-300 cursor-pointer group ${
+                  className={`flex items-center gap-3 p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl hover:shadow-md hover:scale-105 transition-all duration-300 cursor-pointer group backdrop-blur-sm ${
                     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
                   }`}
                   style={{ transitionDelay: `${index * 100}ms` }}
