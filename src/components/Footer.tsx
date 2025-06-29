@@ -82,7 +82,7 @@ const Footer = () => {
               {personal.title} | Software Developer
             </p>
             
-            {/* Social Links with like-style animations */}
+            {/* Social Links with like-style animations - Now properly clickable */}
             <div className="flex justify-center gap-6 mb-10">
               <button 
                 onClick={() => handleSocialClick('github', personal.socialLinks.github)}
@@ -90,7 +90,7 @@ const Footer = () => {
                   likedButtons.includes('github') ? 'animate-pulse bg-red-500/30 scale-125' : ''
                 }`}
               >
-                <Github size={28} className="group-hover/social:animate-pulse text-white transition-transform duration-300" />
+                <Github size={28} className="group-hover/social:animate-pulse text-white transition-transform duration-300 group-hover/social:scale-110 group-hover/social:rotate-12" />
                 
                 {/* Like animation hearts */}
                 {likedButtons.includes('github') && (
@@ -108,7 +108,7 @@ const Footer = () => {
                   likedButtons.includes('linkedin') ? 'animate-pulse bg-red-500/30 scale-125' : ''
                 }`}
               >
-                <Linkedin size={28} className="group-hover/social:animate-pulse text-white transition-transform duration-300" />
+                <Linkedin size={28} className="group-hover/social:animate-pulse text-white transition-transform duration-300 group-hover/social:scale-110 group-hover/social:-rotate-12" />
                 
                 {/* Like animation hearts */}
                 {likedButtons.includes('linkedin') && (
@@ -126,7 +126,7 @@ const Footer = () => {
                   likedButtons.includes('twitter') ? 'animate-pulse bg-red-500/30 scale-125' : ''
                 }`}
               >
-                <Twitter size={28} className="group-hover/social:animate-pulse text-white transition-transform duration-300" />
+                <Twitter size={28} className="group-hover/social:animate-pulse text-white transition-transform duration-300 group-hover/social:scale-110 group-hover/social:rotate-12" />
                 
                 {/* Like animation hearts */}
                 {likedButtons.includes('twitter') && (
@@ -164,10 +164,10 @@ const Footer = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-indigo-500/10 rounded-3xl blur-2xl transform translate-y-4 opacity-50"></div>
       </footer>
       
-      {/* Enhanced Scroll to Top Button with more transparency and blur */}
+      {/* Enhanced Scroll to Top Button with maximum transparency and blur */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 p-4 bg-gradient-to-r from-blue-500/80 to-purple-600/80 text-white rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 ease-out group z-50 backdrop-blur-xl border border-white/30 hover:-translate-y-2 ${
+        className={`fixed bottom-8 right-8 p-4 bg-gradient-to-r from-blue-500/70 to-purple-600/70 text-white rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 ease-out group z-50 backdrop-blur-xl border border-white/40 hover:-translate-y-2 ${
           showScrollTop 
             ? 'opacity-100 scale-100 translate-y-0 rotate-0' 
             : 'opacity-0 scale-75 translate-y-8 rotate-45'
