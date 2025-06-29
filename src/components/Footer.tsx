@@ -17,7 +17,17 @@ const Footer = () => {
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Smooth scroll to top with easing similar to regular scroll
+    const scrollDuration = 800; // Duration in milliseconds
+    const scrollStep = -window.scrollY / (scrollDuration / 15);
+    
+    const scrollInterval = setInterval(() => {
+      if (window.scrollY !== 0) {
+        window.scrollBy(0, scrollStep);
+      } else {
+        clearInterval(scrollInterval);
+      }
+    }, 15);
   };
 
   return (
@@ -69,16 +79,33 @@ const Footer = () => {
         </div>
       </div>
       
-      {/* Scroll to Top Button - Only show when not at top */}
-      {showScrollTop && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-6 right-6 p-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 group z-40 backdrop-blur-sm"
-          aria-label="Scroll to top"
-        >
-          <ArrowUp size={20} className="group-hover:animate-bounce" />
-        </button>
-      )}
+      {/* Scroll to Top Button - Enhanced with smooth animations */}
+      <button
+        onClick={scrollToTop}
+        className={`fixed bottom-6 right-6 p-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-500 ease-out group z-40 backdrop-blur-sm border border-white/10 ${
+          showScrollTop 
+            ? 'opacity-100 scale-100 translate-y-0 rotate-0' 
+            : 'opacity-0 scale-75 translate-y-4 rotate-45'
+        }`}
+        style={{
+          transform: showScrollTop 
+            ? 'translateY(0) scale(1) rotate(0deg)' 
+            : 'translateY(16px) scale(0.75) rotate(45deg)',
+          transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+        }}
+        aria-label="Scroll to top"
+      >
+        <ArrowUp 
+          size={24} 
+          className="group-hover:animate-bounce transition-transform duration-300 group-hover:scale-110" 
+        />
+        
+        {/* Ripple effect on hover */}
+        <div className="absolute inset-0 rounded-full bg-white/20 scale-0 group-hover:scale-150 transition-transform duration-500 ease-out opacity-0 group-hover:opacity-100"></div>
+        
+        {/* Glow effect */}
+        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300 -z-10 scale-150"></div>
+      </button>
     </footer>
   );
 };
