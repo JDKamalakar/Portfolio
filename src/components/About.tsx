@@ -67,7 +67,7 @@ const About = () => {
               
               {hasMoreContent && (
                 <div className="mt-4">
-                  {isExpanded && (
+                  {!isExpanded && (
                     <div className="flex justify-center mb-2">
                       <MoreHorizontal size={20} className="text-gray-400 dark:text-gray-500 animate-pulse" />
                     </div>
@@ -137,15 +137,45 @@ const About = () => {
                 Hobbies
               </h3>
               <div className="flex flex-wrap gap-2">
-                {about.hobbies.map((hobby, index) => (
-                  <span 
-                    key={hobby} 
-                    className="px-3 py-1 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-full text-sm hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer"
-                    style={{ animationDelay: `${index * 50}ms` }}
-                  >
-                    {hobby}
-                  </span>
-                ))}
+                {about.hobbies.map((hobby, index) => {
+                  // Check if hobby has a link
+                  const getHobbyLink = (hobby: string) => {
+                    if (hobby.toLowerCase().includes('manga')) {
+                      return 'https://www.kenmei.co/user/JD_Dark_Pheonix';
+                    }
+                    if (hobby.toLowerCase().includes('anime')) {
+                      return 'https://www.livechart.me/users/JD_DarkPheonix/library';
+                    }
+                    return null;
+                  };
+
+                  const link = getHobbyLink(hobby);
+                  
+                  if (link) {
+                    return (
+                      <a
+                        key={hobby}
+                        href={link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-3 py-1 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-full text-sm hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer"
+                        style={{ animationDelay: `${index * 50}ms` }}
+                      >
+                        {hobby}
+                      </a>
+                    );
+                  }
+                  
+                  return (
+                    <span 
+                      key={hobby} 
+                      className="px-3 py-1 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-full text-sm hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer"
+                      style={{ animationDelay: `${index * 50}ms` }}
+                    >
+                      {hobby}
+                    </span>
+                  );
+                })}
               </div>
             </div>
           </div>

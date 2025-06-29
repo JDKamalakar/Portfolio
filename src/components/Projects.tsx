@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ExternalLink, Github, Calendar, ChevronDown, ChevronUp, Code, Eye } from 'lucide-react';
+import { ExternalLink, Github, Calendar, ChevronDown, ChevronUp, Code, Eye, MoreHorizontal } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 const Projects = () => {
@@ -33,6 +33,11 @@ const Projects = () => {
     );
   };
 
+  const getPreviewDescription = (description: string, maxLength: number = 120) => {
+    if (description.length <= maxLength) return description;
+    return description.substring(0, maxLength);
+  };
+
   return (
     <section 
       id="projects"
@@ -55,30 +60,35 @@ const Projects = () => {
         <div className="grid md:grid-cols-2 gap-10">
           {projects.map((project, index) => {
             const isExpanded = expandedProjects.includes(index);
+            const previewDescription = getPreviewDescription(project.description);
+            const hasMoreContent = project.description.length > 120;
+            
             return (
               <div 
                 key={index} 
-                className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 p-8 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 group ${
+                className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 group flex flex-col ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
                 style={{ transitionDelay: `${index * 200}ms` }}
               >
                 {/* Header Section */}
-                <div className="mb-8">
+                <div className="p-8 pb-6">
                   <div className="flex justify-between items-start mb-3">
                     <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300 flex-1 leading-tight">
                       {project.title}
                     </h3>
-                    <button
-                      onClick={() => toggleExpanded(index)}
-                      className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors duration-300 ml-4 flex-shrink-0"
-                    >
-                      {isExpanded ? (
-                        <ChevronUp size={20} className="hover:animate-bounce transition-transform duration-300" />
-                      ) : (
-                        <ChevronDown size={20} className="hover:animate-bounce transition-transform duration-300" />
-                      )}
-                    </button>
+                    {hasMoreContent && (
+                      <button
+                        onClick={() => toggleExpanded(index)}
+                        className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors duration-300 ml-4 flex-shrink-0"
+                      >
+                        {isExpanded ? (
+                          <ChevronUp size={20} className="hover:animate-bounce transition-transform duration-300" />
+                        ) : (
+                          <ChevronDown size={20} className="hover:animate-bounce transition-transform duration-300" />
+                        )}
+                      </button>
+                    )}
                   </div>
                   
                   <p className="text-purple-600 dark:text-purple-400 font-medium mb-3 group-hover:text-purple-700 dark:group-hover:text-purple-300 transition-colors duration-300">
@@ -94,16 +104,24 @@ const Projects = () => {
                 </div>
                 
                 {/* Description Section */}
-                <div className={`overflow-hidden transition-all duration-500 ease-in-out mb-8 ${
-                  isExpanded ? 'max-h-96 opacity-100' : 'max-h-20 opacity-80'
-                }`}>
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
-                    {project.description}
-                  </p>
+                <div className="px-8 pb-6 flex-1">
+                  <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                    isExpanded ? 'max-h-96' : 'max-h-20'
+                  }`}>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
+                      {isExpanded ? project.description : previewDescription}
+                    </p>
+                  </div>
+                  
+                  {hasMoreContent && !isExpanded && (
+                    <div className="flex justify-center mt-3">
+                      <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
+                    </div>
+                  )}
                 </div>
                 
                 {/* Technologies Section */}
-                <div className="mb-8">
+                <div className="px-8 pb-6">
                   <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-4 flex items-center gap-2">
                     <Code size={16} className="text-indigo-600 dark:text-indigo-400" />
                     Technologies Used:
@@ -121,26 +139,28 @@ const Projects = () => {
                   </div>
                 </div>
                 
-                {/* Action Buttons */}
-                <div className="flex gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <a 
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 group/btn flex-1 justify-center"
-                  >
-                    <Github size={16} className="group-hover/btn:animate-pulse" />
-                    <span className="font-medium">Code</span>
-                  </a>
-                  <a 
-                    href={project.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-6 py-3 border-2 border-purple-500 dark:border-purple-400 text-purple-600 dark:text-purple-400 rounded-lg hover:bg-purple-500 dark:hover:bg-purple-600 hover:text-white transition-all duration-300 hover:scale-105 group/btn flex-1 justify-center"
-                  >
-                    <Eye size={16} className="group-hover/btn:animate-pulse" />
-                    <span className="font-medium">Demo</span>
-                  </a>
+                {/* Action Buttons - Anchored to bottom */}
+                <div className="p-8 pt-0 mt-auto">
+                  <div className="flex gap-4">
+                    <a 
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 group/btn flex-1 justify-center"
+                    >
+                      <Github size={16} className="group-hover/btn:animate-pulse" />
+                      <span className="font-medium">Code</span>
+                    </a>
+                    <a 
+                      href={project.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-6 py-3 border-2 border-purple-500 dark:border-purple-400 text-purple-600 dark:text-purple-400 rounded-lg hover:bg-purple-500 dark:hover:bg-purple-600 hover:text-white transition-all duration-300 hover:scale-105 group/btn flex-1 justify-center"
+                    >
+                      <Eye size={16} className="group-hover/btn:animate-pulse" />
+                      <span className="font-medium">Demo</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             );
