@@ -12,9 +12,7 @@ const Education = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        setIsVisible(entry.isIntersecting);
       },
       { threshold: 0.1 }
     );
@@ -83,7 +81,7 @@ const Education = () => {
                     style={{ transitionDelay: `${index * 150}ms` }}
                     onClick={() => hasInstitution && toggleEducationExpanded(index)}
                   >
-                    <div className="flex justify-between items-start mb-2">
+                    <div className="flex justify-between items-start mb-3">
                       <h4 className="text-lg font-bold text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 flex-1">
                         {edu.degree}
                       </h4>
@@ -98,16 +96,16 @@ const Education = () => {
                       )}
                     </div>
                     
-                    {/* Three dots positioned where institution would appear */}
-                    {hasInstitution && !isExpanded && (
-                      <div className="mb-3">
-                        <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
-                      </div>
-                    )}
-                    
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                      isExpanded ? 'max-h-32' : 'max-h-16'
+                      isExpanded ? 'max-h-32 opacity-100' : 'max-h-16 opacity-100'
                     }`}>
+                      {/* Three dots positioned where institution would appear */}
+                      {hasInstitution && !isExpanded && (
+                        <div className="mb-3">
+                          <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
+                        </div>
+                      )}
+                      
                       {hasInstitution && isExpanded && (
                         <div className="mb-3">
                           <p className="text-blue-600 dark:text-blue-400 font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
@@ -115,6 +113,7 @@ const Education = () => {
                           </p>
                         </div>
                       )}
+                      
                       <div className="flex items-center justify-between text-gray-600 dark:text-gray-400">
                         <div className="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">
                           <Calendar size={16} className="group-hover:animate-pulse" />
@@ -152,7 +151,7 @@ const Education = () => {
                     style={{ transitionDelay: `${index * 150}ms` }}
                     onClick={() => hasInstitution && toggleCertificationExpanded(index)}
                   >
-                    <div className="flex justify-between items-start mb-2">
+                    <div className="flex justify-between items-start mb-3">
                       <h4 className="text-lg font-bold text-gray-800 dark:text-gray-200 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-300 flex-1">
                         {cert.title}
                       </h4>
@@ -167,16 +166,16 @@ const Education = () => {
                       )}
                     </div>
                     
-                    {/* Three dots positioned where institution would appear */}
-                    {hasInstitution && !isExpanded && (
-                      <div className="mb-3">
-                        <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
-                      </div>
-                    )}
-                    
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                      isExpanded ? 'max-h-32' : 'max-h-16'
+                      isExpanded ? 'max-h-32 opacity-100' : 'max-h-16 opacity-100'
                     }`}>
+                      {/* Three dots positioned where institution would appear */}
+                      {hasInstitution && !isExpanded && (
+                        <div className="mb-3">
+                          <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
+                        </div>
+                      )}
+                      
                       {hasInstitution && isExpanded && (
                         <div className="mb-3">
                           <p className="text-blue-600 dark:text-blue-400 font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
@@ -184,6 +183,7 @@ const Education = () => {
                           </p>
                         </div>
                       )}
+                      
                       <div className="flex items-center justify-between text-gray-600 dark:text-gray-400">
                         <span className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-300">
                           {cert.year}

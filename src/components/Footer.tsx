@@ -21,7 +21,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gray-900 dark:bg-black text-white py-12 px-6 relative transition-colors duration-500">
+    <footer className="bg-gray-900 dark:bg-black text-white py-12 px-6 relative transition-all duration-700 ease-in-out">
       <div className="max-w-6xl mx-auto">
         <div className="text-center">
           <h3 className="text-2xl font-bold mb-4 hover:text-blue-400 transition-colors duration-300 cursor-default">

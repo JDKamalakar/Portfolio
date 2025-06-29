@@ -19,6 +19,9 @@ const Skills = () => {
               setAnimatedSkills(prev => [...prev, index]);
             }, index * 200);
           });
+        } else {
+          setIsVisible(false);
+          setAnimatedSkills([]);
         }
       },
       { threshold: 0.1 }
