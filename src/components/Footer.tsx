@@ -63,7 +63,7 @@ const Footer = () => {
   return (
     <div className="bg-gray-900 dark:bg-black py-12 px-6 relative">
       {/* Floating Footer Container with increased width */}
-      <footer className={`max-w-6xl mx-auto relative transition-all duration-1000 ${
+      <footer className={`max-w-8xl mx-auto relative transition-all duration-1000 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}>
         {/* Main floating card with more padding appearance */}
