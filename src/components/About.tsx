@@ -36,9 +36,14 @@ const About = () => {
       ref={sectionRef}
       className="py-20 px-6 relative overflow-hidden bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 transition-all duration-700 ease-in-out"
     >
+      {/* Animated Background Flairs */}
       <div className="absolute inset-0 transition-opacity duration-500"></div>
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-100/50 dark:bg-blue-900/20 rounded-full blur-3xl transition-colors duration-500"></div>
-      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-100/50 dark:bg-purple-900/20 rounded-full blur-3xl transition-colors duration-500"></div>
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-200/40 via-blue-300/30 to-blue-400/40 dark:from-blue-900/20 dark:via-blue-800/15 dark:to-blue-900/20 rounded-full blur-3xl animate-pulse transition-all duration-1000"></div>
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-r from-purple-200/40 via-purple-300/30 to-purple-400/40 dark:from-purple-900/20 dark:via-purple-800/15 dark:to-purple-900/20 rounded-full blur-3xl animate-pulse delay-1000 transition-all duration-1000"></div>
+      
+      {/* Floating animated orbs */}
+      <div className="absolute top-1/3 right-1/3 w-32 h-32 bg-gradient-to-br from-indigo-300/30 to-blue-400/30 dark:from-indigo-800/20 dark:to-blue-900/20 rounded-full blur-2xl animate-bounce delay-500"></div>
+      <div className="absolute bottom-1/3 left-1/3 w-24 h-24 bg-gradient-to-br from-pink-300/30 to-purple-400/30 dark:from-pink-800/20 dark:to-purple-900/20 rounded-full blur-2xl animate-bounce delay-1500"></div>
       
       <div className="max-w-6xl mx-auto relative z-10">
         <div className={`text-center mb-16 transition-all duration-1000 ${

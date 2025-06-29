@@ -88,9 +88,16 @@ const Contact = () => {
       ref={sectionRef}
       className="py-20 px-6 relative overflow-hidden bg-gray-900 dark:bg-black transition-all duration-700 ease-in-out"
     >
+      {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 dark:from-black dark:via-blue-900 dark:to-purple-900 transition-colors duration-500"></div>
-      <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/20 dark:bg-blue-400/10 rounded-full blur-3xl transition-colors duration-500"></div>
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-500/20 dark:bg-purple-400/10 rounded-full blur-3xl transition-colors duration-500"></div>
+      
+      {/* Animated Background Flairs */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-500/20 via-cyan-500/15 to-blue-600/20 dark:from-blue-400/10 dark:via-cyan-400/8 dark:to-blue-500/10 rounded-full blur-3xl transition-all duration-1000 animate-pulse"></div>
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-br from-purple-500/20 via-pink-500/15 to-purple-600/20 dark:from-purple-400/10 dark:via-pink-400/8 dark:to-purple-500/10 rounded-full blur-3xl transition-all duration-1000 animate-pulse delay-1000"></div>
+      
+      {/* Floating animated orbs */}
+      <div className="absolute top-1/4 right-1/3 w-32 h-32 bg-gradient-to-br from-indigo-400/20 to-blue-500/20 dark:from-indigo-300/10 dark:to-blue-400/10 rounded-full blur-2xl animate-bounce delay-700"></div>
+      <div className="absolute bottom-1/4 left-1/3 w-24 h-24 bg-gradient-to-br from-violet-400/20 to-purple-500/20 dark:from-violet-300/10 dark:to-purple-400/10 rounded-full blur-2xl animate-bounce delay-1200"></div>
       
       <div className="max-w-6xl mx-auto relative z-10">
         <div className={`text-center mb-16 transition-all duration-1000 ${

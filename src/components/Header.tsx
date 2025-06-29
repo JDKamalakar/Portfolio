@@ -65,15 +65,26 @@ const Header = () => {
     }
   };
 
+  const scrollToContact = () => {
+    const contactElement = document.getElementById('contact');
+    if (contactElement) {
+      contactElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header id="header" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900 transition-colors duration-500">
       {/* Background with blur effect */}
       <div className="absolute inset-0 bg-black/20 dark:bg-black/40 transition-colors duration-500"></div>
       
-      {/* Floating blur elements - ensure they are behind content using z-index */}
-      <div className="absolute top-20 left-20 w-72 h-72 bg-blue-500/30 dark:bg-blue-400/20 rounded-full blur-3xl animate-pulse -z-10"></div>
-      <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/20 dark:bg-purple-400/15 rounded-full blur-3xl animate-pulse delay-1000 -z-10"></div>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-indigo-500/20 dark:bg-indigo-400/15 rounded-full blur-3xl animate-pulse delay-500 -z-10"></div>
+      {/* Animated floating blur elements */}
+      <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-br from-blue-500/30 via-cyan-500/20 to-blue-600/30 dark:from-blue-400/20 dark:via-cyan-400/15 dark:to-blue-500/20 rounded-full blur-3xl animate-pulse -z-10"></div>
+      <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-purple-500/20 via-pink-500/15 to-purple-600/20 dark:from-purple-400/15 dark:via-pink-400/10 dark:to-purple-500/15 rounded-full blur-3xl animate-pulse delay-1000 -z-10"></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-br from-indigo-500/20 via-blue-500/15 to-indigo-600/20 dark:from-indigo-400/15 dark:via-blue-400/10 dark:to-indigo-500/15 rounded-full blur-3xl animate-pulse delay-500 -z-10"></div>
+      
+      {/* Additional floating orbs */}
+      <div className="absolute top-1/4 right-1/3 w-32 h-32 bg-gradient-to-br from-cyan-400/25 to-blue-500/25 dark:from-cyan-300/15 dark:to-blue-400/15 rounded-full blur-2xl animate-bounce delay-700 -z-10"></div>
+      <div className="absolute bottom-1/4 left-1/3 w-24 h-24 bg-gradient-to-br from-pink-400/25 to-purple-500/25 dark:from-pink-300/15 dark:to-purple-400/15 rounded-full blur-2xl animate-bounce delay-1200 -z-10"></div>
       
       <div className={`relative z-10 text-center text-white px-6 max-w-4xl mx-auto transition-all duration-1000 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
@@ -130,7 +141,7 @@ const Header = () => {
           </button>
         </div>
         
-        {/* Action Buttons with animated icons */}
+        {/* Action Buttons with animated icons and blue hover shadows */}
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           <button
             onClick={handleDownloadCV}
@@ -139,13 +150,13 @@ const Header = () => {
             <Download size={20} className="group-hover:animate-bounce group-hover:scale-110 transition-all duration-300" />
             Download CV
           </button>
-          <a
-            href="#contact"
-            className="flex items-center gap-2 px-6 py-3 border-2 border-white/30 hover:border-white/50 rounded-full transition-all duration-300 hover:scale-105 hover:bg-white/10 group backdrop-blur-sm"
+          <button
+            onClick={scrollToContact}
+            className="flex items-center gap-2 px-6 py-3 border-2 border-white/30 hover:border-white/50 rounded-full transition-all duration-300 hover:scale-105 hover:bg-white/10 hover:shadow-lg hover:shadow-blue-500/25 group backdrop-blur-sm"
           >
             <ExternalLink size={20} className="group-hover:animate-pulse group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
             Get In Touch
-          </a>
+          </button>
         </div>
         
         {/* Social Links with enhanced hover and click animations */}
@@ -153,7 +164,7 @@ const Header = () => {
           {/* GitHub Button */}
           <button
             onClick={() => handleSocialClick('github', personal.socialLinks.github)}
-            className={`relative p-3 backdrop-blur-md rounded-full transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden
+            className={`relative p-3 backdrop-blur-md rounded-full transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden hover:shadow-lg hover:shadow-blue-500/25
               ${likedButtons.has('github') ? 'bg-red-500/30 scale-125' : 'bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10'}
             `}
             aria-label="GitHub Profile"
@@ -170,7 +181,7 @@ const Header = () => {
           {/* LinkedIn Button */}
           <button
             onClick={() => handleSocialClick('linkedin', personal.socialLinks.linkedin)}
-            className={`relative p-3 backdrop-blur-md rounded-full transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden
+            className={`relative p-3 backdrop-blur-md rounded-full transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden hover:shadow-lg hover:shadow-blue-500/25
               ${likedButtons.has('linkedin') ? 'bg-red-500/30 scale-125' : 'bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10'}
             `}
             aria-label="LinkedIn Profile"
@@ -187,7 +198,7 @@ const Header = () => {
           {/* Twitter Button */}
           <button
             onClick={() => handleSocialClick('twitter', personal.socialLinks.twitter)}
-            className={`relative p-3 backdrop-blur-md rounded-full transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden
+            className={`relative p-3 backdrop-blur-md rounded-full transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden hover:shadow-lg hover:shadow-blue-500/25
               ${likedButtons.has('twitter') ? 'bg-red-500/30 scale-125' : 'bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10'}
             `}
             aria-label="Twitter Profile"

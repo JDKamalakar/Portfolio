@@ -48,10 +48,10 @@ const Navigation = () => {
 
   return (
     <>
-      {/* Mobile Menu Button */}
+      {/* Mobile Menu Button with enhanced transparency */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-6 left-6 z-50 p-3 rounded-full backdrop-blur-xl bg-white/20 dark:bg-gray-800/20 border border-gray-300/30 dark:border-gray-700/30 hover:bg-white/30 dark:hover:bg-gray-800/30 transition-all duration-300 hover:scale-110 md:hidden shadow-lg"
+        className="fixed top-6 left-6 z-50 p-3 rounded-full backdrop-blur-xl bg-white/15 dark:bg-gray-800/15 border border-gray-300/20 dark:border-gray-700/20 hover:bg-white/25 dark:hover:bg-gray-800/25 transition-all duration-300 hover:scale-110 md:hidden shadow-lg"
         aria-label="Toggle menu"
       >
         <div className="relative w-6 h-6">
@@ -96,12 +96,12 @@ const Navigation = () => {
         </div>
       </nav>
 
-      {/* Mobile Navigation with enhanced transparency and blur */}
+      {/* Mobile Navigation with maximum transparency and blur */}
       <div className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${
         isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
       }`}>
-        <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
-        <div className={`absolute left-0 top-0 h-full w-80 max-w-[80vw] backdrop-blur-xl bg-white/80 dark:bg-gray-900/80 border-r border-white/30 dark:border-gray-700/30 transform transition-all duration-500 ease-out shadow-2xl rounded-r-3xl ${
+        <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
+        <div className={`absolute left-0 top-0 h-full w-80 max-w-[80vw] backdrop-blur-xl bg-white/20 dark:bg-gray-900/20 border-r border-white/20 dark:border-gray-700/20 transform transition-all duration-500 ease-out shadow-2xl rounded-r-3xl ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}>
           <div className="p-6 pt-20">
@@ -114,8 +114,8 @@ const Navigation = () => {
                   onClick={() => scrollToSection(item.id)}
                   className={`flex items-center gap-3 w-full p-3 rounded-xl transition-all duration-300 hover:scale-105 mb-2 transform backdrop-blur-sm ${
                     activeSection === item.id
-                      ? 'bg-blue-500 text-white shadow-lg scale-105'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100/50 dark:hover:bg-gray-800/50'
+                      ? 'bg-blue-500/60 text-white shadow-lg scale-105'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100/30 dark:hover:bg-gray-800/30'
                   }`}
                   style={{ 
                     transitionDelay: isOpen ? `${index * 50}ms` : '0ms',

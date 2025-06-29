@@ -74,11 +74,12 @@ const Footer = () => {
       }`}>
         {/* Main floating card with more padding appearance */}
         <div className="backdrop-blur-xl bg-white/10 dark:bg-white/5 rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/30 p-12 relative overflow-hidden hover:shadow-3xl hover:scale-[1.02] transition-all duration-500 group">
-          {/* Floating background effects */}
+          {/* Animated background effects */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-indigo-500/10 dark:from-blue-400/5 dark:via-purple-400/5 dark:to-indigo-400/5 rounded-3xl"></div>
-          {/* Ensure these elements don't block clicks - they are background */}
-          <div className="absolute top-0 left-1/4 w-32 h-32 bg-blue-400/20 dark:bg-blue-300/10 rounded-full blur-2xl animate-pulse -z-10"></div>
-          <div className="absolute bottom-0 right-1/4 w-40 h-40 bg-purple-400/20 dark:bg-purple-300/10 rounded-full blur-2xl animate-pulse delay-1000 -z-10"></div>
+          {/* Floating animated orbs */}
+          <div className="absolute top-0 left-1/4 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 dark:bg-gradient-to-br dark:from-blue-300/10 dark:to-cyan-300/10 rounded-full blur-2xl animate-pulse -z-10"></div>
+          <div className="absolute bottom-0 right-1/4 w-40 h-40 bg-gradient-to-br from-purple-400/20 to-pink-400/20 dark:bg-gradient-to-br dark:from-purple-300/10 dark:to-pink-300/10 rounded-full blur-2xl animate-pulse delay-1000 -z-10"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-br from-indigo-400/20 to-blue-400/20 dark:bg-gradient-to-br dark:from-indigo-300/10 dark:to-blue-300/10 rounded-full blur-xl animate-bounce delay-500 -z-10"></div>
           
           {/* Content */}
           <div className="relative z-10 text-center text-white">
@@ -181,7 +182,7 @@ const Footer = () => {
       {/* Enhanced Scroll to Top Button with maximum transparency and blur */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 p-4 bg-gradient-to-r from-blue-500/70 to-purple-600/70 text-white rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 ease-out group z-50 backdrop-blur-xl border border-white/40 hover:-translate-y-2 ${
+        className={`fixed bottom-8 right-8 p-4 bg-gradient-to-r from-blue-500/60 to-purple-600/60 text-white rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 ease-out group z-50 backdrop-blur-xl border border-white/30 hover:-translate-y-2 ${
           showScrollTop 
             ? 'opacity-100 scale-100 translate-y-0 rotate-0' 
             : 'opacity-0 scale-75 translate-y-8 rotate-45'
