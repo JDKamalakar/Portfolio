@@ -153,7 +153,7 @@ const Header = () => {
           {/* GitHub Button */}
           <button
             onClick={() => handleSocialClick('github', personal.socialLinks.github)}
-            className={`relative p-3 backdrop-blur-md rounded-full transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden
+            className={`relative p-3 backdrop-blur-md rounded-full transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden hover:shadow-blue-500/25
               ${likedButtons.has('github') ? 'bg-red-500/30 scale-125' : 'bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10'}
             `}
             aria-label="GitHub Profile"
