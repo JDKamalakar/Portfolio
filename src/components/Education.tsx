@@ -75,42 +75,49 @@ const Education = () => {
                 return (
                   <div 
                     key={index} 
-                    className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 p-6 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/20 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 ${hasInstitution ? 'cursor-pointer' : 'cursor-default'} group ${
+                    className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/20 hover:shadow-xl transition-all duration-500 ${hasInstitution ? 'cursor-pointer' : 'cursor-default'} group overflow-hidden ${
                       isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
-                    }`}
+                    } ${isExpanded ? 'scale-[1.02] shadow-2xl' : 'hover:scale-[1.02]'}`}
                     style={{ transitionDelay: `${index * 150}ms` }}
                     onClick={() => hasInstitution && toggleEducationExpanded(index)}
                   >
-                    <div className="flex justify-between items-start mb-3">
-                      <h4 className="text-lg font-bold text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 flex-1">
-                        {edu.degree}
-                      </h4>
-                      {hasInstitution && (
-                        <div className="flex items-center gap-2 ml-2">
-                          {isExpanded ? (
-                            <ChevronUp size={20} className="text-blue-600 dark:text-blue-400 group-hover:animate-bounce flex-shrink-0 transition-transform duration-300" />
-                          ) : (
-                            <ChevronDown size={20} className="text-blue-600 dark:text-blue-400 group-hover:animate-bounce flex-shrink-0 transition-transform duration-300" />
+                    <div className="p-6">
+                      <div className="flex justify-between items-start mb-3">
+                        <h4 className="text-lg font-bold text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 flex-1">
+                          {edu.degree}
+                        </h4>
+                        {hasInstitution && (
+                          <div className="flex items-center gap-2 ml-2">
+                            <div className={`transform transition-all duration-500 ease-in-out ${
+                              isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'
+                            }`}>
+                              <ChevronDown size={20} className="text-blue-600 dark:text-blue-400 group-hover:animate-bounce flex-shrink-0" />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      
+                      {/* Animated content container */}
+                      <div className={`transition-all duration-700 ease-in-out ${
+                        isExpanded ? 'max-h-40 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'
+                      }`}>
+                        <div className={`transform transition-all duration-500 ${
+                          isExpanded ? 'translate-y-0 scale-100' : 'translate-y-4 scale-95'
+                        }`}>
+                          {hasInstitution && (
+                            <div className="mb-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-500">
+                              <p className="text-blue-600 dark:text-blue-400 font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
+                                {edu.institution}
+                              </p>
+                            </div>
                           )}
                         </div>
-                      )}
-                    </div>
-                    
-                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                      isExpanded ? 'max-h-32 opacity-100' : 'max-h-16 opacity-100'
-                    }`}>
-                      {/* Three dots positioned where institution would appear */}
-                      {hasInstitution && !isExpanded && (
-                        <div className="mb-3">
-                          <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
-                        </div>
-                      )}
+                      </div>
                       
-                      {hasInstitution && isExpanded && (
-                        <div className="mb-3">
-                          <p className="text-blue-600 dark:text-blue-400 font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
-                            {edu.institution}
-                          </p>
+                      {/* Three dots indicator when collapsed */}
+                      {hasInstitution && !isExpanded && (
+                        <div className="mb-3 flex justify-center">
+                          <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
                         </div>
                       )}
                       
@@ -145,42 +152,49 @@ const Education = () => {
                 return (
                   <div 
                     key={index} 
-                    className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 p-6 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/20 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 ${hasInstitution ? 'cursor-pointer' : 'cursor-default'} group ${
+                    className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/20 hover:shadow-xl transition-all duration-500 ${hasInstitution ? 'cursor-pointer' : 'cursor-default'} group overflow-hidden ${
                       isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
-                    }`}
+                    } ${isExpanded ? 'scale-[1.02] shadow-2xl' : 'hover:scale-[1.02]'}`}
                     style={{ transitionDelay: `${index * 150}ms` }}
                     onClick={() => hasInstitution && toggleCertificationExpanded(index)}
                   >
-                    <div className="flex justify-between items-start mb-3">
-                      <h4 className="text-lg font-bold text-gray-800 dark:text-gray-200 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-300 flex-1">
-                        {cert.title}
-                      </h4>
-                      {hasInstitution && (
-                        <div className="flex items-center gap-2 ml-2">
-                          {isExpanded ? (
-                            <ChevronUp size={20} className="text-green-600 dark:text-green-400 group-hover:animate-bounce flex-shrink-0 transition-transform duration-300" />
-                          ) : (
-                            <ChevronDown size={20} className="text-green-600 dark:text-green-400 group-hover:animate-bounce flex-shrink-0 transition-transform duration-300" />
+                    <div className="p-6">
+                      <div className="flex justify-between items-start mb-3">
+                        <h4 className="text-lg font-bold text-gray-800 dark:text-gray-200 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-300 flex-1">
+                          {cert.title}
+                        </h4>
+                        {hasInstitution && (
+                          <div className="flex items-center gap-2 ml-2">
+                            <div className={`transform transition-all duration-500 ease-in-out ${
+                              isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'
+                            }`}>
+                              <ChevronDown size={20} className="text-green-600 dark:text-green-400 group-hover:animate-bounce flex-shrink-0" />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      
+                      {/* Animated content container */}
+                      <div className={`transition-all duration-700 ease-in-out ${
+                        isExpanded ? 'max-h-40 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'
+                      }`}>
+                        <div className={`transform transition-all duration-500 ${
+                          isExpanded ? 'translate-y-0 scale-100' : 'translate-y-4 scale-95'
+                        }`}>
+                          {hasInstitution && (
+                            <div className="mb-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500">
+                              <p className="text-blue-600 dark:text-blue-400 font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
+                                {cert.institution}
+                              </p>
+                            </div>
                           )}
                         </div>
-                      )}
-                    </div>
-                    
-                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                      isExpanded ? 'max-h-32 opacity-100' : 'max-h-16 opacity-100'
-                    }`}>
-                      {/* Three dots positioned where institution would appear */}
-                      {hasInstitution && !isExpanded && (
-                        <div className="mb-3">
-                          <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
-                        </div>
-                      )}
+                      </div>
                       
-                      {hasInstitution && isExpanded && (
-                        <div className="mb-3">
-                          <p className="text-blue-600 dark:text-blue-400 font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
-                            {cert.institution}
-                          </p>
+                      {/* Three dots indicator when collapsed */}
+                      {hasInstitution && !isExpanded && (
+                        <div className="mb-3 flex justify-center">
+                          <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
                         </div>
                       )}
                       

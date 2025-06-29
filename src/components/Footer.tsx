@@ -5,6 +5,7 @@ import { portfolioData } from '../data/portfolioData';
 const Footer = () => {
   const { personal } = portfolioData;
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [likedButtons, setLikedButtons] = useState<string[]>([]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,12 +31,25 @@ const Footer = () => {
     }, 15);
   };
 
+  const handleSocialClick = (platform: string, url: string) => {
+    // Add like animation
+    setLikedButtons(prev => [...prev, platform]);
+    
+    // Remove like animation after 2 seconds
+    setTimeout(() => {
+      setLikedButtons(prev => prev.filter(p => p !== platform));
+    }, 2000);
+    
+    // Open the social link
+    window.open(url, '_blank');
+  };
+
   return (
-    <div className="bg-gray-900 dark:bg-black py-8 px-6 relative">
-      {/* Floating Footer Container */}
-      <footer className="max-w-5xl mx-auto relative">
-        {/* Main floating card */}
-        <div className="backdrop-blur-xl bg-white/10 dark:bg-white/5 rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/30 p-8 relative overflow-hidden hover:shadow-3xl hover:scale-[1.02] transition-all duration-500 group">
+    <div className="bg-gray-900 dark:bg-black py-12 px-6 relative">
+      {/* Floating Footer Container with increased width */}
+      <footer className="max-w-6xl mx-auto relative">
+        {/* Main floating card with more padding appearance */}
+        <div className="backdrop-blur-xl bg-white/10 dark:bg-white/5 rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/30 p-12 relative overflow-hidden hover:shadow-3xl hover:scale-[1.02] transition-all duration-500 group">
           {/* Floating background effects */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-indigo-500/10 dark:from-blue-400/5 dark:via-purple-400/5 dark:to-indigo-400/5 rounded-3xl"></div>
           <div className="absolute top-0 left-1/4 w-32 h-32 bg-blue-400/20 dark:bg-blue-300/10 rounded-full blur-2xl animate-pulse"></div>
@@ -43,53 +57,82 @@ const Footer = () => {
           
           {/* Content */}
           <div className="relative z-10 text-center text-white">
-            <h3 className="text-2xl font-bold mb-4 hover:text-blue-400 transition-colors duration-300 cursor-default">
+            <h3 className="text-3xl font-bold mb-6 hover:text-blue-400 transition-colors duration-300 cursor-default">
               {personal.name}
             </h3>
-            <p className="text-gray-300 dark:text-gray-400 mb-6 hover:text-gray-200 dark:hover:text-gray-300 transition-colors duration-300 cursor-default">
+            <p className="text-gray-300 dark:text-gray-400 mb-8 text-lg hover:text-gray-200 dark:hover:text-gray-300 transition-colors duration-300 cursor-default">
               {personal.title} | Software Developer
             </p>
             
-            {/* Social Links with enhanced floating effect */}
-            <div className="flex justify-center gap-4 mb-8">
-              <a 
-                href={personal.socialLinks.github} 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-4 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl hover:bg-blue-500/30 dark:hover:bg-blue-600/30 transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg hover:shadow-blue-500/25 border border-white/10"
+            {/* Social Links with like-style animations */}
+            <div className="flex justify-center gap-6 mb-10">
+              <button 
+                onClick={() => handleSocialClick('github', personal.socialLinks.github)}
+                className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl hover:bg-blue-500/30 dark:hover:bg-blue-600/30 transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg hover:shadow-blue-500/25 border border-white/10 ${
+                  likedButtons.includes('github') ? 'animate-pulse bg-red-500/30 scale-125' : ''
+                }`}
               >
-                <Github size={24} className="group-hover/social:animate-pulse text-white" />
-              </a>
-              <a 
-                href={personal.socialLinks.linkedin} 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-4 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl hover:bg-blue-500/30 dark:hover:bg-blue-600/30 transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg hover:shadow-blue-500/25 border border-white/10"
+                <Github size={28} className="group-hover/social:animate-pulse text-white transition-transform duration-300" />
+                
+                {/* Like animation hearts */}
+                {likedButtons.includes('github') && (
+                  <>
+                    <Heart className="absolute -top-2 -right-2 w-4 h-4 text-red-400 animate-ping" />
+                    <Heart className="absolute -top-1 -left-1 w-3 h-3 text-red-400 animate-ping delay-200" />
+                    <Heart className="absolute -bottom-1 right-0 w-3 h-3 text-red-400 animate-ping delay-400" />
+                  </>
+                )}
+              </button>
+              
+              <button 
+                onClick={() => handleSocialClick('linkedin', personal.socialLinks.linkedin)}
+                className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl hover:bg-blue-500/30 dark:hover:bg-blue-600/30 transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg hover:shadow-blue-500/25 border border-white/10 ${
+                  likedButtons.includes('linkedin') ? 'animate-pulse bg-red-500/30 scale-125' : ''
+                }`}
               >
-                <Linkedin size={24} className="group-hover/social:animate-pulse text-white" />
-              </a>
-              <a 
-                href={personal.socialLinks.twitter} 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-4 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl hover:bg-blue-500/30 dark:hover:bg-blue-600/30 transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg hover:shadow-blue-500/25 border border-white/10"
+                <Linkedin size={28} className="group-hover/social:animate-pulse text-white transition-transform duration-300" />
+                
+                {/* Like animation hearts */}
+                {likedButtons.includes('linkedin') && (
+                  <>
+                    <Heart className="absolute -top-2 -right-2 w-4 h-4 text-red-400 animate-ping" />
+                    <Heart className="absolute -top-1 -left-1 w-3 h-3 text-red-400 animate-ping delay-200" />
+                    <Heart className="absolute -bottom-1 right-0 w-3 h-3 text-red-400 animate-ping delay-400" />
+                  </>
+                )}
+              </button>
+              
+              <button 
+                onClick={() => handleSocialClick('twitter', personal.socialLinks.twitter)}
+                className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl hover:bg-blue-500/30 dark:hover:bg-blue-600/30 transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg hover:shadow-blue-500/25 border border-white/10 ${
+                  likedButtons.includes('twitter') ? 'animate-pulse bg-red-500/30 scale-125' : ''
+                }`}
               >
-                <Twitter size={24} className="group-hover/social:animate-pulse text-white" />
-              </a>
+                <Twitter size={28} className="group-hover/social:animate-pulse text-white transition-transform duration-300" />
+                
+                {/* Like animation hearts */}
+                {likedButtons.includes('twitter') && (
+                  <>
+                    <Heart className="absolute -top-2 -right-2 w-4 h-4 text-red-400 animate-ping" />
+                    <Heart className="absolute -top-1 -left-1 w-3 h-3 text-red-400 animate-ping delay-200" />
+                    <Heart className="absolute -bottom-1 right-0 w-3 h-3 text-red-400 animate-ping delay-400" />
+                  </>
+                )}
+              </button>
             </div>
             
             {/* Divider with floating effect */}
-            <div className="relative mb-6">
+            <div className="relative mb-8">
               <div className="h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
               <div className="absolute inset-0 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent blur-sm"></div>
             </div>
             
             {/* Copyright section */}
-            <div className="space-y-2">
-              <p className="text-gray-300 dark:text-gray-400 flex items-center justify-center gap-2 mb-2 hover:text-gray-200 dark:hover:text-gray-300 transition-colors duration-300 cursor-default">
-                Made with <Heart size={16} className="text-red-400 animate-pulse" /> by {personal.name.split(' ')[0]} {personal.name.split(' ')[1]}
+            <div className="space-y-3">
+              <p className="text-gray-300 dark:text-gray-400 flex items-center justify-center gap-2 mb-3 hover:text-gray-200 dark:hover:text-gray-300 transition-colors duration-300 cursor-default text-lg">
+                Made with <Heart size={18} className="text-red-400 animate-pulse" /> by {personal.name.split(' ')[0]} {personal.name.split(' ')[1]}
               </p>
-              <p className="text-gray-400 dark:text-gray-500 text-sm hover:text-gray-300 dark:hover:text-gray-400 transition-colors duration-300 cursor-default">
+              <p className="text-gray-400 dark:text-gray-500 hover:text-gray-300 dark:hover:text-gray-400 transition-colors duration-300 cursor-default">
                 © 2024 All rights reserved
               </p>
             </div>
