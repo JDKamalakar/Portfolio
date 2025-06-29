@@ -31,7 +31,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gray-900 dark:bg-black text-white py-12 px-6 relative transition-all duration-700 ease-in-out rounded-t-3xl mx-4 mb-4 shadow-2xl border-t border-gray-700/50 dark:border-gray-600/30">
+    <footer className="bg-gray-900 dark:bg-black text-white py-12 px-6 relative transition-all duration-700 ease-in-out rounded-t-3xl shadow-2xl border-t border-gray-700/50 dark:border-gray-600/30">
       {/* Subtle gradient overlay for depth */}
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent dark:from-black/50 rounded-t-3xl pointer-events-none"></div>
       
