@@ -35,7 +35,7 @@ const Skills = () => {
     <section 
       id="skills"
       ref={sectionRef}
-      className="py-20 px-6 relative overflow-hidden bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-900 transition-colors duration-500"
+      className="py-20 px-6 relative overflow-hidden bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-900 transition-all duration-700 ease-in-out"
     >
       <div className="absolute top-1/4 left-0 w-72 h-72 bg-blue-200/40 dark:bg-blue-900/20 rounded-full blur-3xl transition-colors duration-500"></div>
       <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-purple-200/40 dark:bg-purple-900/20 rounded-full blur-3xl transition-colors duration-500"></div>

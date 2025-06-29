@@ -46,7 +46,7 @@ const Education = () => {
     <section 
       id="education"
       ref={sectionRef}
-      className="py-20 px-6 relative overflow-hidden bg-gray-50 dark:bg-gray-900 transition-colors duration-500"
+      className="py-20 px-6 relative overflow-hidden bg-gray-50 dark:bg-gray-900 transition-all duration-700 ease-in-out"
     >
       <div className="absolute top-0 left-1/3 w-80 h-80 bg-green-200/30 dark:bg-green-900/20 rounded-full blur-3xl transition-colors duration-500"></div>
       <div className="absolute bottom-0 right-1/3 w-96 h-96 bg-blue-200/30 dark:bg-blue-900/20 rounded-full blur-3xl transition-colors duration-500"></div>
@@ -77,23 +77,33 @@ const Education = () => {
                 return (
                   <div 
                     key={index} 
-                    className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 p-6 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/20 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 cursor-pointer group ${
+                    className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 p-6 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/20 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 ${hasInstitution ? 'cursor-pointer' : 'cursor-default'} group ${
                       isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
                     }`}
                     style={{ transitionDelay: `${index * 150}ms` }}
-                    onClick={() => toggleEducationExpanded(index)}
+                    onClick={() => hasInstitution && toggleEducationExpanded(index)}
                   >
                     <div className="flex justify-between items-start mb-2">
-                      <h4 className="text-lg font-bold text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 flex-1">
-                        {edu.degree}
-                      </h4>
-                      <div className="flex items-center gap-2 ml-2">
-                        {isExpanded ? (
-                          <ChevronUp size={20} className="text-blue-600 dark:text-blue-400 group-hover:animate-bounce flex-shrink-0" />
-                        ) : (
-                          <ChevronDown size={20} className="text-blue-600 dark:text-blue-400 group-hover:animate-bounce flex-shrink-0" />
+                      <div className="flex-1">
+                        <h4 className="text-lg font-bold text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                          {edu.degree}
+                        </h4>
+                        {hasInstitution && !isExpanded && (
+                          <div className="flex items-center gap-2 mt-1">
+                            <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
+                            <span className="text-sm text-gray-500 dark:text-gray-400">Click to see institution</span>
+                          </div>
                         )}
                       </div>
+                      {hasInstitution && (
+                        <div className="flex items-center gap-2 ml-2">
+                          {isExpanded ? (
+                            <ChevronUp size={20} className="text-blue-600 dark:text-blue-400 group-hover:animate-bounce flex-shrink-0 transition-transform duration-300" />
+                          ) : (
+                            <ChevronDown size={20} className="text-blue-600 dark:text-blue-400 group-hover:animate-bounce flex-shrink-0 transition-transform duration-300" />
+                          )}
+                        </div>
+                      )}
                     </div>
                     
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
@@ -117,12 +127,6 @@ const Education = () => {
                           {edu.grade}
                         </span>
                       </div>
-                      
-                      {hasInstitution && !isExpanded && (
-                        <div className="flex justify-center mt-2">
-                          <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
-                        </div>
-                      )}
                     </div>
                   </div>
                 );
@@ -145,23 +149,33 @@ const Education = () => {
                 return (
                   <div 
                     key={index} 
-                    className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 p-6 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/20 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 cursor-pointer group ${
+                    className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 p-6 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/20 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 ${hasInstitution ? 'cursor-pointer' : 'cursor-default'} group ${
                       isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
                     }`}
                     style={{ transitionDelay: `${index * 150}ms` }}
-                    onClick={() => toggleCertificationExpanded(index)}
+                    onClick={() => hasInstitution && toggleCertificationExpanded(index)}
                   >
                     <div className="flex justify-between items-start mb-2">
-                      <h4 className="text-lg font-bold text-gray-800 dark:text-gray-200 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-300 flex-1">
-                        {cert.title}
-                      </h4>
-                      <div className="flex items-center gap-2 ml-2">
-                        {isExpanded ? (
-                          <ChevronUp size={20} className="text-green-600 dark:text-green-400 group-hover:animate-bounce flex-shrink-0" />
-                        ) : (
-                          <ChevronDown size={20} className="text-green-600 dark:text-green-400 group-hover:animate-bounce flex-shrink-0" />
+                      <div className="flex-1">
+                        <h4 className="text-lg font-bold text-gray-800 dark:text-gray-200 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-300">
+                          {cert.title}
+                        </h4>
+                        {hasInstitution && !isExpanded && (
+                          <div className="flex items-center gap-2 mt-1">
+                            <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
+                            <span className="text-sm text-gray-500 dark:text-gray-400">Click to see institution</span>
+                          </div>
                         )}
                       </div>
+                      {hasInstitution && (
+                        <div className="flex items-center gap-2 ml-2">
+                          {isExpanded ? (
+                            <ChevronUp size={20} className="text-green-600 dark:text-green-400 group-hover:animate-bounce flex-shrink-0 transition-transform duration-300" />
+                          ) : (
+                            <ChevronDown size={20} className="text-green-600 dark:text-green-400 group-hover:animate-bounce flex-shrink-0 transition-transform duration-300" />
+                          )}
+                        </div>
+                      )}
                     </div>
                     
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
@@ -186,12 +200,6 @@ const Education = () => {
                           </span>
                         )}
                       </div>
-                      
-                      {hasInstitution && !isExpanded && (
-                        <div className="flex justify-center mt-2">
-                          <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
-                        </div>
-                      )}
                     </div>
                   </div>
                 );

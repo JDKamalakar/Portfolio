@@ -14,7 +14,7 @@ import Footer from './components/Footer';
 function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen transition-colors duration-500">
+      <div className="min-h-screen transition-all duration-700 ease-in-out">
         <ThemeToggle />
         <Navigation />
         <Header />

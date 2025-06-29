@@ -36,7 +36,7 @@ const About = () => {
     <section 
       id="about"
       ref={sectionRef}
-      className="py-20 px-6 relative overflow-hidden bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 transition-colors duration-500"
+      className="py-20 px-6 relative overflow-hidden bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 transition-all duration-700 ease-in-out"
     >
       <div className="absolute inset-0 transition-opacity duration-500"></div>
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-100/50 dark:bg-blue-900/20 rounded-full blur-3xl transition-colors duration-500"></div>
@@ -53,9 +53,9 @@ const About = () => {
         </div>
         
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className={`backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 group ${
+          <div className={`backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 p-8 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 group ${hasMoreContent ? 'cursor-pointer' : 'cursor-default'} ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-          }`}>
+          }`} onClick={() => hasMoreContent && setIsExpanded(!isExpanded)}>
             <div className="relative">
               <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
                 isExpanded ? 'max-h-96' : 'max-h-32'
@@ -73,16 +73,19 @@ const About = () => {
               
               {hasMoreContent && (
                 <button
-                  onClick={() => setIsExpanded(!isExpanded)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsExpanded(!isExpanded);
+                  }}
                   className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300 mt-4 group/btn"
                 >
                   <span className="font-medium">
                     {isExpanded ? 'Show Less' : 'Read More'}
                   </span>
                   {isExpanded ? (
-                    <ChevronUp size={16} className="group-hover/btn:animate-bounce" />
+                    <ChevronUp size={16} className="group-hover/btn:animate-bounce transition-transform duration-300" />
                   ) : (
-                    <ChevronDown size={16} className="group-hover/btn:animate-bounce" />
+                    <ChevronDown size={16} className="group-hover/btn:animate-bounce transition-transform duration-300" />
                   )}
                 </button>
               )}

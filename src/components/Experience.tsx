@@ -41,7 +41,7 @@ const Experience = () => {
     <section 
       id="experience"
       ref={sectionRef}
-      className="py-20 px-6 relative overflow-hidden bg-gray-50 dark:bg-gray-900 transition-colors duration-500"
+      className="py-20 px-6 relative overflow-hidden bg-gray-50 dark:bg-gray-900 transition-all duration-700 ease-in-out"
     >
       <div className="absolute top-0 right-0 w-96 h-96 bg-blue-200/30 dark:bg-blue-900/20 rounded-full blur-3xl transition-colors duration-500"></div>
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-200/30 dark:bg-purple-900/20 rounded-full blur-3xl transition-colors duration-500"></div>
@@ -65,11 +65,11 @@ const Experience = () => {
             return (
               <div 
                 key={index} 
-                className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 p-8 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 group cursor-pointer ${
+                className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 p-8 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 group ${hasMoreContent ? 'cursor-pointer' : 'cursor-default'} ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
                 style={{ transitionDelay: `${index * 200}ms` }}
-                onClick={() => toggleExpanded(index)}
+                onClick={() => hasMoreContent && toggleExpanded(index)}
               >
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
                   <div className="flex-1">
@@ -88,16 +88,18 @@ const Experience = () => {
                     </div>
                   </div>
                   
-                  <div className="mt-4 md:mt-0 flex items-center gap-2 text-blue-600 dark:text-blue-400">
-                    <span className="text-sm font-medium">
-                      {isExpanded ? 'Show Less' : 'Show More'}
-                    </span>
-                    {isExpanded ? (
-                      <ChevronUp size={20} className="group-hover:animate-bounce" />
-                    ) : (
-                      <ChevronDown size={20} className="group-hover:animate-bounce" />
-                    )}
-                  </div>
+                  {hasMoreContent && (
+                    <div className="mt-4 md:mt-0 flex items-center gap-2 text-blue-600 dark:text-blue-400">
+                      <span className="text-sm font-medium">
+                        {isExpanded ? 'Show Less' : 'Show More'}
+                      </span>
+                      {isExpanded ? (
+                        <ChevronUp size={20} className="group-hover:animate-bounce transition-transform duration-300" />
+                      ) : (
+                        <ChevronDown size={20} className="group-hover:animate-bounce transition-transform duration-300" />
+                      )}
+                    </div>
+                  )}
                 </div>
                 
                 <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
