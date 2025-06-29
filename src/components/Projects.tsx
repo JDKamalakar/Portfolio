@@ -64,7 +64,7 @@ const Projects = () => {
             return (
               <div 
                 key={index} 
-                className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 shadow-xl border border-white/20 dark:border-gray-700/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 group flex flex-col cursor-pointer ${
+                className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 group flex flex-col cursor-pointer ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
                 style={{ transitionDelay: `${index * 200}ms` }}
