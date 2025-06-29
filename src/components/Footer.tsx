@@ -182,11 +182,17 @@ const Footer = () => {
       {/* Enhanced Scroll to Top Button with maximum transparency and blur */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 p-4 bg-gradient-to-r from-blue-500/60 to-purple-600/60 text-white rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 ease-out group z-50 backdrop-blur-xl border border-white/30 hover:-translate-y-2 ${
-          showScrollTop 
-            ? 'opacity-100 scale-100 translate-y-0 rotate-0' 
-            : 'opacity-0 scale-75 translate-y-8 rotate-45'
-        }`}
+        // Key change: Added `bg-white/10 dark:bg-white/5` for base transparency,
+        // and kept `backdrop-blur-xl` and `border border-white/30`
+        className={`fixed bottom-8 right-8 p-4 text-white rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 ease-out group z-50
+          backdrop-blur-xl border border-white/30 hover:-translate-y-2
+          bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10
+          ${
+            showScrollTop 
+              ? 'opacity-100 scale-100 translate-y-0 rotate-0' 
+              : 'opacity-0 scale-75 translate-y-8 rotate-45'
+          }
+        `}
         style={{
           transform: showScrollTop 
             ? 'translateY(0) scale(1) rotate(0deg)' 
