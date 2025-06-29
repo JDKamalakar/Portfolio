@@ -63,31 +63,32 @@ const About = () => {
                 <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                   {isExpanded ? personal.objective : getPreviewText(personal.objective)}
                 </p>
-                
-                {hasMoreContent && !isExpanded && (
-                  <div className="flex justify-center mt-2">
-                    <MoreHorizontal size={20} className="text-gray-400 dark:text-gray-500 animate-pulse" />
-                  </div>
-                )}
               </div>
               
               {hasMoreContent && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setIsExpanded(!isExpanded);
-                  }}
-                  className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300 mt-4 group/btn"
-                >
-                  <span className="font-medium">
-                    {isExpanded ? 'Show Less' : 'Read More'}
-                  </span>
-                  {isExpanded ? (
-                    <ChevronUp size={16} className="group-hover/btn:animate-bounce transition-transform duration-300" />
-                  ) : (
-                    <ChevronDown size={16} className="group-hover/btn:animate-bounce transition-transform duration-300" />
+                <div className="mt-4">
+                  {isExpanded && (
+                    <div className="flex justify-center mb-2">
+                      <MoreHorizontal size={20} className="text-gray-400 dark:text-gray-500 animate-pulse" />
+                    </div>
                   )}
-                </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsExpanded(!isExpanded);
+                    }}
+                    className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300 group/btn"
+                  >
+                    <span className="font-medium">
+                      {isExpanded ? 'Show Less' : 'Read More'}
+                    </span>
+                    {isExpanded ? (
+                      <ChevronUp size={16} className="group-hover/btn:animate-bounce transition-transform duration-300" />
+                    ) : (
+                      <ChevronDown size={16} className="group-hover/btn:animate-bounce transition-transform duration-300" />
+                    )}
+                  </button>
+                </div>
               )}
             </div>
             

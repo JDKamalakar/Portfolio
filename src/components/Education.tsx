@@ -84,15 +84,12 @@ const Education = () => {
                     onClick={() => hasInstitution && toggleEducationExpanded(index)}
                   >
                     <div className="flex justify-between items-start mb-2">
-                      <div className="flex-1">
+                      <div className="flex items-center gap-2 flex-1">
                         <h4 className="text-lg font-bold text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
                           {edu.degree}
                         </h4>
                         {hasInstitution && !isExpanded && (
-                          <div className="flex items-center gap-2 mt-1">
-                            <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
-                            <span className="text-sm text-gray-500 dark:text-gray-400">Click to see institution</span>
-                          </div>
+                          <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
                         )}
                       </div>
                       {hasInstitution && (
@@ -156,15 +153,12 @@ const Education = () => {
                     onClick={() => hasInstitution && toggleCertificationExpanded(index)}
                   >
                     <div className="flex justify-between items-start mb-2">
-                      <div className="flex-1">
+                      <div className="flex items-center gap-2 flex-1">
                         <h4 className="text-lg font-bold text-gray-800 dark:text-gray-200 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-300">
                           {cert.title}
                         </h4>
                         {hasInstitution && !isExpanded && (
-                          <div className="flex items-center gap-2 mt-1">
-                            <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
-                            <span className="text-sm text-gray-500 dark:text-gray-400">Click to see institution</span>
-                          </div>
+                          <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
                         )}
                       </div>
                       {hasInstitution && (
