@@ -96,7 +96,7 @@ const Education = () => {
                       )}
                     </div>
                     
-                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                    <div className={`transition-all duration-500 ease-in-out ${
                       isExpanded ? 'max-h-32 opacity-100' : 'max-h-16 opacity-100'
                     }`}>
                       {/* Three dots positioned where institution would appear */}
@@ -107,7 +107,7 @@ const Education = () => {
                       )}
                       
                       {hasInstitution && isExpanded && (
-                        <div className="mb-3">
+                        <div className="mb-3 transition-all duration-300 ease-in-out">
                           <p className="text-blue-600 dark:text-blue-400 font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
                             {edu.institution}
                           </p>
@@ -166,7 +166,7 @@ const Education = () => {
                       )}
                     </div>
                     
-                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                    <div className={`transition-all duration-500 ease-in-out ${
                       isExpanded ? 'max-h-32 opacity-100' : 'max-h-16 opacity-100'
                     }`}>
                       {/* Three dots positioned where institution would appear */}
@@ -177,7 +177,7 @@ const Education = () => {
                       )}
                       
                       {hasInstitution && isExpanded && (
-                        <div className="mb-3">
+                        <div className="mb-3 transition-all duration-300 ease-in-out">
                           <p className="text-blue-600 dark:text-blue-400 font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
                             {cert.institution}
                           </p>
