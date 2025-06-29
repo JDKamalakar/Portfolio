@@ -98,13 +98,18 @@ const Education = () => {
                       )}
                     </div>
                     
+                    {/* Three dots positioned where institution would appear */}
+                    {hasInstitution && !isExpanded && (
+                      <div className="mb-3">
+                        <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
+                      </div>
+                    )}
+                    
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
                       isExpanded ? 'max-h-32' : 'max-h-16'
                     }`}>
-                      {hasInstitution && (
-                        <div className={`transition-all duration-500 ease-in-out ${
-                          isExpanded ? 'opacity-100 max-h-8 mb-3' : 'opacity-0 max-h-0 mb-0'
-                        }`}>
+                      {hasInstitution && isExpanded && (
+                        <div className="mb-3">
                           <p className="text-blue-600 dark:text-blue-400 font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
                             {edu.institution}
                           </p>
@@ -120,12 +125,6 @@ const Education = () => {
                         </span>
                       </div>
                     </div>
-                    
-                    {hasInstitution && !isExpanded && (
-                      <div className="flex justify-center mt-3">
-                        <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
-                      </div>
-                    )}
                   </div>
                 );
               })}
@@ -168,13 +167,18 @@ const Education = () => {
                       )}
                     </div>
                     
+                    {/* Three dots positioned where institution would appear */}
+                    {hasInstitution && !isExpanded && (
+                      <div className="mb-3">
+                        <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
+                      </div>
+                    )}
+                    
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
                       isExpanded ? 'max-h-32' : 'max-h-16'
                     }`}>
-                      {hasInstitution && (
-                        <div className={`transition-all duration-500 ease-in-out ${
-                          isExpanded ? 'opacity-100 max-h-8 mb-3' : 'opacity-0 max-h-0 mb-0'
-                        }`}>
+                      {hasInstitution && isExpanded && (
+                        <div className="mb-3">
                           <p className="text-blue-600 dark:text-blue-400 font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
                             {cert.institution}
                           </p>
@@ -191,12 +195,6 @@ const Education = () => {
                         )}
                       </div>
                     </div>
-                    
-                    {hasInstitution && !isExpanded && (
-                      <div className="flex justify-center mt-3">
-                        <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
-                      </div>
-                    )}
                   </div>
                 );
               })}

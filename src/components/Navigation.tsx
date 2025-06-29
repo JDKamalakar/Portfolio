@@ -36,7 +36,12 @@ const Navigation = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      // Add smooth scroll behavior with offset for fixed navigation
+      const offsetTop = element.offsetTop - 80;
+      window.scrollTo({ 
+        top: offsetTop, 
+        behavior: 'smooth' 
+      });
       setIsOpen(false);
     }
   };
@@ -74,15 +79,15 @@ const Navigation = () => {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`group relative p-3 rounded-xl transition-all duration-300 hover:scale-110 block w-full mb-2 last:mb-0 ${
+                className={`group relative p-3 rounded-xl transition-all duration-500 ease-out hover:scale-110 block w-full mb-2 last:mb-0 transform ${
                   activeSection === item.id
-                    ? 'bg-blue-500/40 text-blue-700 dark:text-blue-300 shadow-lg backdrop-blur-sm border border-blue-300/30 dark:border-blue-500/30'
+                    ? 'bg-blue-500/40 text-blue-700 dark:text-blue-300 shadow-lg backdrop-blur-sm border border-blue-300/30 dark:border-blue-500/30 scale-105'
                     : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-white/30 dark:hover:bg-gray-700/30'
                 }`}
                 title={item.label}
               >
-                <Icon size={20} />
-                <span className="absolute left-full ml-3 px-3 py-2 bg-gray-900/90 dark:bg-gray-700/90 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap backdrop-blur-sm border border-white/10 shadow-lg">
+                <Icon size={20} className="transition-transform duration-300" />
+                <span className="absolute left-full ml-3 px-3 py-2 bg-gray-900/90 dark:bg-gray-700/90 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap backdrop-blur-sm border border-white/10 shadow-lg transform translate-x-2 group-hover:translate-x-0">
                   {item.label}
                 </span>
               </button>
@@ -96,22 +101,27 @@ const Navigation = () => {
         isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
       }`}>
         <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
-        <div className={`absolute left-0 top-0 h-full w-80 max-w-[80vw] backdrop-blur-md bg-white/95 dark:bg-gray-900/95 border-r border-white/20 dark:border-gray-700/20 transform transition-transform duration-300 shadow-2xl ${
+        <div className={`absolute left-0 top-0 h-full w-80 max-w-[80vw] backdrop-blur-md bg-white/95 dark:bg-gray-900/95 border-r border-white/20 dark:border-gray-700/20 transform transition-all duration-500 ease-out shadow-2xl ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}>
           <div className="p-6 pt-20">
             <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-6">Navigation</h3>
-            {navItems.map((item) => {
+            {navItems.map((item, index) => {
               const Icon = item.icon;
               return (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`flex items-center gap-3 w-full p-3 rounded-xl transition-all duration-300 hover:scale-105 mb-2 ${
+                  className={`flex items-center gap-3 w-full p-3 rounded-xl transition-all duration-300 hover:scale-105 mb-2 transform ${
                     activeSection === item.id
-                      ? 'bg-blue-500 text-white shadow-lg'
+                      ? 'bg-blue-500 text-white shadow-lg scale-105'
                       : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                   }`}
+                  style={{ 
+                    transitionDelay: isOpen ? `${index * 50}ms` : '0ms',
+                    transform: isOpen ? 'translateX(0)' : 'translateX(-20px)',
+                    opacity: isOpen ? 1 : 0
+                  }}
                 >
                   <Icon size={20} />
                   <span className="font-medium">{item.label}</span>
