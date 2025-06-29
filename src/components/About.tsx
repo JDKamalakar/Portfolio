@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, MoreHorizontal } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 const About = () => {
@@ -24,6 +24,13 @@ const About = () => {
 
     return () => observer.disconnect();
   }, []);
+
+  const getPreviewText = (text: string, maxLength: number = 200) => {
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + '...';
+  };
+
+  const hasMoreContent = personal.objective.length > 200;
 
   return (
     <section 
@@ -50,25 +57,28 @@ const About = () => {
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
           }`}>
             <div className="relative">
-              <p className={`text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 transition-all duration-300 ${
-                isExpanded ? '' : 'line-clamp-4'
-              }`}>
-                {personal.objective}
+              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+                {isExpanded ? personal.objective : getPreviewText(personal.objective)}
               </p>
               
-              <button
-                onClick={() => setIsExpanded(!isExpanded)}
-                className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300 mb-6 group/btn"
-              >
-                <span className="font-medium">
-                  {isExpanded ? 'Show Less' : 'Read More'}
-                </span>
-                {isExpanded ? (
-                  <ChevronUp size={16} className="group-hover/btn:animate-bounce" />
-                ) : (
-                  <ChevronDown size={16} className="group-hover/btn:animate-bounce" />
-                )}
-              </button>
+              {hasMoreContent && (
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300 mb-6 group/btn"
+                >
+                  {!isExpanded && (
+                    <MoreHorizontal size={16} className="animate-pulse" />
+                  )}
+                  <span className="font-medium">
+                    {isExpanded ? 'Show Less' : 'Read More'}
+                  </span>
+                  {isExpanded ? (
+                    <ChevronUp size={16} className="group-hover/btn:animate-bounce" />
+                  ) : (
+                    <ChevronDown size={16} className="group-hover/btn:animate-bounce" />
+                  )}
+                </button>
+              )}
             </div>
             
             <div className="space-y-4">

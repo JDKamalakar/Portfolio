@@ -15,6 +15,7 @@ personal: {
   name: "YOUR NAME HERE",
   title: "YOUR TITLE HERE", 
   initials: "YI", // Your initials for the profile circle
+  profilePhoto: "https://your-photo-url.com/photo.jpg", // or null for initials
   phone: "+1 234-567-8900",
   email: "your.email@example.com",
   location: "Your City, Country",
@@ -27,6 +28,11 @@ personal: {
   }
 }
 ```
+
+#### Profile Photo Options
+1. **Use a Photo URL**: Set `profilePhoto: "https://your-photo-url.com/photo.jpg"`
+2. **Use Initials**: Set `profilePhoto: null` to display initials instead
+3. **Upload Feature**: Hover over the profile photo to see upload option (requires backend implementation)
 
 #### About Section
 ```typescript
@@ -50,7 +56,8 @@ experience: [
     period: "2023 - Present",
     achievements: [
       "What you accomplished",
-      "Another achievement"
+      "Another achievement",
+      "Add as many as you want - expandable sections will handle them"
     ]
   }
   // Add more experiences...
@@ -76,7 +83,7 @@ skills: {
 education: [
   {
     degree: "Your Degree",
-    institution: "University Name",
+    institution: "University Name", // Shows when expanded
     period: "2020 - 2024", 
     grade: "GPA: 3.8"
   }
@@ -84,7 +91,7 @@ education: [
 certifications: [
   {
     title: "Certification Name",
-    institution: "Issuing Organization",
+    institution: "Issuing Organization", // Shows when expanded
     year: "2023",
     grade: "Grade: A+" // Optional
   }
@@ -106,8 +113,16 @@ projects: [
 ]
 ```
 
-### 3. Customizing Colors
-You can change the color scheme by modifying the theme section:
+### 3. GitHub Integration (Future Feature)
+```typescript
+github: {
+  username: "yourusername",
+  autoFetch: false, // Set to true when implemented
+  excludeRepos: ["private-repo", "config-files"]
+}
+```
+
+### 4. Customizing Colors
 ```typescript
 theme: {
   primary: "blue",    // blue, red, green, purple, etc.
@@ -116,36 +131,48 @@ theme: {
 }
 ```
 
-### 4. Adding New Sections
-To add new sections:
-1. Add the data to `portfolioData.ts`
-2. Create a new component in `src/components/`
-3. Import and use the data from `portfolioData`
-4. Add the component to `src/App.tsx`
+## 🎨 New Features
 
-### 5. Quick Start Editing
+### Smart Content Indication
+- **Read More/Show More**: Buttons now show "..." indicator when there's more content
+- **Expandable Sections**: Education and certifications show institution names when expanded
+- **Preview Mode**: Experience shows first 2 achievements, then expands to show all
+
+### Enhanced Navigation
+- **Light Mode Visibility**: Fixed navigation visibility in light mode
+- **Android 16 QPR1 Style**: Modern translucent blur effects
+- **Better Contrast**: Improved readability across all themes
+
+### Profile Photo Management
+- **Easy Upload**: Hover over photo to see upload option
+- **URL or Initials**: Choose between photo URL or initials display
+- **Edit Instructions**: Helpful tooltips for easy editing
+
+### Theme System
+- **System Integration**: Automatically follows OS dark/light preference
+- **Manual Override**: Choose specific theme (Light/Dark/System)
+- **Smooth Transitions**: Beautiful 500ms transitions between themes
+
+## 🚀 Quick Start Editing
 1. Open `src/data/portfolioData.ts`
-2. Replace all the sample data with your information
-3. Save the file
-4. The website will automatically update!
+2. Replace sample data with your information
+3. Set `profilePhoto` to your photo URL or `null` for initials
+4. Update social links with your actual profiles
+5. Save the file - website updates automatically!
 
-## 🎨 Design Features
-- Modern glassmorphism design with blur effects
-- Smooth animations and hover effects  
-- Fully responsive (mobile, tablet, desktop)
-- Beautiful gradient backgrounds
-- Interactive skill progress bars
-- Professional contact form
+## 📱 Responsive Design
+- Mobile-first approach
+- Tablet and desktop optimized
+- Touch-friendly interactions
+- Smooth animations on all devices
 
-## 🚀 Deployment Ready
-The website is production-ready and can be deployed to:
-- Netlify
-- Vercel  
-- GitHub Pages
-- Any static hosting service
-
-Just run `npm run build` to create the production files.
+## 🔧 Technical Features
+- **Direct Email**: Contact form opens email client
+- **Google Maps**: Location opens in Google Maps
+- **Social Links**: Direct links to your profiles
+- **Scroll Management**: Smart scroll-to-top button
+- **Theme Persistence**: Remembers your theme choice
 
 ---
 
-**Need help?** All the data is clearly organized in `src/data/portfolioData.ts` - just replace the sample information with your own!
+**Need help?** All data is in `src/data/portfolioData.ts` - just replace with your information!

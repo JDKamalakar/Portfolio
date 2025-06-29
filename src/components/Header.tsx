@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Download, ExternalLink } from 'lucide-react';
+import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Download, ExternalLink, Camera, Edit3 } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 const Header = () => {
   const { personal } = portfolioData;
   const [isVisible, setIsVisible] = useState(false);
+  const [showPhotoEdit, setShowPhotoEdit] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -16,6 +17,15 @@ const Header = () => {
     link.href = '#'; // Replace with actual CV URL
     link.download = `${personal.name.replace(' ', '_')}_CV.pdf`;
     link.click();
+  };
+
+  const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      // In a real implementation, you would upload this to your server
+      // For now, we'll just show an alert
+      alert('Photo upload functionality would be implemented here. Update the profilePhoto URL in portfolioData.ts');
+    }
   };
 
   return (
@@ -33,11 +43,50 @@ const Header = () => {
       }`}>
         {/* Profile Image */}
         <div className="mb-8 relative group">
-          <div className="w-48 h-48 mx-auto rounded-full bg-gradient-to-r from-blue-500 to-purple-600 p-1 shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 hover:scale-105 cursor-pointer">
-            <div className="w-full h-full rounded-full bg-gray-800 dark:bg-gray-700 flex items-center justify-center text-6xl font-bold transition-colors duration-300 group-hover:bg-gray-700 dark:group-hover:bg-gray-600">
-              {personal.initials}
+          <div 
+            className="w-48 h-48 mx-auto rounded-full bg-gradient-to-r from-blue-500 to-purple-600 p-1 shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 hover:scale-105 cursor-pointer relative"
+            onMouseEnter={() => setShowPhotoEdit(true)}
+            onMouseLeave={() => setShowPhotoEdit(false)}
+          >
+            {/* Profile Photo Container */}
+            <div className="w-full h-full rounded-full bg-gray-800 dark:bg-gray-700 flex items-center justify-center text-6xl font-bold transition-colors duration-300 group-hover:bg-gray-700 dark:group-hover:bg-gray-600 overflow-hidden">
+              {personal.profilePhoto ? (
+                <img 
+                  src={personal.profilePhoto} 
+                  alt={personal.name}
+                  className="w-full h-full object-cover rounded-full"
+                />
+              ) : (
+                personal.initials
+              )}
+            </div>
+            
+            {/* Photo Edit Overlay */}
+            {showPhotoEdit && (
+              <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center transition-all duration-300">
+                <label htmlFor="photo-upload" className="cursor-pointer flex flex-col items-center gap-2 text-white hover:text-blue-300 transition-colors duration-300">
+                  <Camera size={24} />
+                  <span className="text-xs font-medium">Change Photo</span>
+                </label>
+                <input
+                  id="photo-upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={handlePhotoUpload}
+                  className="hidden"
+                />
+              </div>
+            )}
+          </div>
+          
+          {/* Edit Instructions */}
+          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300">
+            <div className="bg-gray-900/90 text-white text-xs px-3 py-1 rounded-lg backdrop-blur-sm border border-white/10 whitespace-nowrap">
+              <Edit3 size={12} className="inline mr-1" />
+              Edit profilePhoto in portfolioData.ts
             </div>
           </div>
+          
           <div className="absolute inset-0 w-48 h-48 mx-auto rounded-full bg-white/10 backdrop-blur-sm animate-ping opacity-20"></div>
         </div>
         

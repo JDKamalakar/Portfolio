@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Calendar, MapPin, ChevronDown, ChevronUp } from 'lucide-react';
+import { Calendar, MapPin, ChevronDown, ChevronUp, MoreHorizontal } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 const Experience = () => {
@@ -33,6 +33,10 @@ const Experience = () => {
     );
   };
 
+  const getPreviewAchievements = (achievements: string[], maxItems: number = 2) => {
+    return achievements.slice(0, maxItems);
+  };
+
   return (
     <section 
       id="experience"
@@ -55,6 +59,9 @@ const Experience = () => {
         <div className="space-y-8">
           {experience.map((exp, index) => {
             const isExpanded = expandedItems.includes(index);
+            const previewAchievements = getPreviewAchievements(exp.achievements);
+            const hasMoreContent = exp.achievements.length > 2;
+            
             return (
               <div 
                 key={index} 
@@ -82,6 +89,9 @@ const Experience = () => {
                   </div>
                   
                   <div className="mt-4 md:mt-0 flex items-center gap-2 text-blue-600 dark:text-blue-400">
+                    {!isExpanded && hasMoreContent && (
+                      <MoreHorizontal size={16} className="animate-pulse" />
+                    )}
                     <span className="text-sm font-medium">
                       {isExpanded ? 'Show Less' : 'Show More'}
                     </span>
@@ -93,11 +103,9 @@ const Experience = () => {
                   </div>
                 </div>
                 
-                <div className={`overflow-hidden transition-all duration-500 ${
-                  isExpanded ? 'max-h-96 opacity-100' : 'max-h-24 opacity-70'
-                }`}>
+                <div className={`overflow-hidden transition-all duration-500`}>
                   <ul className="space-y-3">
-                    {exp.achievements.map((achievement, i) => (
+                    {(isExpanded ? exp.achievements : previewAchievements).map((achievement, i) => (
                       <li 
                         key={i} 
                         className="flex items-start gap-3 hover:translate-x-2 transition-all duration-300 group/item"

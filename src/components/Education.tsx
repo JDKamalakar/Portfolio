@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { GraduationCap, Calendar, Award, ChevronDown, ChevronUp } from 'lucide-react';
+import { GraduationCap, Calendar, Award, ChevronDown, ChevronUp, MoreHorizontal } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 const Education = () => {
@@ -86,18 +86,26 @@ const Education = () => {
                       <h4 className="text-lg font-bold text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 flex-1">
                         {edu.degree}
                       </h4>
-                      {isExpanded ? (
-                        <ChevronUp size={20} className="text-blue-600 dark:text-blue-400 group-hover:animate-bounce flex-shrink-0 ml-2" />
-                      ) : (
-                        <ChevronDown size={20} className="text-blue-600 dark:text-blue-400 group-hover:animate-bounce flex-shrink-0 ml-2" />
-                      )}
+                      <div className="flex items-center gap-2 ml-2">
+                        {!isExpanded && (
+                          <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
+                        )}
+                        {isExpanded ? (
+                          <ChevronUp size={20} className="text-blue-600 dark:text-blue-400 group-hover:animate-bounce flex-shrink-0" />
+                        ) : (
+                          <ChevronDown size={20} className="text-blue-600 dark:text-blue-400 group-hover:animate-bounce flex-shrink-0" />
+                        )}
+                      </div>
                     </div>
-                    <p className="text-blue-600 dark:text-blue-400 font-medium mb-2 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
-                      {edu.institution}
-                    </p>
-                    <div className={`overflow-hidden transition-all duration-300 ${
-                      isExpanded ? 'max-h-20 opacity-100' : 'max-h-12 opacity-80'
+                    
+                    <div className={`overflow-hidden transition-all duration-500 ${
+                      isExpanded ? 'max-h-32 opacity-100' : 'max-h-16 opacity-80'
                     }`}>
+                      {isExpanded && (
+                        <p className="text-blue-600 dark:text-blue-400 font-medium mb-3 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
+                          {edu.institution}
+                        </p>
+                      )}
                       <div className="flex items-center justify-between text-gray-600 dark:text-gray-400">
                         <div className="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">
                           <Calendar size={16} className="group-hover:animate-pulse" />
@@ -138,20 +146,26 @@ const Education = () => {
                       <h4 className="text-lg font-bold text-gray-800 dark:text-gray-200 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-300 flex-1">
                         {cert.title}
                       </h4>
-                      {isExpanded ? (
-                        <ChevronUp size={20} className="text-green-600 dark:text-green-400 group-hover:animate-bounce flex-shrink-0 ml-2" />
-                      ) : (
-                        <ChevronDown size={20} className="text-green-600 dark:text-green-400 group-hover:animate-bounce flex-shrink-0 ml-2" />
-                      )}
+                      <div className="flex items-center gap-2 ml-2">
+                        {!isExpanded && cert.institution && (
+                          <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
+                        )}
+                        {isExpanded ? (
+                          <ChevronUp size={20} className="text-green-600 dark:text-green-400 group-hover:animate-bounce flex-shrink-0" />
+                        ) : (
+                          <ChevronDown size={20} className="text-green-600 dark:text-green-400 group-hover:animate-bounce flex-shrink-0" />
+                        )}
+                      </div>
                     </div>
-                    {cert.institution && (
-                      <p className="text-blue-600 dark:text-blue-400 font-medium mb-2 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
-                        {cert.institution}
-                      </p>
-                    )}
-                    <div className={`overflow-hidden transition-all duration-300 ${
-                      isExpanded ? 'max-h-20 opacity-100' : 'max-h-12 opacity-80'
+                    
+                    <div className={`overflow-hidden transition-all duration-500 ${
+                      isExpanded ? 'max-h-32 opacity-100' : 'max-h-16 opacity-80'
                     }`}>
+                      {isExpanded && cert.institution && (
+                        <p className="text-blue-600 dark:text-blue-400 font-medium mb-3 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
+                          {cert.institution}
+                        </p>
+                      )}
                       <div className="flex items-center justify-between text-gray-600 dark:text-gray-400">
                         <span className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-300">
                           {cert.year}
