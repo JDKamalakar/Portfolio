@@ -38,7 +38,7 @@ const ThemeToggle = () => {
                 size={24}
               />
               <Moon 
-                className={`absolute inset-0 text-blue-400 transition-all duration-300 ${
+                className={`absolute backdrop-blur-sm inset-0 text-blue-400 transition-all duration-300 ${
                   isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
                 }`}
                 size={24}
