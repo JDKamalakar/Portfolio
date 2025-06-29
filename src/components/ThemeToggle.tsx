@@ -28,7 +28,7 @@ const ThemeToggle = () => {
       >
         <div className="relative w-6 h-6">
           {isSystemTheme ? (
-            <Monitor className="text-blue-500 dark:text-blue-400" size={24} />
+            <Monitor className="text-blue-500 dark:text-blue-400 backdrop-blur-sm" size={24} />
           ) : (
             <>
               <Sun 
