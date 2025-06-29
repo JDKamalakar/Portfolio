@@ -5,59 +5,65 @@ import { portfolioData } from '../data/portfolioData';
 const Footer = () => {
   const { personal } = portfolioData;
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [likedButtons, setLikedButtons] = useState<string[]>([]);
+  // Using a Set for better performance on add/remove and uniqueness
+  const [likedButtons, setLikedButtons] = useState<Set<string>>(new Set());
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show scroll to top button when user has scrolled down more than 300px
       setShowScrollTop(window.scrollY > 300);
     };
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      { threshold: 0.1 }
-    );
-
     const footerElement = document.querySelector('footer');
+    let observer: IntersectionObserver;
+
     if (footerElement) {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          setIsVisible(entry.isIntersecting);
+        },
+        { threshold: 0.1 }
+      );
       observer.observe(footerElement);
     }
 
     window.addEventListener('scroll', handleScroll);
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      observer.disconnect();
+      if (observer) { // Ensure observer exists before disconnecting
+        observer.disconnect();
+      }
     };
   }, []);
 
   const scrollToTop = () => {
-    // Smooth scroll to top with easing similar to regular scroll
-    const scrollDuration = 800; // Duration in milliseconds
-    const scrollStep = -window.scrollY / (scrollDuration / 15);
-    
-    const scrollInterval = setInterval(() => {
-      if (window.scrollY !== 0) {
-        window.scrollBy(0, scrollStep);
-      } else {
-        clearInterval(scrollInterval);
-      }
-    }, 15);
+    // Modern, smoother scroll behavior
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   };
 
   const handleSocialClick = (platform: string, url: string) => {
     // Add like animation
-    setLikedButtons(prev => [...prev, platform]);
-    
+    setLikedButtons(prev => new Set(prev).add(platform));
+
     // Remove like animation after 2 seconds
     setTimeout(() => {
-      setLikedButtons(prev => prev.filter(p => p !== platform));
+      setLikedButtons(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(platform);
+        return newSet;
+      });
     }, 2000);
-    
+
     // Open the social link
-    window.open(url, '_blank');
+    if (url) { // Ensure URL exists before opening
+      window.open(url, '_blank');
+    } else {
+      console.warn(`Social link for ${platform} is missing or invalid.`);
+    }
   };
 
   return (
@@ -70,8 +76,9 @@ const Footer = () => {
         <div className="backdrop-blur-xl bg-white/10 dark:bg-white/5 rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/30 p-12 relative overflow-hidden hover:shadow-3xl hover:scale-[1.02] transition-all duration-500 group">
           {/* Floating background effects */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-indigo-500/10 dark:from-blue-400/5 dark:via-purple-400/5 dark:to-indigo-400/5 rounded-3xl"></div>
-          <div className="absolute top-0 left-1/4 w-32 h-32 bg-blue-400/20 dark:bg-blue-300/10 rounded-full blur-2xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-1/4 w-40 h-40 bg-purple-400/20 dark:bg-purple-300/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
+          {/* Ensure these elements don't block clicks - they are background */}
+          <div className="absolute top-0 left-1/4 w-32 h-32 bg-blue-400/20 dark:bg-blue-300/10 rounded-full blur-2xl animate-pulse -z-10"></div>
+          <div className="absolute bottom-0 right-1/4 w-40 h-40 bg-purple-400/20 dark:bg-purple-300/10 rounded-full blur-2xl animate-pulse delay-1000 -z-10"></div>
           
           {/* Content */}
           <div className="relative z-10 text-center text-white">
@@ -84,16 +91,18 @@ const Footer = () => {
             
             {/* Social Links with like-style animations - Now properly clickable */}
             <div className="flex justify-center gap-6 mb-10">
-              <button 
+              {/* GitHub Button */}
+              <button
                 onClick={() => handleSocialClick('github', personal.socialLinks.github)}
-                className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl hover:bg-blue-500/30 dark:hover:bg-blue-600/30 transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg hover:shadow-blue-500/25 border border-white/10 ${
-                  likedButtons.includes('github') ? 'animate-pulse bg-red-500/30 scale-125' : ''
-                }`}
+                className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl hover:bg-blue-500/30 dark:hover:bg-blue-600/30 transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg hover:shadow-blue-500/25 border border-white/10 overflow-hidden
+                  ${likedButtons.has('github') ? 'animate-pulse bg-red-500/30 scale-125' : ''}
+                `}
+                aria-label="GitHub Profile"
               >
                 <Github size={28} className="group-hover/social:animate-pulse text-white transition-transform duration-300 group-hover/social:scale-110 group-hover/social:rotate-12" />
                 
                 {/* Like animation hearts */}
-                {likedButtons.includes('github') && (
+                {likedButtons.has('github') && (
                   <>
                     <Heart className="absolute -top-2 -right-2 w-4 h-4 text-red-400 animate-ping" />
                     <Heart className="absolute -top-1 -left-1 w-3 h-3 text-red-400 animate-ping delay-200" />
@@ -102,16 +111,18 @@ const Footer = () => {
                 )}
               </button>
               
-              <button 
+              {/* LinkedIn Button */}
+              <button
                 onClick={() => handleSocialClick('linkedin', personal.socialLinks.linkedin)}
-                className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl hover:bg-blue-500/30 dark:hover:bg-blue-600/30 transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg hover:shadow-blue-500/25 border border-white/10 ${
-                  likedButtons.includes('linkedin') ? 'animate-pulse bg-red-500/30 scale-125' : ''
-                }`}
+                className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl hover:bg-blue-500/30 dark:hover:bg-blue-600/30 transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg hover:shadow-blue-500/25 border border-white/10 overflow-hidden
+                  ${likedButtons.has('linkedin') ? 'animate-pulse bg-red-500/30 scale-125' : ''}
+                `}
+                aria-label="LinkedIn Profile"
               >
                 <Linkedin size={28} className="group-hover/social:animate-pulse text-white transition-transform duration-300 group-hover/social:scale-110 group-hover/social:-rotate-12" />
                 
                 {/* Like animation hearts */}
-                {likedButtons.includes('linkedin') && (
+                {likedButtons.has('linkedin') && (
                   <>
                     <Heart className="absolute -top-2 -right-2 w-4 h-4 text-red-400 animate-ping" />
                     <Heart className="absolute -top-1 -left-1 w-3 h-3 text-red-400 animate-ping delay-200" />
@@ -120,16 +131,18 @@ const Footer = () => {
                 )}
               </button>
               
-              <button 
+              {/* Twitter Button */}
+              <button
                 onClick={() => handleSocialClick('twitter', personal.socialLinks.twitter)}
-                className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl hover:bg-blue-500/30 dark:hover:bg-blue-600/30 transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg hover:shadow-blue-500/25 border border-white/10 ${
-                  likedButtons.includes('twitter') ? 'animate-pulse bg-red-500/30 scale-125' : ''
-                }`}
+                className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl hover:bg-blue-500/30 dark:hover:bg-blue-600/30 transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg hover:shadow-blue-500/25 border border-white/10 overflow-hidden
+                  ${likedButtons.has('twitter') ? 'animate-pulse bg-red-500/30 scale-125' : ''}
+                `}
+                aria-label="Twitter Profile"
               >
                 <Twitter size={28} className="group-hover/social:animate-pulse text-white transition-transform duration-300 group-hover/social:scale-110 group-hover/social:rotate-12" />
                 
                 {/* Like animation hearts */}
-                {likedButtons.includes('twitter') && (
+                {likedButtons.has('twitter') && (
                   <>
                     <Heart className="absolute -top-2 -right-2 w-4 h-4 text-red-400 animate-ping" />
                     <Heart className="absolute -top-1 -left-1 w-3 h-3 text-red-400 animate-ping delay-200" />
@@ -161,7 +174,8 @@ const Footer = () => {
         </div>
         
         {/* Enhanced floating shadow */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-indigo-500/10 rounded-3xl blur-2xl transform translate-y-4 opacity-50"></div>
+        {/* Ensure this is behind content to prevent blocking clicks */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-indigo-500/10 rounded-3xl blur-2xl transform translate-y-4 opacity-50 -z-20"></div>
       </footer>
       
       {/* Enhanced Scroll to Top Button with maximum transparency and blur */}
