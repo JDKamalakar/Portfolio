@@ -112,7 +112,7 @@ const Contact = () => {
           }`}>
             <a
               href={`tel:${personal.phone}`}
-              className="block backdrop-blur-sm bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group"
+              className="block backdrop-blur-sm bg-white/10 dark:bg-white/5 p-6 rounded-xl border dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group"
             >
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-blue-500 dark:bg-blue-600 rounded-full group-hover:scale-110 transition-transform duration-300">
