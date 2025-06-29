@@ -31,8 +31,11 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gray-900 dark:bg-black text-white py-12 px-6 relative transition-all duration-700 ease-in-out">
-      <div className="max-w-6xl mx-auto">
+    <footer className="bg-gray-900 dark:bg-black text-white py-12 px-6 relative transition-all duration-700 ease-in-out rounded-t-3xl mx-4 mb-4 shadow-2xl border-t border-gray-700/50 dark:border-gray-600/30">
+      {/* Subtle gradient overlay for depth */}
+      <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent dark:from-black/50 rounded-t-3xl pointer-events-none"></div>
+      
+      <div className="max-w-6xl mx-auto relative z-10">
         <div className="text-center">
           <h3 className="text-2xl font-bold mb-4 hover:text-blue-400 transition-colors duration-300 cursor-default">
             {personal.name}
@@ -46,7 +49,7 @@ const Footer = () => {
               href={personal.socialLinks.github} 
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 bg-gray-800 dark:bg-gray-900 rounded-full hover:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300 hover:scale-110 hover:rotate-12 group"
+              className="p-3 bg-gray-800 dark:bg-gray-900 rounded-full hover:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300 hover:scale-110 hover:rotate-12 group shadow-lg hover:shadow-blue-500/25"
             >
               <Github size={20} className="group-hover:animate-pulse" />
             </a>
@@ -54,7 +57,7 @@ const Footer = () => {
               href={personal.socialLinks.linkedin} 
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 bg-gray-800 dark:bg-gray-900 rounded-full hover:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300 hover:scale-110 hover:rotate-12 group"
+              className="p-3 bg-gray-800 dark:bg-gray-900 rounded-full hover:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300 hover:scale-110 hover:rotate-12 group shadow-lg hover:shadow-blue-500/25"
             >
               <Linkedin size={20} className="group-hover:animate-pulse" />
             </a>
@@ -62,13 +65,13 @@ const Footer = () => {
               href={personal.socialLinks.twitter} 
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 bg-gray-800 dark:bg-gray-900 rounded-full hover:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300 hover:scale-110 hover:rotate-12 group"
+              className="p-3 bg-gray-800 dark:bg-gray-900 rounded-full hover:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300 hover:scale-110 hover:rotate-12 group shadow-lg hover:shadow-blue-500/25"
             >
               <Twitter size={20} className="group-hover:animate-pulse" />
             </a>
           </div>
           
-          <div className="border-t border-gray-800 dark:border-gray-700 pt-8 transition-colors duration-500">
+          <div className="border-t border-gray-800 dark:border-gray-700 pt-8 transition-colors duration-500 rounded-t-lg">
             <p className="text-gray-400 dark:text-gray-500 flex items-center justify-center gap-2 mb-2 hover:text-gray-300 dark:hover:text-gray-400 transition-colors duration-300 cursor-default">
               Made with <Heart size={16} className="text-red-500 animate-pulse" /> by {personal.name.split(' ')[0]} {personal.name.split(' ')[1]}
             </p>
