@@ -10,6 +10,7 @@ import Education from './components/Education';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import ScrollBounceEffect from './components/ScrollBounceEffect';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <div className="min-h-screen transition-all duration-700 ease-in-out">
         <ThemeToggle />
         <Navigation />
+        <ScrollBounceEffect />
         <Header />
         <About />
         <Experience />
