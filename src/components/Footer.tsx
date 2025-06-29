@@ -164,10 +164,10 @@ const Footer = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-indigo-500/10 rounded-3xl blur-2xl transform translate-y-4 opacity-50"></div>
       </footer>
       
-      {/* Enhanced Scroll to Top Button */}
+      {/* Enhanced Scroll to Top Button with more transparency and blur */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 p-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 ease-out group z-50 backdrop-blur-md border border-white/20 hover:-translate-y-2 ${
+        className={`fixed bottom-8 right-8 p-4 bg-gradient-to-r from-blue-500/80 to-purple-600/80 text-white rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 ease-out group z-50 backdrop-blur-xl border border-white/30 hover:-translate-y-2 ${
           showScrollTop 
             ? 'opacity-100 scale-100 translate-y-0 rotate-0' 
             : 'opacity-0 scale-75 translate-y-8 rotate-45'

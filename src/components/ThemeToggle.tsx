@@ -48,39 +48,55 @@ const ThemeToggle = () => {
         </div>
       </button>
 
-      {showOptions && (
-        <div className={`absolute top-16 right-0 backdrop-blur-md bg-white/90 dark:bg-gray-800/90 border border-white/30 dark:border-gray-700/30 rounded-xl shadow-xl p-2 min-w-[160px] transform transition-all duration-300 ease-out ${
-          showOptions ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-2'
-        }`}>
-          <button
-            onClick={handleSystemTheme}
-            className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 hover:bg-white/50 dark:hover:bg-gray-700/50 hover:scale-105 ${
-              isSystemTheme ? 'bg-blue-500/20 text-blue-600 dark:text-blue-400 scale-105' : 'text-gray-700 dark:text-gray-300'
-            }`}
-          >
-            <Monitor size={16} />
-            <span className="text-sm font-medium">System</span>
-          </button>
-          <button
-            onClick={() => handleManualTheme(false)}
-            className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 hover:bg-white/50 dark:hover:bg-gray-700/50 hover:scale-105 ${
-              !isSystemTheme && !isDark ? 'bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 scale-105' : 'text-gray-700 dark:text-gray-300'
-            }`}
-          >
-            <Sun size={16} />
-            <span className="text-sm font-medium">Light</span>
-          </button>
-          <button
-            onClick={() => handleManualTheme(true)}
-            className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 hover:bg-white/50 dark:hover:bg-gray-700/50 hover:scale-105 ${
-              !isSystemTheme && isDark ? 'bg-blue-500/20 text-blue-600 dark:text-blue-400 scale-105' : 'text-gray-700 dark:text-gray-300'
-            }`}
-          >
-            <Moon size={16} />
-            <span className="text-sm font-medium">Dark</span>
-          </button>
-        </div>
-      )}
+      {/* Animated Theme Popup */}
+      <div className={`absolute top-16 right-0 backdrop-blur-xl bg-white/85 dark:bg-gray-800/85 border border-white/40 dark:border-gray-700/40 rounded-xl shadow-2xl p-2 min-w-[160px] transform transition-all duration-500 ease-out origin-top-right ${
+        showOptions 
+          ? 'opacity-100 scale-100 translate-y-0 rotate-0' 
+          : 'opacity-0 scale-75 -translate-y-4 rotate-12'
+      }`}>
+        <button
+          onClick={handleSystemTheme}
+          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/60 dark:hover:bg-gray-700/60 hover:scale-105 hover:-translate-y-1 ${
+            isSystemTheme ? 'bg-blue-500/30 text-blue-600 dark:text-blue-400 scale-105 shadow-lg' : 'text-gray-700 dark:text-gray-300'
+          }`}
+          style={{ 
+            transitionDelay: showOptions ? '100ms' : '0ms',
+            transform: showOptions ? 'translateX(0)' : 'translateX(-10px)',
+            opacity: showOptions ? 1 : 0
+          }}
+        >
+          <Monitor size={16} className="transition-transform duration-300 hover:rotate-12" />
+          <span className="text-sm font-medium">System</span>
+        </button>
+        <button
+          onClick={() => handleManualTheme(false)}
+          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/60 dark:hover:bg-gray-700/60 hover:scale-105 hover:-translate-y-1 ${
+            !isSystemTheme && !isDark ? 'bg-yellow-500/30 text-yellow-600 dark:text-yellow-400 scale-105 shadow-lg' : 'text-gray-700 dark:text-gray-300'
+          }`}
+          style={{ 
+            transitionDelay: showOptions ? '150ms' : '0ms',
+            transform: showOptions ? 'translateX(0)' : 'translateX(-10px)',
+            opacity: showOptions ? 1 : 0
+          }}
+        >
+          <Sun size={16} className="transition-transform duration-300 hover:rotate-180" />
+          <span className="text-sm font-medium">Light</span>
+        </button>
+        <button
+          onClick={() => handleManualTheme(true)}
+          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/60 dark:hover:bg-gray-700/60 hover:scale-105 hover:-translate-y-1 ${
+            !isSystemTheme && isDark ? 'bg-blue-500/30 text-blue-600 dark:text-blue-400 scale-105 shadow-lg' : 'text-gray-700 dark:text-gray-300'
+          }`}
+          style={{ 
+            transitionDelay: showOptions ? '200ms' : '0ms',
+            transform: showOptions ? 'translateX(0)' : 'translateX(-10px)',
+            opacity: showOptions ? 1 : 0
+          }}
+        >
+          <Moon size={16} className="transition-transform duration-300 hover:-rotate-12" />
+          <span className="text-sm font-medium">Dark</span>
+        </button>
+      </div>
     </div>
   );
 };
