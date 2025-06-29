@@ -179,7 +179,6 @@ const Footer = () => {
           className="group-hover:animate-bounce transition-transform duration-300 group-hover:scale-110"
         />
         
-        <div className="absolute inset-0 rounded-2xl bg-white/20 scale-0 group-hover:scale-150 transition-transform duration-700 ease-out opacity-70 group-hover:opacity-100"></div>
         
         <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400 to-purple-500 blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-500 -z-10 scale-150"></div>
       </button>
