@@ -36,14 +36,26 @@ const About = () => {
       ref={sectionRef}
       className="py-20 px-6 relative overflow-hidden bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 transition-all duration-700 ease-in-out"
     >
-      {/* Animated Background Flairs */}
+      {/* Enhanced Animated Background Flairs */}
       <div className="absolute inset-0 transition-opacity duration-500"></div>
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-200/40 via-blue-300/30 to-blue-400/40 dark:from-blue-900/20 dark:via-blue-800/15 dark:to-blue-900/20 rounded-full blur-3xl animate-pulse transition-all duration-1000"></div>
-      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-r from-purple-200/40 via-purple-300/30 to-purple-400/40 dark:from-purple-900/20 dark:via-purple-800/15 dark:to-purple-900/20 rounded-full blur-3xl animate-pulse delay-1000 transition-all duration-1000"></div>
       
-      {/* Floating animated orbs */}
-      <div className="absolute top-1/3 right-1/3 w-32 h-32 bg-gradient-to-br from-indigo-300/30 to-blue-400/30 dark:from-indigo-800/20 dark:to-blue-900/20 rounded-full blur-2xl animate-bounce delay-500"></div>
-      <div className="absolute bottom-1/3 left-1/3 w-24 h-24 bg-gradient-to-br from-pink-300/30 to-purple-400/30 dark:from-pink-800/20 dark:to-purple-900/20 rounded-full blur-2xl animate-bounce delay-1500"></div>
+      {/* Primary Large Gradient Orbs */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-200/50 via-blue-300/40 to-blue-400/50 dark:from-blue-900/30 dark:via-blue-800/25 dark:to-blue-900/30 rounded-full blur-3xl animate-pulse transition-all duration-1000"></div>
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-r from-purple-200/50 via-purple-300/40 to-purple-400/50 dark:from-purple-900/30 dark:via-purple-800/25 dark:to-purple-900/30 rounded-full blur-3xl animate-pulse delay-1000 transition-all duration-1000"></div>
+      
+      {/* Secondary Medium Gradient Orbs */}
+      <div className="absolute top-1/2 right-0 w-64 h-64 bg-gradient-to-br from-cyan-200/40 via-sky-300/30 to-blue-300/40 dark:from-cyan-900/25 dark:via-sky-800/20 dark:to-blue-900/25 rounded-full blur-2xl animate-pulse delay-500 transition-all duration-1000"></div>
+      <div className="absolute bottom-1/4 left-0 w-72 h-72 bg-gradient-to-br from-indigo-200/40 via-violet-300/30 to-purple-300/40 dark:from-indigo-900/25 dark:via-violet-800/20 dark:to-purple-900/25 rounded-full blur-2xl animate-pulse delay-1500 transition-all duration-1000"></div>
+      
+      {/* Floating animated orbs with enhanced colors */}
+      <div className="absolute top-1/3 right-1/3 w-32 h-32 bg-gradient-to-br from-indigo-300/40 to-blue-400/40 dark:from-indigo-800/30 dark:to-blue-900/30 rounded-full blur-2xl animate-bounce delay-500"></div>
+      <div className="absolute bottom-1/3 left-1/3 w-24 h-24 bg-gradient-to-br from-pink-300/40 to-purple-400/40 dark:from-pink-800/30 dark:to-purple-900/30 rounded-full blur-2xl animate-bounce delay-1500"></div>
+      
+      {/* Additional Small Floating Elements */}
+      <div className="absolute top-20 right-20 w-16 h-16 bg-gradient-to-br from-emerald-300/35 to-teal-400/35 dark:from-emerald-800/25 dark:to-teal-900/25 rounded-full blur-xl animate-bounce delay-700"></div>
+      <div className="absolute bottom-20 left-20 w-20 h-20 bg-gradient-to-br from-rose-300/35 to-pink-400/35 dark:from-rose-800/25 dark:to-pink-900/25 rounded-full blur-xl animate-bounce delay-1200"></div>
+      <div className="absolute top-2/3 left-10 w-12 h-12 bg-gradient-to-br from-amber-300/35 to-orange-400/35 dark:from-amber-800/25 dark:to-orange-900/25 rounded-full blur-lg animate-pulse delay-300"></div>
+      <div className="absolute top-10 left-1/2 w-14 h-14 bg-gradient-to-br from-lime-300/35 to-green-400/35 dark:from-lime-800/25 dark:to-green-900/25 rounded-full blur-lg animate-pulse delay-800"></div>
       
       <div className="max-w-6xl mx-auto relative z-10">
         <div className={`text-center mb-16 transition-all duration-1000 ${
@@ -56,9 +68,9 @@ const About = () => {
         </div>
         
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className={`backdrop-blur-md bg-white/60 dark:bg-gray-800/60 p-8 rounded-2xl shadow-xl border border-white/30 dark:border-gray-700/30 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 group ${hasMoreContent ? 'cursor-pointer' : 'cursor-default'} ${
+          <div className={`backdrop-blur-xl bg-white/20 dark:bg-gray-800/20 p-8 rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/20 hover:shadow-3xl hover:scale-[1.02] transition-all duration-500 group ${hasMoreContent ? 'cursor-pointer' : 'cursor-default'} ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-          } ${isExpanded ? 'scale-[1.02] shadow-2xl' : ''}`} onClick={() => hasMoreContent && setIsExpanded(!isExpanded)}>
+          } ${isExpanded ? 'scale-[1.02] shadow-3xl bg-white/30 dark:bg-gray-800/30' : ''}`} onClick={() => hasMoreContent && setIsExpanded(!isExpanded)}>
             <div className="relative">
               <div className={`overflow-hidden transition-all duration-700 ease-in-out ${
                 isExpanded ? 'max-h-96' : 'max-h-32'
@@ -122,7 +134,7 @@ const About = () => {
           <div className={`space-y-6 ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
           } transition-all duration-1000 delay-300`}>
-            <div className="backdrop-blur-md bg-white/60 dark:bg-gray-800/60 p-6 rounded-xl shadow-lg border border-white/30 dark:border-gray-700/30 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 group">
+            <div className="backdrop-blur-xl bg-white/20 dark:bg-gray-800/20 p-6 rounded-xl shadow-2xl border border-white/20 dark:border-gray-700/20 hover:shadow-3xl hover:scale-[1.02] hover:bg-white/30 dark:hover:bg-gray-800/30 transition-all duration-300 group">
               <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
                 Languages
               </h3>
@@ -139,7 +151,7 @@ const About = () => {
               </div>
             </div>
             
-            <div className="backdrop-blur-md bg-white/60 dark:bg-gray-800/60 p-6 rounded-xl shadow-lg border border-white/30 dark:border-gray-700/30 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 group">
+            <div className="backdrop-blur-xl bg-white/20 dark:bg-gray-800/20 p-6 rounded-xl shadow-2xl border border-white/20 dark:border-gray-700/20 hover:shadow-3xl hover:scale-[1.02] hover:bg-white/30 dark:hover:bg-gray-800/30 transition-all duration-300 group">
               <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">
                 Hobbies
               </h3>
