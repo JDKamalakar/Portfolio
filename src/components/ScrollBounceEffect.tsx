@@ -80,7 +80,7 @@ const ScrollBounceEffect = () => {
             {/* Bounce Indicator */}
             <div className="relative">
               {/* Main bounce element */}
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500/30 to-purple-600/30 dark:from-blue-400/20 dark:to-purple-500/20 rounded-full backdrop-blur-xl border border-white/30 dark:border-gray-700/30 flex items-center justify-center animate-bounce shadow-2xl">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-500/30 to-purple-600/30 dark:from-blue-400/20 dark:to-purple-500/20 rounded-full backdrop-blur-xl border border-white/30 dark:border-gray-700/30 flex items-center justify-center animate-bounce shadow-2xl">
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-700 rounded-full animate-pulse"></div>
               </div>
               
