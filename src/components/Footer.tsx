@@ -85,7 +85,7 @@ const Footer = () => {
             {/* Social Links with like-style animations - Now properly clickable */}
             <div className="flex justify-center gap-6 mb-10">
               <button 
-                onClick={() => handleSocialClick('github', href={personal.socialLinks.github})}
+                onClick={() => handleSocialClick('github', personal.socialLinks.github)}
                 className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl hover:bg-blue-500/30 dark:hover:bg-blue-600/30 transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg hover:shadow-blue-500/25 border border-white/10 ${
                   likedButtons.includes('github') ? 'animate-pulse bg-red-500/30 scale-125' : ''
                 }`}
