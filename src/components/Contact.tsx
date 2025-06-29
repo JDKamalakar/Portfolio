@@ -86,9 +86,9 @@ const Contact = () => {
     <section 
       id="contact"
       ref={sectionRef}
-      className="py-20 px-6 relative overflow-hidden bg-gray-900 dark:bg-black transition-all duration-700 ease-in-out"
+      className="py-20 px-6 relative overflow-hidden bg-gray-900 dark:bg-black transition-all duration-700 ease-in-out rounded-t-3xl"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 dark:from-black dark:via-blue-900 dark:to-purple-900 transition-colors duration-500"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 dark:from-black dark:via-blue-900 dark:to-purple-900 transition-colors duration-500 rounded-t-3xl"></div>
       <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/20 dark:bg-blue-400/10 rounded-full blur-3xl transition-colors duration-500"></div>
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-500/20 dark:bg-purple-400/10 rounded-full blur-3xl transition-colors duration-500"></div>
       
