@@ -255,4 +255,4 @@ theme: {
 
 **Need help?** All data is in `src/data/portfolioData.ts` - just replace with your information and you're ready to go! 🚀
 
-**Live Demo**: [jdkamalakar.github.io/Portfolio/](https://jdkamalakar.github.io/Portfolio/)
+**Live Demo**: https://jds-personal-portfolio.netlify.app/
