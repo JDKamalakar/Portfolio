@@ -6,20 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jayraj Kamalakar - Portfolio</title>
     
-    <!-- PWA Meta Tags -->
     <meta name="description" content="Professional portfolio website showcasing skills, experience, and projects of Jayraj Kamalakar - B.Tech CSE Graduate">
     <meta name="keywords" content="portfolio, developer, software engineer, web development, android development, jayraj kamalakar">
     <meta name="author" content="Jayraj Kamalakar">
     
-    <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json">
     
-    <!-- Theme Colors -->
     <meta name="theme-color" content="#3b82f6">
     <meta name="msapplication-TileColor" content="#1e293b">
     <meta name="msapplication-config" content="/browserconfig.xml">
     
-    <!-- Apple Touch Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/cv.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/assets/cv.png">
     <link rel="apple-touch-icon" sizes="144x144" href="/assets/cv.png">
@@ -30,28 +26,23 @@
     <link rel="apple-touch-icon" sizes="60x60" href="/assets/cv.png">
     <link rel="apple-touch-icon" sizes="57x57" href="/assets/cv.png">
     
-    <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/cv.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/cv.png">
     
-    <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="JK Portfolio">
     
-    <!-- Windows -->
     <meta name="msapplication-starturl" content="/">
     <meta name="msapplication-tooltip" content="Jayraj Kamalakar Portfolio">
     <meta name="msapplication-tap-highlight" content="no">
     
-    <!-- Open Graph -->
     <meta property="og:title" content="Jayraj Kamalakar - Portfolio">
     <meta property="og:description" content="Professional portfolio website showcasing skills, experience, and projects">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://your-domain.com">
     <meta property="og:image" content="/assets/cv.png">
     
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Jayraj Kamalakar - Portfolio">
     <meta name="twitter:description" content="Professional portfolio website showcasing skills, experience, and projects">
@@ -61,7 +52,6 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Enhanced PWA Service Worker Registration -->
     <script>
       // Check if we're in a supported environment for Service Workers
       function isServiceWorkerSupported() {
@@ -72,8 +62,8 @@
         
         // Check if we're in StackBlitz (which doesn't support Service Workers)
         const isStackBlitz = window.location.hostname.includes('stackblitz') || 
-                            window.location.hostname.includes('webcontainer') ||
-                            window.location.hostname.includes('localhost') && window.navigator.userAgent.includes('WebContainer');
+                             window.location.hostname.includes('webcontainer') ||
+                             window.location.hostname.includes('localhost') && window.navigator.userAgent.includes('WebContainer');
         
         return !isStackBlitz;
       }
@@ -134,12 +124,15 @@
         // Create enhanced install notification
         const installBanner = document.createElement('div');
         installBanner.id = 'install-banner';
+        installBanner.className = 'install-popup-enter'; // Add class for enter animation
         installBanner.innerHTML = `
           <div style="
             position: fixed;
             top: 20px;
             right: 20px;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            /* Use a semi-transparent background with a gradient for depth */
+            background: rgba(59, 130, 246, 0.7); /* Tailwind blue-500 with 70% opacity */
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.7), rgba(139, 92, 246, 0.7)); /* Adjusted for transparency */
             color: white;
             padding: 20px 24px;
             border-radius: 16px;
@@ -147,21 +140,13 @@
             z-index: 9999;
             font-family: system-ui, -apple-system, sans-serif;
             max-width: 320px;
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px); /* Keep the JS style for now, but will replace with class */
+            -webkit-backdrop-filter: blur(20px); /* For Safari compatibility */
             border: 1px solid rgba(255,255,255,0.2);
-            animation: slideInRight 0.5s ease-out;
-          ">
-            <style>
-              @keyframes slideInRight {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-              }
-              @keyframes slideOutRight {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-              }
-            </style>
-            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 12px;">
+            opacity: 0; /* Start hidden for animation */
+            transform: translateY(-20px) scale(0.9); /* Start slightly off and scaled down */
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smooth transition */
+          " class="backdrop-blur-md"> <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 12px;">
               <div style="font-size: 32px;">📱</div>
               <div>
                 <div style="font-weight: 700; margin-bottom: 4px; font-size: 16px;">Install Portfolio App</div>
@@ -200,6 +185,12 @@
         `;
         
         document.body.appendChild(installBanner);
+
+        // Trigger the enter animation by adding a class after appending
+        requestAnimationFrame(() => {
+            installBanner.querySelector('div').style.opacity = '1';
+            installBanner.querySelector('div').style.transform = 'translateY(0) scale(1)';
+        });
         
         // Install button click handler
         document.getElementById('install-btn').addEventListener('click', async () => {
@@ -249,12 +240,15 @@
         function removeBanner() {
           const banner = document.getElementById('install-banner');
           if (banner) {
-            banner.style.animation = 'slideOutRight 0.3s ease-in forwards';
+            // Apply exit animation
+            banner.querySelector('div').style.opacity = '0';
+            banner.querySelector('div').style.transform = 'translateY(-20px) scale(0.9)';
+            
             setTimeout(() => {
               if (banner.parentNode) {
                 banner.parentNode.removeChild(banner);
               }
-            }, 300);
+            }, 400); // Match transition duration
           }
         }
       }
@@ -267,27 +261,38 @@
         // Remove install banner if still visible
         const banner = document.getElementById('install-banner');
         if (banner) {
-          banner.remove();
+          // Apply exit animation to the install banner if it's still there
+          banner.querySelector('div').style.opacity = '0';
+          banner.querySelector('div').style.transform = 'translateY(-20px) scale(0.9)';
+          setTimeout(() => {
+            if (banner.parentNode) {
+              banner.parentNode.removeChild(banner);
+            }
+          }, 400); // Match transition duration
         }
         
         // Optional: Show thank you message
         setTimeout(() => {
           const thankYou = document.createElement('div');
+          thankYou.id = 'thank-you-banner'; // Add an ID for easier selection
           thankYou.innerHTML = `
             <div style="
               position: fixed;
               top: 20px;
               right: 20px;
-              background: linear-gradient(135deg, #10b981, #059669);
+              /* Semi-transparent background */
+              background: rgba(16, 185, 129, 0.7); /* Tailwind emerald-500 with 70% opacity */
+              background: linear-gradient(135deg, rgba(16, 185, 129, 0.7), rgba(5, 150, 105, 0.7)); /* Adjusted for transparency */
               color: white;
               padding: 16px 20px;
               border-radius: 12px;
               box-shadow: 0 10px 25px rgba(0,0,0,0.2);
               z-index: 9999;
               font-family: system-ui, -apple-system, sans-serif;
-              animation: slideInRight 0.5s ease-out;
-            ">
-              <div style="display: flex; align-items: center; gap: 12px;">
+              opacity: 0; /* Start hidden for animation */
+              transform: translateY(-20px) scale(0.9); /* Start slightly off and scaled down */
+              transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smooth transition */
+            " class="backdrop-blur-md"> <div style="display: flex; align-items: center; gap: 12px;">
                 <div style="font-size: 24px;">✅</div>
                 <div>
                   <div style="font-weight: 600;">App Installed!</div>
@@ -297,15 +302,24 @@
             </div>
           `;
           document.body.appendChild(thankYou);
+
+          // Trigger the enter animation by adding a class after appending
+          requestAnimationFrame(() => {
+              thankYou.querySelector('div').style.opacity = '1';
+              thankYou.querySelector('div').style.transform = 'translateY(0) scale(1)';
+          });
           
           setTimeout(() => {
-            if (thankYou.parentNode) {
-              thankYou.style.animation = 'slideOutRight 0.3s ease-in forwards';
+            const currentThankYou = document.getElementById('thank-you-banner');
+            if (currentThankYou) {
+              // Apply exit animation
+              currentThankYou.querySelector('div').style.opacity = '0';
+              currentThankYou.querySelector('div').style.transform = 'translateY(-20px) scale(0.9)';
               setTimeout(() => {
-                if (thankYou.parentNode) {
-                  thankYou.parentNode.removeChild(thankYou);
+                if (currentThankYou.parentNode) {
+                  currentThankYou.parentNode.removeChild(currentThankYou);
                 }
-              }, 300);
+              }, 400); // Match transition duration
             }
           }, 4000);
         }, 1000);
