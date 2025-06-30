@@ -159,7 +159,7 @@ export const portfolioData = {
       technologies: ["HTML5", "CSS3", "TypeScript", "JavaScript", "Local Storage", "REST APIs"],
       githubUrl: "https://github.com/JDKamalakar/Game_Library_Manager",
       demoUrl: ""
-    }
+    },
     {
       title: "Student Portal",
       subtitle: "Android App - Android Studio, XML, Java",
