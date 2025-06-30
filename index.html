@@ -63,7 +63,22 @@
     
     <!-- Enhanced PWA Service Worker Registration -->
     <script>
-      if ('serviceWorker' in navigator) {
+      // Check if we're in a supported environment for Service Workers
+      function isServiceWorkerSupported() {
+        // Check if Service Workers are supported
+        if (!('serviceWorker' in navigator)) {
+          return false;
+        }
+        
+        // Check if we're in StackBlitz (which doesn't support Service Workers)
+        const isStackBlitz = window.location.hostname.includes('stackblitz') || 
+                            window.location.hostname.includes('webcontainer') ||
+                            window.location.hostname.includes('localhost') && window.navigator.userAgent.includes('WebContainer');
+        
+        return !isStackBlitz;
+      }
+      
+      if (isServiceWorkerSupported()) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('/sw.js')
             .then((registration) => {
@@ -83,9 +98,11 @@
               });
             })
             .catch((registrationError) => {
-              console.error('❌ SW registration failed:', registrationError);
+              console.warn('⚠️ SW registration failed (this is expected in some environments):', registrationError.message);
             });
         });
+      } else {
+        console.log('ℹ️ Service Workers not supported in this environment - PWA features will be limited');
       }
       
       // Enhanced PWA Install Prompt Handler
@@ -296,7 +313,7 @@
       
       // Debug: Log PWA installation criteria
       console.log('🔍 PWA Installation Criteria Check:');
-      console.log('- Service Worker:', 'serviceWorker' in navigator ? '✅' : '❌');
+      console.log('- Service Worker:', isServiceWorkerSupported() ? '✅' : '❌ (Not supported in this environment)');
       console.log('- HTTPS:', location.protocol === 'https:' || location.hostname === 'localhost' ? '✅' : '❌');
       console.log('- Manifest:', document.querySelector('link[rel="manifest"]') ? '✅' : '❌');
     </script>
