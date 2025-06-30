@@ -158,7 +158,7 @@ export const portfolioData = {
       description: "Developed a comprehensive student portal Android app to track academic progress, attendance, and timetables, featuring a secure login system with role-based access control. The app includes real-time notifications, offline data synchronization, and an intuitive user interface designed for students and faculty.",
       technologies: ["Android Studio", "XML", "Java", "SQLite", "Firebase"],
       githubUrl: "https://github.com/JDKamalakar/student-portal",
-      demoUrl: "https://student-portal-demo.com"
+      demoUrl: ""
     },
     {
       title: "Game Library Manager",
