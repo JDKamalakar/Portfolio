@@ -40,35 +40,35 @@ const Projects = () => {
     <section
       id="projects"
       ref={sectionRef}
-      className="py-20 px-6 relative overflow-hidden bg-gradient-to-b from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 transition-all duration-700 ease-in-out"
+      className="py-20 px-6 relative overflow-hidden bg-gradient-to-b from-purple-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 transition-all duration-700 ease-in-out"
     >
       {/* Enhanced Animated Background Flairs */}
       {/* Primary Large Gradient Orbs */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-br from-indigo-200/50 via-blue-200/40 to-cyan-300/50 dark:from-indigo-900/30 dark:via-blue-900/25 dark:to-cyan-800/30 rounded-full blur-3xl transition-all duration-1000 animate-pulse"></div>
-      <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-gradient-to-br from-purple-200/50 via-fuchsia-200/40 to-pink-300/50 dark:from-purple-900/30 dark:via-fuchsia-900/25 dark:to-pink-800/30 rounded-full blur-3xl transition-all duration-1000 animate-pulse delay-1000"></div>
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-br from-purple-200/50 via-violet-200/40 to-purple-300/50 dark:from-purple-900/30 dark:via-violet-900/25 dark:to-purple-800/30 rounded-full blur-3xl transition-all duration-1000 animate-pulse"></div>
+      <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-gradient-to-br from-indigo-200/50 via-blue-200/40 to-indigo-300/50 dark:from-indigo-900/30 dark:via-blue-900/25 dark:to-indigo-800/30 rounded-full blur-3xl transition-all duration-1000 animate-pulse delay-1000"></div>
 
       {/* Secondary Medium Gradient Orbs */}
-      <div className="absolute top-1/2 left-0 w-64 h-64 bg-gradient-to-br from-teal-200/40 via-emerald-300/30 to-green-300/40 dark:from-teal-900/25 dark:via-emerald-800/20 dark:to-green-900/25 rounded-full blur-2xl animate-pulse delay-500 transition-all duration-1000"></div>
-      <div className="absolute bottom-1/3 right-0 w-72 h-72 bg-gradient-to-br from-red-200/40 via-orange-300/30 to-amber-300/40 dark:from-red-900/25 dark:via-orange-800/20 dark:to-amber-900/25 rounded-full blur-2xl animate-pulse delay-1500 transition-all duration-1000"></div>
+      <div className="absolute top-1/2 left-0 w-64 h-64 bg-gradient-to-br from-fuchsia-200/40 via-pink-300/30 to-purple-300/40 dark:from-fuchsia-900/25 dark:via-pink-800/20 dark:to-purple-900/25 rounded-full blur-2xl animate-pulse delay-500 transition-all duration-1000"></div>
+      <div className="absolute bottom-1/3 right-0 w-72 h-72 bg-gradient-to-br from-indigo-200/40 via-blue-300/30 to-cyan-300/40 dark:from-indigo-900/25 dark:via-blue-800/20 dark:to-cyan-900/25 rounded-full blur-2xl animate-pulse delay-1500 transition-all duration-1000"></div>
 
       {/* Floating animated orbs with enhanced colors */}
-      <div className="absolute top-1/3 left-1/3 w-32 h-32 bg-gradient-to-br from-blue-300/40 to-indigo-400/40 dark:from-blue-800/30 dark:to-indigo-900/30 rounded-full blur-2xl animate-bounce delay-500"></div>
-      <div className="absolute bottom-1/3 right-1/3 w-24 h-24 bg-gradient-to-br from-pink-300/40 to-fuchsia-400/40 dark:from-pink-800/30 dark:to-fuchsia-900/30 rounded-full blur-2xl animate-bounce delay-1500"></div>
+      <div className="absolute top-1/3 left-1/3 w-32 h-32 bg-gradient-to-br from-fuchsia-300/40 to-purple-400/40 dark:from-fuchsia-800/30 dark:to-purple-900/30 rounded-full blur-2xl animate-bounce delay-500"></div>
+      <div className="absolute bottom-1/3 right-1/3 w-24 h-24 bg-gradient-to-br from-indigo-300/40 to-blue-400/40 dark:from-indigo-800/30 dark:to-blue-900/30 rounded-full blur-2xl animate-bounce delay-1500"></div>
 
       {/* Additional Small Floating Elements */}
-      <div className="absolute top-16 right-16 w-16 h-16 bg-gradient-to-br from-purple-300/35 to-violet-400/35 dark:from-purple-800/25 dark:to-violet-900/25 rounded-full blur-xl animate-bounce delay-300"></div>
-      <div className="absolute bottom-16 left-16 w-20 h-20 bg-gradient-to-br from-cyan-300/35 to-teal-400/35 dark:from-cyan-800/25 dark:to-teal-900/25 rounded-full blur-xl animate-bounce delay-800"></div>
-      <div className="absolute top-3/4 left-10 w-12 h-12 bg-gradient-to-br from-lime-300/35 to-green-400/35 dark:from-lime-800/25 dark:to-green-900/25 rounded-full blur-lg animate-pulse delay-600"></div>
-      <div className="absolute top-10 right-1/2 w-14 h-14 bg-gradient-to-br from-rose-300/35 to-red-400/35 dark:from-rose-800/25 dark:to-red-900/25 rounded-full blur-lg animate-pulse delay-1100"></div>
+      <div className="absolute top-16 right-16 w-16 h-16 bg-gradient-to-br from-emerald-300/35 to-teal-400/35 dark:from-emerald-800/25 dark:to-teal-900/25 rounded-full blur-xl animate-bounce delay-300"></div>
+      <div className="absolute bottom-16 left-16 w-20 h-20 bg-gradient-to-br from-rose-300/35 to-pink-400/35 dark:from-rose-800/25 dark:to-pink-900/25 rounded-full blur-xl animate-bounce delay-800"></div>
+      <div className="absolute top-3/4 left-10 w-12 h-12 bg-gradient-to-br from-amber-300/35 to-orange-400/35 dark:from-amber-800/25 dark:to-orange-900/25 rounded-full blur-lg animate-pulse delay-600"></div>
+      <div className="absolute top-10 right-1/2 w-14 h-14 bg-gradient-to-br from-lime-300/35 to-green-400/35 dark:from-lime-800/25 dark:to-green-900/25 rounded-full blur-lg animate-pulse delay-1100"></div>
 
       <div className="max-w-6xl mx-auto relative z-10">
         <div className={`text-center mb-16 transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
-          <h2 className="text-5xl font-bold text-gray-800 dark:text-gray-200 mb-4 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300 cursor-default">
+          <h2 className="text-5xl font-bold text-gray-800 dark:text-gray-200 mb-4 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-300 cursor-default">
             Projects
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-teal-600 mx-auto rounded-full hover:w-32 transition-all duration-300"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-indigo-600 mx-auto rounded-full hover:w-32 transition-all duration-300"></div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-10">
@@ -90,28 +90,28 @@ const Projects = () => {
                 {/* Header Section */}
                 <div className="p-8 pb-6">
                   <div className="flex justify-between items-start mb-3">
-                    <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 flex-1 leading-tight">
+                    <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300 flex-1 leading-tight">
                       {project.title}
                     </h3>
                     <div className="flex items-center gap-2 ml-4 flex-shrink-0">
-                      <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+                      <span className="text-sm font-medium text-purple-600 dark:text-purple-400">
                         {isExpanded ? 'Show Less' : 'Show More'}
                       </span>
                       <div className={`transform transition-all duration-500 ease-in-out ${
                         isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'
                       }`}>
-                        <ChevronDown size={20} className="text-blue-600 dark:text-blue-400 group-hover:animate-bounce" />
+                        <ChevronDown size={20} className="text-purple-600 dark:text-purple-400 group-hover:animate-bounce" />
                       </div>
                     </div>
                   </div>
 
-                  <p className="text-indigo-600 dark:text-indigo-400 font-medium mb-3 group-hover:text-indigo-700 dark:group-hover:text-indigo-300 transition-colors duration-300">
+                  <p className="text-purple-600 dark:text-purple-400 font-medium mb-3 group-hover:text-purple-700 dark:group-hover:text-purple-300 transition-colors duration-300">
                     {project.subtitle}
                   </p>
 
                   <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-6">
                     <Calendar size={16} className="group-hover:animate-pulse flex-shrink-0" />
-                    <span className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-300">
+                    <span className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300">
                       {project.period}
                     </span>
                   </div>
@@ -148,7 +148,7 @@ const Projects = () => {
                     {project.technologies.map((tech, i) => (
                       <span
                         key={i}
-                        className="px-4 py-2 bg-gradient-to-r from-blue-500 to-teal-600 text-white rounded-full text-sm font-medium hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer backdrop-blur-sm"
+                        className="px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-full text-sm font-medium hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer backdrop-blur-sm"
                         style={{ animationDelay: `${i * 50}ms` }}
                         onClick={(e) => e.stopPropagation()}
                       >
@@ -165,7 +165,7 @@ const Projects = () => {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-teal-600 text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 group/btn flex-1 justify-center backdrop-blur-sm"
+                      className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 group/btn flex-1 justify-center backdrop-blur-sm"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <Github size={16} className="group-hover/btn:animate-pulse" />
@@ -177,7 +177,7 @@ const Projects = () => {
                       rel={hasDemoLink ? "noopener noreferrer" : undefined} // Only set rel if link exists
                       className={`flex items-center gap-2 px-6 py-3 border-2 rounded-lg transition-all duration-300 hover:scale-105 group/btn flex-1 justify-center backdrop-blur-sm ${
                         hasDemoLink
-                          ? "border-indigo-500 dark:border-indigo-400 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500 dark:hover:bg-indigo-600 hover:text-white"
+                          ? "border-purple-500 dark:border-purple-400 text-purple-600 dark:text-purple-400 hover:bg-purple-500 dark:hover:bg-purple-600 hover:text-white"
                           : "border-gray-300 dark:border-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed opacity-50"
                       }`}
                       onClick={(e) => {
