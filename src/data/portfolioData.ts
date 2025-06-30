@@ -163,9 +163,9 @@ export const portfolioData = {
     {
       title: "Game Library Manager",
       subtitle: "Website - HTML, CSS, JS",
-      period: "Feb 2022 - Apr 2022",
+      period: "Jul 2025 - Apr Present",
       description: "Created a responsive web application designed for managing a personal game library, enabling users to monitor their gaming progress, add games from various platforms, and track achievements. Features include search functionality, filtering options, and integration with popular gaming APIs for automatic game data retrieval.",
-      technologies: ["HTML5", "CSS3", "JavaScript", "Local Storage", "REST APIs"],
+      technologies: ["HTML5", "CSS3", "TypeScript", "JavaScript", "Local Storage", "REST APIs"],
       githubUrl: "https://github.com/JDKamalakar/Game_Library_Manager",
       demoUrl: "https://game-library-manager.netlify.app"
     }
