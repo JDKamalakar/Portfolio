@@ -1,4 +1,4 @@
-export const portfolioData = {More actions}
+export const portfolioData = {
   // Personal Information
   personal: {
     name: "JAYRAJ KAMALAKAR",
