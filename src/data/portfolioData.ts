@@ -196,3 +196,4 @@ export const portfolioData = {
     secondary: "purple",
     accent: "indigo"
   }
+}
