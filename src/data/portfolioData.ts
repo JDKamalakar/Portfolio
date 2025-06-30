@@ -6,7 +6,7 @@ export const portfolioData = {
     initials: "JK",
     // Profile photo URL - easily editable
     // To change: Replace with your photo URL or set to null to use initials
-    profilePhoto: null, // Example: "https://your-photo-url.com/photo.jpg"
+    profilePhoto: "./src/Files/Photo.jpg", // Example: "https://your-photo-url.com/photo.jpg"
     phone: "+91 90048-91569",
     email: "jayrajkamalakarjk@gmail.com",
     location: "Gujarat, India",
