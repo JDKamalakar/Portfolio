@@ -13,7 +13,7 @@ export const portfolioData = {
     fullAddress: "E/502 Shri Siddheshwar Plaza, Near Sakar Complex, New VIP Rd - Ajwa Rd, Vadodara, Gujarat 390019",
     objective: "My objective is to secure a challenging software development position that permits me to utilize my technical skills and creativity to create innovative software solutions. I am passionate about learning new technologies and contributing to meaningful projects that make a positive impact. I believe in continuous learning and staying updated with the latest industry trends to deliver high-quality solutions that exceed expectations.",
     // CV Download Link - easily editable
-    cvDownloadUrl: "https://drive.google.com/file/d/your-cv-file-id/view?usp=sharing", // Replace with your actual CV download link
+    cvDownloadUrl: "./src/Files/Jayraj Kamalakar.pdf", // Replace with your actual CV download link
     socialLinks: {
       github: "https://github.com/JDKamalakar",
       linkedin: "https://in.linkedin.com/in/jayraj-kamalakar-7925741a1",
