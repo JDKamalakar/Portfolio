@@ -1,204 +1,198 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { ExternalLink, Github, Calendar, ChevronDown, ChevronUp, Code, Eye, MoreHorizontal } from 'lucide-react';
-import { portfolioData } from '../data/portfolioData';
-
-const Projects = () => {
-  const { projects } = portfolioData;
-  const [expandedProjects, setExpandedProjects] = useState<number[]>([]);
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+export const portfolioData = {More actions
+  // Personal Information
+  personal: {
+    name: "JAYRAJ KAMALAKAR",
+    title: "B.Tech CSE",
+    initials: "JK",
+    // Profile photo URL - easily editable
+    // To change: Replace with your photo URL or set to null to use initials
+    profilePhoto: "/assets/photo.jpg", // Public asset path - works in production
+    phone: "+91 90048-91569",
+    email: "jayrajkamalakarjk@gmail.com",
+    location: "Gujarat, India",
+    fullAddress: "E/502 Shri Siddheshwar Plaza, Near Sakar Complex, New VIP Rd - Ajwa Rd, Vadodara, Gujarat 390019",
+    objective: "My objective is to secure a challenging software development position that permits me to utilize my technical skills and creativity to create innovative software solutions. I am passionate about learning new technologies and contributing to meaningful projects that make a positive impact. I believe in continuous learning and staying updated with the latest industry trends to deliver high-quality solutions that exceed expectations.",
+    // CV Download Link - easily editable
+    cvDownloadUrl: "/assets/jayraj-kamalakar-cv.pdf", // Public asset path - works in production
+    socialLinks: {
+      github: "https://github.com/JDKamalakar",
+      linkedin: "https://in.linkedin.com/in/jayraj-kamalakar-7925741a1",
+      twitter: "https://x.com/jayrajkamalakar"
     }
+  },
 
-    return () => observer.disconnect();
-  }, []);
+  // About Section
+  about: {
+    highlights: [
+      "Passionate about creating innovative solutions that solve real-world problems",
+      "Strong technical foundation in software development with hands-on experience",
+      "Committed to continuous learning and staying updated with latest technologies"
+    ],
+    languages: [
+      "English",
+      "Hindi", 
+      "Marathi",
+      "Gujarati",
+      "French (Basic)",
+      "Japanese (Beginner)"
+    ],
+    hobbies: [
+      "Beta Testing Apps",
+      "Reading Manga",
+      "Swimming",
+      "Watching Anime"
+    ]
+  },
 
-  const toggleExpanded = (index: number) => {
-    setExpandedProjects(prev =>
-      prev.includes(index)
-        ? prev.filter(i => i !== index)
-        : [...prev, index]
-    );
-  };
+  // Experience Section
+  experience: [
+    {
+      company: "Hi Class",
+      location: "West Africa",
+      period: "2023 - 2024 (1 Year)",
+      achievements: [
+        "Trained new employees on software applications and standard procedures, improving team efficiency by 25%",
+        "Managed daily warehouse operations, including inventory control and order fulfillment",
+        "Implemented digital tracking systems that reduced inventory discrepancies by 40%",
+        "Led cross-functional teams to optimize workflow processes",
+        "Developed automated reporting systems for better decision making",
+        "Coordinated with international suppliers to ensure timely deliveries"
+      ]
+    },
+    {
+      company: "Office Beacon",
+      location: "Gujarat - India",
+      period: "2023 - 2023 (6 Months)",
+      achievements: [
+        "Provided excellent customer service by addressing inquiries and resolving customer issues with 95% satisfaction rate",
+        "Managed customer accounts and ensured accurate billing processes",
+        "Developed automated reporting systems that reduced manual work by 30%",
+        "Collaborated with technical teams to improve customer experience",
+        "Implemented new customer onboarding processes",
+        "Trained junior staff on customer service best practices"
+      ]
+    },
+    {
+      company: "Ward Wizard",
+      location: "Gujarat - India",
+      period: "2023 - 2023 (3 Months)",
+      achievements: [
+        "Oversaw and optimized production processes to meet quality and efficiency targets",
+        "Troubleshooted equipment malfunctions and implemented solutions to maintain production flow",
+        "Reduced production downtime by 20% through proactive maintenance scheduling",
+        "Trained junior staff on safety protocols and quality standards",
+        "Implemented quality control measures that improved product consistency",
+        "Coordinated with different departments to streamline operations"
+      ]
+    }
+  ],
 
-  const getPreviewDescription = (description: string, maxLength: number = 120) => {
-    if (description.length <= maxLength) return description;
-    return description.substring(0, maxLength);
-  };
+  // Skills Section
+  skills: {
+    technical: [
+      { name: "Design Process", level: 70 },
+      { name: "Project Management", level: 76 },
+      { name: "Android Development", level: 35 },
+      { name: "Web Development", level: 76 },
+      { name: "Python", level: 20 },
+      { name: "C & Java", level: 40 },
+      { name: "Hardware & Software", level: 85 }
+    ],
+    expertise: [
+      "Management Skills",
+      "Creativity",
+      "Critical Thinking",
+      "Leadership",
+      "Linux - ChromeOS - Windows",
+      "Office Tools"
+    ]
+  },
 
-  return (
-    <section
-      id="projects"
-      ref={sectionRef}
-      className="py-20 px-6 relative overflow-hidden bg-gradient-to-b from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 transition-all duration-700 ease-in-out"
-    ></section>
-      {/* Enhanced Animated Background Flairs */}
-      {/* Primary Large Gradient Orbs */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-br from-indigo-200/50 via-blue-200/40 to-cyan-300/50 dark:from-indigo-900/30 dark:via-blue-900/25 dark:to-cyan-800/30 rounded-full blur-3xl transition-all duration-1000 animate-pulse"></div>
-      <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-gradient-to-br from-purple-200/50 via-fuchsia-200/40 to-pink-300/50 dark:from-purple-900/30 dark:via-fuchsia-900/25 dark:to-pink-800/30 rounded-full blur-3xl transition-all duration-1000 animate-pulse delay-1000"></div>
+  // Education Section
+  education: [
+    {
+      degree: "Bachelor in Technology - Computer Science & Engineering",
+      institution: "Parul University",
+      period: "2020 - 2023",
+      grade: "CGPA: 7.41"
+    },
+    {
+      degree: "Diploma in Mechanical Engineering",
+      institution: "Parul University",
+      period: "2015 - 2020",
+      grade: "CGPA: 6.68"
+    },
+    {
+      degree: "SSC - Sadhu Vaswani Vidya Mandir",
+      institution: "Gujarat Board",
+      period: "2014 - 2015",
+      grade: "Percentage: 45%"
+    }
+  ],
 
-      {/* Secondary Medium Gradient Orbs */}
-      <div className="absolute top-1/2 left-0 w-64 h-64 bg-gradient-to-br from-teal-200/40 via-emerald-300/30 to-green-300/40 dark:from-teal-900/25 dark:via-emerald-800/20 dark:to-green-900/25 rounded-full blur-2xl animate-pulse delay-500 transition-all duration-1000"></div>
-      <div className="absolute bottom-1/3 right-0 w-72 h-72 bg-gradient-to-br from-red-200/40 via-orange-300/30 to-amber-300/40 dark:from-red-900/25 dark:via-orange-800/20 dark:to-amber-900/25 rounded-full blur-2xl animate-pulse delay-1500 transition-all duration-1000"></div>
+  // Certifications Section
+  certifications: [
+    {
+      title: "Mobile App Development Using Android",
+      institution: "Parul University",
+      year: "2021"
+    },
+    {
+      title: "Programming in C &C++",
+      year: "2017",
+      grade: "Grade: A+"
+    },
+    {
+      title: "Hardware & Networking",
+      year: "2016",
+      grade: "Grade: A"
+    }
+  ],
 
-      {/* Floating animated orbs with enhanced colors */}
-      <div className="absolute top-1/3 left-1/3 w-32 h-32 bg-gradient-to-br from-blue-300/40 to-indigo-400/40 dark:from-blue-800/30 dark:to-indigo-900/30 rounded-full blur-2xl animate-bounce delay-500"></div>
-      <div className="absolute bottom-1/3 right-1/3 w-24 h-24 bg-gradient-to-br from-pink-300/40 to-fuchsia-400/40 dark:from-pink-800/30 dark:to-fuchsia-900/30 rounded-full blur-2xl animate-bounce delay-1500"></div>
+  // Projects Section
+  projects: [
+     {
+      title: "MissingTube",
+      subtitle: "Website - HTML, CSS, JS, TS",
+      period: "Jul 2025 - Apr Present",
+      description: "Created a responsive web application designed for analyzing & finding deleted videos from a playlist with powerfull Backup, Restore & Compare feature",
+      technologies: ["HTML5", "CSS3", "TypeScript", "JavaScript", "Local Storage", "REST APIs"],
+      githubUrl: "https://github.com/JDKamalakar/MissingTube",
+      demoUrl: ""
+    },
+    {
+      title: "Student Portal",
+      subtitle: "Android App - Android Studio, XML, Java",
+      period: "Jan 2022 - Feb 2023",
+      description: "Developed a comprehensive student portal Android app to track academic progress, attendance, and timetables, featuring a secure login system with role-based access control. The app includes real-time notifications, offline data synchronization, and an intuitive user interface designed for students and faculty.",
+      technologies: ["Android Studio", "XML", "Java", "SQLite", "Firebase"],
+      githubUrl: "https://github.com/JDKamalakar/student-portal",
+      demoUrl: ""
+    },
+    {
+      title: "Game Library Manager",
+      subtitle: "Website - HTML, CSS, JS",
+      period: "Jul 2025 - Apr Present",
+      description: "Created a responsive web application designed for managing a personal game library, enabling users to monitor their gaming progress, add games from various platforms, and track achievements. Features include search functionality, filtering options, and integration with popular gaming APIs for automatic game data retrieval.",
+      technologies: ["HTML5", "CSS3", "TypeScript", "JavaScript", "Local Storage", "REST APIs"],
+      githubUrl: "https://github.com/JDKamalakar/Game_Library_Manager",
+      demoUrl: ""
+    }
+  ],
 
-      {/* Additional Small Floating Elements */}
-      <div className="absolute top-16 right-16 w-16 h-16 bg-gradient-to-br from-purple-300/35 to-violet-400/35 dark:from-purple-800/25 dark:to-violet-900/25 rounded-full blur-xl animate-bounce delay-300"></div>
-      <div className="absolute bottom-16 left-16 w-20 h-20 bg-gradient-to-br from-cyan-300/35 to-teal-400/35 dark:from-cyan-800/25 dark:to-teal-900/25 rounded-full blur-xl animate-bounce delay-800"></div>
-      <div className="absolute top-3/4 left-10 w-12 h-12 bg-gradient-to-br from-lime-300/35 to-green-400/35 dark:from-lime-800/25 dark:to-green-900/25 rounded-full blur-lg animate-pulse delay-600"></div>
-      <div className="absolute top-10 right-1/2 w-14 h-14 bg-gradient-to-br from-rose-300/35 to-red-400/35 dark:from-rose-800/25 dark:to-red-900/25 rounded-full blur-lg animate-pulse delay-1100"></div>
+  // GitHub Integration Settings
+  github: {
+    username: "JDKamalakar", // Your GitHub username
+    // Set to true to fetch projects from GitHub automatically
+    // Note: This requires additional implementation for API calls
+    autoFetch: false,
+    // Repositories to exclude from auto-fetch (if implemented)
+    excludeRepos: ["JDKamalakar", "config-files", "dotfiles"]
+  },
 
-      <div className="max-w-6xl mx-auto relative z-10">
-        <div className={`text-center mb-16 transition-all duration-1000 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
-          <h2 className="text-5xl font-bold text-gray-800 dark:text-gray-200 mb-4 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300 cursor-default">
-            Projects
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-teal-600 mx-auto rounded-full hover:w-32 transition-all duration-300"></div>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-10">
-          {projects.map((project, index) => {
-            const isExpanded = expandedProjects.includes(index);
-            const previewDescription = getPreviewDescription(project.description);
-            const hasMoreContent = project.description.length > 120;
-            const hasDemoLink = !!project.demoUrl; // Check if demoUrl is truthy
-
-            return (
-              <div
-                key={index}
-                className={`backdrop-blur-xl bg-white/15 dark:bg-gray-800/15 rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/20 hover:shadow-3xl transition-all duration-500 group flex flex-col cursor-pointer ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                } ${isExpanded ? 'scale-[1.02] shadow-3xl bg-white/25 dark:bg-gray-800/25' : 'hover:scale-[1.02] hover:bg-white/20 dark:hover:bg-gray-800/20'}`}
-                style={{ transitionDelay: `${index * 200}ms` }}
-                onClick={() => toggleExpanded(index)}
-              >
-                {/* Header Section */}
-                <div className="p-8 pb-6">
-                  <div className="flex justify-between items-start mb-3">
-                    <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 flex-1 leading-tight">
-                      {project.title}
-                    </h3>
-                    <div className="flex items-center gap-2 ml-4 flex-shrink-0">
-                      <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
-                        {isExpanded ? 'Show Less' : 'Show More'}
-                      </span>
-                      <div className={`transform transition-all duration-500 ease-in-out ${
-                        isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'
-                      }`}>
-                        <ChevronDown size={20} className="text-blue-600 dark:text-blue-400 group-hover:animate-bounce" />
-                      </div>
-                    </div>
-                  </div>
-
-                  <p className="text-indigo-600 dark:text-indigo-400 font-medium mb-3 group-hover:text-indigo-700 dark:group-hover:text-indigo-300 transition-colors duration-300">
-                    {project.subtitle}
-                  </p>
-
-                  <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-6">
-                    <Calendar size={16} className="group-hover:animate-pulse flex-shrink-0" />
-                    <span className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors duration-300">
-                      {project.period}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Description Section */}
-                <div className="px-8 pb-6 flex-1">
-                  <div className={`overflow-hidden transition-all duration-700 ease-in-out ${
-                    isExpanded ? 'max-h-96' : 'max-h-20'
-                  }`}>
-                    <div className={`transform transition-all duration-500 ${
-                      isExpanded ? 'translate-y-0 scale-100' : 'translate-y-0 scale-100'
-                    }`}>
-                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
-                        {isExpanded ? project.description : previewDescription}
-                      </p>
-                    </div>
-                  </div>
-
-                  {hasMoreContent && !isExpanded && (
-                    <div className="flex justify-center mt-3">
-                      <MoreHorizontal size={16} className="text-gray-400 dark:text-gray-500 animate-pulse" />
-                    </div>
-                  )}
-                </div>
-
-                {/* Technologies Section */}
-                <div className="px-8 pb-6">
-                  <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-4 flex items-center gap-2">
-                    <Code size={16} className="text-indigo-600 dark:text-indigo-400" />
-                    Technologies Used:
-                  </h4>
-                  <div className="flex flex-wrap gap-3">
-                    {project.technologies.map((tech, i) => (
-                      <span
-                        key={i}
-                        className="px-4 py-2 bg-gradient-to-r from-blue-500 to-teal-600 text-white rounded-full text-sm font-medium hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer backdrop-blur-sm"
-                        style={{ animationDelay: `${i * 50}ms` }}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Action Buttons - Anchored to bottom */}
-                <div className="p-8 pt-0 mt-auto">
-                  <div className="flex gap-4">
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-teal-600 text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 group/btn flex-1 justify-center backdrop-blur-sm"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <Github size={16} className="group-hover/btn:animate-pulse" />
-                      <span className="font-medium">Code</span>
-                    </a>
-                    <a
-                      href={hasDemoLink ? project.demoUrl : undefined} // Only set href if link exists
-                      target={hasDemoLink ? "_blank" : undefined} // Only set target if link exists
-                      rel={hasDemoLink ? "noopener noreferrer" : undefined} // Only set rel if link exists
-                      className={`flex items-center gap-2 px-6 py-3 border-2 rounded-lg transition-all duration-300 hover:scale-105 group/btn flex-1 justify-center backdrop-blur-sm ${
-                        hasDemoLink
-                          ? "border-indigo-500 dark:border-indigo-400 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500 dark:hover:bg-indigo-600 hover:text-white"
-                          : "border-gray-300 dark:border-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed opacity-50"
-                      }`}
-                      onClick={(e) => {
-                        if (!hasDemoLink) e.preventDefault(); // Prevent default if no demo link
-                        e.stopPropagation();
-                      }}
-                      aria-disabled={!hasDemoLink} // Accessibility for disabled state
-                      tabIndex={hasDemoLink ? 0 : -1} // Prevent tabbing if disabled
-                    >
-                      <Eye size={16} className="group-hover/btn:animate-pulse" />
-                      <span className="font-medium">Demo</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default Projects;
+  // Theme Colors (Easy to customize)
+  theme: {
+    primary: "blue",
+    secondary: "purple",
+    accent: "indigo"More actions
+  }
