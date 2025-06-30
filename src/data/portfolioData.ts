@@ -41,7 +41,7 @@ const Projects = () => {
       id="projects"
       ref={sectionRef}
       className="py-20 px-6 relative overflow-hidden bg-gradient-to-b from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 transition-all duration-700 ease-in-out"
-    >
+    ></section>
       {/* Enhanced Animated Background Flairs */}
       {/* Primary Large Gradient Orbs */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-br from-indigo-200/50 via-blue-200/40 to-cyan-300/50 dark:from-indigo-900/30 dark:via-blue-900/25 dark:to-cyan-800/30 rounded-full blur-3xl transition-all duration-1000 animate-pulse"></div>
