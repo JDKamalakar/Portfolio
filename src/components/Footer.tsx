@@ -71,7 +71,7 @@ const Footer = () => {
           <div className="absolute top-0 left-1/4 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 dark:bg-gradient-to-br dark:from-blue-300/10 dark:to-cyan-300/10 rounded-full blur-2xl animate-pulse -z-10"></div>
           <div className="absolute bottom-0 right-1/4 w-40 h-40 bg-gradient-to-br from-purple-400/20 to-pink-400/20 dark:bg-gradient-to-br dark:from-purple-300/10 dark:to-pink-300/10 rounded-full blur-2xl animate-pulse delay-1000 -z-10"></div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-br from-indigo-400/20 to-blue-400/20 dark:bg-gradient-to-br dark:from-indigo-300/10 dark:to-blue-300/10 rounded-full blur-xl animate-bounce delay-500 -z-10"></div>
-          
+
           <div className="relative z-10 text-center text-white">
             <h3 className="text-3xl font-bold mb-6 hover:text-blue-400 transition-colors duration-300 cursor-default">
               {personal.name}
@@ -79,7 +79,7 @@ const Footer = () => {
             <p className="text-gray-300 dark:text-gray-400 mb-8 text-lg hover:text-gray-200 dark:hover:text-gray-300 transition-colors duration-300 cursor-default">
               {personal.title} | Software Developer
             </p>
-            
+
             <div className="flex justify-center gap-6 mb-10">
               <button
                 onClick={() => handleSocialClick('github', personal.socialLinks.github)}
@@ -97,7 +97,7 @@ const Footer = () => {
                   </>
                 )}
               </button>
-              
+
               <button
                 onClick={() => handleSocialClick('linkedin', personal.socialLinks.linkedin)}
                 className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg hover:shadow-blue-500/25 border border-white/10 overflow-hidden
@@ -114,7 +114,7 @@ const Footer = () => {
                   </>
                 )}
               </button>
-              
+
               <button
                 onClick={() => handleSocialClick('twitter', personal.socialLinks.twitter)}
                 className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg hover:shadow-blue-500/25 border border-white/10 overflow-hidden
@@ -132,12 +132,12 @@ const Footer = () => {
                 )}
               </button>
             </div>
-            
+
             <div className="relative mb-8">
               <div className="h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
               <div className="absolute inset-0 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent blur-sm"></div>
             </div>
-            
+
             <div className="space-y-3">
               <p className="text-gray-300 dark:text-gray-400 flex items-center justify-center gap-2 mb-3 hover:text-gray-200 dark:hover:text-gray-300 transition-colors duration-300 cursor-default text-lg">
                 Made with <Heart size={18} className="text-red-400 animate-pulse" /> by {personal.name.split(' ')[0]} {personal.name.split(' ')[1]}
@@ -147,19 +147,22 @@ const Footer = () => {
               </p>
             </div>
           </div>
-          
+
           <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
         </div>
-        
+
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-indigo-500/10 rounded-3xl blur-2xl transform translate-y-4 opacity-50 -z-20"></div>
       </footer>
-      
+
       <button
         onClick={scrollToTop}
         className={`fixed bottom-8 right-8 p-4 text-white rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 ease-out group z-50
-          backdrop-blur-xl border border-white/30 hover:-translate-y-2
-          bg-gradient-to-r from-blue-500/15 to-purple-600/15   /* Faint initial gradient */
-          hover:from-blue-500/30 hover:to-purple-600/30     /* Increased opacity on hover */
+          /* Updated styles for visibility on white background */
+          bg-blue-600 dark:bg-blue-800       /* Solid, distinct background */
+          border border-blue-400 dark:border-blue-600 /* Clear border */
+          hover:bg-blue-700 dark:hover:bg-blue-700 /* Darker on hover */
+          shadow-lg shadow-blue-500/40 dark:shadow-blue-900/40 /* Stronger shadow */
+          hover:-translate-y-2
           ${
             showScrollTop
               ? 'opacity-100 scale-100 translate-y-0 rotate-0'
@@ -178,13 +181,13 @@ const Footer = () => {
           size={24}
           className="group-hover:animate-bounce transition-transform duration-300 group-hover:scale-110"
         />
-        
-        <div className="absolute inset-0 rounded-2xl bg-white/20 scale-0 group-hover:scale-150 transition-transform duration-700 ease-out opacity-80 group-hover:opacity-100"></div>
-        
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400 to-purple-500 blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-500 -z-10 scale-150"></div>
+
+        {/* Removed inner glow/ripple for cleaner solid look, but kept for potential future use if design changes */}
+        {/* <div className="absolute inset-0 rounded-2xl bg-white/20 scale-0 group-hover:scale-150 transition-transform duration-700 ease-out opacity-80 group-hover:opacity-100"></div>
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400 to-purple-500 blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-500 -z-10 scale-150"></div> */}
       </button>
     </div>
   );
 };
 
-export default Footer;2
+export default Footer;
