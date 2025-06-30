@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 const ScrollBounceEffect = () => {
   const [bounceDirection, setBounceDirection] = useState<'top' | 'bottom' | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  // useRef to store the previous scroll position without causing re-renders
+  const lastScrollTop = useRef(0);
 
   useEffect(() => {
     let bounceTimeout: NodeJS.Timeout;
@@ -14,8 +16,16 @@ const ScrollBounceEffect = () => {
       const clientHeight = document.documentElement.clientHeight;
       const scrollBottom = scrollTop + clientHeight;
 
-      // Check if at top (with small tolerance)
-      if (scrollTop <= 5) {
+      // Determine scroll direction
+      const currentScrollTop = scrollTop;
+      const isScrollingDown = currentScrollTop > lastScrollTop.current;
+      const isScrollingUp = currentScrollTop < lastScrollTop.current;
+
+      // Update lastScrollTop for the next scroll event
+      lastScrollTop.current = currentScrollTop;
+
+      // Check if at top AND scrolling up
+      if (scrollTop <= 5 && isScrollingUp) {
         clearTimeout(bounceTimeout);
         clearTimeout(hideTimeout);
         setBounceDirection('top');
@@ -28,8 +38,8 @@ const ScrollBounceEffect = () => {
           }, 500);
         }, 1000);
       }
-      // Check if at bottom (with small tolerance)
-      else if (scrollBottom >= scrollHeight - 5) {
+      // Check if at bottom AND scrolling down
+      else if (scrollBottom >= scrollHeight - 5 && isScrollingDown) {
         clearTimeout(bounceTimeout);
         clearTimeout(hideTimeout);
         setBounceDirection('bottom');
@@ -41,6 +51,14 @@ const ScrollBounceEffect = () => {
             setBounceDirection(null);
           }, 500);
         }, 1000);
+      }
+      // If not at top/bottom or scrolling in the "wrong" direction, hide immediately
+      else if (isVisible && (scrollTop > 5 || scrollBottom < scrollHeight - 5)) {
+        setIsVisible(false);
+        clearTimeout(bounceTimeout); // Clear any pending bounce timeouts
+        hideTimeout = setTimeout(() => {
+          setBounceDirection(null);
+        }, 500);
       }
     };
 
@@ -63,7 +81,7 @@ const ScrollBounceEffect = () => {
       clearTimeout(bounceTimeout);
       clearTimeout(hideTimeout);
     };
-  }, []);
+  }, [isVisible]); // Add isVisible to dependency array to re-run effect when it changes for proper cleanup
 
   if (!bounceDirection) return null;
 
