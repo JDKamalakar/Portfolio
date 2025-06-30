@@ -194,5 +194,5 @@ export const portfolioData = {
   theme: {
     primary: "blue",
     secondary: "purple",
-    accent: "indigo"More actions
+    accent: "indigo"
   }
