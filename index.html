@@ -4,10 +4,183 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Modern Resume/Portfolio Website with Blur Effects</title>
+    <title>Jayraj Kamalakar - Portfolio</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Professional portfolio website showcasing skills, experience, and projects of Jayraj Kamalakar - B.Tech CSE Graduate">
+    <meta name="keywords" content="portfolio, developer, software engineer, web development, android development, jayraj kamalakar">
+    <meta name="author" content="Jayraj Kamalakar">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Theme Colors -->
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="msapplication-TileColor" content="#1e293b">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/icons/icon-128x128.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/icons/icon-128x128.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/icons/icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/icons/icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="/icons/icon-72x72.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-72x72.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-72x72.png">
+    
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="JK Portfolio">
+    
+    <!-- Windows -->
+    <meta name="msapplication-starturl" content="/">
+    <meta name="msapplication-tooltip" content="Jayraj Kamalakar Portfolio">
+    <meta name="msapplication-tap-highlight" content="no">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Jayraj Kamalakar - Portfolio">
+    <meta property="og:description" content="Professional portfolio website showcasing skills, experience, and projects">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.com">
+    <meta property="og:image" content="/icons/icon-512x512.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Jayraj Kamalakar - Portfolio">
+    <meta name="twitter:description" content="Professional portfolio website showcasing skills, experience, and projects">
+    <meta name="twitter:image" content="/icons/icon-512x512.png">
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- PWA Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+              
+              // Check for updates
+              registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    // New content is available, show update notification
+                    if (confirm('New version available! Click OK to update.')) {
+                      window.location.reload();
+                    }
+                  }
+                });
+              });
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+      
+      // PWA Install Prompt
+      let deferredPrompt;
+      
+      window.addEventListener('beforeinstallprompt', (e) => {
+        console.log('PWA install prompt triggered');
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Show custom install button or notification
+        showInstallPromotion();
+      });
+      
+      function showInstallPromotion() {
+        // Create install notification
+        const installBanner = document.createElement('div');
+        installBanner.id = 'install-banner';
+        installBanner.innerHTML = `
+          <div style="
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 9999;
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 300px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+          ">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="font-size: 24px;">📱</div>
+              <div>
+                <div style="font-weight: 600; margin-bottom: 4px;">Install Portfolio App</div>
+                <div style="font-size: 14px; opacity: 0.9;">Get quick access to my portfolio</div>
+              </div>
+            </div>
+            <div style="margin-top: 12px; display: flex; gap: 8px;">
+              <button id="install-btn" style="
+                background: rgba(255,255,255,0.2);
+                border: 1px solid rgba(255,255,255,0.3);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 8px;
+                cursor: pointer;
+                font-weight: 500;
+                font-size: 14px;
+              ">Install</button>
+              <button id="dismiss-btn" style="
+                background: transparent;
+                border: 1px solid rgba(255,255,255,0.3);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 14px;
+              ">Later</button>
+            </div>
+          </div>
+        `;
+        
+        document.body.appendChild(installBanner);
+        
+        // Install button click
+        document.getElementById('install-btn').addEventListener('click', async () => {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response to the install prompt: ${outcome}`);
+            deferredPrompt = null;
+          }
+          document.getElementById('install-banner').remove();
+        });
+        
+        // Dismiss button click
+        document.getElementById('dismiss-btn').addEventListener('click', () => {
+          document.getElementById('install-banner').remove();
+        });
+        
+        // Auto dismiss after 10 seconds
+        setTimeout(() => {
+          const banner = document.getElementById('install-banner');
+          if (banner) banner.remove();
+        }, 10000);
+      }
+      
+      // Handle successful installation
+      window.addEventListener('appinstalled', (evt) => {
+        console.log('PWA was installed successfully');
+        // Show thank you message or track analytics
+      });
+    </script>
   </body>
 </html>
