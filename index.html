@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/png" href="/assets/cv.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jayraj Kamalakar - Portfolio</title>
     
@@ -20,19 +20,19 @@
     <meta name="msapplication-config" content="/browserconfig.xml">
     
     <!-- Apple Touch Icons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/icons/icon-128x128.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/icons/icon-128x128.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/icons/icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/icons/icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="57x57" href="/icons/icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/cv.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/cv.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/cv.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/cv.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/cv.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/cv.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/cv.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/cv.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/cv.png">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-72x72.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-72x72.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/cv.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/cv.png">
     
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -49,25 +49,25 @@
     <meta property="og:description" content="Professional portfolio website showcasing skills, experience, and projects">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://your-domain.com">
-    <meta property="og:image" content="/icons/icon-512x512.png">
+    <meta property="og:image" content="/assets/cv.png">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Jayraj Kamalakar - Portfolio">
     <meta name="twitter:description" content="Professional portfolio website showcasing skills, experience, and projects">
-    <meta name="twitter:image" content="/icons/icon-512x512.png">
+    <meta name="twitter:image" content="/assets/cv.png">
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- PWA Service Worker Registration -->
+    <!-- Enhanced PWA Service Worker Registration -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('/sw.js')
             .then((registration) => {
-              console.log('SW registered: ', registration);
+              console.log('✅ SW registered successfully:', registration);
               
               // Check for updates
               registration.addEventListener('updatefound', () => {
@@ -75,7 +75,7 @@
                 newWorker.addEventListener('statechange', () => {
                   if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
                     // New content is available, show update notification
-                    if (confirm('New version available! Click OK to update.')) {
+                    if (confirm('🔄 New version available! Click OK to update.')) {
                       window.location.reload();
                     }
                   }
@@ -83,25 +83,38 @@
               });
             })
             .catch((registrationError) => {
-              console.log('SW registration failed: ', registrationError);
+              console.error('❌ SW registration failed:', registrationError);
             });
         });
       }
       
-      // PWA Install Prompt
+      // Enhanced PWA Install Prompt Handler
       let deferredPrompt;
+      let installPromptShown = false;
       
+      // Listen for the beforeinstallprompt event
       window.addEventListener('beforeinstallprompt', (e) => {
-        console.log('PWA install prompt triggered');
+        console.log('🚀 PWA install prompt triggered');
+        
+        // Prevent the mini-infobar from appearing on mobile
         e.preventDefault();
+        
+        // Stash the event so it can be triggered later
         deferredPrompt = e;
         
-        // Show custom install button or notification
-        showInstallPromotion();
+        // Show custom install promotion after a short delay
+        setTimeout(() => {
+          if (!installPromptShown) {
+            showInstallPromotion();
+          }
+        }, 3000); // Show after 3 seconds
       });
       
       function showInstallPromotion() {
-        // Create install notification
+        if (installPromptShown) return;
+        installPromptShown = true;
+        
+        // Create enhanced install notification
         const installBanner = document.createElement('div');
         installBanner.id = 'install-banner';
         installBanner.innerHTML = `
@@ -111,76 +124,181 @@
             right: 20px;
             background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             color: white;
-            padding: 16px 20px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            padding: 20px 24px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             z-index: 9999;
             font-family: system-ui, -apple-system, sans-serif;
-            max-width: 300px;
-            backdrop-filter: blur(10px);
+            max-width: 320px;
+            backdrop-filter: blur(20px);
             border: 1px solid rgba(255,255,255,0.2);
+            animation: slideInRight 0.5s ease-out;
           ">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <div style="font-size: 24px;">📱</div>
+            <style>
+              @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+              }
+              @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+              }
+            </style>
+            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 12px;">
+              <div style="font-size: 32px;">📱</div>
               <div>
-                <div style="font-weight: 600; margin-bottom: 4px;">Install Portfolio App</div>
-                <div style="font-size: 14px; opacity: 0.9;">Get quick access to my portfolio</div>
+                <div style="font-weight: 700; margin-bottom: 4px; font-size: 16px;">Install Portfolio App</div>
+                <div style="font-size: 13px; opacity: 0.9; line-height: 1.4;">Add to home screen for quick access and offline viewing</div>
               </div>
             </div>
-            <div style="margin-top: 12px; display: flex; gap: 8px;">
+            <div style="display: flex; gap: 12px; margin-top: 16px;">
               <button id="install-btn" style="
-                background: rgba(255,255,255,0.2);
-                border: 1px solid rgba(255,255,255,0.3);
+                background: rgba(255,255,255,0.25);
+                border: 1px solid rgba(255,255,255,0.4);
                 color: white;
-                padding: 8px 16px;
-                border-radius: 8px;
+                padding: 10px 20px;
+                border-radius: 10px;
                 cursor: pointer;
-                font-weight: 500;
+                font-weight: 600;
                 font-size: 14px;
-              ">Install</button>
+                flex: 1;
+                transition: all 0.2s ease;
+              " onmouseover="this.style.background='rgba(255,255,255,0.35)'" onmouseout="this.style.background='rgba(255,255,255,0.25)'">
+                ⬇️ Install
+              </button>
               <button id="dismiss-btn" style="
                 background: transparent;
-                border: 1px solid rgba(255,255,255,0.3);
+                border: 1px solid rgba(255,255,255,0.4);
                 color: white;
-                padding: 8px 16px;
-                border-radius: 8px;
+                padding: 10px 16px;
+                border-radius: 10px;
                 cursor: pointer;
                 font-size: 14px;
-              ">Later</button>
+                transition: all 0.2s ease;
+              " onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">
+                ✕
+              </button>
             </div>
           </div>
         `;
         
         document.body.appendChild(installBanner);
         
-        // Install button click
+        // Install button click handler
         document.getElementById('install-btn').addEventListener('click', async () => {
+          console.log('🎯 User clicked install button');
+          
           if (deferredPrompt) {
+            // Show the install prompt
             deferredPrompt.prompt();
+            
+            // Wait for the user to respond to the prompt
             const { outcome } = await deferredPrompt.userChoice;
-            console.log(`User response to the install prompt: ${outcome}`);
+            console.log(`👤 User response to install prompt: ${outcome}`);
+            
+            if (outcome === 'accepted') {
+              console.log('✅ User accepted the install prompt');
+            } else {
+              console.log('❌ User dismissed the install prompt');
+            }
+            
+            // Clear the deferredPrompt variable
             deferredPrompt = null;
+          } else {
+            console.log('⚠️ No deferred prompt available');
+            // Fallback: Show instructions for manual installation
+            alert('To install this app:\n\n• Chrome: Click the install icon in the address bar\n• Safari: Tap Share → Add to Home Screen\n• Edge: Click the app icon in the address bar');
           }
-          document.getElementById('install-banner').remove();
+          
+          // Remove the banner
+          removeBanner();
         });
         
-        // Dismiss button click
+        // Dismiss button click handler
         document.getElementById('dismiss-btn').addEventListener('click', () => {
-          document.getElementById('install-banner').remove();
+          console.log('👋 User dismissed install prompt');
+          removeBanner();
         });
         
-        // Auto dismiss after 10 seconds
+        // Auto dismiss after 15 seconds
         setTimeout(() => {
           const banner = document.getElementById('install-banner');
-          if (banner) banner.remove();
-        }, 10000);
+          if (banner) {
+            console.log('⏰ Auto-dismissing install prompt after 15 seconds');
+            removeBanner();
+          }
+        }, 15000);
+        
+        function removeBanner() {
+          const banner = document.getElementById('install-banner');
+          if (banner) {
+            banner.style.animation = 'slideOutRight 0.3s ease-in forwards';
+            setTimeout(() => {
+              if (banner.parentNode) {
+                banner.parentNode.removeChild(banner);
+              }
+            }, 300);
+          }
+        }
       }
       
       // Handle successful installation
       window.addEventListener('appinstalled', (evt) => {
-        console.log('PWA was installed successfully');
-        // Show thank you message or track analytics
+        console.log('🎉 PWA was installed successfully');
+        installPromptShown = true;
+        
+        // Remove install banner if still visible
+        const banner = document.getElementById('install-banner');
+        if (banner) {
+          banner.remove();
+        }
+        
+        // Optional: Show thank you message
+        setTimeout(() => {
+          const thankYou = document.createElement('div');
+          thankYou.innerHTML = `
+            <div style="
+              position: fixed;
+              top: 20px;
+              right: 20px;
+              background: linear-gradient(135deg, #10b981, #059669);
+              color: white;
+              padding: 16px 20px;
+              border-radius: 12px;
+              box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+              z-index: 9999;
+              font-family: system-ui, -apple-system, sans-serif;
+              animation: slideInRight 0.5s ease-out;
+            ">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="font-size: 24px;">✅</div>
+                <div>
+                  <div style="font-weight: 600;">App Installed!</div>
+                  <div style="font-size: 14px; opacity: 0.9;">Thanks for installing the portfolio app</div>
+                </div>
+              </div>
+            </div>
+          `;
+          document.body.appendChild(thankYou);
+          
+          setTimeout(() => {
+            if (thankYou.parentNode) {
+              thankYou.style.animation = 'slideOutRight 0.3s ease-in forwards';
+              setTimeout(() => {
+                if (thankYou.parentNode) {
+                  thankYou.parentNode.removeChild(thankYou);
+                }
+              }, 300);
+            }
+          }, 4000);
+        }, 1000);
       });
+      
+      // Debug: Log PWA installation criteria
+      console.log('🔍 PWA Installation Criteria Check:');
+      console.log('- Service Worker:', 'serviceWorker' in navigator ? '✅' : '❌');
+      console.log('- HTTPS:', location.protocol === 'https:' || location.hostname === 'localhost' ? '✅' : '❌');
+      console.log('- Manifest:', document.querySelector('link[rel="manifest"]') ? '✅' : '❌');
     </script>
   </body>
 </html>

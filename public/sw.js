@@ -1,55 +1,56 @@
-// Service Worker for PWA
-const CACHE_NAME = 'jk-portfolio-v1.0.0';
+// Enhanced Service Worker for PWA with better caching strategy
+const CACHE_NAME = 'jk-portfolio-v2.0.0';
 const STATIC_CACHE_URLS = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png'
+  '/assets/cv.png',
+  '/assets/photo.jpg',
+  '/assets/jayraj-kamalakar-cv.pdf'
 ];
 
 // Install event - cache static assets
 self.addEventListener('install', (event) => {
-  console.log('Service Worker: Installing...');
+  console.log('🔧 Service Worker: Installing...');
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
-        console.log('Service Worker: Caching static assets');
+        console.log('📦 Service Worker: Caching static assets');
         return cache.addAll(STATIC_CACHE_URLS);
       })
       .then(() => {
-        console.log('Service Worker: Installation complete');
+        console.log('✅ Service Worker: Installation complete');
         return self.skipWaiting();
       })
       .catch((error) => {
-        console.error('Service Worker: Installation failed', error);
+        console.error('❌ Service Worker: Installation failed', error);
       })
   );
 });
 
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
-  console.log('Service Worker: Activating...');
+  console.log('🚀 Service Worker: Activating...');
   event.waitUntil(
     caches.keys()
       .then((cacheNames) => {
         return Promise.all(
           cacheNames.map((cacheName) => {
             if (cacheName !== CACHE_NAME) {
-              console.log('Service Worker: Deleting old cache', cacheName);
+              console.log('🗑️ Service Worker: Deleting old cache', cacheName);
               return caches.delete(cacheName);
             }
           })
         );
       })
       .then(() => {
-        console.log('Service Worker: Activation complete');
+        console.log('✅ Service Worker: Activation complete');
         return self.clients.claim();
       })
   );
 });
 
-// Fetch event - serve from cache, fallback to network
+// Enhanced fetch event with better caching strategy
 self.addEventListener('fetch', (event) => {
   // Skip non-GET requests
   if (event.request.method !== 'GET') {
@@ -61,15 +62,22 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // Skip requests with cache-control: no-cache
+  if (event.request.headers.get('cache-control') === 'no-cache') {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then((cachedResponse) => {
         // Return cached version if available
         if (cachedResponse) {
+          console.log('📋 Serving from cache:', event.request.url);
           return cachedResponse;
         }
 
         // Otherwise fetch from network
+        console.log('🌐 Fetching from network:', event.request.url);
         return fetch(event.request)
           .then((response) => {
             // Don't cache non-successful responses
@@ -80,19 +88,31 @@ self.addEventListener('fetch', (event) => {
             // Clone the response
             const responseToCache = response.clone();
 
-            // Cache the fetched response
+            // Cache the fetched response for future use
             caches.open(CACHE_NAME)
               .then((cache) => {
-                cache.put(event.request, responseToCache);
+                // Only cache GET requests
+                if (event.request.method === 'GET') {
+                  cache.put(event.request, responseToCache);
+                  console.log('💾 Cached:', event.request.url);
+                }
               });
 
             return response;
           })
-          .catch(() => {
-            // Return offline page or fallback
+          .catch((error) => {
+            console.error('🚫 Network fetch failed:', error);
+            
+            // Return offline page or fallback for document requests
             if (event.request.destination === 'document') {
-              return caches.match('/');
+              return caches.match('/') || new Response(
+                '<!DOCTYPE html><html><head><title>Offline</title></head><body><h1>You are offline</h1><p>Please check your internet connection.</p></body></html>',
+                { headers: { 'Content-Type': 'text/html' } }
+              );
             }
+            
+            // For other requests, just throw the error
+            throw error;
           });
       })
   );
@@ -100,49 +120,124 @@ self.addEventListener('fetch', (event) => {
 
 // Background sync for offline functionality
 self.addEventListener('sync', (event) => {
-  console.log('Service Worker: Background sync', event.tag);
+  console.log('🔄 Service Worker: Background sync triggered:', event.tag);
+  
+  if (event.tag === 'background-sync') {
+    event.waitUntil(
+      // Perform background sync tasks here
+      console.log('📡 Performing background sync...')
+    );
+  }
 });
 
-// Push notification handling
+// Enhanced push notification handling
 self.addEventListener('push', (event) => {
-  console.log('Service Worker: Push notification received');
+  console.log('📬 Service Worker: Push notification received');
   
   const options = {
-    body: event.data ? event.data.text() : 'New update available!',
-    icon: '/icons/icon-192x192.png',
-    badge: '/icons/icon-72x72.png',
-    vibrate: [200, 100, 200],
+    body: event.data ? event.data.text() : 'Check out the latest updates!',
+    icon: '/assets/cv.png',
+    badge: '/assets/cv.png',
+    image: '/assets/photo.jpg',
+    vibrate: [200, 100, 200, 100, 200],
     data: {
       dateOfArrival: Date.now(),
-      primaryKey: 1
+      primaryKey: 'portfolio-notification',
+      url: '/'
     },
     actions: [
       {
         action: 'explore',
-        title: 'View Portfolio',
-        icon: '/icons/icon-192x192.png'
+        title: '👀 View Portfolio',
+        icon: '/assets/cv.png'
+      },
+      {
+        action: 'contact',
+        title: '📧 Contact Me',
+        icon: '/assets/cv.png'
       },
       {
         action: 'close',
-        title: 'Close',
-        icon: '/icons/icon-192x192.png'
+        title: '✕ Close',
+        icon: '/assets/cv.png'
       }
-    ]
+    ],
+    requireInteraction: false,
+    silent: false,
+    tag: 'portfolio-update'
   };
 
   event.waitUntil(
-    self.registration.showNotification('JK Portfolio', options)
+    self.registration.showNotification('🚀 JK Portfolio', options)
   );
 });
 
-// Notification click handling
+// Enhanced notification click handling
 self.addEventListener('notificationclick', (event) => {
-  console.log('Service Worker: Notification clicked');
+  console.log('🔔 Service Worker: Notification clicked', event.action);
   event.notification.close();
 
-  if (event.action === 'explore') {
-    event.waitUntil(
-      clients.openWindow('/')
-    );
+  let targetUrl = '/';
+  
+  switch (event.action) {
+    case 'explore':
+      targetUrl = '/';
+      break;
+    case 'contact':
+      targetUrl = '/#contact';
+      break;
+    case 'close':
+      return; // Just close the notification
+    default:
+      targetUrl = event.notification.data?.url || '/';
+  }
+
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true })
+      .then((clientList) => {
+        // Check if there's already a window/tab open with the target URL
+        for (const client of clientList) {
+          if (client.url === targetUrl && 'focus' in client) {
+            return client.focus();
+          }
+        }
+        
+        // If no existing window/tab, open a new one
+        if (clients.openWindow) {
+          return clients.openWindow(targetUrl);
+        }
+      })
+  );
+});
+
+// Handle notification close
+self.addEventListener('notificationclose', (event) => {
+  console.log('🔕 Service Worker: Notification closed');
+  
+  // Optional: Track notification close events
+  // You could send analytics data here
+});
+
+// Message handling for communication with main thread
+self.addEventListener('message', (event) => {
+  console.log('💬 Service Worker: Message received', event.data);
+  
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+  
+  if (event.data && event.data.type === 'GET_VERSION') {
+    event.ports[0].postMessage({ version: CACHE_NAME });
   }
 });
+
+// Error handling
+self.addEventListener('error', (event) => {
+  console.error('💥 Service Worker: Error occurred', event.error);
+});
+
+self.addEventListener('unhandledrejection', (event) => {
+  console.error('💥 Service Worker: Unhandled promise rejection', event.reason);
+});
+
+console.log('🎯 Service Worker: Script loaded successfully');
