@@ -27,24 +27,29 @@ const ThemeToggle = () => {
         aria-label="Toggle theme"
       >
         <div className="relative w-6 h-6">
-          {isSystemTheme ? (
-            <Monitor className="text-blue-500 dark:text-blue-400" size={24} />
-          ) : (
-            <>
-              <Sun 
-                className={`absolute inset-0 text-yellow-500 transition-all duration-300 ${
-                  isDark ? 'opacity-0 rotate-90 scale-0' : 'opacity-100 rotate-0 scale-100'
-                }`}
-                size={24}
-              />
-              <Moon 
-                className={`absolute inset-0 text-blue-400 transition-all duration-300 ${
-                  isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
-                }`}
-                size={24}
-              />
-            </>
-          )}
+          {/* System Theme Icon */}
+          <Monitor 
+            className={`absolute inset-0 text-blue-500 dark:text-blue-400 transition-all duration-300 ${
+              isSystemTheme ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-0'
+            }`}
+            size={24}
+          />
+          
+          {/* Light Theme Icon */}
+          <Sun 
+            className={`absolute inset-0 text-yellow-500 transition-all duration-300 ${
+              !isSystemTheme && !isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-0'
+            }`}
+            size={24}
+          />
+          
+          {/* Dark Theme Icon */}
+          <Moon 
+            className={`absolute inset-0 text-blue-400 transition-all duration-300 ${
+              !isSystemTheme && isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
+            }`}
+            size={24}
+          />
         </div>
       </button>
 

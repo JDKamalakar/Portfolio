@@ -81,11 +81,11 @@ const Projects = () => {
             return (
               <div
                 key={index}
-                className={`backdrop-blur-xl bg-white/15 dark:bg-gray-800/15 rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/20 hover:shadow-3xl transition-all duration-500 group flex flex-col cursor-pointer ${
+                className={`backdrop-blur-xl bg-white/15 dark:bg-gray-800/15 rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/20 hover:shadow-3xl transition-all duration-500 group flex flex-col ${hasMoreContent ? 'cursor-pointer' : 'cursor-default'} ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 } ${isExpanded ? 'scale-[1.02] shadow-3xl bg-white/25 dark:bg-gray-800/25' : 'hover:scale-[1.02] hover:bg-white/20 dark:hover:bg-gray-800/20'}`}
                 style={{ transitionDelay: `${index * 200}ms` }}
-                onClick={() => toggleExpanded(index)}
+                onClick={() => hasMoreContent && toggleExpanded(index)}
               >
                 {/* Header Section */}
                 <div className="p-8 pb-6">
@@ -93,16 +93,18 @@ const Projects = () => {
                     <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300 flex-1 leading-tight">
                       {project.title}
                     </h3>
-                    <div className="flex items-center gap-2 ml-4 flex-shrink-0">
-                      <span className="text-sm font-medium text-purple-600 dark:text-purple-400">
-                        {isExpanded ? 'Show Less' : 'Show More'}
-                      </span>
-                      <div className={`transform transition-all duration-500 ease-in-out ${
-                        isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'
-                      }`}>
-                        <ChevronDown size={20} className="text-purple-600 dark:text-purple-400 group-hover:animate-bounce" />
+                    {hasMoreContent && (
+                      <div className="flex items-center gap-2 ml-4 flex-shrink-0">
+                        <span className="text-sm font-medium text-purple-600 dark:text-purple-400">
+                          {isExpanded ? 'Show Less' : 'Show More'}
+                        </span>
+                        <div className={`transform transition-all duration-500 ease-in-out ${
+                          isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'
+                        }`}>
+                          <ChevronDown size={20} className="text-purple-600 dark:text-purple-400 group-hover:animate-bounce" />
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
 
                   <p className="text-purple-600 dark:text-purple-400 font-medium mb-3 group-hover:text-purple-700 dark:group-hover:text-purple-300 transition-colors duration-300">
@@ -117,16 +119,17 @@ const Projects = () => {
                   </div>
                 </div>
 
-                {/* Description Section */}
+                {/* Description Section with proper animation */}
                 <div className="px-8 pb-6 flex-1">
                   <div className={`overflow-hidden transition-all duration-700 ease-in-out ${
                     isExpanded ? 'max-h-96' : 'max-h-20'
                   }`}>
                     <div className={`transform transition-all duration-500 ${
-                      isExpanded ? 'translate-y-0 scale-100' : 'translate-y-0 scale-100'
+                      isExpanded ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-0 scale-100 opacity-100'
                     }`}>
                       <p className="text-gray-700 dark:text-gray-300 leading-relaxed hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
                         {isExpanded ? project.description : previewDescription}
+                        {!isExpanded && hasMoreContent && '...'}
                       </p>
                     </div>
                   </div>

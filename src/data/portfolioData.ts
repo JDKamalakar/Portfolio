@@ -154,7 +154,7 @@ export const portfolioData = {
      {
       title: "MissingTube",
       subtitle: "Website - HTML, CSS, JS, TS",
-      period: "Jul 2025 - Apr Present",
+      period: "Jul 2025 - Present",
       description: "Created a responsive web application designed for analyzing & finding deleted videos from a playlist with powerfull Backup, Restore & Compare feature",
       technologies: ["HTML5", "CSS3", "TypeScript", "JavaScript", "Local Storage", "REST APIs"],
       githubUrl: "https://github.com/JDKamalakar/MissingTube",
