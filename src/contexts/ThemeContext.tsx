@@ -17,12 +17,13 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const savedTheme = localStorage.getItem('theme');
     const savedSystemPref = localStorage.getItem('useSystemTheme');
     
-    if (savedSystemPref === 'false') {
-      setIsSystemTheme(false);
-      setIsDark(savedTheme === 'dark');
-    } else {
+    // If no saved preference exists, default to system theme
+    if (savedSystemPref === null || savedSystemPref === 'true') {
       setIsSystemTheme(true);
       setIsDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    } else {
+      setIsSystemTheme(false);
+      setIsDark(savedTheme === 'dark');
     }
   }, []);
 
@@ -50,11 +51,18 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, [isSystemTheme]);
 
   const toggleTheme = () => {
+    // When toggling, cycle through: System → Light → Dark → System
     if (isSystemTheme) {
+      // From System to Light
       setIsSystemTheme(false);
-      setIsDark(!isDark);
+      setIsDark(false);
+    } else if (!isDark) {
+      // From Light to Dark
+      setIsDark(true);
     } else {
-      setIsDark(!isDark);
+      // From Dark back to System
+      setIsSystemTheme(true);
+      setIsDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
     }
   };
 
