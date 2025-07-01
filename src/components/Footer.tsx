@@ -354,7 +354,7 @@ const Footer = () => {
 
           size={24}
 
-          className="group-hover:animate-bounce transition-transform duration-300 shadow-lg group-hover:scale-110"
+          className="group-hover:animate-bounce transition-transform duration-300 group-hover:scale-110"
 
         />
 
