@@ -73,36 +73,36 @@ const ThemeToggle = () => {
                          transition-transform duration-700 ease-in-out 
                          ${showOptions ? 'rotate-[360deg]' : 'rotate-0'}`}>
           
-          {/* System Theme Icon - Managed for visibility and animation */}
+          {/* System Theme Icon - Only show hover effects when active */}
           <Monitor 
             className={`absolute inset-0 transition-all duration-500 ease-out 
                         ${isSystemActive 
-                           ? 'opacity-100 scale-100 rotate-0' // Active: visible, default orientation
-                           : 'opacity-0 scale-50 rotate-[-90deg]' // Inactive: hidden, rotated away
+                           ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:animate-pulse' // Active: visible with hover effects
+                           : 'opacity-0 scale-50 rotate-[-90deg]' // Inactive: hidden, no hover effects
                         }
-                        text-blue-500 dark:text-blue-400 group-hover:scale-110 group-hover:animate-pulse`}
+                        text-blue-500 dark:text-blue-400`}
             size={24}
           />
 
-          {/* Light Theme Icon - Managed for visibility and animation */}
+          {/* Light Theme Icon - Only show hover effects when active */}
           <Sun 
             className={`absolute inset-0 transition-all duration-500 ease-out 
                         ${isLightActive 
-                           ? 'opacity-100 scale-100 rotate-0' 
-                           : 'opacity-0 scale-50 rotate-[90deg]' // Rotated the other way for variety
+                           ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:rotate-180' // Active: visible with hover effects
+                           : 'opacity-0 scale-50 rotate-[90deg]' // Inactive: hidden, no hover effects
                         }
-                        text-yellow-500 group-hover:scale-110 group-hover:rotate-180`}
+                        text-yellow-500`}
             size={24}
           />
 
-          {/* Dark Theme Icon - Managed for visibility and animation */}
+          {/* Dark Theme Icon - Only show hover effects when active */}
           <Moon 
             className={`absolute inset-0 transition-all duration-500 ease-out 
                         ${isDarkActive 
-                           ? 'opacity-100 scale-100 rotate-0' 
-                           : 'opacity-0 scale-50 rotate-[-90deg]'
+                           ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:-rotate-12 group-hover:animate-pulse' // Active: visible with hover effects
+                           : 'opacity-0 scale-50 rotate-[-90deg]' // Inactive: hidden, no hover effects
                         }
-                        text-blue-400 group-hover:scale-110 group-hover:-rotate-12 group-hover:animate-pulse`}
+                        text-blue-400`}
             size={24}
           />
         </div>
