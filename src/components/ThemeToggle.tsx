@@ -8,35 +8,30 @@ const ThemeToggle = () => {
   const [isRotating, setIsRotating] = useState(false);
 
   const handleSystemTheme = () => {
+    // Only change if not already in system theme
     if (!isSystemTheme) {
       triggerRotation();
-      setSystemTheme(true);
+      setSystemTheme(true); // Set to system theme
     }
     setShowOptions(false);
   };
 
   const handleManualTheme = (targetDark: boolean) => {
-    // Check if we need to make a change
-    const needsChange = isSystemTheme || isDark !== targetDark;
-    
-    if (needsChange) {
-      triggerRotation();
-      
-      // If currently on system theme, switch to manual first
-      if (isSystemTheme) {
-        setSystemTheme(false);
-        // Set the theme directly without toggling
-        if (targetDark !== window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          // Only toggle if the target is different from current system preference
-          setTimeout(() => toggleTheme(), 50);
-        }
-      } else {
-        // Already on manual theme, just toggle if needed
-        if (isDark !== targetDark) {
-          toggleTheme();
-        }
-      }
+    triggerRotation(); // Always trigger rotation on manual theme change
+
+    // If currently in system theme, switch to manual mode first
+    if (isSystemTheme) {
+      setSystemTheme(false);
     }
+
+    // Now, ensure the 'isDark' state matches the 'targetDark'
+    // If they are different, call toggleTheme to flip the state.
+    if (isDark !== targetDark) {
+      // Using a small timeout to allow state updates to propagate if necessary.
+      // This mimics the original code's approach.
+      setTimeout(() => toggleTheme(), 50);
+    }
+    
     setShowOptions(false);
   };
 
@@ -51,7 +46,7 @@ const ThemeToggle = () => {
 
   const handleQuickToggle = () => {
     triggerRotation();
-    toggleTheme();
+    toggleTheme(); // This will flip between light and dark, or from system to the opposite of system's current state
   };
 
   return (
@@ -120,7 +115,7 @@ const ThemeToggle = () => {
         </button>
         
         <button
-          onClick={() => handleManualTheme(false)}
+          onClick={() => handleManualTheme(false)} // false for Light
           className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 backdrop-blur-sm mb-2 group ${
             !isSystemTheme && !isDark 
               ? 'bg-yellow-500/40 text-yellow-700 dark:text-yellow-300 shadow-lg scale-105 border border-yellow-300/30 dark:border-yellow-500/30' 
@@ -144,7 +139,7 @@ const ThemeToggle = () => {
         </button>
         
         <button
-          onClick={() => handleManualTheme(true)}
+          onClick={() => handleManualTheme(true)} // true for Dark
           className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 backdrop-blur-sm group ${
             !isSystemTheme && isDark 
               ? 'bg-blue-500/40 text-blue-700 dark:text-blue-300 shadow-lg scale-105 border border-blue-300/30 dark:border-blue-500/30' 
