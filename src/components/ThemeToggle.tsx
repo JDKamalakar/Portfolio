@@ -5,49 +5,67 @@ import { useTheme } from '../contexts/ThemeContext';
 const ThemeToggle = () => {
   const { isDark, toggleTheme, isSystemTheme, setSystemTheme } = useTheme();
   const [showOptions, setShowOptions] = useState(false);
+  const [isRotating, setIsRotating] = useState(false);
 
   const handleSystemTheme = () => {
-    setSystemTheme(true);
+    if (!isSystemTheme) {
+      triggerRotation();
+      setSystemTheme(true);
+    }
     setShowOptions(false);
   };
 
   const handleManualTheme = (dark: boolean) => {
-    setSystemTheme(false);
-    if (isDark !== dark) {
-      toggleTheme();
+    if (isSystemTheme || isDark !== dark) {
+      triggerRotation();
+      setSystemTheme(false);
+      if (isDark !== dark) {
+        toggleTheme();
+      }
     }
     setShowOptions(false);
+  };
+
+  const triggerRotation = () => {
+    setIsRotating(true);
+    setTimeout(() => setIsRotating(false), 600);
+  };
+
+  const handleToggleClick = () => {
+    triggerRotation();
+    toggleTheme();
+    setShowOptions(!showOptions);
   };
 
   return (
     <div className="fixed top-6 right-6 z-50">
       <button
-        onClick={() => setShowOptions(!showOptions)}
+        onClick={handleToggleClick}
         className="p-3 rounded-2xl backdrop-blur-md bg-white/25 dark:bg-gray-800/25 border border-gray-300/40 dark:border-gray-700/40 hover:bg-white/30 dark:hover:bg-gray-800/30 transition-all duration-300 hover:scale-110 group shadow-xl"
         aria-label="Toggle theme"
       >
         <div className="relative w-6 h-6">
           {/* System Theme Icon */}
           <Monitor 
-            className={`absolute inset-0 text-blue-500 dark:text-blue-400 transition-all duration-300 ${
+            className={`absolute inset-0 text-blue-500 dark:text-blue-400 transition-all duration-300 group-hover:scale-110 group-hover:animate-pulse ${
               isSystemTheme ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-0'
-            }`}
+            } ${isRotating ? 'animate-spin' : ''}`}
             size={24}
           />
           
           {/* Light Theme Icon */}
           <Sun 
-            className={`absolute inset-0 text-yellow-500 transition-all duration-300 ${
+            className={`absolute inset-0 text-yellow-500 transition-all duration-300 group-hover:scale-110 group-hover:rotate-180 ${
               !isSystemTheme && !isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-0'
-            }`}
+            } ${isRotating ? 'animate-spin' : ''}`}
             size={24}
           />
           
           {/* Dark Theme Icon */}
           <Moon 
-            className={`absolute inset-0 text-blue-400 transition-all duration-300 ${
+            className={`absolute inset-0 text-blue-400 transition-all duration-300 group-hover:scale-110 group-hover:-rotate-12 group-hover:animate-pulse ${
               !isSystemTheme && isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
-            }`}
+            } ${isRotating ? 'animate-spin' : ''}`}
             size={24}
           />
         </div>
@@ -61,7 +79,7 @@ const ThemeToggle = () => {
       }`}>
         <button
           onClick={handleSystemTheme}
-          className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 backdrop-blur-sm mb-2 ${
+          className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 backdrop-blur-sm mb-2 group ${
             isSystemTheme 
               ? 'bg-blue-500/40 text-blue-700 dark:text-blue-300 shadow-lg scale-105 border border-blue-300/30 dark:border-blue-500/30' 
               : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-gray-700/30'
@@ -72,13 +90,20 @@ const ThemeToggle = () => {
             opacity: showOptions ? 1 : 0
           }}
         >
-          <Monitor size={18} className="transition-transform duration-300 hover:rotate-12" />
+          <Monitor 
+            size={18} 
+            className={`transition-all duration-300 ${
+              isSystemTheme 
+                ? 'animate-pulse scale-110' 
+                : 'group-hover:rotate-12 group-hover:scale-110'
+            }`} 
+          />
           <span className="text-sm font-medium">System</span>
         </button>
         
         <button
           onClick={() => handleManualTheme(false)}
-          className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 backdrop-blur-sm mb-2 ${
+          className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 backdrop-blur-sm mb-2 group ${
             !isSystemTheme && !isDark 
               ? 'bg-yellow-500/40 text-yellow-700 dark:text-yellow-300 shadow-lg scale-105 border border-yellow-300/30 dark:border-yellow-500/30' 
               : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-gray-700/30'
@@ -89,13 +114,20 @@ const ThemeToggle = () => {
             opacity: showOptions ? 1 : 0
           }}
         >
-          <Sun size={18} className="transition-transform duration-300 hover:rotate-180" />
+          <Sun 
+            size={18} 
+            className={`transition-all duration-300 ${
+              !isSystemTheme && !isDark 
+                ? 'animate-pulse scale-110' 
+                : 'group-hover:rotate-180 group-hover:scale-110'
+            }`} 
+          />
           <span className="text-sm font-medium">Light</span>
         </button>
         
         <button
           onClick={() => handleManualTheme(true)}
-          className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 backdrop-blur-sm ${
+          className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 backdrop-blur-sm group ${
             !isSystemTheme && isDark 
               ? 'bg-blue-500/40 text-blue-700 dark:text-blue-300 shadow-lg scale-105 border border-blue-300/30 dark:border-blue-500/30' 
               : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-gray-700/30'
@@ -106,7 +138,14 @@ const ThemeToggle = () => {
             opacity: showOptions ? 1 : 0
           }}
         >
-          <Moon size={18} className="transition-transform duration-300 hover:-rotate-12" />
+          <Moon 
+            size={18} 
+            className={`transition-all duration-300 ${
+              !isSystemTheme && isDark 
+                ? 'animate-pulse scale-110' 
+                : 'group-hover:-rotate-12 group-hover:scale-110'
+            }`} 
+          />
           <span className="text-sm font-medium">Dark</span>
         </button>
       </div>

@@ -51,18 +51,18 @@ const Navigation = () => {
       {/* Mobile Menu Button with enhanced transparency */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-6 left-6 z-50 p-3 rounded-full backdrop-blur-xl bg-white/15 dark:bg-gray-800/15 border border-gray-300/20 dark:border-gray-700/20 hover:bg-white/25 dark:hover:bg-gray-800/25 transition-all duration-300 hover:scale-110 md:hidden shadow-lg"
+        className="fixed top-6 left-6 z-50 p-3 rounded-full backdrop-blur-xl bg-white/15 dark:bg-gray-800/15 border border-gray-300/20 dark:border-gray-700/20 hover:bg-white/25 dark:hover:bg-gray-800/25 transition-all duration-300 hover:scale-110 md:hidden shadow-lg group"
         aria-label="Toggle menu"
       >
         <div className="relative w-6 h-6">
           <Menu 
-            className={`absolute inset-0 text-gray-800 dark:text-gray-200 transition-all duration-300 ${
+            className={`absolute inset-0 text-gray-800 dark:text-gray-200 transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 ${
               isOpen ? 'opacity-0 rotate-90 scale-0' : 'opacity-100 rotate-0 scale-100'
             }`}
             size={24}
           />
           <X 
-            className={`absolute inset-0 text-gray-800 dark:text-gray-200 transition-all duration-300 ${
+            className={`absolute inset-0 text-gray-800 dark:text-gray-200 transition-all duration-300 group-hover:scale-110 group-hover:-rotate-12 ${
               isOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
             }`}
             size={24}
@@ -86,9 +86,21 @@ const Navigation = () => {
                 }`}
                 title={item.label}
               >
-                <Icon size={20} className="transition-transform duration-300" />
-                <span className="absolute left-full ml-3 px-3 py-2 bg-gray-900/90 dark:bg-gray-700/90 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap backdrop-blur-sm border border-white/10 shadow-lg transform translate-x-2 group-hover:translate-x-0">
+                <Icon 
+                  size={20} 
+                  className={`transition-all duration-300 ${
+                    activeSection === item.id 
+                      ? 'animate-pulse scale-110' 
+                      : 'group-hover:scale-125 group-hover:rotate-12 group-hover:animate-pulse'
+                  }`} 
+                />
+                
+                {/* Enhanced Tooltip with theme popup styling */}
+                <span className="absolute left-full ml-4 px-4 py-3 bg-white/25 dark:bg-gray-800/25 backdrop-blur-md text-gray-800 dark:text-gray-200 text-sm rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out whitespace-nowrap border border-gray-300/40 dark:border-gray-700/40 shadow-xl transform translate-x-4 group-hover:translate-x-0 scale-75 group-hover:scale-100 origin-left font-medium">
                   {item.label}
+                  
+                  {/* Tooltip arrow */}
+                  <div className="absolute left-0 top-1/2 transform -translate-x-1 -translate-y-1/2 w-2 h-2 bg-white/25 dark:bg-gray-800/25 border-l border-t border-gray-300/40 dark:border-gray-700/40 rotate-45 backdrop-blur-md"></div>
                 </span>
               </button>
             );
@@ -112,7 +124,7 @@ const Navigation = () => {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`flex items-center gap-3 w-full p-3 rounded-xl transition-all duration-300 hover:scale-105 mb-2 transform backdrop-blur-sm ${
+                  className={`flex items-center gap-3 w-full p-3 rounded-xl transition-all duration-300 hover:scale-105 mb-2 transform backdrop-blur-sm group ${
                     activeSection === item.id
                       ? 'bg-blue-500/60 text-white shadow-lg scale-105'
                       : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100/30 dark:hover:bg-gray-800/30'
@@ -123,7 +135,14 @@ const Navigation = () => {
                     opacity: isOpen ? 1 : 0
                   }}
                 >
-                  <Icon size={20} />
+                  <Icon 
+                    size={20} 
+                    className={`transition-all duration-300 ${
+                      activeSection === item.id 
+                        ? 'animate-pulse scale-110' 
+                        : 'group-hover:scale-125 group-hover:rotate-12'
+                    }`} 
+                  />
                   <span className="font-medium">{item.label}</span>
                 </button>
               );
