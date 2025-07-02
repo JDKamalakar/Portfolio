@@ -174,3 +174,4 @@ export const ThemeToggle: React.FC = () => {
     </div>
   );
 };
+export default ThemeToggle;
