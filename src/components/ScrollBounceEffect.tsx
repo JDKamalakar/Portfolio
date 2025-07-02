@@ -5,7 +5,7 @@ const ScrollBounceEffect = () => {
   const [isVisible, setIsVisible] = useState(false);
   const lastScrollTop = useRef(0);
   const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const clearTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const clearDirectionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,64 +14,85 @@ const ScrollBounceEffect = () => {
       const clientHeight = document.documentElement.clientHeight;
       const scrollBottom = scrollTop + clientHeight;
 
-      // Determine scroll direction
       const currentScrollTop = scrollTop;
       const isScrollingDown = currentScrollTop > lastScrollTop.current;
       const isScrollingUp = currentScrollTop < lastScrollTop.current;
 
-      // Update lastScrollTop for the next scroll event
       lastScrollTop.current = currentScrollTop;
 
-      // Clear any existing timeouts
-      if (hideTimeoutRef.current) {
-        clearTimeout(hideTimeoutRef.current);
-        hideTimeoutRef.current = null;
-      }
-      if (clearTimeoutRef.current) {
-        clearTimeout(clearTimeoutRef.current);
-        clearTimeoutRef.current = null;
-      }
-
-      // Check if at top AND scrolling up
+      // Condition to show the top bounce effect
       if (scrollTop <= 5 && isScrollingUp) {
+        // Clear any existing hide/clear timeouts before setting new ones for the bounce
+        if (hideTimeoutRef.current) {
+          clearTimeout(hideTimeoutRef.current);
+          hideTimeoutRef.current = null;
+        }
+        if (clearDirectionTimeoutRef.current) {
+          clearTimeout(clearDirectionTimeoutRef.current);
+          clearDirectionTimeoutRef.current = null;
+        }
+
         setBounceDirection('top');
         setIsVisible(true);
         
-        // Set a timeout to hide the elements after 1.5 seconds
+        // Set a timeout to hide the elements after 300 milliseconds
         hideTimeoutRef.current = setTimeout(() => {
           setIsVisible(false);
           // After elements fade out, clear the direction
-          clearTimeoutRef.current = setTimeout(() => {
+          clearDirectionTimeoutRef.current = setTimeout(() => {
             setBounceDirection(null);
           }, 500); // This duration should match the opacity transition duration
-        }, 1500);
+        }, 300); // Popup display duration
       }
-      // Check if at bottom AND scrolling down
+      // Condition to show the bottom bounce effect
       else if (scrollBottom >= scrollHeight - 5 && isScrollingDown) {
+        // Clear any existing hide/clear timeouts before setting new ones for the bounce
+        if (hideTimeoutRef.current) {
+          clearTimeout(hideTimeoutRef.current);
+          hideTimeoutRef.current = null;
+        }
+        if (clearDirectionTimeoutRef.current) {
+          clearTimeout(clearDirectionTimeoutRef.current);
+          clearDirectionTimeoutRef.current = null;
+        }
+
         setBounceDirection('bottom');
         setIsVisible(true);
         
-        // Set a timeout to hide the elements after 1.5 seconds
+        // Set a timeout to hide the elements after 300 milliseconds
         hideTimeoutRef.current = setTimeout(() => {
           setIsVisible(false);
           // After elements fade out, clear the direction
-          clearTimeoutRef.current = setTimeout(() => {
+          clearDirectionTimeoutRef.current = setTimeout(() => {
             setBounceDirection(null);
           }, 500); // This duration should match the opacity transition duration
-        }, 1500);
+        }, 300); // Popup display duration
       }
-      // If scrolling away from boundaries, hide immediately
-      else if (bounceDirection && isVisible) {
-        // Only hide if we're moving away from the boundary
-        const shouldHide = 
-          (bounceDirection === 'top' && (scrollTop > 50 || isScrollingDown)) ||
-          (bounceDirection === 'bottom' && (scrollBottom < scrollHeight - 50 || isScrollingUp));
-        
-        if (shouldHide) {
-          setIsVisible(false);
-          clearTimeoutRef.current = setTimeout(() => {
+      // Condition to hide if currently visible and scrolling away from the boundary
+      else if (isVisible) {
+        // Define a small threshold to consider "away from boundary"
+        const threshold = 10; 
+
+        const isAwayFromTop = bounceDirection === 'top' && (scrollTop > threshold || isScrollingDown);
+        const isAwayFromBottom = bounceDirection === 'bottom' && (scrollBottom < scrollHeight - threshold || isScrollingUp);
+
+        if (isAwayFromTop || isAwayFromBottom) {
+          setIsVisible(false); // Immediately start fading out
+
+          // Clear any pending hide timeouts as we're forcing a hide now
+          if (hideTimeoutRef.current) {
+            clearTimeout(hideTimeoutRef.current);
+            hideTimeoutRef.current = null;
+          }
+          
+          // Set a timeout to clear the direction after the fade-out transition completes
+          if (clearDirectionTimeoutRef.current) {
+            clearTimeout(clearDirectionTimeoutRef.current);
+            clearDirectionTimeoutRef.current = null;
+          }
+          clearDirectionTimeoutRef.current = setTimeout(() => {
             setBounceDirection(null);
-          }, 500);
+          }, 500); // Matches opacity transition duration
         }
       }
     };
@@ -92,14 +113,15 @@ const ScrollBounceEffect = () => {
 
     return () => {
       window.removeEventListener('scroll', throttledScroll);
+      // Clean up all timeouts when the component unmounts
       if (hideTimeoutRef.current) {
         clearTimeout(hideTimeoutRef.current);
       }
-      if (clearTimeoutRef.current) {
-        clearTimeout(clearTimeoutRef.current);
+      if (clearDirectionTimeoutRef.current) {
+        clearTimeout(clearDirectionTimeoutRef.current);
       }
     };
-  }, [bounceDirection, isVisible]); // Added dependencies for proper cleanup
+  }, [isVisible, bounceDirection]); // Dependencies ensure the latest state values are used in handleScroll
 
   if (!bounceDirection) return null;
 
@@ -173,4 +195,4 @@ const ScrollBounceEffect = () => {
   );
 };
 
-export default ScrollBounceEffect;1
+export default ScrollBounceEffect;
