@@ -16,9 +16,13 @@ const ThemeToggle = () => {
   };
 
   const handleManualTheme = (dark: boolean) => {
-    if (isSystemTheme || isDark !== dark) {
+    const needsChange = isSystemTheme || isDark !== dark;
+    if (needsChange) {
       triggerRotation();
-      setSystemTheme(false);
+      if (isSystemTheme) {
+        setSystemTheme(false);
+      }
+      // Only toggle if the current state doesn't match the desired state
       if (isDark !== dark) {
         toggleTheme();
       }
@@ -32,40 +36,44 @@ const ThemeToggle = () => {
   };
 
   const handleToggleClick = () => {
+    setShowOptions(!showOptions);
+  };
+
+  const handleQuickToggle = () => {
     triggerRotation();
     toggleTheme();
-    setShowOptions(!showOptions);
   };
 
   return (
     <div className="fixed top-6 right-6 z-50">
       <button
         onClick={handleToggleClick}
+        onDoubleClick={handleQuickToggle}
         className="p-3 rounded-2xl backdrop-blur-md bg-white/25 dark:bg-gray-800/25 border border-gray-300/40 dark:border-gray-700/40 hover:bg-white/30 dark:hover:bg-gray-800/30 transition-all duration-300 hover:scale-110 group shadow-xl"
         aria-label="Toggle theme"
       >
         <div className="relative w-6 h-6">
           {/* System Theme Icon */}
           <Monitor 
-            className={`absolute inset-0 text-blue-500 dark:text-blue-400 transition-all duration-300 group-hover:scale-110 group-hover:animate-pulse ${
+            className={`absolute inset-0 text-blue-500 dark:text-blue-400 transition-all duration-600 group-hover:scale-110 group-hover:animate-pulse ${
               isSystemTheme ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-0'
-            } ${isRotating ? 'animate-spin' : ''}`}
+            } ${isRotating && isSystemTheme ? 'animate-spin' : ''}`}
             size={24}
           />
           
           {/* Light Theme Icon */}
           <Sun 
-            className={`absolute inset-0 text-yellow-500 transition-all duration-300 group-hover:scale-110 group-hover:rotate-180 ${
+            className={`absolute inset-0 text-yellow-500 transition-all duration-600 group-hover:scale-110 group-hover:rotate-180 ${
               !isSystemTheme && !isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-0'
-            } ${isRotating ? 'animate-spin' : ''}`}
+            } ${isRotating && !isSystemTheme && !isDark ? 'animate-spin' : ''}`}
             size={24}
           />
           
           {/* Dark Theme Icon */}
           <Moon 
-            className={`absolute inset-0 text-blue-400 transition-all duration-300 group-hover:scale-110 group-hover:-rotate-12 group-hover:animate-pulse ${
+            className={`absolute inset-0 text-blue-400 transition-all duration-600 group-hover:scale-110 group-hover:-rotate-12 group-hover:animate-pulse ${
               !isSystemTheme && isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
-            } ${isRotating ? 'animate-spin' : ''}`}
+            } ${isRotating && !isSystemTheme && isDark ? 'animate-spin' : ''}`}
             size={24}
           />
         </div>

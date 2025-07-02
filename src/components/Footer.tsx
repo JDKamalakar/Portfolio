@@ -318,9 +318,9 @@ const Footer = () => {
 
           backdrop-blur-xl border border-white/30 hover:-translate-y-2
 
-          bg-gradient-to-r from-blue-500/40 to-purple-600/40 dark:from-blue-500/20 dark:to-purple-600/20
+          bg-gradient-to-r from-blue-500/60 to-purple-600/60 dark:from-blue-500/40 dark:to-purple-600/40
 
-          hover:from-blue-500/60 hover:to-purple-600/60 dark:hover:from-blue-500/40 dark:hover:to-purple-600/40
+          hover:from-blue-500/80 hover:to-purple-600/80 dark:hover:from-blue-500/60 dark:hover:to-purple-600/60
 
           ${
 

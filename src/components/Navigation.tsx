@@ -95,11 +95,11 @@ const Navigation = () => {
                   }`} 
                 />
                 
-                {/* Enhanced Tooltip with theme popup styling */}
-                <span className="absolute left-full ml-4 px-4 py-3 bg-white/25 dark:bg-gray-800/25 backdrop-blur-md text-gray-800 dark:text-gray-200 text-sm rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out whitespace-nowrap border border-gray-300/40 dark:border-gray-700/40 shadow-xl transform translate-x-4 group-hover:translate-x-0 scale-75 group-hover:scale-100 origin-left font-medium">
+                {/* Enhanced Tooltip with theme popup styling - Properly aligned */}
+                <span className="absolute left-full top-1/2 transform -translate-y-1/2 ml-3 px-4 py-3 bg-white/25 dark:bg-gray-800/25 backdrop-blur-md text-gray-800 dark:text-gray-200 text-sm rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out whitespace-nowrap border border-gray-300/40 dark:border-gray-700/40 shadow-xl translate-x-2 group-hover:translate-x-0 scale-75 group-hover:scale-100 origin-left font-medium pointer-events-none">
                   {item.label}
                   
-                  {/* Tooltip arrow */}
+                  {/* Tooltip arrow - Properly centered */}
                   <div className="absolute left-0 top-1/2 transform -translate-x-1 -translate-y-1/2 w-2 h-2 bg-white/25 dark:bg-gray-800/25 border-l border-t border-gray-300/40 dark:border-gray-700/40 rotate-45 backdrop-blur-md"></div>
                 </span>
               </button>
