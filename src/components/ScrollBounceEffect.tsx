@@ -160,4 +160,4 @@ const ScrollBounceEffect = () => {
   );
 };
 
-export default ScrollBounceEffect;
+export default ScrollBounceEffect;1
