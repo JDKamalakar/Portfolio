@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Sun, Moon, Monitor } from 'lucide-react';
-import { useTheme } from '../components/ThemeProvider'; // Adjust path as needed
 
 export const ThemeToggle: React.FC = () => {
   const { theme, setTheme, isDark } = useTheme();
