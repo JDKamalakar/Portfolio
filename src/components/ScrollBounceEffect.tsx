@@ -3,13 +3,10 @@ import React, { useEffect, useState, useRef } from 'react';
 const ScrollBounceEffect = () => {
   const [bounceDirection, setBounceDirection] = useState<'top' | 'bottom' | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-  // useRef to store the previous scroll position without causing re-renders
   const lastScrollTop = useRef(0);
+  const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    let bounceTimeout: NodeJS.Timeout;
-    let hideTimeout: NodeJS.Timeout; // For hiding the elements
-
     const handleScroll = () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const scrollHeight = document.documentElement.scrollHeight;
@@ -24,44 +21,44 @@ const ScrollBounceEffect = () => {
       // Update lastScrollTop for the next scroll event
       lastScrollTop.current = currentScrollTop;
 
+      // Clear any existing timeout
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+        hideTimeoutRef.current = null;
+      }
+
       // Check if at top AND scrolling up
       if (scrollTop <= 5 && isScrollingUp) {
-        clearTimeout(bounceTimeout);
-        clearTimeout(hideTimeout); // Clear previous hide timeout
         setBounceDirection('top');
         setIsVisible(true);
         
-        // Set a timeout to hide the elements after 300 milliseconds
-        hideTimeout = setTimeout(() => {
+        // Set a timeout to hide the elements after 1 second
+        hideTimeoutRef.current = setTimeout(() => {
           setIsVisible(false);
           // After elements fade out, clear the direction
           setTimeout(() => {
             setBounceDirection(null);
           }, 500); // This duration should match the opacity transition duration
-        }, 300); // Changed from 1500ms to 300ms
+        }, 1000);
       }
       // Check if at bottom AND scrolling down
       else if (scrollBottom >= scrollHeight - 5 && isScrollingDown) {
-        clearTimeout(bounceTimeout);
-        clearTimeout(hideTimeout); // Clear previous hide timeout
         setBounceDirection('bottom');
         setIsVisible(true);
         
-        // Set a timeout to hide the elements after 300 milliseconds
-        hideTimeout = setTimeout(() => {
+        // Set a timeout to hide the elements after 1 second
+        hideTimeoutRef.current = setTimeout(() => {
           setIsVisible(false);
           // After elements fade out, clear the direction
           setTimeout(() => {
             setBounceDirection(null);
           }, 500); // This duration should match the opacity transition duration
-        }, 300); // Changed from 1500ms to 300ms
+        }, 1000);
       }
       // If not at top/bottom or scrolling in the "wrong" direction, hide immediately
-      else if (isVisible && (scrollTop > 5 || scrollBottom < scrollHeight - 5)) {
+      else if (isVisible && (scrollTop > 5 && scrollBottom < scrollHeight - 5)) {
         setIsVisible(false);
-        clearTimeout(bounceTimeout); // Clear any pending bounce timeouts
-        clearTimeout(hideTimeout); // Clear any pending hide timeouts
-        hideTimeout = setTimeout(() => {
+        setTimeout(() => {
           setBounceDirection(null);
         }, 500);
       }
@@ -83,8 +80,9 @@ const ScrollBounceEffect = () => {
 
     return () => {
       window.removeEventListener('scroll', throttledScroll);
-      clearTimeout(bounceTimeout);
-      clearTimeout(hideTimeout);
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+      }
     };
   }, [isVisible]);
 
@@ -112,7 +110,7 @@ const ScrollBounceEffect = () => {
               </div>
             </div>
             
-            {/* Text indicator: Removed diamond, smaller padding */}
+            {/* Text indicator with glass effect */}
             <div className="absolute top-10 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
               <span className="px-3 py-2 bg-white/25 dark:bg-gray-800/25 backdrop-blur-md text-gray-800 dark:text-gray-200 text-xs rounded-xl shadow-lg font-medium pointer-events-none border border-gray-300/40 dark:border-gray-700/40">
                 Top of page
@@ -128,7 +126,7 @@ const ScrollBounceEffect = () => {
           <div className={`transform transition-all duration-700 ease-out ${
             isVisible ? 'translate-y-0 scale-100' : 'translate-y-6 scale-75'
           }`}>
-            {/* Text indicator: Removed diamond, smaller padding */}
+            {/* Text indicator with glass effect */}
             <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
               <span className="px-3 py-2 bg-white/25 dark:bg-gray-800/25 backdrop-blur-md text-gray-800 dark:text-gray-200 text-xs rounded-xl shadow-lg font-medium pointer-events-none border border-gray-300/40 dark:border-gray-700/40">
                 End of page

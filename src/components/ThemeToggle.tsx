@@ -15,16 +15,26 @@ const ThemeToggle = () => {
     setShowOptions(false);
   };
 
-  const handleManualTheme = (dark: boolean) => {
-    const needsChange = isSystemTheme || isDark !== dark;
+  const handleManualTheme = (targetDark: boolean) => {
+    // Check if we need to make a change
+    const needsChange = isSystemTheme || isDark !== targetDark;
+    
     if (needsChange) {
       triggerRotation();
+      
+      // If currently on system theme, switch to manual first
       if (isSystemTheme) {
         setSystemTheme(false);
-      }
-      // Only toggle if the current state doesn't match the desired state
-      if (isDark !== dark) {
-        toggleTheme();
+        // Set the theme directly without toggling
+        if (targetDark !== window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          // Only toggle if the target is different from current system preference
+          setTimeout(() => toggleTheme(), 50);
+        }
+      } else {
+        // Already on manual theme, just toggle if needed
+        if (isDark !== targetDark) {
+          toggleTheme();
+        }
       }
     }
     setShowOptions(false);

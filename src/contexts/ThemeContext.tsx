@@ -11,7 +11,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isDark, setIsDark] = useState(false);
-  const [isSystemTheme, setIsSystemTheme] = useState(true);
+  const [isSystemTheme, setIsSystemThemeState] = useState(true);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -19,10 +19,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     
     // If no saved preference exists, default to system theme
     if (savedSystemPref === null || savedSystemPref === 'true') {
-      setIsSystemTheme(true);
+      setIsSystemThemeState(true);
       setIsDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
     } else {
-      setIsSystemTheme(false);
+      setIsSystemThemeState(false);
       setIsDark(savedTheme === 'dark');
     }
   }, []);
@@ -51,23 +51,22 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, [isSystemTheme]);
 
   const toggleTheme = () => {
-    // When toggling, cycle through: System → Light → Dark → System
     if (isSystemTheme) {
       // From System to Light
-      setIsSystemTheme(false);
+      setIsSystemThemeState(false);
       setIsDark(false);
     } else if (!isDark) {
       // From Light to Dark
       setIsDark(true);
     } else {
       // From Dark back to System
-      setIsSystemTheme(true);
+      setIsSystemThemeState(true);
       setIsDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
     }
   };
 
   const setSystemTheme = (useSystem: boolean) => {
-    setIsSystemTheme(useSystem);
+    setIsSystemThemeState(useSystem);
     if (useSystem) {
       setIsDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
     }
