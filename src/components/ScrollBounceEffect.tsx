@@ -109,7 +109,7 @@ const ScrollBounceEffect = () => {
             
             {/* Text indicator */}
             <div className="absolute top-12 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-              <span className="text-xs font-medium text-gray-700 dark:text-gray-300 bg-white/90 dark:bg-gray-800/90 px-2 py-1 rounded-xl backdrop-blur-sm border border-white/40 dark:border-gray-700/40 shadow-lg">
+              <span className="text-xs font-medium text-gray-700 dark:text-gray-300 bg-white/90 dark:bg-gray-800/90 px-2 py-2 rounded-xl backdrop-blur-sm border border-white/40 dark:border-gray-700/40 shadow-lg">
                 Top of page
               </span>
             </div>
