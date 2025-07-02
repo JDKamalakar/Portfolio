@@ -31,14 +31,14 @@ const ScrollBounceEffect = () => {
         setBounceDirection('top');
         setIsVisible(true);
         
-        // Set a timeout to hide the elements after 1.5 seconds
+        // Set a timeout to hide the elements after 300 milliseconds
         hideTimeout = setTimeout(() => {
           setIsVisible(false);
           // After elements fade out, clear the direction
           setTimeout(() => {
             setBounceDirection(null);
           }, 500); // This duration should match the opacity transition duration
-        }, 1500); // Adjust this value to control how long it stays visible
+        }, 300); // Changed from 1500ms to 300ms
       }
       // Check if at bottom AND scrolling down
       else if (scrollBottom >= scrollHeight - 5 && isScrollingDown) {
@@ -47,14 +47,14 @@ const ScrollBounceEffect = () => {
         setBounceDirection('bottom');
         setIsVisible(true);
         
-        // Set a timeout to hide the elements after 1.5 seconds
+        // Set a timeout to hide the elements after 300 milliseconds
         hideTimeout = setTimeout(() => {
           setIsVisible(false);
           // After elements fade out, clear the direction
           setTimeout(() => {
             setBounceDirection(null);
           }, 500); // This duration should match the opacity transition duration
-        }, 1500); // Adjust this value to control how long it stays visible
+        }, 300); // Changed from 1500ms to 300ms
       }
       // If not at top/bottom or scrolling in the "wrong" direction, hide immediately
       else if (isVisible && (scrollTop > 5 || scrollBottom < scrollHeight - 5)) {
@@ -113,8 +113,8 @@ const ScrollBounceEffect = () => {
             </div>
             
             {/* Text indicator: Removed diamond, smaller padding */}
-            <div className="absolute top-10 left-1/2 transform -translate-x-1/2 whitespace-nowrap"> {/* Adjusted top for placement */}
-              <span className="px-3 py-2 bg-white/25 dark:bg-gray-800/25 backdrop-blur-md text-gray-800 dark:text-gray-200 text-xs rounded-xl shadow-lg font-medium pointer-events-none border border-gray-300/40 dark:border-gray-700/40"> {/* Smaller padding, text-xs for smaller font, rounded-xl */}
+            <div className="absolute top-10 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
+              <span className="px-3 py-2 bg-white/25 dark:bg-gray-800/25 backdrop-blur-md text-gray-800 dark:text-gray-200 text-xs rounded-xl shadow-lg font-medium pointer-events-none border border-gray-300/40 dark:border-gray-700/40">
                 Top of page
               </span>
             </div>
@@ -129,8 +129,8 @@ const ScrollBounceEffect = () => {
             isVisible ? 'translate-y-0 scale-100' : 'translate-y-6 scale-75'
           }`}>
             {/* Text indicator: Removed diamond, smaller padding */}
-            <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 whitespace-nowrap"> {/* Adjusted bottom for placement */}
-              <span className="px-3 py-2 bg-white/25 dark:bg-gray-800/25 backdrop-blur-md text-gray-800 dark:text-gray-200 text-xs rounded-xl shadow-lg font-medium pointer-events-none border border-gray-300/40 dark:border-gray-700/40"> {/* Smaller padding, text-xs for smaller font, rounded-xl */}
+            <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
+              <span className="px-3 py-2 bg-white/25 dark:bg-gray-800/25 backdrop-blur-md text-gray-800 dark:text-gray-200 text-xs rounded-xl shadow-lg font-medium pointer-events-none border border-gray-300/40 dark:border-gray-700/40">
                 End of page
               </span>
             </div>
@@ -160,4 +160,4 @@ const ScrollBounceEffect = () => {
   );
 };
 
-export default ScrollBounceEffect;1
+export default ScrollBounceEffect;
