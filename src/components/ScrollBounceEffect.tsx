@@ -107,11 +107,13 @@ const ScrollBounceEffect = () => {
               </div>
             </div>
             
-            {/* Text indicator */}
+            {/* Text indicator: Applied tooltip styling */}
             <div className="absolute top-12 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-              <span className="text-xs font-medium font-bold text-gray-800 dark:text-gray-200 mb-4 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">
+              <span className="px-4 py-3 bg-white/25 dark:bg-gray-800/25 backdrop-blur-md text-gray-800 dark:text-gray-200 text-sm rounded-2xl shadow-xl font-medium pointer-events-none border border-gray-300/40 dark:border-gray-700/40">
                 Top of page
               </span>
+              {/* Tooltip arrow - Properly centered */}
+              <div className="absolute left-1/2 top-0 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white/25 dark:bg-gray-800/25 border-l border-t border-gray-300/40 dark:border-gray-700/40 rotate-45 backdrop-blur-md"></div>
             </div>
           </div>
         </div>
@@ -123,11 +125,13 @@ const ScrollBounceEffect = () => {
           <div className={`transform transition-all duration-700 ease-out ${
             isVisible ? 'translate-y-0 scale-100' : 'translate-y-6 scale-75'
           }`}>
-            {/* Text indicator */}
+            {/* Text indicator: Applied tooltip styling */}
             <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-              <span className="text-xs font-medium text-gray-700 dark:text-gray-300 bg-white/90 dark:bg-gray-800/90 px-2 py-2 rounded-xl backdrop-blur-sm border border-white/40 dark:border-gray-700/40 shadow-lg">
+              <span className="px-4 py-3 bg-white/25 dark:bg-gray-800/25 backdrop-blur-md text-gray-800 dark:text-gray-200 text-sm rounded-2xl shadow-xl font-medium pointer-events-none border border-gray-300/40 dark:border-gray-700/40">
                 End of page
               </span>
+              {/* Tooltip arrow - Properly centered */}
+              <div className="absolute left-1/2 bottom-0 transform -translate-x-1/2 translate-y-1/2 w-2 h-2 bg-white/25 dark:bg-gray-800/25 border-r border-b border-gray-300/40 dark:border-gray-700/40 rotate-45 backdrop-blur-md"></div>
             </div>
             
             {/* Bounce Indicator Container */}
@@ -155,4 +159,4 @@ const ScrollBounceEffect = () => {
   );
 };
 
-export default ScrollBounceEffect;1
+export default ScrollBounceEffect;
