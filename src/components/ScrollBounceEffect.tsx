@@ -5,6 +5,7 @@ const ScrollBounceEffect = () => {
   const [isVisible, setIsVisible] = useState(false);
   const lastScrollTop = useRef(0);
   const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const clearTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,10 +22,14 @@ const ScrollBounceEffect = () => {
       // Update lastScrollTop for the next scroll event
       lastScrollTop.current = currentScrollTop;
 
-      // Clear any existing timeout
+      // Clear any existing timeouts
       if (hideTimeoutRef.current) {
         clearTimeout(hideTimeoutRef.current);
         hideTimeoutRef.current = null;
+      }
+      if (clearTimeoutRef.current) {
+        clearTimeout(clearTimeoutRef.current);
+        clearTimeoutRef.current = null;
       }
 
       // Check if at top AND scrolling up
@@ -32,35 +37,42 @@ const ScrollBounceEffect = () => {
         setBounceDirection('top');
         setIsVisible(true);
         
-        // Set a timeout to hide the elements after 1 second
+        // Set a timeout to hide the elements after 1.5 seconds
         hideTimeoutRef.current = setTimeout(() => {
           setIsVisible(false);
           // After elements fade out, clear the direction
-          setTimeout(() => {
+          clearTimeoutRef.current = setTimeout(() => {
             setBounceDirection(null);
           }, 500); // This duration should match the opacity transition duration
-        }, 1000);
+        }, 1500);
       }
       // Check if at bottom AND scrolling down
       else if (scrollBottom >= scrollHeight - 5 && isScrollingDown) {
         setBounceDirection('bottom');
         setIsVisible(true);
         
-        // Set a timeout to hide the elements after 1 second
+        // Set a timeout to hide the elements after 1.5 seconds
         hideTimeoutRef.current = setTimeout(() => {
           setIsVisible(false);
           // After elements fade out, clear the direction
-          setTimeout(() => {
+          clearTimeoutRef.current = setTimeout(() => {
             setBounceDirection(null);
           }, 500); // This duration should match the opacity transition duration
-        }, 1000);
+        }, 1500);
       }
-      // If not at top/bottom or scrolling in the "wrong" direction, hide immediately
-      else if (isVisible && (scrollTop > 5 && scrollBottom < scrollHeight - 5)) {
-        setIsVisible(false);
-        setTimeout(() => {
-          setBounceDirection(null);
-        }, 500);
+      // If scrolling away from boundaries, hide immediately
+      else if (bounceDirection && isVisible) {
+        // Only hide if we're moving away from the boundary
+        const shouldHide = 
+          (bounceDirection === 'top' && (scrollTop > 50 || isScrollingDown)) ||
+          (bounceDirection === 'bottom' && (scrollBottom < scrollHeight - 50 || isScrollingUp));
+        
+        if (shouldHide) {
+          setIsVisible(false);
+          clearTimeoutRef.current = setTimeout(() => {
+            setBounceDirection(null);
+          }, 500);
+        }
       }
     };
 
@@ -83,8 +95,11 @@ const ScrollBounceEffect = () => {
       if (hideTimeoutRef.current) {
         clearTimeout(hideTimeoutRef.current);
       }
+      if (clearTimeoutRef.current) {
+        clearTimeout(clearTimeoutRef.current);
+      }
     };
-  }, [isVisible]);
+  }, [bounceDirection, isVisible]); // Added dependencies for proper cleanup
 
   if (!bounceDirection) return null;
 
