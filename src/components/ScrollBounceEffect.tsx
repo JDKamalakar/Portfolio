@@ -8,7 +8,7 @@ const ScrollBounceEffect = () => {
 
   useEffect(() => {
     let bounceTimeout: NodeJS.Timeout;
-    let hideTimeout: NodeJS.Timeout;
+    let hideTimeout: NodeJS.Timeout; // For hiding the elements
 
     const handleScroll = () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -27,35 +27,40 @@ const ScrollBounceEffect = () => {
       // Check if at top AND scrolling up
       if (scrollTop <= 5 && isScrollingUp) {
         clearTimeout(bounceTimeout);
-        clearTimeout(hideTimeout);
+        clearTimeout(hideTimeout); // Clear previous hide timeout
         setBounceDirection('top');
         setIsVisible(true);
         
-        bounceTimeout = setTimeout(() => {
+        // Set a timeout to hide the elements after 1.5 seconds
+        hideTimeout = setTimeout(() => {
           setIsVisible(false);
-          hideTimeout = setTimeout(() => {
+          // After elements fade out, clear the direction
+          setTimeout(() => {
             setBounceDirection(null);
-          }, 500);
-        }, 1000);
+          }, 500); // This duration should match the opacity transition duration
+        }, 1500); // Adjust this value to control how long it stays visible
       }
       // Check if at bottom AND scrolling down
       else if (scrollBottom >= scrollHeight - 5 && isScrollingDown) {
         clearTimeout(bounceTimeout);
-        clearTimeout(hideTimeout);
+        clearTimeout(hideTimeout); // Clear previous hide timeout
         setBounceDirection('bottom');
         setIsVisible(true);
         
-        bounceTimeout = setTimeout(() => {
+        // Set a timeout to hide the elements after 1.5 seconds
+        hideTimeout = setTimeout(() => {
           setIsVisible(false);
-          hideTimeout = setTimeout(() => {
+          // After elements fade out, clear the direction
+          setTimeout(() => {
             setBounceDirection(null);
-          }, 500);
-        }, 1000);
+          }, 500); // This duration should match the opacity transition duration
+        }, 1500); // Adjust this value to control how long it stays visible
       }
       // If not at top/bottom or scrolling in the "wrong" direction, hide immediately
       else if (isVisible && (scrollTop > 5 || scrollBottom < scrollHeight - 5)) {
         setIsVisible(false);
         clearTimeout(bounceTimeout); // Clear any pending bounce timeouts
+        clearTimeout(hideTimeout); // Clear any pending hide timeouts
         hideTimeout = setTimeout(() => {
           setBounceDirection(null);
         }, 500);
@@ -81,7 +86,7 @@ const ScrollBounceEffect = () => {
       clearTimeout(bounceTimeout);
       clearTimeout(hideTimeout);
     };
-  }, [isVisible]); // Add isVisible to dependency array to re-run effect when it changes for proper cleanup
+  }, [isVisible]);
 
   if (!bounceDirection) return null;
 
@@ -107,13 +112,11 @@ const ScrollBounceEffect = () => {
               </div>
             </div>
             
-            {/* Text indicator: Applied tooltip styling */}
-            <div className="absolute top-12 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-              <span className="px-4 py-3 bg-white/25 dark:bg-gray-800/25 backdrop-blur-md text-gray-800 dark:text-gray-200 text-sm rounded-2xl shadow-xl font-medium pointer-events-none border border-gray-300/40 dark:border-gray-700/40">
+            {/* Text indicator: Removed diamond, smaller padding */}
+            <div className="absolute top-10 left-1/2 transform -translate-x-1/2 whitespace-nowrap"> {/* Adjusted top for placement */}
+              <span className="px-3 py-2 bg-white/25 dark:bg-gray-800/25 backdrop-blur-md text-gray-800 dark:text-gray-200 text-xs rounded-xl shadow-lg font-medium pointer-events-none border border-gray-300/40 dark:border-gray-700/40"> {/* Smaller padding, text-xs for smaller font, rounded-xl */}
                 Top of page
               </span>
-              {/* Tooltip arrow - Properly centered */}
-              <div className="absolute left-1/2 top-0 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white/25 dark:bg-gray-800/25 border-l border-t border-gray-300/40 dark:border-gray-700/40 rotate-45 backdrop-blur-md"></div>
             </div>
           </div>
         </div>
@@ -125,13 +128,11 @@ const ScrollBounceEffect = () => {
           <div className={`transform transition-all duration-700 ease-out ${
             isVisible ? 'translate-y-0 scale-100' : 'translate-y-6 scale-75'
           }`}>
-            {/* Text indicator: Applied tooltip styling */}
-            <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-              <span className="px-4 py-3 bg-white/25 dark:bg-gray-800/25 backdrop-blur-md text-gray-800 dark:text-gray-200 text-sm rounded-2xl shadow-xl font-medium pointer-events-none border border-gray-300/40 dark:border-gray-700/40">
+            {/* Text indicator: Removed diamond, smaller padding */}
+            <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 whitespace-nowrap"> {/* Adjusted bottom for placement */}
+              <span className="px-3 py-2 bg-white/25 dark:bg-gray-800/25 backdrop-blur-md text-gray-800 dark:text-gray-200 text-xs rounded-xl shadow-lg font-medium pointer-events-none border border-gray-300/40 dark:border-gray-700/40"> {/* Smaller padding, text-xs for smaller font, rounded-xl */}
                 End of page
               </span>
-              {/* Tooltip arrow - Properly centered */}
-              <div className="absolute left-1/2 bottom-0 transform -translate-x-1/2 translate-y-1/2 w-2 h-2 bg-white/25 dark:bg-gray-800/25 border-r border-b border-gray-300/40 dark:border-gray-700/40 rotate-45 backdrop-blur-md"></div>
             </div>
             
             {/* Bounce Indicator Container */}
@@ -159,4 +160,4 @@ const ScrollBounceEffect = () => {
   );
 };
 
-export default ScrollBounceEffect;1
+export default ScrollBounceEffect;
