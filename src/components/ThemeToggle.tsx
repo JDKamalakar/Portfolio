@@ -65,7 +65,7 @@ const ThemeToggle = () => {
     >
       <button
         onClick={() => setShowOptions(!showOptions)}
-        className="p-3 rounded-2xl bg-white/25 dark:bg-gray-800/25 backdrop-blur-md border border-gray-300/40 dark:border-gray-700/40 hover:bg-white/30 dark:hover:bg-gray-800/30 transition-all duration-300 hover:scale-200 group shadow-xl"
+        className="p-3 rounded-2xl bg-white/25 dark:bg-gray-800/25 backdrop-blur-md border border-gray-300/40 dark:border-gray-700/40 hover:bg-white/30 dark:hover:bg-gray-800/30 transition-all duration-300 hover:scale-110 group shadow-xl"
         aria-label="Toggle theme"
       >
         {/* Outer div to handle the 360-degree rotation when popover opens/closes */}
@@ -88,7 +88,7 @@ const ThemeToggle = () => {
           <Sun
             className={`absolute inset-0 transition-all duration-500 ease-out
                         ${isLightActive
-                            ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:rotate-180'
+                            ? 'opacity-100 scale-100 rotate-0 group-hover:scale-200 group-hover:rotate-180'
                             : 'opacity-0 scale-50 rotate-[90deg]'
                         }
                         text-yellow-500`}
