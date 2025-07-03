@@ -124,9 +124,9 @@ const ThemeToggle = () => {
             }
             hover:scale-105 hover:-translate-y-1`}
           style={{
-            transitionDelay: showOptions ? '100ms' : '0ms',
-            transform: showOptions ? 'translateX(0)' : 'translateX(-10px)',
-            opacity: showOptions ? 1 : 0
+            transitionDelay: showOptions ? '100ms' : '0ms', // Keep opening delay
+            opacity: showOptions ? 1 : 0 // Keep opacity based on showOptions
+            // Removed transform here as it's handled by tailwind classes and transition-delay was causing issues
           }}
         >
           {/* Icon always visible, only animates */}
@@ -150,8 +150,7 @@ const ThemeToggle = () => {
             }
             hover:scale-105 hover:-translate-y-1`}
           style={{
-            transitionDelay: showOptions ? '150ms' : '0ms',
-            transform: showOptions ? 'translateX(0)' : 'translateX(-10px)',
+            transitionDelay: showOptions ? '150ms' : '0ms', // Keep opening delay
             opacity: showOptions ? 1 : 0
           }}
         >
@@ -176,8 +175,7 @@ const ThemeToggle = () => {
             }
             hover:scale-105 hover:-translate-y-1`}
           style={{
-            transitionDelay: showOptions ? '200ms' : '0ms',
-            transform: showOptions ? 'translateX(0)' : 'translateX(-10px)',
+            transitionDelay: showOptions ? '200ms' : '0ms', // Keep opening delay
             opacity: showOptions ? 1 : 0
           }}
         >
@@ -196,4 +194,4 @@ const ThemeToggle = () => {
   );
 };
 
-export default ThemeToggle;1
+export default ThemeToggle;
