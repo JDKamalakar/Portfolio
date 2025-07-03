@@ -46,7 +46,7 @@ function isServiceWorkerSupported(): boolean {
 const isMobileDevice = () => {
   if (typeof window === 'undefined') return false; // Server-side rendering check
   const userAgent = navigator.userAgent || navigator.vendor;
-  return /android|iphone|ipad|ipod|blackberry|windows phone/i.test(userAgent);
+  return /android|iphone|ipad|ipod|blackberry|windows phone/i.i test(userAgent);
 };
 
 // ===============================================
@@ -139,15 +139,15 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
           <button
             onClick={onDismiss}
             className="
-              absolute top-0 right-0 p-1.5 rounded-lg cursor-pointer
+              absolute top-0 right-0 p-2 rounded-lg cursor-pointer
               transition-all duration-300 ease-in-out group
-              hover:scale-110 active:scale-90 w-7 h-7 flex items-center justify-center
+              hover:scale-110 active:scale-90 w-8 h-8 flex items-center justify-center
               bg-white/20 dark:bg-gray-800/20 border border-gray-300/30 dark:border-gray-700/30 shadow-md
               dark:shadow-blue-500/50 dark:hover:shadow-blue-500/70
             "
           >
-            {/* Replaced SVG with Lucide X component */}
-            <X className="w-5 h-5 text-error transition-transform duration-200 group-hover:rotate-90 group-hover:scale-110" />
+            {/* Explicitly set text-red-500 and increased size to w-5 h-5 */}
+            <X className="w-5 h-5 text-red-500 transition-transform duration-200 group-hover:rotate-90 group-hover:scale-110" />
           </button>
         </div>
         <div className="flex gap-3 mt-4">
@@ -384,4 +384,4 @@ const PWAInstaller: React.FC = () => {
   );
 };
 
-export default PWAInstaller;33
+export default PWAInstaller;
