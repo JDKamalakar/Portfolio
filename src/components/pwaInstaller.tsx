@@ -41,6 +41,14 @@ function isServiceWorkerSupported(): boolean {
   return !isStackBlitz;
 }
 
+// Simple component to detect if it's likely a mobile device based on user agent
+const isMobileDevice = () => {
+  if (typeof window === 'undefined') return false; // Server-side rendering check
+  const userAgent = navigator.userAgent || navigator.vendor;
+  return /android|iphone|ipad|ipod|blackberry|windows phone/i.test(userAgent);
+};
+
+
 // ===============================================
 // React Component for PWA Install Prompt
 // ===============================================
@@ -52,6 +60,7 @@ interface InstallBannerProps {
 
 const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const isMobile = isMobileDevice();
 
   useEffect(() => {
     // Trigger animation after component mounts
@@ -83,19 +92,39 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
         ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
       `}
       style={{
-        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(139, 92, 246, 0.4))', // More transparent background
-        backdropFilter: 'blur(10px) saturate(180%)', // Glass-like effect
-        WebkitBackdropFilter: 'blur(10px) saturate(180%)', // For Safari
-        boxShadow: '0 10px 20px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1)', // Deeper shadow
+        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(139, 92, 246, 0.25))', // Reduced transparency further
+        backdropFilter: 'blur(15px) saturate(200%)', // More blur and saturation for glass effect
+        WebkitBackdropFilter: 'blur(15px) saturate(200%)', // For Safari
+        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.15)', // Deeper, more diffused shadow
         color: 'white'
       }}
     >
       <div className="flex items-center gap-4 mb-3">
-        <div className="text-3xl drop-shadow-md">📱</div> {/* Drop shadow for icon */}
+        <div className="text-3xl drop-shadow-md">
+          {isMobile ? (
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smartphone"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg> // Phone icon
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-laptop"><path d="M20 18H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2Z"/><path d="M2 15h20"/></svg> // Laptop icon
+          )}
+        </div>
         <div>
           <div className="font-bold mb-1 text-lg text-shadow-sm">Install Portfolio App</div> {/* Text shadow */}
           <div className="text-sm opacity-90 leading-tight">Add to home screen for quick access and offline viewing</div>
         </div>
+        <button
+          onClick={onDismiss}
+          className="
+            absolute top-3 right-3 p-1 rounded-full cursor-pointer text-sm
+            transition-all duration-300 ease-in-out group
+            hover:scale-125 active:scale-90
+          "
+          style={{
+            background: 'rgba(255,255,255,0.1)', // Slightly visible background for button
+            border: '1px solid rgba(255,255,255,0.3)',
+          }}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x text-red-400 group-hover:rotate-180 transition-transform duration-300"></svg>
+        </button>
       </div>
       <div className="flex gap-3 mt-4">
         <button
@@ -103,32 +132,16 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
           className="
             flex-1 py-3 px-5 rounded-lg cursor-pointer font-semibold text-sm
             transition-all duration-300 ease-in-out
-            shadow-md hover:shadow-lg active:scale-95
+            shadow-md hover:shadow-lg active:scale-95 hover:scale-[1.03]
           "
           style={{
-            background: 'rgba(255,255,255,0.2)', // More transparent
+            background: 'rgba(255,255,255,0.15)', // More transparent
             border: '1px solid rgba(255,255,255,0.4)',
           }}
-          onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.3)')}
-          onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.2)')}
+          onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.25)')}
+          onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.15)')}
         >
           ⬇️ Install
-        </button>
-        <button
-          onClick={onDismiss}
-          className="
-            py-3 px-4 rounded-lg cursor-pointer text-sm
-            transition-all duration-300 ease-in-out
-            shadow-md hover:shadow-lg active:scale-95
-          "
-          style={{
-            background: 'transparent',
-            border: '1px solid rgba(255,255,255,0.4)',
-          }}
-          onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')}
-          onMouseOut={(e) => (e.currentTarget.style.background = 'transparent')}
-        >
-          ✕
         </button>
       </div>
     </div>,
@@ -142,6 +155,7 @@ interface ThankYouBannerProps {
 
 const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const isMobile = isMobileDevice();
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -168,15 +182,21 @@ const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
         ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
       `}
       style={{
-        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.4), rgba(5, 150, 105, 0.4))', // More transparent background
-        backdropFilter: 'blur(10px) saturate(180%)', // Glass-like effect
-        WebkitBackdropFilter: 'blur(10px) saturate(180%)', // For Safari
-        boxShadow: '0 10px 20px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1)', // Deeper shadow
+        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(5, 150, 105, 0.25))', // Reduced transparency further
+        backdropFilter: 'blur(15px) saturate(200%)', // More blur and saturation for glass effect
+        WebkitBackdropFilter: 'blur(15px) saturate(200%)', // For Safari
+        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.15)', // Deeper, more diffused shadow
         color: 'white'
       }}
     >
       <div className="flex items-center gap-3">
-        <div className="text-2xl drop-shadow-md">✅</div> {/* Drop shadow for icon */}
+        <div className="text-2xl drop-shadow-md">
+          {isMobile ? (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smartphone-check"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="m9 12 2 2 4-4"/><path d="M12 18h.01"/></svg> // Phone with check icon
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-laptop-check"><path d="M11 20H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5"/><path d="M2 15h12"/><path d="m18 22 4-4"/></svg> // Laptop with check icon
+          )}
+        </div>
         <div>
           <div className="font-semibold text-shadow-sm">App Installed!</div> {/* Text shadow */}
           <div className="text-sm opacity-90">Thanks for installing the portfolio app</div>
@@ -313,4 +333,4 @@ const PWAInstaller: React.FC = () => {
   );
 };
 
-export default PWAInstaller;11
+export default PWAInstaller;
