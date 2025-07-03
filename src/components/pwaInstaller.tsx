@@ -48,7 +48,6 @@ const isMobileDevice = () => {
   return /android|iphone|ipad|ipod|blackberry|windows phone/i.test(userAgent);
 };
 
-
 // ===============================================
 // React Component for PWA Install Prompt
 // ===============================================
@@ -96,11 +95,11 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
         backdropFilter: 'blur(15px) saturate(200%)', // More blur and saturation for glass effect
         WebkitBackdropFilter: 'blur(15px) saturate(200%)', // For Safari
         boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.15)', // Deeper, more diffused shadow
-        color: 'white'
+        color: 'white' // Default text color for the banner content
       }}
     >
       <div className="flex items-center gap-4 mb-3">
-        <div className="text-3xl drop-shadow-md">
+        <div className="text-3xl drop-shadow-md animate-bounce-slow"> {/* Added bounce-slow animation */}
           {isMobile ? (
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smartphone"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg> // Phone icon
           ) : (
@@ -108,22 +107,22 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
           )}
         </div>
         <div>
-          <div className="font-bold mb-1 text-lg text-shadow-sm">Install Portfolio App</div> {/* Text shadow */}
-          <div className="text-sm opacity-90 leading-tight">Add to home screen for quick access and offline viewing</div>
+          <div className="font-bold mb-1 text-lg text-shadow-sm text-gray-900 dark:text-white">Install Portfolio App</div> {/* Text color for light/dark mode */}
+          <div className="text-sm opacity-90 leading-tight text-gray-800 dark:text-gray-200">Add to home screen for quick access and offline viewing</div> {/* Text color for light/dark mode */}
         </div>
         <button
           onClick={onDismiss}
           className="
-            absolute top-3 right-3 p-1 rounded-full cursor-pointer text-sm
+            absolute top-3 right-3 p-2 rounded-lg cursor-pointer
             transition-all duration-300 ease-in-out group
-            hover:scale-125 active:scale-90
+            hover:scale-110 active:scale-90 w-8 h-8 flex items-center justify-center
           "
           style={{
-            background: 'rgba(255,255,255,0.1)', // Slightly visible background for button
-            border: '1px solid rgba(255,255,255,0.3)',
+            background: 'rgba(255,255,255,0.2)', // Slightly visible background for button
+            border: '1px solid rgba(255,255,255,0.4)',
           }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x text-red-400 group-hover:rotate-180 transition-transform duration-300"></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x text-red-500 group-hover:rotate-180 transition-transform duration-300"></svg>
         </button>
       </div>
       <div className="flex gap-3 mt-4">
@@ -133,6 +132,7 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
             flex-1 py-3 px-5 rounded-lg cursor-pointer font-semibold text-sm
             transition-all duration-300 ease-in-out
             shadow-md hover:shadow-lg active:scale-95 hover:scale-[1.03]
+            text-gray-900 dark:text-white
           "
           style={{
             background: 'rgba(255,255,255,0.15)', // More transparent
@@ -186,7 +186,7 @@ const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
         backdropFilter: 'blur(15px) saturate(200%)', // More blur and saturation for glass effect
         WebkitBackdropFilter: 'blur(15px) saturate(200%)', // For Safari
         boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.15)', // Deeper, more diffused shadow
-        color: 'white'
+        color: 'white' // Default text color for the banner content
       }}
     >
       <div className="flex items-center gap-3">
@@ -198,8 +198,8 @@ const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
           )}
         </div>
         <div>
-          <div className="font-semibold text-shadow-sm">App Installed!</div> {/* Text shadow */}
-          <div className="text-sm opacity-90">Thanks for installing the portfolio app</div>
+          <div className="font-semibold text-shadow-sm text-gray-900 dark:text-white">App Installed!</div> {/* Text color for light/dark mode */}
+          <div className="text-sm opacity-90 text-gray-800 dark:text-gray-200">Thanks for installing the portfolio app</div> {/* Text color for light/dark mode */}
         </div>
       </div>
     </div>,
@@ -333,4 +333,4 @@ const PWAInstaller: React.FC = () => {
   );
 };
 
-export default PWAInstaller;1
+export default PWAInstaller;
