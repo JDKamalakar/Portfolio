@@ -93,7 +93,7 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
         ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
       `}
     >
-      <div className="flex items-center gap-4 mb-3">
+      <div className="flex items-start gap-4 mb-3 relative"> {/* Changed to items-start for button positioning */}
         <div className="text-3xl drop-shadow-md animate-bounce-slow"> {/* Added bounce-slow animation */}
           {isMobile ? (
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smartphone text-gray-900 dark:text-white"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg> // Phone icon
@@ -101,21 +101,21 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-laptop text-gray-900 dark:text-white"><path d="M20 18H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2Z"/><path d="M2 15h20"/></svg> // Laptop icon
           )}
         </div>
-        <div>
+        <div className="flex-1"> {/* Allow text to take remaining space */}
           <div className="font-bold mb-1 text-lg text-shadow-sm text-gray-900 dark:text-white">Install Portfolio App</div> {/* Text color for light/dark mode */}
           <div className="text-sm opacity-90 leading-tight text-gray-800 dark:text-gray-200">Add to home screen for quick access and offline viewing</div> {/* Text color for light/dark mode */}
         </div>
         <button
           onClick={onDismiss}
           className="
-            absolute top-3 right-3 p-2 rounded-lg cursor-pointer
+            absolute top-0 right-0 p-1.5 rounded-lg cursor-pointer
             transition-all duration-300 ease-in-out group
-            hover:scale-110 active:scale-90 w-8 h-8 flex items-center justify-center
+            hover:scale-110 active:scale-90 w-7 h-7 flex items-center justify-center
             bg-white/20 dark:bg-gray-800/20 border border-gray-300/30 dark:border-gray-700/30 shadow-md
           "
         >
           {/* Ensure the cross icon itself has enough contrast and is visible */}
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x text-red-500 group-hover:rotate-180 transition-transform duration-300"></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x text-red-500 group-hover:rotate-180 transition-transform duration-300"></svg>
         </button>
       </div>
       <div className="flex gap-3 mt-4">
@@ -316,4 +316,4 @@ const PWAInstaller: React.FC = () => {
   );
 };
 
-export default PWAInstaller;11
+export default PWAInstaller;
