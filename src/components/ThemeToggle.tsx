@@ -180,7 +180,7 @@ const ThemeToggle = () => {
           <Moon
             size={18}
             className={`text-blue-400 transition-all duration-300
-              ${isDarkActive ? 'scale-110 animate-pulse' : ''}
+              ${isDarkActive ? 'scale-110' group-hover:scale-110: ''}
               group-hover:rotate-[360deg] group-hover:scale-110`}
           />
           <span className="text-sm font-medium">Dark</span>
