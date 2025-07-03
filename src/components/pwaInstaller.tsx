@@ -86,10 +86,6 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
         transition-all duration-500 ease-out
         ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
       `}
-      style={{
-        // Define positioning and animation on this outer div
-        // This div is now the one positioned by createPortal
-      }}
     >
       {/* Glow Effect - positioned relative to this outer container */}
       <div
@@ -108,7 +104,7 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
 
       {/* Main Popup Content - now a regular div within the positioned container */}
       <div
-        id="install-banner-content" // Changed ID to avoid confusion
+        id="install-banner-content"
         className={`
           relative p-5 rounded-2xl
           bg-white/25 dark:bg-gray-800/25 backdrop-blur-md border border-gray-300/40 dark:border-gray-700/40 shadow-xl
@@ -146,6 +142,7 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
               transition-all duration-300 ease-in-out group
               hover:scale-110 active:scale-90 w-7 h-7 flex items-center justify-center
               bg-white/20 dark:bg-gray-800/20 border border-gray-300/30 dark:border-gray-700/30 shadow-md
+              dark:shadow-blue-500/50 dark:hover:shadow-blue-500/70 // Dark mode glow for close button
             "
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x text-red-500 group-hover:rotate-180 transition-transform duration-300"></svg>
@@ -161,6 +158,7 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
               text-gray-900 dark:text-white
               bg-white/20 dark:bg-gray-800/20 border border-gray-300/30 dark:border-gray-700/30
               hover:bg-white/30 dark:hover:bg-gray-700/30
+              dark:shadow-blue-500/50 dark:hover:shadow-blue-500/70 // Dark mode glow for install button
             "
           >
             ⬇️ Install
@@ -202,10 +200,6 @@ const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
         transition-all duration-500 ease-out
         ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
       `}
-      style={{
-        // Define positioning and animation on this outer div
-        // This div is now the one positioned by createPortal
-      }}
     >
       {/* Glow Effect - positioned relative to this outer container */}
       <div
@@ -224,7 +218,7 @@ const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
 
       {/* Main Popup Content - now a regular div within the positioned container */}
       <div
-        id="thank-you-banner-content" // Changed ID to avoid confusion
+        id="thank-you-banner-content"
         className={`
           relative p-4 rounded-xl
           bg-white/25 dark:bg-gray-800/25 backdrop-blur-md border border-gray-300/40 dark:border-gray-700/40 shadow-xl
@@ -388,4 +382,4 @@ const PWAInstaller: React.FC = () => {
   );
 };
 
-export default PWAInstaller;22
+export default PWAInstaller;
