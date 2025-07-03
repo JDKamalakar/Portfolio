@@ -76,22 +76,21 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
     <div
       id="install-banner"
       className={`
-        fixed top-20 right-20 p-5 rounded-2xl shadow-xl z-[9999]
+        fixed top-1/2 -translate-y-1/2 p-5 rounded-2xl z-[9999]
         font-sans max-w-xs border border-white/20
-        transition-all duration-400 ease-in-out
-        ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-5 scale-90'}
+        transition-all duration-500 ease-out
+        ${isVisible ? 'opacity-100 right-4' : 'opacity-0 -right-full'}
       `}
       style={{
-        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.8), rgba(139, 92, 246, 0.8))',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
+        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.6), rgba(139, 92, 246, 0.6))',
+        boxShadow: '0 10px 20px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1)', // Deeper shadow
         color: 'white'
       }}
     >
       <div className="flex items-center gap-4 mb-3">
-        <div className="text-3xl">📱</div>
+        <div className="text-3xl drop-shadow-md">📱</div> {/* Drop shadow for icon */}
         <div>
-          <div className="font-bold mb-1 text-lg">Install Portfolio App</div>
+          <div className="font-bold mb-1 text-lg text-shadow-sm">Install Portfolio App</div> {/* Text shadow */}
           <div className="text-sm opacity-90 leading-tight">Add to home screen for quick access and offline viewing</div>
         </div>
       </div>
@@ -100,14 +99,15 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
           onClick={onInstall}
           className="
             flex-1 py-3 px-5 rounded-lg cursor-pointer font-semibold text-sm
-            transition-all duration-200 ease-in-out
+            transition-all duration-300 ease-in-out
+            shadow-md hover:shadow-lg active:scale-95
           "
           style={{
-            background: 'rgba(255,255,255,0.25)',
+            background: 'rgba(255,255,255,0.2)', // More transparent
             border: '1px solid rgba(255,255,255,0.4)',
           }}
-          onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.35)')}
-          onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.25)')}
+          onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.3)')}
+          onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.2)')}
         >
           ⬇️ Install
         </button>
@@ -115,7 +115,8 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
           onClick={onDismiss}
           className="
             py-3 px-4 rounded-lg cursor-pointer text-sm
-            transition-all duration-200 ease-in-out
+            transition-all duration-300 ease-in-out
+            shadow-md hover:shadow-lg active:scale-95
           "
           style={{
             background: 'transparent',
@@ -158,22 +159,21 @@ const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
     <div
       id="thank-you-banner"
       className={`
-        fixed top-20 right-20 p-4 rounded-xl shadow-lg z-[9999]
+        fixed top-1/2 -translate-y-1/2 p-4 rounded-xl z-[9999]
         font-sans max-w-[280px] border border-white/20
-        transition-all duration-400 ease-in-out
-        ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-5 scale-90'}
+        transition-all duration-500 ease-out
+        ${isVisible ? 'opacity-100 right-4' : 'opacity-0 -right-full'}
       `}
       style={{
-        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.8), rgba(5, 150, 105, 0.8))',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
+        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.6), rgba(5, 150, 105, 0.6))',
+        boxShadow: '0 10px 20px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1)', // Deeper shadow
         color: 'white'
       }}
     >
       <div className="flex items-center gap-3">
-        <div className="text-2xl">✅</div>
+        <div className="text-2xl drop-shadow-md">✅</div> {/* Drop shadow for icon */}
         <div>
-          <div className="font-semibold">App Installed!</div>
+          <div className="font-semibold text-shadow-sm">App Installed!</div> {/* Text shadow */}
           <div className="text-sm opacity-90">Thanks for installing the portfolio app</div>
         </div>
       </div>
@@ -308,4 +308,4 @@ const PWAInstaller: React.FC = () => {
   );
 };
 
-export default PWAInstaller;11
+export default PWAInstaller;
