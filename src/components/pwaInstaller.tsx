@@ -48,6 +48,7 @@ const isMobileDevice = () => {
   return /android|iphone|ipad|ipod|blackberry|windows phone/i.test(userAgent);
 };
 
+
 // ===============================================
 // React Component for PWA Install Prompt
 // ===============================================
@@ -86,24 +87,18 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
       id="install-banner"
       className={`
         fixed top-[88px] right-4 p-5 rounded-2xl z-[9999]
-        font-sans max-w-xs border border-white/20
+        font-sans max-w-xs
         transition-all duration-500 ease-out
+        bg-white/25 dark:bg-gray-800/25 backdrop-blur-md border border-gray-300/40 dark:border-gray-700/40 shadow-xl
         ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
       `}
-      style={{
-        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(139, 92, 246, 0.25))', // Reduced transparency further
-        backdropFilter: 'blur(15px) saturate(200%)', // More blur and saturation for glass effect
-        WebkitBackdropFilter: 'blur(15px) saturate(200%)', // For Safari
-        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.15)', // Deeper, more diffused shadow
-        color: 'white' // Default text color for the banner content
-      }}
     >
       <div className="flex items-center gap-4 mb-3">
         <div className="text-3xl drop-shadow-md animate-bounce-slow"> {/* Added bounce-slow animation */}
           {isMobile ? (
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smartphone"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg> // Phone icon
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smartphone text-gray-900 dark:text-white"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg> // Phone icon
           ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-laptop"><path d="M20 18H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2Z"/><path d="M2 15h20"/></svg> // Laptop icon
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-laptop text-gray-900 dark:text-white"><path d="M20 18H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2Z"/><path d="M2 15h20"/></svg> // Laptop icon
           )}
         </div>
         <div>
@@ -116,12 +111,10 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
             absolute top-3 right-3 p-2 rounded-lg cursor-pointer
             transition-all duration-300 ease-in-out group
             hover:scale-110 active:scale-90 w-8 h-8 flex items-center justify-center
+            bg-white/20 dark:bg-gray-800/20 border border-gray-300/30 dark:border-gray-700/30 shadow-md
           "
-          style={{
-            background: 'rgba(255,255,255,0.2)', // Slightly visible background for button
-            border: '1px solid rgba(255,255,255,0.4)',
-          }}
         >
+          {/* Ensure the cross icon itself has enough contrast and is visible */}
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x text-red-500 group-hover:rotate-180 transition-transform duration-300"></svg>
         </button>
       </div>
@@ -133,13 +126,9 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
             transition-all duration-300 ease-in-out
             shadow-md hover:shadow-lg active:scale-95 hover:scale-[1.03]
             text-gray-900 dark:text-white
+            bg-white/20 dark:bg-gray-800/20 border border-gray-300/30 dark:border-gray-700/30
+            hover:bg-white/30 dark:hover:bg-gray-700/30
           "
-          style={{
-            background: 'rgba(255,255,255,0.15)', // More transparent
-            border: '1px solid rgba(255,255,255,0.4)',
-          }}
-          onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.25)')}
-          onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.15)')}
         >
           ⬇️ Install
         </button>
@@ -177,24 +166,18 @@ const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
       id="thank-you-banner"
       className={`
         fixed top-[88px] right-4 p-4 rounded-xl z-[9999]
-        font-sans max-w-[280px] border border-white/20
+        font-sans max-w-[280px]
         transition-all duration-500 ease-out
+        bg-white/25 dark:bg-gray-800/25 backdrop-blur-md border border-gray-300/40 dark:border-gray-700/40 shadow-xl
         ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
       `}
-      style={{
-        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(5, 150, 105, 0.25))', // Reduced transparency further
-        backdropFilter: 'blur(15px) saturate(200%)', // More blur and saturation for glass effect
-        WebkitBackdropFilter: 'blur(15px) saturate(200%)', // For Safari
-        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.15)', // Deeper, more diffused shadow
-        color: 'white' // Default text color for the banner content
-      }}
     >
       <div className="flex items-center gap-3">
         <div className="text-2xl drop-shadow-md">
           {isMobile ? (
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smartphone-check"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="m9 12 2 2 4-4"/><path d="M12 18h.01"/></svg> // Phone with check icon
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smartphone-check text-gray-900 dark:text-white"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="m9 12 2 2 4-4"/><path d="M12 18h.01"/></svg> // Phone with check icon
           ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-laptop-check"><path d="M11 20H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5"/><path d="M2 15h12"/><path d="m18 22 4-4"/></svg> // Laptop with check icon
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-laptop-check text-gray-900 dark:text-white"><path d="M11 20H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5"/><path d="M2 15h12"/><path d="m18 22 4-4"/></svg> // Laptop with check icon
           )}
         </div>
         <div>
@@ -333,4 +316,4 @@ const PWAInstaller: React.FC = () => {
   );
 };
 
-export default PWAInstaller;23
+export default PWAInstaller;
