@@ -1,6 +1,6 @@
 // src/components/pwaInstaller.tsx
 
-import React, { useEffect, useState } = 'react';
+import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react'; // Import the X icon from lucide-react
 
