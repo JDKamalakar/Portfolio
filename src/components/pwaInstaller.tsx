@@ -1,7 +1,7 @@
 // src/components/pwaInstaller.tsx
 
 import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom/client';
+import { createPortal } from 'react-dom';
 
 // IMPORTANT: This 'declare global' block ensures that BeforeInstallPromptEvent
 // is recognized by TypeScript across your project, even though this file is a module.
@@ -72,7 +72,7 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
     };
   }, [isVisible, onDismiss]);
 
-  return ReactDOM.createPortal(
+  return createPortal(
     <div
       id="install-banner"
       className={`
@@ -154,7 +154,7 @@ const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
     };
   }, [onDismiss]);
 
-  return ReactDOM.createPortal(
+  return createPortal(
     <div
       id="thank-you-banner"
       className={`
