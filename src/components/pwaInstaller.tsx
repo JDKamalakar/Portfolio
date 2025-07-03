@@ -80,8 +80,18 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
   }, [isVisible, onDismiss]);
 
   return createPortal(
-    <div className="relative"> {/* Added relative for the glow and ripple effects */}
-      {/* Glow Effect */}
+    <div
+      className={`
+        fixed top-[88px] right-4 z-[9999] font-sans max-w-xs
+        transition-all duration-500 ease-out
+        ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
+      `}
+      style={{
+        // Define positioning and animation on this outer div
+        // This div is now the one positioned by createPortal
+      }}
+    >
+      {/* Glow Effect - positioned relative to this outer container */}
       <div
         className={`
           absolute inset-0 rounded-2xl -z-10
@@ -96,18 +106,15 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
         }}
       />
 
-      {/* Main Popup */}
+      {/* Main Popup Content - now a regular div within the positioned container */}
       <div
-        id="install-banner"
+        id="install-banner-content" // Changed ID to avoid confusion
         className={`
-          relative top-[88px] right-4 p-5 rounded-2xl z-[9999]
-          font-sans max-w-xs
-          transition-all duration-500 ease-out
+          relative p-5 rounded-2xl
           bg-white/25 dark:bg-gray-800/25 backdrop-blur-md border border-gray-300/40 dark:border-gray-700/40 shadow-xl
-          ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
         `}
       >
-        {/* Light Ripple Effect */}
+        {/* Light Ripple Effect - positioned relative to this content div */}
         <div
           className={`
             absolute -bottom-10 left-1/2 -translate-x-1/2 w-48 h-20 rounded-full
@@ -189,8 +196,18 @@ const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
   }, [onDismiss]);
 
   return createPortal(
-    <div className="relative"> {/* Added relative for the glow and ripple effects */}
-      {/* Glow Effect */}
+    <div
+      className={`
+        fixed top-[88px] right-4 z-[9999] font-sans max-w-[280px]
+        transition-all duration-500 ease-out
+        ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
+      `}
+      style={{
+        // Define positioning and animation on this outer div
+        // This div is now the one positioned by createPortal
+      }}
+    >
+      {/* Glow Effect - positioned relative to this outer container */}
       <div
         className={`
           absolute inset-0 rounded-xl -z-10
@@ -205,18 +222,15 @@ const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
         }}
       />
 
-      {/* Main Popup */}
+      {/* Main Popup Content - now a regular div within the positioned container */}
       <div
-        id="thank-you-banner"
+        id="thank-you-banner-content" // Changed ID to avoid confusion
         className={`
-          relative top-[88px] right-4 p-4 rounded-xl z-[9999]
-          font-sans max-w-[280px]
-          transition-all duration-500 ease-out
+          relative p-4 rounded-xl
           bg-white/25 dark:bg-gray-800/25 backdrop-blur-md border border-gray-300/40 dark:border-gray-700/40 shadow-xl
-          ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
         `}
       >
-        {/* Light Ripple Effect */}
+        {/* Light Ripple Effect - positioned relative to this content div */}
         <div
           className={`
             absolute -bottom-8 left-1/2 -translate-x-1/2 w-40 h-16 rounded-full
@@ -374,4 +388,4 @@ const PWAInstaller: React.FC = () => {
   );
 };
 
-export default PWAInstaller;22
+export default PWAInstaller;
