@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { X } from 'lucide-react'; // Import the X icon from lucide-react
+// Removed X import as it's no longer used for the text button
+// import { X } from 'lucide-react'; 
 
 // IMPORTANT: This 'declare global' block ensures that BeforeInstallPromptEvent
 // is recognized by TypeScript across your project, even though this file is a module.
@@ -124,8 +125,8 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
           }}
         />
 
-        {/* Header Section: Aligned using flexbox with close button */}
-        <div className="flex items-center gap-4 mb-3"> {/* Changed from items-start to items-center */}
+        {/* Header Section: Now simpler, as close button moved */}
+        <div className="flex items-center gap-4 mb-3">
           <div className="text-3xl drop-shadow-md animate-bounce-slow">
             {isMobile ? (
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smartphone text-gray-900 dark:text-white"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
@@ -133,25 +134,14 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-laptop text-gray-900 dark:text-white"><path d="M20 18H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2Z"/><path d="M2 15h20"/></svg>
             )}
           </div>
-          <div className="flex-1"> {/* This div takes up available space, pushing the button to the right */}
-            <div className="font-bold mb-1 text-lg text-shadow-sm text-gray-900 dark:text-white leading-none">Install Portfolio App</div> {/* Added leading-none */}
+          <div className="flex-1">
+            <div className="font-bold mb-1 text-lg text-shadow-sm text-gray-900 dark:text-white leading-none">Install Portfolio App</div>
             <div className="text-sm opacity-90 leading-tight text-gray-800 dark:text-gray-200">Add to home screen for quick access and offline viewing</div>
           </div>
-          <button
-            onClick={onDismiss}
-            className="
-              p-2 rounded-lg cursor-pointer
-              transition-all duration-300 ease-in-out group
-              hover:scale-110 active:scale-90 w-8 h-8 flex items-center justify-center
-              bg-white/20 dark:bg-gray-800/20 border border-gray-300/30 dark:border-gray-700/30 shadow-md
-              dark:shadow-blue-500/50 dark:hover:shadow-blue-500/70
-              ml-auto {/* Pushes the button to the far right within the flex container */}
-            "
-          >
-            <X className="w-5 h-5 text-red-500 transition-transform duration-200 group-hover:rotate-90 group-hover:scale-110" />
-          </button>
+          {/* Close button is no longer here */}
         </div>
 
+        {/* Buttons Section: Now includes "Cancel" button */}
         <div className="flex gap-3 mt-4">
           <button
             onClick={onInstall}
@@ -166,6 +156,20 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
             "
           >
             ⬇️ Install
+          </button>
+          <button
+            onClick={onDismiss}
+            className="
+              py-3 px-5 rounded-lg cursor-pointer font-semibold text-sm {/* p-x-5 for consistent width with install button */}
+              transition-all duration-300 ease-in-out
+              shadow-md hover:shadow-lg active:scale-95 hover:scale-[1.03]
+              text-gray-800 dark:text-gray-200 {/* Neutral text color */}
+              bg-white/10 dark:bg-gray-700/10 border border-gray-300/30 dark:border-gray-700/30 {/* More subtle glass effect for cancel */}
+              hover:bg-white/20 dark:hover:bg-gray-700/20
+              dark:shadow-gray-500/30 dark:hover:shadow-gray-500/50 {/* Subtle dark mode glow for cancel */}
+            "
+          >
+            Cancel
           </button>
         </div>
       </div>
