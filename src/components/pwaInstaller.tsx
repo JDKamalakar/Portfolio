@@ -1,108 +1,272 @@
+// src/components/pwaInstaller.tsx
+
+import React, { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom/client';
+
+// IMPORTANT: This 'declare global' block ensures that BeforeInstallPromptEvent
+// is recognized by TypeScript across your project, even though this file is a module.
+// We are adding it here as per your request to avoid a separate global.d.ts file.
+declare global {
+  interface BeforeInstallPromptEvent extends Event {
+    readonly platforms: Array<string>;
+    readonly userChoice: Promise<{
+      outcome: 'accepted' | 'dismissed';
+      platform: string;
+    }>;
+    prompt(): Promise<void>;
+  }
+
+  // Also augment WindowEventMap to ensure addEventListener types correctly
+  interface WindowEventMap {
+    'beforeinstallprompt': BeforeInstallPromptEvent;
+  }
+}
+
+let deferredPrompt: BeforeInstallPromptEvent | null = null;
+let installPromptShown = false; // To prevent showing the banner multiple times
+
+/**
+ * Checks if Service Workers are supported in the current environment.
+ * @returns {boolean} True if Service Workers are supported and not in a known unsupported environment (like StackBlitz).
+ */
 function isServiceWorkerSupported(): boolean {
-  // Check if Service Workers are supported
   if (!('serviceWorker' in navigator)) {
     return false;
   }
-
-  // Check if we're in StackBlitz or a similar webcontainer environment (which might not support Service Workers fully)
   const isStackBlitz =
     window.location.hostname.includes('stackblitz') ||
     window.location.hostname.includes('webcontainer') ||
     (window.location.hostname.includes('localhost') &&
       window.navigator.userAgent.includes('WebContainer'));
-
   return !isStackBlitz;
 }
 
-// Global variable to store the deferred prompt event
-let deferredPrompt: BeforeInstallPromptEvent | null = null;
-let installPromptShown = false;
+// ===============================================
+// React Component for PWA Install Prompt
+// ===============================================
 
-/**
- * Creates and displays the custom PWA install promotion banner.
- */
-function showInstallPromotion(): void {
-  if (installPromptShown) return;
-  installPromptShown = true;
+interface InstallBannerProps {
+  onInstall: () => void;
+  onDismiss: () => void;
+}
 
-  const installBanner = document.createElement('div');
-  installBanner.id = 'install-banner';
-  installBanner.className = 'install-popup-enter'; // Add class for enter animation
-  installBanner.innerHTML = `
-    <div style="
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.7), rgba(139, 92, 246, 0.7));
-      color: white;
-      padding: 20px 24px;
-      border-radius: 16px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      z-index: 9999;
-      font-family: system-ui, -apple-system, sans-serif;
-      max-width: 320px;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.2);
-      opacity: 0;
-      transform: translateY(-20px) scale(0.9);
-      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    " class="backdrop-blur-md">
-      <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 12px;">
-        <div style="font-size: 32px;">📱</div>
+const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Trigger animation after component mounts
+    const timeoutId = setTimeout(() => {
+      setIsVisible(true);
+    }, 100); // Small delay to allow element to be in DOM before animating
+
+    const autoDismissTimeout = setTimeout(() => {
+      if (isVisible) { // Only auto-dismiss if it's currently visible
+        console.log('⏰ Auto-dismissing install prompt after 15 seconds');
+        onDismiss(); // Call dismiss to handle animation and removal
+      }
+    }, 15000);
+
+    return () => {
+      clearTimeout(timeoutId);
+      clearTimeout(autoDismissTimeout);
+    };
+  }, [isVisible, onDismiss]);
+
+  return ReactDOM.createPortal(
+    <div
+      id="install-banner"
+      className={`
+        fixed top-20 right-20 p-5 rounded-2xl shadow-xl z-[9999]
+        font-sans max-w-xs border border-white/20
+        transition-all duration-400 ease-in-out
+        ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-5 scale-90'}
+      `}
+      style={{
+        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.8), rgba(139, 92, 246, 0.8))',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        color: 'white'
+      }}
+    >
+      <div className="flex items-center gap-4 mb-3">
+        <div className="text-3xl">📱</div>
         <div>
-          <div style="font-weight: 700; margin-bottom: 4px; font-size: 16px;">Install Portfolio App</div>
-          <div style="font-size: 13px; opacity: 0.9; line-height: 1.4;">Add to home screen for quick access and offline viewing</div>
+          <div className="font-bold mb-1 text-lg">Install Portfolio App</div>
+          <div className="text-sm opacity-90 leading-tight">Add to home screen for quick access and offline viewing</div>
         </div>
       </div>
-      <div style="display: flex; gap: 12px; margin-top: 16px;">
-        <button id="install-btn" style="
-          background: rgba(255,255,255,0.25);
-          border: 1px solid rgba(255,255,255,0.4);
-          color: white;
-          padding: 10px 20px;
-          border-radius: 10px;
-          cursor: pointer;
-          font-weight: 600;
-          font-size: 14px;
-          flex: 1;
-          transition: all 0.2s ease;
-        " onmouseover="this.style.background='rgba(255,255,255,0.35)'" onmouseout="this.style.background='rgba(255,255,255,0.25)'">
+      <div className="flex gap-3 mt-4">
+        <button
+          onClick={onInstall}
+          className="
+            flex-1 py-3 px-5 rounded-lg cursor-pointer font-semibold text-sm
+            transition-all duration-200 ease-in-out
+          "
+          style={{
+            background: 'rgba(255,255,255,0.25)',
+            border: '1px solid rgba(255,255,255,0.4)',
+          }}
+          onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.35)')}
+          onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.25)')}
+        >
           ⬇️ Install
         </button>
-        <button id="dismiss-btn" style="
-          background: transparent;
-          border: 1px solid rgba(255,255,255,0.4);
-          color: white;
-          padding: 10px 16px;
-          border-radius: 10px;
-          cursor: pointer;
-          font-size: 14px;
-          transition: all 0.2s ease;
-        " onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">
+        <button
+          onClick={onDismiss}
+          className="
+            py-3 px-4 rounded-lg cursor-pointer text-sm
+            transition-all duration-200 ease-in-out
+          "
+          style={{
+            background: 'transparent',
+            border: '1px solid rgba(255,255,255,0.4)',
+          }}
+          onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')}
+          onMouseOut={(e) => (e.currentTarget.style.background = 'transparent')}
+        >
           ✕
         </button>
       </div>
-    </div>
-  `;
+    </div>,
+    document.body // Portal to body
+  );
+};
 
-  document.body.appendChild(installBanner);
+interface ThankYouBannerProps {
+  onDismiss: () => void;
+}
 
-  // Trigger the enter animation
-  requestAnimationFrame(() => {
-    (installBanner.querySelector('div') as HTMLElement).style.opacity = '1';
-    (installBanner.querySelector('div') as HTMLElement).style.transform = 'translateY(0) scale(1)';
-  });
+const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Install button click handler
-  document.getElementById('install-btn')?.addEventListener('click', async () => {
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+
+    const autoDismissTimeout = setTimeout(() => {
+      onDismiss();
+    }, 4000); // Auto-dismiss thank you after 4 seconds
+
+    return () => {
+      clearTimeout(timeoutId);
+      clearTimeout(autoDismissTimeout);
+    };
+  }, [onDismiss]);
+
+  return ReactDOM.createPortal(
+    <div
+      id="thank-you-banner"
+      className={`
+        fixed top-20 right-20 p-4 rounded-xl shadow-lg z-[9999]
+        font-sans max-w-[280px] border border-white/20
+        transition-all duration-400 ease-in-out
+        ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-5 scale-90'}
+      `}
+      style={{
+        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.8), rgba(5, 150, 105, 0.8))',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        color: 'white'
+      }}
+    >
+      <div className="flex items-center gap-3">
+        <div className="text-2xl">✅</div>
+        <div>
+          <div className="font-semibold">App Installed!</div>
+          <div className="text-sm opacity-90">Thanks for installing the portfolio app</div>
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+};
+
+
+// ===============================================
+// Main PWA Installer Component
+// ===============================================
+
+const PWAInstaller: React.FC = () => {
+  const [showInstallBanner, setShowInstallBanner] = useState(false);
+  const [showThankYouBanner, setShowThankYouBanner] = useState(false);
+
+  useEffect(() => {
+    // 1. Service Worker Registration
+    if (isServiceWorkerSupported()) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('/sw.js')
+          .then((registration) => {
+            console.log('✅ SW registered successfully:', registration);
+
+            registration.addEventListener('updatefound', () => {
+              const newWorker = registration.installing;
+              if (newWorker) {
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    if (confirm('🔄 New version available! Click OK to update.')) {
+                      window.location.reload();
+                    }
+                  }
+                });
+              }
+            });
+          })
+          .catch((registrationError) => {
+            console.warn(
+              '⚠️ SW registration failed (this is expected in some environments):',
+              registrationError.message
+            );
+          });
+      });
+    } else {
+      console.log('ℹ️ Service Workers not supported in this environment - PWA features will be limited');
+    }
+
+    // 2. Before Install Prompt Listener
+    const handleBeforeInstallPrompt = (e: BeforeInstallPromptEvent) => {
+      console.log('🚀 PWA install prompt triggered');
+      e.preventDefault();
+      deferredPrompt = e;
+      if (!installPromptShown) { // Only show if not already shown/installed
+        setTimeout(() => {
+          setShowInstallBanner(true);
+        }, 3000); // Show after 3 seconds
+      }
+    };
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    // 3. App Installed Listener
+    const handleAppInstalled = () => {
+      console.log('🎉 PWA was installed successfully');
+      installPromptShown = true;
+      setShowInstallBanner(false); // Hide install banner if it was open
+      setTimeout(() => {
+        setShowThankYouBanner(true);
+      }, 1000);
+    };
+    window.addEventListener('appinstalled', handleAppInstalled);
+
+    // 4. Debug Logging
+    console.log('🔍 PWA Installation Criteria Check:');
+    console.log('- Service Worker:', isServiceWorkerSupported() ? '✅' : '❌ (Not supported in this environment)');
+    console.log('- HTTPS:', location.protocol === 'https:' || location.hostname === 'localhost' ? '✅' : '❌');
+    console.log('- Manifest:', document.querySelector('link[rel="manifest"]') ? '✅' : '❌');
+
+    // Cleanup listeners on unmount
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('appinstalled', handleAppInstalled);
+    };
+  }, []); // Empty dependency array means this runs once on mount
+
+  const handleInstallClick = async () => {
     console.log('🎯 User clicked install button');
-
     if (deferredPrompt) {
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       console.log(`👤 User response to install prompt: ${outcome}`);
-
       if (outcome === 'accepted') {
         console.log('✅ User accepted the install prompt');
       } else {
@@ -115,161 +279,33 @@ function showInstallPromotion(): void {
         'To install this app:\n\n• Chrome: Click the install icon in the address bar\n• Safari: Tap Share → Add to Home Screen\n• Edge: Click the app icon in the address bar'
       );
     }
-    removeBanner();
-  });
+    setShowInstallBanner(false); // Hide the install banner
+  };
 
-  // Dismiss button click handler
-  document.getElementById('dismiss-btn')?.addEventListener('click', () => {
+  const handleDismissInstallBanner = () => {
     console.log('👋 User dismissed install prompt');
-    removeBanner();
-  });
+    setShowInstallBanner(false);
+  };
 
-  // Auto dismiss after 15 seconds
-  setTimeout(() => {
-    const banner = document.getElementById('install-banner');
-    if (banner) {
-      console.log('⏰ Auto-dismissing install prompt after 15 seconds');
-      removeBanner();
-    }
-  }, 15000);
-}
+  const handleDismissThankYouBanner = () => {
+    setShowThankYouBanner(false);
+  };
 
-/**
- * Removes the install promotion banner with an exit animation.
- */
-function removeBanner(): void {
-  const banner = document.getElementById('install-banner');
-  if (banner) {
-    // Apply exit animation
-    (banner.querySelector('div') as HTMLElement).style.opacity = '0';
-    (banner.querySelector('div') as HTMLElement).style.transform = 'translateY(-20px) scale(0.9)';
+  return (
+    <>
+      {showInstallBanner && (
+        <InstallBanner
+          onInstall={handleInstallClick}
+          onDismiss={handleDismissInstallBanner}
+        />
+      )}
+      {showThankYouBanner && (
+        <ThankYouBanner
+          onDismiss={handleDismissThankYouBanner}
+        />
+      )}
+    </>
+  );
+};
 
-    setTimeout(() => {
-      if (banner.parentNode) {
-        banner.parentNode.removeChild(banner);
-      }
-    }, 400); // Match transition duration
-  }
-}
-
-/**
- * Displays a thank you message after the PWA is successfully installed.
- */
-function showThankYouMessage(): void {
-  const thankYou = document.createElement('div');
-  thankYou.id = 'thank-you-banner';
-  thankYou.innerHTML = `
-    <div style="
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.7), rgba(5, 150, 105, 0.7));
-      color: white;
-      padding: 16px 20px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      z-index: 9999;
-      font-family: system-ui, -apple-system, sans-serif;
-      opacity: 0;
-      transform: translateY(-20px) scale(0.9);
-      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    " class="backdrop-blur-md">
-      <div style="display: flex; align-items: center; gap: 12px;">
-        <div style="font-size: 24px;">✅</div>
-        <div>
-          <div style="font-weight: 600;">App Installed!</div>
-          <div style="font-size: 14px; opacity: 0.9;">Thanks for installing the portfolio app</div>
-        </div>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(thankYou);
-
-  // Trigger the enter animation
-  requestAnimationFrame(() => {
-    (thankYou.querySelector('div') as HTMLElement).style.opacity = '1';
-    (thankYou.querySelector('div') as HTMLElement).style.transform = 'translateY(0) scale(1)';
-  });
-
-  setTimeout(() => {
-    const currentThankYou = document.getElementById('thank-you-banner');
-    if (currentThankYou) {
-      // Apply exit animation
-      (currentThankYou.querySelector('div') as HTMLElement).style.opacity = '0';
-      (currentThankYou.querySelector('div') as HTMLElement).style.transform = 'translateY(-20px) scale(0.9)';
-      setTimeout(() => {
-        if (currentThankYou.parentNode) {
-          currentThankYou.parentNode.removeChild(currentThankYou);
-        }
-      }, 400); // Match transition duration
-    }
-  }, 4000);
-}
-
-/**
- * Initializes PWA functionalities including Service Worker registration and install prompt handling.
- */
-export function initializePWA(): void {
-  if (isServiceWorkerSupported()) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker
-        .register('/sw.js')
-        .then((registration) => {
-          console.log('✅ SW registered successfully:', registration);
-
-          // Check for updates
-          registration.addEventListener('updatefound', () => {
-            const newWorker = registration.installing;
-            if (newWorker) { // Ensure newWorker exists
-              newWorker.addEventListener('statechange', () => {
-                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                  // New content is available, show update notification
-                  if (confirm('🔄 New version available! Click OK to update.')) {
-                    window.location.reload();
-                  }
-                }
-              });
-            }
-          });
-        })
-        .catch((registrationError) => {
-          console.warn(
-            '⚠️ SW registration failed (this is expected in some environments):',
-            registrationError.message
-          );
-        });
-    });
-  } else {
-    console.log('ℹ️ Service Workers not supported in this environment - PWA features will be limited');
-  }
-
-  // Listen for the beforeinstallprompt event
-  window.addEventListener('beforeinstallprompt', (e) => {
-    console.log('🚀 PWA install prompt triggered');
-    e.preventDefault(); // Prevent the mini-infobar from appearing on mobile
-    deferredPrompt = e as BeforeInstallPromptEvent; // Stash the event
-
-    // Show custom install promotion after a short delay
-    setTimeout(() => {
-      if (!installPromptShown) {
-        showInstallPromotion();
-      }
-    }, 3000); // Show after 3 seconds
-  });
-
-  // Handle successful installation
-  window.addEventListener('appinstalled', () => {
-    console.log('🎉 PWA was installed successfully');
-    installPromptShown = true; // Mark as installed
-    removeBanner(); // Remove install banner if still visible
-    setTimeout(() => {
-      showThankYouMessage();
-    }, 1000);
-  });
-
-  // Debug: Log PWA installation criteria
-  console.log('🔍 PWA Installation Criteria Check:');
-  console.log('- Service Worker:', isServiceWorkerSupported() ? '✅' : '❌ (Not supported in this environment)');
-  console.log('- HTTPS:', location.protocol === 'https:' || location.hostname === 'localhost' ? '✅' : '❌');
-  console.log('- Manifest:', document.querySelector('link[rel="manifest"]') ? '✅' : '❌');
-}
+export default PWAInstaller;
