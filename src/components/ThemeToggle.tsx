@@ -183,7 +183,7 @@ const ThemeToggle = () => {
               ${isDarkActive ? 'scale-110' : ''}
               group-hover:rotate-[360deg] group-hover:scale-110`}
           />
-          <span className="text-sm font-medium hover:scale-[1.08]">Dark</span>
+          <span className="text-sm font-medium">Dark</span>
         </button>
       </div>
     </div>
