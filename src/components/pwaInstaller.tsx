@@ -59,12 +59,13 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
       setIsVisible(true);
     }, 100); // Small delay to allow element to be in DOM before animating
 
+    // Reduced auto-dismiss time to 8 seconds
     const autoDismissTimeout = setTimeout(() => {
       if (isVisible) { // Only auto-dismiss if it's currently visible
-        console.log('⏰ Auto-dismissing install prompt after 15 seconds');
+        console.log('⏰ Auto-dismissing install prompt after 8 seconds');
         onDismiss(); // Call dismiss to handle animation and removal
       }
-    }, 15000);
+    }, 8000); // Popup stays for 8 seconds
 
     return () => {
       clearTimeout(timeoutId);
@@ -76,13 +77,15 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
     <div
       id="install-banner"
       className={`
-        fixed top-1/2 -translate-y-1/2 p-5 rounded-2xl z-[9999]
+        fixed top-[88px] right-4 p-5 rounded-2xl z-[9999]
         font-sans max-w-xs border border-white/20
         transition-all duration-500 ease-out
-        ${isVisible ? 'opacity-100 right-4' : 'opacity-0 -right-full'}
+        ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
       `}
       style={{
-        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.6), rgba(139, 92, 246, 0.6))',
+        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(139, 92, 246, 0.4))', // More transparent background
+        backdropFilter: 'blur(10px) saturate(180%)', // Glass-like effect
+        WebkitBackdropFilter: 'blur(10px) saturate(180%)', // For Safari
         boxShadow: '0 10px 20px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1)', // Deeper shadow
         color: 'white'
       }}
@@ -159,13 +162,15 @@ const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
     <div
       id="thank-you-banner"
       className={`
-        fixed top-1/2 -translate-y-1/2 p-4 rounded-xl z-[9999]
+        fixed top-[88px] right-4 p-4 rounded-xl z-[9999]
         font-sans max-w-[280px] border border-white/20
         transition-all duration-500 ease-out
-        ${isVisible ? 'opacity-100 right-4' : 'opacity-0 -right-full'}
+        ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
       `}
       style={{
-        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.6), rgba(5, 150, 105, 0.6))',
+        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.4), rgba(5, 150, 105, 0.4))', // More transparent background
+        backdropFilter: 'blur(10px) saturate(180%)', // Glass-like effect
+        WebkitBackdropFilter: 'blur(10px) saturate(180%)', // For Safari
         boxShadow: '0 10px 20px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1)', // Deeper shadow
         color: 'white'
       }}
@@ -308,4 +313,4 @@ const PWAInstaller: React.FC = () => {
   );
 };
 
-export default PWAInstaller;11
+export default PWAInstaller;
