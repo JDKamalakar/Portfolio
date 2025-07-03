@@ -124,53 +124,55 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
           }}
         />
 
-        {/* Header Section: Now simpler, as close button moved to footer */}
+        {/* Header Section: Icon and text content */}
         <div className="flex items-center gap-4 mb-3 relative">
-          <div className="text-3xl drop-shadow-md animate-bounce-slow">
+          <div className="text-3xl drop-shadow-md"> {/* Removed animate-bounce-slow from here */}
             {isMobile ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smartphone text-gray-900 dark:text-white"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smartphone text-gray-900 dark:text-white group-hover:scale-110 transition-transform duration-200"></svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-laptop text-gray-900 dark:text-white"><path d="M20 18H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2Z"/><path d="M2 15h20"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-laptop text-gray-900 dark:text-white group-hover:scale-110 transition-transform duration-200"></svg>
             )}
           </div>
           <div className="flex-1">
             <div className="font-bold mb-1 text-lg text-shadow-sm text-gray-900 dark:text-white leading-none">Install Portfolio App</div>
             <div className="text-sm opacity-90 leading-tight text-gray-800 dark:text-gray-200">Add to home screen for quick access and offline viewing</div>
           </div>
-          {/* No top-right X button here */}
         </div>
 
-        {/* Buttons Section: Only two buttons - Install and Cancel (with X icon) */}
+        {/* Buttons Section: Install and Cancel (with X icon) */}
         <div className="flex gap-3 mt-4">
           <button
             onClick={onInstall}
             className="
-              flex-1 py-3 px-5 rounded-lg cursor-pointer font-semibold text-sm
+              flex-1 py-3 px-5 rounded-lg cursor-pointer font-semibold text-sm group {/* Added group class */}
               transition-all duration-300 ease-in-out
               shadow-md hover:shadow-lg active:scale-95 hover:scale-[1.03]
               text-gray-900 dark:text-white
               bg-white/20 dark:bg-gray-800/20 border border-gray-300/30 dark:border-gray-700/30
               hover:bg-white/30 dark:hover:bg-gray-700/30
               dark:shadow-blue-500/50 dark:hover:shadow-blue-500/70
+              flex items-center justify-center gap-2 {/* Flex to center icon and text */}
             "
           >
-            ⬇️ Install
+            {/* Install Icon with hover scaling */}
+            <span className="group-hover:scale-110 transition-transform duration-200">⬇️</span> {/* Span to apply scale */}
+            <span>Install</span>
           </button>
           <button
             onClick={onDismiss}
             className="
-              flex-1 py-3 px-5 rounded-lg cursor-pointer font-semibold text-sm {/* flex-1 for equal width */}
+              flex-1 py-3 px-5 rounded-lg cursor-pointer font-semibold text-sm group {/* Added group class */}
               transition-all duration-300 ease-in-out
               shadow-md hover:shadow-lg active:scale-95 hover:scale-[1.03]
               text-gray-800 dark:text-gray-200
               bg-white/10 dark:bg-gray-700/10 border border-gray-300/30 dark:border-gray-700/30
               hover:bg-white/20 dark:hover:bg-gray-700/20
-              dark:shadow-red-500/30 dark:hover:shadow-red-500/50 {/* Red glow for the Cancel button */}
-              flex items-center justify-center gap-2 {/* Flex to center icon and text, add gap */}
+              dark:shadow-red-500/30 dark:hover:shadow-red-500/50
+              flex items-center justify-center gap-2
             "
           >
-            {/* X Icon as part of the Cancel button */}
-            <X className="w-5 h-5 text-red-700 transition-transform duration-200 group-hover:rotate-90 group-hover:scale-110 shrink-0" /> {/* shrink-0 to prevent icon from shrinking */}
+            {/* X Icon with 360-degree rotation on hover */}
+            <X className="w-5 h-5 text-red-700 transition-transform duration-200 group-hover:rotate-[360deg] shrink-0" />
             <span>Cancel</span>
           </button>
         </div>
