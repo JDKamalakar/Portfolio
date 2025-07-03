@@ -124,7 +124,7 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
           className="
             flex-1 py-3 px-5 rounded-lg cursor-pointer font-semibold text-sm
             transition-all duration-300 ease-in-out
-            shadow-md hover:shadow-lg active:scale-95 hover:scale-[1.03]
+            shadow-md hover:shadow-lg active:scale-120 hover:scale-[1.08]
             text-gray-900 dark:text-white
             bg-white/20 dark:bg-gray-800/20 border border-gray-300/30 dark:border-gray-700/30
             hover:bg-white/30 dark:hover:bg-gray-700/30
