@@ -1,196 +1,319 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Sun, Moon, Monitor } from 'lucide-react';
-import { useTheme } from '../contexts/ThemeContext';
+// src/components/pwaInstaller.tsx
 
-const ThemeToggle = () => {
-  const { theme, setTheme, isDark } = useTheme();
-  const [showOptions, setShowOptions] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
-  const themeToggleRef = useRef<HTMLDivElement>(null);
+// IMPORTANT: This 'declare global' block ensures that BeforeInstallPromptEvent
+// is recognized by TypeScript across your project, even though this file is a module.
+// We are adding it here as per your request to avoid a separate global.d.ts file.
+declare global {
+  interface BeforeInstallPromptEvent extends Event {
+    readonly platforms: Array<string>;
+    readonly userChoice: Promise<{
+      outcome: 'accepted' | 'dismissed';
+      platform: string;
+    }>;
+    prompt(): Promise<void>;
+  }
 
-  // Derive active states based on the 'theme' value from useTheme
-  const isSystemActive = theme === 'system';
-  const isLightActive = theme === 'light';
-  const isDarkActive = theme === 'dark';
+  // Also augment WindowEventMap to ensure addEventListener types correctly
+  interface WindowEventMap {
+    'beforeinstallprompt': BeforeInstallPromptEvent;
+  }
+}
 
-  // Handle scroll detection for positioning
+let deferredPrompt: BeforeInstallPromptEvent | null = null;
+let installPromptShown = false; // To prevent showing the banner multiple times
+
+/**
+ * Checks if Service Workers are supported in the current environment.
+ * @returns {boolean} True if Service Workers are supported and not in a known unsupported environment (like StackBlitz).
+ */
+function isServiceWorkerSupported(): boolean {
+  if (!('serviceWorker' in navigator)) {
+    return false;
+  }
+  const isStackBlitz =
+    window.location.hostname.includes('stackblitz') ||
+    window.location.hostname.includes('webcontainer') ||
+    (window.location.hostname.includes('localhost') &&
+      window.navigator.userAgent.includes('WebContainer'));
+  return !isStackBlitz;
+}
+
+// Simple component to detect if it's likely a mobile device based on user agent
+const isMobileDevice = () => {
+  if (typeof window === 'undefined') return false; // Server-side rendering check
+  const userAgent = navigator.userAgent || navigator.vendor;
+  return /android|iphone|ipad|ipod|blackberry|windows phone/i.test(userAgent);
+};
+
+
+// ===============================================
+// React Component for PWA Install Prompt
+// ===============================================
+
+interface InstallBannerProps {
+  onInstall: () => void;
+  onDismiss: () => void;
+}
+
+const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const isMobile = isMobileDevice();
+
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    // Trigger animation after component mounts
+    const timeoutId = setTimeout(() => {
+      setIsVisible(true);
+    }, 100); // Small delay to allow element to be in DOM before animating
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Handle click outside to close the options popover
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (themeToggleRef.current && !themeToggleRef.current.contains(event.target as Node)) {
-        setShowOptions(false);
+    // Reduced auto-dismiss time to 8 seconds
+    const autoDismissTimeout = setTimeout(() => {
+      if (isVisible) { // Only auto-dismiss if it's currently visible
+        console.log('⏰ Auto-dismissing install prompt after 8 seconds');
+        onDismiss(); // Call dismiss to handle animation and removal
       }
-    };
-
-    if (showOptions) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
+    }, 8000); // Popup stays for 8 seconds
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      clearTimeout(timeoutId);
+      clearTimeout(autoDismissTimeout);
     };
-  }, [showOptions]);
+  }, [isVisible, onDismiss]);
 
-  // Handlers for theme selection
-  const handleSystemTheme = () => {
-    setTheme('system'); // Set theme to 'system'
-    setShowOptions(false);
-  };
-
-  const handleManualTheme = (isDarkModeSelected: boolean) => {
-    setTheme(isDarkModeSelected ? 'dark' : 'light'); // Set theme to 'dark' or 'light'
-    setShowOptions(false);
-  };
-
-  return (
+  return createPortal(
     <div
-      ref={themeToggleRef}
-      className={`fixed z-50 transition-all duration-300 ease-in-out ${
-        isScrolled
-          ? 'top-4 right-4' // When scrolled, position next to navbar buttons
-          : 'top-6 right-6' // When not scrolled, position as if part of MissingTube area
-      }`}
+      id="install-banner"
+      className={`
+        fixed top-[88px] right-4 p-5 rounded-2xl z-[9999]
+        font-sans max-w-xs
+        transition-all duration-500 ease-out
+        bg-white/25 dark:bg-gray-800/25 backdrop-blur-md border border-gray-300/40 dark:border-gray-700/40 shadow-xl
+        ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
+      `}
     >
-      <button
-        onClick={() => setShowOptions(!showOptions)}
-        className="p-3 rounded-2xl bg-white/25 dark:bg-gray-800/25 backdrop-blur-md border border-gray-300/40 dark:border-gray-700/40 hover:bg-white/30 dark:hover:bg-gray-800/30 transition-all duration-300 hover:scale-110 group shadow-xl"
-        aria-label="Toggle theme"
-      >
-        {/* Outer div to handle the 360-degree rotation when popover opens/closes */}
-        <div className={`relative w-6 h-6 flex items-center justify-center
-                           transition-transform duration-700 ease-in-out
-                           ${showOptions ? 'rotate-[360deg]' : 'rotate-0'}`}>
-
-          {/* System Theme Icon (Main Button - UNCHANGED) */}
-          <Monitor
-            className={`absolute inset-0 transition-all duration-500 ease-out
-                         ${isSystemActive
-                            ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:animate-pulse'
-                            : 'opacity-0 scale-50 rotate-[-90deg]'
-                         }
-                         text-blue-500 dark:text-blue-400`}
-            size={24}
-          />
-
-          {/* Light Theme Icon (Main Button - UNCHANGED) */}
-          <Sun
-            className={`absolute inset-0 transition-all duration-500 ease-out
-                         ${isLightActive
-                            ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:rotate-180'
-                            : 'opacity-0 scale-50 rotate-[90deg]'
-                         }
-                         text-yellow-500`}
-            size={24}
-          />
-
-          {/* Dark Theme Icon (Main Button - UNCHANGED) */}
-          <Moon
-            className={`absolute inset-0 transition-all duration-500 ease-out
-                         ${isDarkActive
-                            ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:animate-pulse group-hover:rotate-[360deg]'
-                            : 'opacity-0 scale-50 rotate-[-90deg]'
-                         }
-                         text-blue-400`}
-            size={24}
-          />
+      <div className="flex items-center gap-4 mb-3">
+        <div className="text-3xl drop-shadow-md animate-bounce-slow"> {/* Added bounce-slow animation */}
+          {isMobile ? (
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smartphone text-gray-900 dark:text-white"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg> // Phone icon
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-laptop text-gray-900 dark:text-white"><path d="M20 18H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2Z"/><path d="M2 15h20"/></svg> // Laptop icon
+          )}
         </div>
-      </button>
-
-      {/* Theme Options Popover */}
-      <div className={`absolute top-16 right-0 bg-white/20 dark:bg-gray-800/20 backdrop-blur-xl border border-gray-300/30 dark:border-gray-700/30 rounded-2xl shadow-xl p-3 min-w-[180px] transform transition-all duration-500 ease-out origin-top-right ${
-        showOptions
-          ? 'opacity-100 scale-100 translate-y-0 rotate-0 pointer-events-auto'
-          : 'opacity-0 scale-75 -translate-y-4 rotate-12 pointer-events-none'
-      }`}>
-        {/* System Theme Button (Popup) */}
+        <div>
+          <div className="font-bold mb-1 text-lg text-shadow-sm text-gray-900 dark:text-white">Install Portfolio App</div> {/* Text color for light/dark mode */}
+          <div className="text-sm opacity-90 leading-tight text-gray-800 dark:text-gray-200">Add to home screen for quick access and offline viewing</div> {/* Text color for light/dark mode */}
+        </div>
         <button
-          onClick={handleSystemTheme}
-          className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm mb-2 transform origin-center
-            ${isSystemActive
-              ? 'bg-blue-500/40 text-blue-700 dark:text-blue-300 shadow-lg scale-105 border border-blue-300/30 dark:border-blue-500/30'
-              : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-gray-700/30'
-            }
-            hover:scale-105 hover:-translate-y-1`}
-          style={{
-            transitionDelay: showOptions ? '100ms' : '0ms',
-            opacity: showOptions ? 1 : 0
-          }}
+          onClick={onDismiss}
+          className="
+            absolute top-3 right-3 p-2 rounded-lg cursor-pointer
+            transition-all duration-300 ease-in-out group
+            hover:scale-110 active:scale-90 w-8 h-8 flex items-center justify-center
+            bg-white/20 dark:bg-gray-800/20 border border-gray-300/30 dark:border-gray-700/30 shadow-md
+          "
         >
-          {/* Icon always visible, only animates */}
-          <Monitor
-            size={18}
-            className={`text-blue-500 transition-all duration-300
-              ${isSystemActive ? 'scale-110' : ''}
-              group-hover:rotate-12 group-hover:scale-110`}
-          />
-          {/* Span scales on hover */}
-          <span className="text-sm font-medium inline-block group-hover:scale-110 transition-transform duration-300">System</span>
-        </button>
-
-        {/* Light Theme Button (Popup) */}
-        <button
-          onClick={() => handleManualTheme(false)}
-          className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm mb-2 transform origin-center
-            ${isLightActive
-              ? 'bg-yellow-500/40 text-yellow-700 dark:text-yellow-300 shadow-lg scale-105 border border-yellow-300/30 dark:border-yellow-500/30'
-              : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-gray-700/30'
-            }
-            hover:scale-105 hover:-translate-y-1`}
-          style={{
-            transitionDelay: showOptions ? '150ms' : '0ms',
-            opacity: showOptions ? 1 : 0
-          }}
-        >
-          {/* Icon always visible, only animates */}
-          <Sun
-            size={18}
-            className={`text-yellow-500 transition-all duration-300
-              ${isLightActive ? 'scale-110' : ''}
-              group-hover:rotate-180 group-hover:scale-110`}
-          />
-          {/* Span scales on hover */}
-          <span className="text-sm font-medium inline-block group-hover:scale-110 transition-transform duration-300">Light</span>
-        </button>
-
-        {/* Dark Theme Button (Popup) */}
-        <button
-          onClick={() => handleManualTheme(true)}
-          className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm transform origin-center
-            ${isDarkActive
-              ? 'bg-blue-500/40 text-blue-700 dark:text-blue-300 shadow-lg scale-105 border border-blue-300/30 dark:border-blue-500/30'
-              : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-gray-700/30'
-            }
-            hover:scale-105 hover:-translate-y-1`}
-          style={{
-            transitionDelay: showOptions ? '200ms' : '0ms',
-            opacity: showOptions ? 1 : 0
-          }}
-        >
-          {/* Icon always visible, only animates */}
-          <Moon
-            size={18}
-            className={`text-blue-500 dark:text-blue-400 transition-all duration-300
-              ${isDarkActive ? 'scale-110' : ''}
-              group-hover:rotate-[360deg] group-hover:scale-110`}
-          />
-          {/* Span scales on hover */}
-          <span className="text-sm font-medium inline-block group-hover:scale-110 transition-transform duration-300">Dark</span>
+          {/* Ensure the cross icon itself has enough contrast and is visible */}
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x text-red-500 group-hover:rotate-180 transition-transform duration-300"></svg>
         </button>
       </div>
-    </div>
+      <div className="flex gap-3 mt-4">
+        <button
+          onClick={onInstall}
+          className="
+            flex-1 py-3 px-5 rounded-lg cursor-pointer font-semibold text-sm
+            transition-all duration-300 ease-in-out
+            shadow-md hover:shadow-lg active:scale-95 hover:scale-[1.03]
+            text-gray-900 dark:text-white
+            bg-white/20 dark:bg-gray-800/20 border border-gray-300/30 dark:border-gray-700/30
+            hover:bg-white/30 dark:hover:bg-gray-700/30
+          "
+        >
+          ⬇️ Install
+        </button>
+      </div>
+    </div>,
+    document.body // Portal to body
   );
 };
 
-export default ThemeToggle;26
+interface ThankYouBannerProps {
+  onDismiss: () => void;
+}
+
+const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const isMobile = isMobileDevice();
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+
+    const autoDismissTimeout = setTimeout(() => {
+      onDismiss();
+    }, 4000); // Auto-dismiss thank you after 4 seconds
+
+    return () => {
+      clearTimeout(timeoutId);
+      clearTimeout(autoDismissTimeout);
+    };
+  }, [onDismiss]);
+
+  return createPortal(
+    <div
+      id="thank-you-banner"
+      className={`
+        fixed top-[88px] right-4 p-4 rounded-xl z-[9999]
+        font-sans max-w-[280px]
+        transition-all duration-500 ease-out
+        bg-white/25 dark:bg-gray-800/25 backdrop-blur-md border border-gray-300/40 dark:border-gray-700/40 shadow-xl
+        ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
+      `}
+    >
+      <div className="flex items-center gap-3">
+        <div className="text-2xl drop-shadow-md">
+          {isMobile ? (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smartphone-check text-gray-900 dark:text-white"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="m9 12 2 2 4-4"/><path d="M12 18h.01"/></svg> // Phone with check icon
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-laptop-check text-gray-900 dark:text-white"><path d="M11 20H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5"/><path d="M2 15h12"/><path d="m18 22 4-4"/></svg> // Laptop with check icon
+          )}
+        </div>
+        <div>
+          <div className="font-semibold text-shadow-sm text-gray-900 dark:text-white">App Installed!</div> {/* Text color for light/dark mode */}
+          <div className="text-sm opacity-90 text-gray-800 dark:text-gray-200">Thanks for installing the portfolio app</div> {/* Text color for light/dark mode */}
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+};
+
+
+// ===============================================
+// Main PWA Installer Component
+// ===============================================
+
+const PWAInstaller: React.FC = () => {
+  const [showInstallBanner, setShowInstallBanner] = useState(false);
+  const [showThankYouBanner, setShowThankYouBanner] = useState(false);
+
+  useEffect(() => {
+    // 1. Service Worker Registration
+    if (isServiceWorkerSupported()) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('/sw.js')
+          .then((registration) => {
+            console.log('✅ SW registered successfully:', registration);
+
+            registration.addEventListener('updatefound', () => {
+              const newWorker = registration.installing;
+              if (newWorker) {
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    if (confirm('🔄 New version available! Click OK to update.')) {
+                      window.location.reload();
+                    }
+                  }
+                });
+              }
+            });
+          })
+          .catch((registrationError) => {
+            console.warn(
+              '⚠️ SW registration failed (this is expected in some environments):',
+              registrationError.message
+            );
+          });
+      });
+    } else {
+      console.log('ℹ️ Service Workers not supported in this environment - PWA features will be limited');
+    }
+
+    // 2. Before Install Prompt Listener
+    const handleBeforeInstallPrompt = (e: BeforeInstallPromptEvent) => {
+      console.log('🚀 PWA install prompt triggered');
+      e.preventDefault();
+      deferredPrompt = e;
+      if (!installPromptShown) { // Only show if not already shown/installed
+        setTimeout(() => {
+          setShowInstallBanner(true);
+        }, 3000); // Show after 3 seconds
+      }
+    };
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    // 3. App Installed Listener
+    const handleAppInstalled = () => {
+      console.log('🎉 PWA was installed successfully');
+      installPromptShown = true;
+      setShowInstallBanner(false); // Hide install banner if it was open
+      setTimeout(() => {
+        setShowThankYouBanner(true);
+      }, 1000);
+    };
+    window.addEventListener('appinstalled', handleAppInstalled);
+
+    // 4. Debug Logging
+    console.log('🔍 PWA Installation Criteria Check:');
+    console.log('- Service Worker:', isServiceWorkerSupported() ? '✅' : '❌ (Not supported in this environment)');
+    console.log('- HTTPS:', location.protocol === 'https:' || location.hostname === 'localhost' ? '✅' : '❌');
+    console.log('- Manifest:', document.querySelector('link[rel="manifest"]') ? '✅' : '❌');
+
+    // Cleanup listeners on unmount
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('appinstalled', handleAppInstalled);
+    };
+  }, []); // Empty dependency array means this runs once on mount
+
+  const handleInstallClick = async () => {
+    console.log('🎯 User clicked install button');
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`👤 User response to install prompt: ${outcome}`);
+      if (outcome === 'accepted') {
+        console.log('✅ User accepted the install prompt');
+      } else {
+        console.log('❌ User dismissed the install prompt');
+      }
+      deferredPrompt = null;
+    } else {
+      console.log('⚠️ No deferred prompt available');
+      alert(
+        'To install this app:\n\n• Chrome: Click the install icon in the address bar\n• Safari: Tap Share → Add to Home Screen\n• Edge: Click the app icon in the address bar'
+      );
+    }
+    setShowInstallBanner(false); // Hide the install banner
+  };
+
+  const handleDismissInstallBanner = () => {
+    console.log('👋 User dismissed install prompt');
+    setShowInstallBanner(false);
+  };
+
+  const handleDismissThankYouBanner = () => {
+    setShowThankYouBanner(false);
+  };
+
+  return (
+    <>
+      {showInstallBanner && (
+        <InstallBanner
+          onInstall={handleInstallClick}
+          onDismiss={handleDismissInstallBanner}
+        />
+      )}
+      {showThankYouBanner && (
+        <ThankYouBanner
+          onDismiss={handleDismissThankYouBanner}
+        />
+      )}
+    </>
+  );
+};
+
+export default PWAInstaller;
