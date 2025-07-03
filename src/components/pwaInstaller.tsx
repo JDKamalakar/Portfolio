@@ -170,7 +170,7 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
             ⬇️ Install
           </button>
           <button
-            onClick={onDismiss} {/* This button also dismisses the banner */}
+            onClick={onDismiss}
             className="
               py-3 px-5 rounded-lg cursor-pointer font-semibold text-sm
               transition-all duration-300 ease-in-out
