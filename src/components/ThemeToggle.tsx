@@ -70,39 +70,39 @@ const ThemeToggle = () => {
       >
         {/* Outer div to handle the 360-degree rotation when popover opens/closes */}
         <div className={`relative w-6 h-6 flex items-center justify-center
-                          transition-transform duration-700 ease-in-out
-                          ${showOptions ? 'rotate-[360deg]' : 'rotate-0'}`}>
+                           transition-transform duration-700 ease-in-out
+                           ${showOptions ? 'rotate-[360deg]' : 'rotate-0'}`}>
 
           {/* System Theme Icon (Main Button - UNCHANGED) */}
           <Monitor
             className={`absolute inset-0 transition-all duration-500 ease-out
-                        ${isSystemActive
+                         ${isSystemActive
                             ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:animate-pulse'
                             : 'opacity-0 scale-50 rotate-[-90deg]'
-                        }
-                        text-blue-500 dark:text-blue-400`}
+                         }
+                         text-blue-500 dark:text-blue-400`}
             size={24}
           />
 
           {/* Light Theme Icon (Main Button - UNCHANGED) */}
           <Sun
             className={`absolute inset-0 transition-all duration-500 ease-out
-                        ${isLightActive
+                         ${isLightActive
                             ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:rotate-180'
                             : 'opacity-0 scale-50 rotate-[90deg]'
-                        }
-                        text-yellow-500`}
+                         }
+                         text-yellow-500`}
             size={24}
           />
 
           {/* Dark Theme Icon (Main Button - UNCHANGED) */}
           <Moon
             className={`absolute inset-0 transition-all duration-500 ease-out
-                        ${isDarkActive
+                         ${isDarkActive
                             ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:animate-pulse group-hover:rotate-[360deg]'
                             : 'opacity-0 scale-50 rotate-[-90deg]'
-                        }
-                        text-blue-400`}
+                         }
+                         text-blue-400`}
             size={24}
           />
         </div>
@@ -117,11 +117,12 @@ const ThemeToggle = () => {
         {/* System Theme Button (Popup) */}
         <button
           onClick={handleSystemTheme}
-          className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 backdrop-blur-sm mb-2 ${
-            isSystemActive
+          className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm mb-2 transform origin-center
+            ${isSystemActive
               ? 'bg-blue-500/40 text-blue-700 dark:text-blue-300 shadow-lg scale-105 border border-blue-300/30 dark:border-blue-500/30'
               : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-gray-700/30'
-          }`}
+            }
+            hover:scale-105 hover:-translate-y-1`} {/* ALWAYS apply hover scale/translate for popup buttons */}
           style={{
             transitionDelay: showOptions ? '100ms' : '0ms',
             transform: showOptions ? 'translateX(0)' : 'translateX(-10px)',
@@ -133,19 +134,20 @@ const ThemeToggle = () => {
             size={18}
             className={`text-blue-500 transition-all duration-300
               ${isSystemActive ? 'scale-110' : ''}
-              group-hover:rotate-12 group-hover:scale-110`}
+              group-hover:rotate-12 group-hover:scale-110 group-hover:animate-pulse`}
           />
-          <span className="text-sm font-medium">System</span>
+          <span className="text-sm font-medium group-hover:scale-110 transition-transform duration-300">System</span> {/* Span scales on hover */}
         </button>
 
         {/* Light Theme Button (Popup) */}
         <button
           onClick={() => handleManualTheme(false)}
-          className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 backdrop-blur-sm mb-2 ${
-            isLightActive
+          className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm mb-2 transform origin-center
+            ${isLightActive
               ? 'bg-yellow-500/40 text-yellow-700 dark:text-yellow-300 shadow-lg scale-105 border border-yellow-300/30 dark:border-yellow-500/30'
               : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-gray-700/30'
-          }`}
+            }
+            hover:scale-105 hover:-translate-y-1`} {/* ALWAYS apply hover scale/translate for popup buttons */}
           style={{
             transitionDelay: showOptions ? '150ms' : '0ms',
             transform: showOptions ? 'translateX(0)' : 'translateX(-10px)',
@@ -157,19 +159,20 @@ const ThemeToggle = () => {
             size={18}
             className={`text-yellow-500 transition-all duration-300
               ${isLightActive ? 'scale-110' : ''}
-              group-hover:rotate-180 group-hover:scale-110`}
+              group-hover:rotate-180 group-hover:scale-110 group-hover:animate-pulse`}
           />
-          <span className="text-sm font-medium">Light</span>
+          <span className="text-sm font-medium group-hover:scale-110 transition-transform duration-300">Light</span> {/* Span scales on hover */}
         </button>
 
         {/* Dark Theme Button (Popup) */}
         <button
           onClick={() => handleManualTheme(true)}
-          className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 backdrop-blur-sm ${
-            isDarkActive
+          className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm transform origin-center
+            ${isDarkActive
               ? 'bg-blue-500/40 text-blue-700 dark:text-blue-300 shadow-lg scale-105 border border-blue-300/30 dark:border-blue-500/30'
               : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-gray-700/30'
-          }`}
+            }
+            hover:scale-105 hover:-translate-y-1`} {/* ALWAYS apply hover scale/translate for popup buttons */}
           style={{
             transitionDelay: showOptions ? '200ms' : '0ms',
             transform: showOptions ? 'translateX(0)' : 'translateX(-10px)',
@@ -179,15 +182,15 @@ const ThemeToggle = () => {
           {/* Icon always visible, only animates */}
           <Moon
             size={18}
-            className={`text-blue-400 transition-all duration-300
+            className={`text-gray-700 dark:text-blue-400 transition-all duration-300
               ${isDarkActive ? 'scale-110' : ''}
-              group-hover:rotate-[360deg] group-hover:scale-110`}
+              group-hover:rotate-[360deg] group-hover:scale-110 group-hover:animate-pulse`}
           />
-          <span className="text-sm font-medium">Dark</span>
+          <span className="text-sm font-medium group-hover:scale-110 transition-transform duration-300">Dark</span> {/* Span scales on hover */}
         </button>
       </div>
     </div>
   );
 };
 
-export default ThemeToggle;1
+export default ThemeToggle;
