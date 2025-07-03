@@ -132,8 +132,8 @@ const ThemeToggle = () => {
           <Monitor
             size={18}
             className={`text-blue-500 transition-all duration-300
-              ${isSystemActive ? 'scale-110 animate-pulse' : ''}
-              group-hover:rotate-12 group-hover:scale-110 group-hover:animate-pulse`}
+              ${isSystemActive ? 'scale-110' : ''}
+              group-hover:rotate-12 group-hover:scale-110`}
           />
           <span className="text-sm font-medium">System</span>
         </button>
@@ -156,8 +156,8 @@ const ThemeToggle = () => {
           <Sun
             size={18}
             className={`text-yellow-500 transition-all duration-300
-              ${isLightActive ? 'scale-110 animate-pulse' : ''}
-              group-hover:rotate-180 group-hover:scale-110 group-hover:animate-pulse`}
+              ${isLightActive ? 'scale-110' : ''}
+              group-hover:rotate-180 group-hover:scale-110`}
           />
           <span className="text-sm font-medium">Light</span>
         </button>
