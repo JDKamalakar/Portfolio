@@ -147,7 +147,7 @@ const ThemeToggle = () => {
               ? 'bg-yellow-500/40 text-yellow-700 dark:text-yellow-300 shadow-lg scale-105 border border-yellow-300/30 dark:border-yellow-500/30'
               : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-gray-700/30'
             }
-            hover:scale-105 hover:-translate-y-1`} {/* ALWAYS apply hover scale/translate for popup buttons */}
+            hover:scale-105 hover:-translate-y-1`}
           style={{
             transitionDelay: showOptions ? '150ms' : '0ms',
             transform: showOptions ? 'translateX(0)' : 'translateX(-10px)',
