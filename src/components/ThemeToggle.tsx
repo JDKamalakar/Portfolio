@@ -88,7 +88,7 @@ const ThemeToggle = () => {
           <Sun
             className={`absolute inset-0 transition-all duration-500 ease-out
                          ${isLightActive
-                            ? 'opacity-100 scale-100 rotate-0 group-hover:rotate-180'
+                            ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:rotate-180'
                             : 'opacity-0 scale-50 rotate-[90deg]'
                          }
                          text-yellow-500`}
@@ -132,7 +132,7 @@ const ThemeToggle = () => {
           <Monitor
             size={18}
             className={`text-blue-500 transition-all duration-300
-              ${isSystemActive ? 'scale-110' : ''}
+              ${isSystemActive ? '' : ''}
               group-hover:rotate-12 group-hover:scale-110 group-hover:animate-pulse`}
           />
           {/* Span scales on hover */}
