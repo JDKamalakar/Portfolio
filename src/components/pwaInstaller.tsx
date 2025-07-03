@@ -46,7 +46,8 @@ function isServiceWorkerSupported(): boolean {
 const isMobileDevice = () => {
   if (typeof window === 'undefined') return false; // Server-side rendering check
   const userAgent = navigator.userAgent || navigator.vendor;
-  return /android|iphone|ipad|ipod|blackberry|windows phone/i.i test(userAgent);
+  // Fixed typo: 'i.i test' changed to 'test'
+  return /android|iphone|ipad|ipod|blackberry|windows phone/i.test(userAgent);
 };
 
 // ===============================================
