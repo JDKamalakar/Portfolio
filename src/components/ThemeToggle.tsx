@@ -102,7 +102,7 @@ const ThemeToggle = () => {
                             ? 'opacity-100 scale-100 rotate-0'
                             : 'opacity-0 scale-50 rotate-[-360deg]' // Moon icon rotates 360 degrees when inactive
                         }
-                        group-hover:scale-110 group-hover:animate-pulse group-hover:rotate-[360deg]`} {/* Moon icon rotates 360 degrees on hover */}
+                        group-hover:scale-110 group-hover:animate-pulse group-hover:rotate-[360deg]`} // Moon icon rotates 360 degrees on hover
             size={24}
           />
         </div>
