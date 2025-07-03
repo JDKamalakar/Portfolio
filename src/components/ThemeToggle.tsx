@@ -132,8 +132,8 @@ const ThemeToggle = () => {
           <Monitor
             size={18}
             className={`text-blue-500 transition-all duration-300
-              ${isSystemActive ? '' : ''}
-              group-hover:rotate-12 group-hover:scale-110 group-hover:animate-pulse`}
+              ${isSystemActive ? 'scale-110' : ''}
+              group-hover:rotate-12 group-hover:scale-110`}
           />
           {/* Span scales on hover */}
           <span className="text-sm font-medium inline-block group-hover:scale-110 transition-transform duration-300">System</span>
@@ -158,7 +158,7 @@ const ThemeToggle = () => {
             size={18}
             className={`text-yellow-500 transition-all duration-300
               ${isLightActive ? 'scale-110' : ''}
-              group-hover:rotate-180 group-hover:scale-110 group-hover:animate-pulse`}
+              group-hover:rotate-180 group-hover:scale-110`}
           />
           {/* Span scales on hover */}
           <span className="text-sm font-medium inline-block group-hover:scale-110 transition-transform duration-300">Light</span>
@@ -183,7 +183,7 @@ const ThemeToggle = () => {
             size={18}
             className={`text-blue-500 dark:text-blue-400 transition-all duration-300
               ${isDarkActive ? 'scale-110' : ''}
-              group-hover:rotate-[360deg] group-hover:scale-110 group-hover:animate-pulse`}
+              group-hover:rotate-[360deg] group-hover:scale-110`}
           />
           {/* Span scales on hover */}
           <span className="text-sm font-medium inline-block group-hover:scale-110 transition-transform duration-300">Dark</span>
