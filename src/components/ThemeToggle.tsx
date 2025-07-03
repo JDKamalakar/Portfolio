@@ -39,7 +39,7 @@ const ThemeToggle = () => {
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClick);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [showOptions]);
 
@@ -73,35 +73,38 @@ const ThemeToggle = () => {
                           transition-transform duration-700 ease-in-out
                           ${showOptions ? 'rotate-[360deg]' : 'rotate-0'}`}>
 
-          {/* System Theme Icon - Only show hover effects when active */}
+          {/* System Theme Icon */}
           <Monitor
             className={`absolute inset-0 transition-all duration-500 ease-out
                         ${isSystemActive
-                            ? 'opacity-100 scale-100 rotate-0' // Active: visible, no hover effects
-                            : 'opacity-0 scale-50 rotate-[-90deg] group-hover:scale-110 group-hover:animate-pulse' // Inactive: hidden, with hover effects
+                            ? 'opacity-100 scale-100 rotate-0'
+                            : 'opacity-0 scale-50 rotate-[-90deg]'
                         }
+                        group-hover:scale-110 group-hover:animate-pulse
                         text-blue-500 dark:text-blue-400`}
             size={24}
           />
 
-          {/* Light Theme Icon - Only show hover effects when active */}
+          {/* Light Theme Icon */}
           <Sun
             className={`absolute inset-0 transition-all duration-500 ease-out
                         ${isLightActive
-                            ? 'opacity-100 scale-100 rotate-0' // Active: visible, no hover effects
-                            : 'opacity-0 scale-50 rotate-[90deg] group-hover:scale-110 group-hover:rotate-180' // Inactive: hidden, with hover effects
+                            ? 'opacity-100 scale-100 rotate-0'
+                            : 'opacity-0 scale-50 rotate-[90deg]'
                         }
+                        group-hover:scale-110 group-hover:rotate-180
                         text-yellow-500`}
             size={24}
           />
 
-          {/* Dark Theme Icon - Only show hover effects when active */}
+          {/* Dark Theme Icon */}
           <Moon
             className={`absolute inset-0 transition-all duration-500 ease-out
                         ${isDarkActive
-                            ? 'opacity-100 scale-100 rotate-0' // Active: visible, no hover effects
-                            : 'opacity-0 scale-50 rotate-[-180deg] group-hover:scale-110 group-hover:-rotate-12 group-hover:animate-pulse' // Inactive: hidden, with hover effects
+                            ? 'opacity-100 scale-100 rotate-0'
+                            : 'opacity-0 scale-50 rotate-[-360deg]' // Moon icon rotates 360 degrees from its hidden state
                         }
+                        group-hover:scale-110 group-hover:animate-pulse group-hover:rotate-360 // Moon icon rotates 360 degrees on hover
                         text-blue-400`}
             size={24}
           />
@@ -131,11 +134,10 @@ const ThemeToggle = () => {
           {/* Apply specific color and group-hover animation */}
           <Monitor
             size={18}
-            className={`text-blue-500 transition-all duration-300 ${
-              isSystemActive
-                ? 'scale-110' // Active: only scale, no animation
-                : 'group-hover:rotate-12 group-hover:scale-110 group-hover:animate-pulse' // Inactive: with hover effects
-            }`}
+            className={`text-blue-500 transition-all duration-300
+              ${isSystemActive ? 'scale-110 animate-pulse' : ''} // Animate if active
+              group-hover:rotate-12 group-hover:scale-110 group-hover:animate-pulse // Animate on hover
+            `}
           />
           <span className="text-sm font-medium">System</span>
         </button>
@@ -157,11 +159,10 @@ const ThemeToggle = () => {
           {/* Apply specific color and group-hover animation */}
           <Sun
             size={18}
-            className={`text-yellow-500 transition-all duration-300 ${
-              isLightActive
-                ? 'scale-110' // Active: only scale, no animation
-                : 'group-hover:rotate-180 group-hover:scale-110 group-hover:animate-pulse' // Inactive: with hover effects
-            }`}
+            className={`text-yellow-500 transition-all duration-300
+              ${isLightActive ? 'scale-110 animate-pulse' : ''} // Animate if active
+              group-hover:rotate-180 group-hover:scale-110 group-hover:animate-pulse // Animate on hover
+            `}
           />
           <span className="text-sm font-medium">Light</span>
         </button>
@@ -183,11 +184,10 @@ const ThemeToggle = () => {
           {/* Apply specific color and group-hover animation */}
           <Moon
             size={18}
-            className={`text-blue-400 transition-all duration-300 ${
-              isDarkActive
-                ? 'scale-110' // Active: only scale, no animation
-                : 'group-hover:-rotate-180 group-hover:scale-110 group-hover:animate-pulse' // Inactive: with hover effects, rotated more
-            }`}
+            className={`text-blue-400 transition-all duration-300
+              ${isDarkActive ? 'scale-110 animate-pulse' : ''} // Animate if active
+              group-hover:rotate-360 group-hover:scale-110 group-hover:animate-pulse // Animate on hover with 360 rotation
+            `}
           />
           <span className="text-sm font-medium">Dark</span>
         </button>
@@ -196,4 +196,4 @@ const ThemeToggle = () => {
   );
 };
 
-export default ThemeToggle;1
+export default ThemeToggle;
