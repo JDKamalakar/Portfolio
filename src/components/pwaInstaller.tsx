@@ -1,6 +1,6 @@
 // src/components/pwaInstaller.tsx
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } = 'react';
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react'; // Import the X icon from lucide-react
 
@@ -46,7 +46,6 @@ function isServiceWorkerSupported(): boolean {
 const isMobileDevice = () => {
   if (typeof window === 'undefined') return false; // Server-side rendering check
   const userAgent = navigator.userAgent || navigator.vendor;
-  // Fixed typo: 'i.i test' changed to 'test'
   return /android|iphone|ipad|ipod|blackberry|windows phone/i.test(userAgent);
 };
 
@@ -140,14 +139,13 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
           <button
             onClick={onDismiss}
             className="
-              absolute top-0 right-0 p-2 rounded-lg cursor-pointer
+              absolute top-1.5 right-0 p-2 rounded-lg cursor-pointer  {/* Adjusted top-0 to top-1.5 */}
               transition-all duration-300 ease-in-out group
               hover:scale-110 active:scale-90 w-8 h-8 flex items-center justify-center
               bg-white/20 dark:bg-gray-800/20 border border-gray-300/30 dark:border-gray-700/30 shadow-md
               dark:shadow-blue-500/50 dark:hover:shadow-blue-500/70
             "
           >
-            {/* Explicitly set text-red-500 and increased size to w-5 h-5 */}
             <X className="w-5 h-5 text-red-500 transition-transform duration-200 group-hover:rotate-90 group-hover:scale-110" />
           </button>
         </div>
