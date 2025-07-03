@@ -41,14 +41,6 @@ function isServiceWorkerSupported(): boolean {
   return !isStackBlitz;
 }
 
-// Simple component to detect if it's likely a mobile device based on user agent
-const isMobileDevice = () => {
-  if (typeof window === 'undefined') return false; // Server-side rendering check
-  const userAgent = navigator.userAgent || navigator.vendor;
-  return /android|iphone|ipad|ipod|blackberry|windows phone/i.test(userAgent);
-};
-
-
 // ===============================================
 // React Component for PWA Install Prompt
 // ===============================================
@@ -60,7 +52,6 @@ interface InstallBannerProps {
 
 const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const isMobile = isMobileDevice();
 
   useEffect(() => {
     // Trigger animation after component mounts
@@ -68,13 +59,12 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
       setIsVisible(true);
     }, 100); // Small delay to allow element to be in DOM before animating
 
-    // Reduced auto-dismiss time to 8 seconds
     const autoDismissTimeout = setTimeout(() => {
       if (isVisible) { // Only auto-dismiss if it's currently visible
-        console.log('⏰ Auto-dismissing install prompt after 8 seconds');
+        console.log('⏰ Auto-dismissing install prompt after 15 seconds');
         onDismiss(); // Call dismiss to handle animation and removal
       }
-    }, 8000); // Popup stays for 8 seconds
+    }, 15000);
 
     return () => {
       clearTimeout(timeoutId);
@@ -86,45 +76,23 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
     <div
       id="install-banner"
       className={`
-        fixed top-[88px] right-4 p-5 rounded-2xl z-[9999]
+        fixed top-1/2 -translate-y-1/2 p-5 rounded-2xl z-[9999]
         font-sans max-w-xs border border-white/20
         transition-all duration-500 ease-out
-        ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
+        ${isVisible ? 'opacity-100 right-4' : 'opacity-0 -right-full'}
       `}
       style={{
-        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(139, 92, 246, 0.25))', // Reduced transparency further
-        backdropFilter: 'blur(15px) saturate(200%)', // More blur and saturation for glass effect
-        WebkitBackdropFilter: 'blur(15px) saturate(200%)', // For Safari
-        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.15)', // Deeper, more diffused shadow
+        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.6), rgba(139, 92, 246, 0.6))',
+        boxShadow: '0 10px 20px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1)', // Deeper shadow
         color: 'white'
       }}
     >
       <div className="flex items-center gap-4 mb-3">
-        <div className="text-3xl drop-shadow-md">
-          {isMobile ? (
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smartphone"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg> // Phone icon
-          ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-laptop"><path d="M20 18H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2Z"/><path d="M2 15h20"/></svg> // Laptop icon
-          )}
-        </div>
+        <div className="text-3xl drop-shadow-md">📱</div> {/* Drop shadow for icon */}
         <div>
           <div className="font-bold mb-1 text-lg text-shadow-sm">Install Portfolio App</div> {/* Text shadow */}
           <div className="text-sm opacity-90 leading-tight">Add to home screen for quick access and offline viewing</div>
         </div>
-        <button
-          onClick={onDismiss}
-          className="
-            absolute top-3 right-3 p-1 rounded-full cursor-pointer text-sm
-            transition-all duration-300 ease-in-out group
-            hover:scale-125 active:scale-90
-          "
-          style={{
-            background: 'rgba(255,255,255,0.1)', // Slightly visible background for button
-            border: '1px solid rgba(255,255,255,0.3)',
-          }}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x text-red-400 group-hover:rotate-180 transition-transform duration-300"></svg>
-        </button>
       </div>
       <div className="flex gap-3 mt-4">
         <button
@@ -132,16 +100,32 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
           className="
             flex-1 py-3 px-5 rounded-lg cursor-pointer font-semibold text-sm
             transition-all duration-300 ease-in-out
-            shadow-md hover:shadow-lg active:scale-95 hover:scale-[1.03]
+            shadow-md hover:shadow-lg active:scale-95
           "
           style={{
-            background: 'rgba(255,255,255,0.15)', // More transparent
+            background: 'rgba(255,255,255,0.2)', // More transparent
             border: '1px solid rgba(255,255,255,0.4)',
           }}
-          onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.25)')}
-          onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.15)')}
+          onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.3)')}
+          onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.2)')}
         >
           ⬇️ Install
+        </button>
+        <button
+          onClick={onDismiss}
+          className="
+            py-3 px-4 rounded-lg cursor-pointer text-sm
+            transition-all duration-300 ease-in-out
+            shadow-md hover:shadow-lg active:scale-95
+          "
+          style={{
+            background: 'transparent',
+            border: '1px solid rgba(255,255,255,0.4)',
+          }}
+          onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')}
+          onMouseOut={(e) => (e.currentTarget.style.background = 'transparent')}
+        >
+          ✕
         </button>
       </div>
     </div>,
@@ -155,7 +139,6 @@ interface ThankYouBannerProps {
 
 const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const isMobile = isMobileDevice();
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -176,27 +159,19 @@ const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
     <div
       id="thank-you-banner"
       className={`
-        fixed top-[88px] right-4 p-4 rounded-xl z-[9999]
+        fixed top-1/2 -translate-y-1/2 p-4 rounded-xl z-[9999]
         font-sans max-w-[280px] border border-white/20
         transition-all duration-500 ease-out
-        ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
+        ${isVisible ? 'opacity-100 right-4' : 'opacity-0 -right-full'}
       `}
       style={{
-        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(5, 150, 105, 0.25))', // Reduced transparency further
-        backdropFilter: 'blur(15px) saturate(200%)', // More blur and saturation for glass effect
-        WebkitBackdropFilter: 'blur(15px) saturate(200%)', // For Safari
-        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.15)', // Deeper, more diffused shadow
+        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.6), rgba(5, 150, 105, 0.6))',
+        boxShadow: '0 10px 20px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1)', // Deeper shadow
         color: 'white'
       }}
     >
       <div className="flex items-center gap-3">
-        <div className="text-2xl drop-shadow-md">
-          {isMobile ? (
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smartphone-check"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="m9 12 2 2 4-4"/><path d="M12 18h.01"/></svg> // Phone with check icon
-          ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-laptop-check"><path d="M11 20H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5"/><path d="M2 15h12"/><path d="m18 22 4-4"/></svg> // Laptop with check icon
-          )}
-        </div>
+        <div className="text-2xl drop-shadow-md">✅</div> {/* Drop shadow for icon */}
         <div>
           <div className="font-semibold text-shadow-sm">App Installed!</div> {/* Text shadow */}
           <div className="text-sm opacity-90">Thanks for installing the portfolio app</div>
