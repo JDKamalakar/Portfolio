@@ -172,7 +172,7 @@ const ThemeToggle = () => {
               ? 'bg-blue-500/40 text-blue-700 dark:text-blue-300 shadow-lg scale-105 border border-blue-300/30 dark:border-blue-500/30'
               : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-gray-700/30'
             }
-            hover:scale-105 hover:-translate-y-1`} {/* ALWAYS apply hover scale/translate for popup buttons */}
+            hover:scale-105 hover:-translate-y-1`}
           style={{
             transitionDelay: showOptions ? '200ms' : '0ms',
             transform: showOptions ? 'translateX(0)' : 'translateX(-10px)',
