@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { X } from 'lucide-react'; // Import the X icon from lucide-react
 
 // IMPORTANT: This 'declare global' block ensures that BeforeInstallPromptEvent
 // is recognized by TypeScript across your project, even though this file is a module.
@@ -142,10 +143,11 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
               transition-all duration-300 ease-in-out group
               hover:scale-110 active:scale-90 w-7 h-7 flex items-center justify-center
               bg-white/20 dark:bg-gray-800/20 border border-gray-300/30 dark:border-gray-700/30 shadow-md
-              dark:shadow-blue-500/50 dark:hover:shadow-blue-500/70 // Dark mode glow for close button
+              dark:shadow-blue-500/50 dark:hover:shadow-blue-500/70
             "
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x text-red-500 group-hover:rotate-180 transition-transform duration-300"></svg>
+            {/* Replaced SVG with Lucide X component */}
+            <X className="w-5 h-5 text-error transition-transform duration-200 group-hover:rotate-90 group-hover:scale-110" />
           </button>
         </div>
         <div className="flex gap-3 mt-4">
@@ -158,7 +160,7 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
               text-gray-900 dark:text-white
               bg-white/20 dark:bg-gray-800/20 border border-gray-300/30 dark:border-gray-700/30
               hover:bg-white/30 dark:hover:bg-gray-700/30
-              dark:shadow-blue-500/50 dark:hover:shadow-blue-500/70 // Dark mode glow for install button
+              dark:shadow-blue-500/50 dark:hover:shadow-blue-500/70
             "
           >
             ⬇️ Install
@@ -382,4 +384,4 @@ const PWAInstaller: React.FC = () => {
   );
 };
 
-export default PWAInstaller;22
+export default PWAInstaller;
