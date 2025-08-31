@@ -97,7 +97,7 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
         `}
         style={{
           filter: 'blur(30px)', // Adjust blur for glow intensity
-          background: 'linear-gradient(to bottom, rgba(59, 130, 246, 0.4), rgba(139, 92, 246, 0.4))', // Matching banner gradient
+          background: 'linear-gradient(135deg, rgba(26, 115, 232, 0.5), rgba(66, 165, 245, 0.4), rgba(33, 150, 243, 0.5))', // Material 3 expressive blue glow
           transform: 'translateY(10px) scale(0.95)', // Slightly below and smaller than the popup
           pointerEvents: 'none', // Ensure it doesn't block clicks
         }}
@@ -107,15 +107,65 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
       <div
         id="install-banner-content"
         className={`
-          relative p-5 rounded-2xl
+          relative p-5 rounded-2xl overflow-hidden
           bg-white/25 dark:bg-gray-800/25 backdrop-blur-md border border-gray-300/40 dark:border-gray-700/40 shadow-xl
         `}
       >
+        {/* Moving Background Animation */}
+        <div className="absolute inset-0 -z-10">
+          {/* Primary moving gradient */}
+          <div 
+            className="absolute inset-0 opacity-60"
+            style={{
+              background: 'linear-gradient(135deg, #1A73E8 0%, #42A5F5 25%, #2196F3 50%, #1976D2 75%, #1565C0 100%)',
+              animation: 'gradientShift 8s ease-in-out infinite'
+            }}
+          />
+          
+          {/* Secondary moving layer */}
+          <div 
+            className="absolute inset-0 opacity-40"
+            style={{
+              background: 'linear-gradient(45deg, transparent 30%, #42A5F5 50%, transparent 70%)',
+              animation: 'slideAcross 6s linear infinite'
+            }}
+          />
+          
+          {/* Floating orbs */}
+          <div 
+            className="absolute w-8 h-8 rounded-full opacity-30"
+            style={{
+              background: 'radial-gradient(circle, #E3F2FD 0%, #1A73E8 100%)',
+              top: '20%',
+              left: '10%',
+              animation: 'float 4s ease-in-out infinite'
+            }}
+          />
+          <div 
+            className="absolute w-6 h-6 rounded-full opacity-25"
+            style={{
+              background: 'radial-gradient(circle, #BBDEFB 0%, #2196F3 100%)',
+              top: '60%',
+              right: '15%',
+              animation: 'float 5s ease-in-out infinite reverse'
+            }}
+          />
+          <div 
+            className="absolute w-4 h-4 rounded-full opacity-20"
+            style={{
+              background: 'radial-gradient(circle, #90CAF9 0%, #1976D2 100%)',
+              bottom: '25%',
+              left: '20%',
+              animation: 'float 3.5s ease-in-out infinite'
+            }}
+          />
+        </div>
+
         {/* Light Ripple Effect - positioned relative to this content div */}
         <div
           className={`
-            absolute -bottom-10 left-1/2 -translate-x-1/2 w-48 h-20 rounded-full
-            bg-white/30 dark:bg-gray-200/30 blur-3xl -z-10
+            absolute -bottom-10 left-1/2 -translate-x-1/2 w-48 h-20 rounded-full -z-10
+            bg-gradient-to-r from-blue-200/40 via-blue-300/50 to-blue-400/40 dark:from-blue-400/20 dark:via-blue-500/30 dark:to-blue-600/20 blur-3xl
             animate-ripple pointer-events-none
             ${isVisible ? 'opacity-100' : 'opacity-0'}
           `}
@@ -144,14 +194,13 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
           <button
             onClick={onInstall}
             className="
-              flex-1 py-3 px-5 rounded-lg cursor-pointer font-semibold text-sm group {/* Added group class */}
+              flex-1 py-3 px-5 rounded-lg cursor-pointer font-semibold text-sm group
               transition-all duration-300 ease-in-out
               shadow-md hover:shadow-lg active:scale-95 hover:scale-[1.08]
-              text-gray-900 dark:text-white
-              bg-white/20 dark:bg-gray-800/20 border border-gray-300/30 dark:border-gray-700/30
-              hover:bg-white/30 dark:hover:bg-gray-700/30
-              dark:shadow-blue-500/50 dark:hover:shadow-blue-500/70
-              flex items-center justify-center gap-2 {/* Flex to center icon and text */}
+              text-white
+              bg-gradient-to-r from-blue-600 to-blue-700 border border-blue-500/30
+              hover:from-blue-700 hover:to-blue-800 hover:shadow-blue-500/50
+              flex items-center justify-center gap-2
             "
           >
             {/* Install Icon with hover scaling */}
@@ -161,13 +210,12 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
           <button
             onClick={onDismiss}
             className="
-              flex-1 py-3 px-5 rounded-lg cursor-pointer font-semibold text-sm group {/* Added group class */}
+              flex-1 py-3 px-5 rounded-lg cursor-pointer font-semibold text-sm group
               transition-all duration-300 ease-in-out
               shadow-md hover:shadow-lg active:scale-95 hover:scale-[1.08]
-              text-gray-800 dark:text-gray-200
-              bg-white/10 dark:bg-gray-700/10 border border-gray-300/30 dark:border-gray-700/30
-              hover:bg-white/20 dark:hover:bg-gray-700/20
-              dark:shadow-red-500/30 dark:hover:shadow-red-500/50
+              text-white
+              bg-white/20 border border-white/30
+              hover:bg-white/30 hover:shadow-white/25
               flex items-center justify-center gap-2
             "
           >
@@ -222,7 +270,7 @@ const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
         `}
         style={{
           filter: 'blur(20px)', // Adjust blur for glow intensity (slightly less for thank you)
-          background: 'linear-gradient(to bottom, rgba(16, 185, 129, 0.4), rgba(5, 150, 105, 0.4))', // Matching banner gradient
+          background: 'linear-gradient(135deg, rgba(26, 115, 232, 0.4), rgba(66, 165, 245, 0.3), rgba(33, 150, 243, 0.4))', // Material 3 blue glow for success
           transform: 'translateY(8px) scale(0.96)', // Slightly below and smaller than the popup
           pointerEvents: 'none',
         }}
@@ -232,15 +280,36 @@ const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
       <div
         id="thank-you-banner-content"
         className={`
-          relative p-4 rounded-xl
+          relative p-4 rounded-xl overflow-hidden
           bg-white/25 dark:bg-gray-800/25 backdrop-blur-md border border-gray-300/40 dark:border-gray-700/40 shadow-xl
         `}
       >
+        {/* Moving Background Animation for Thank You Banner */}
+        <div className="absolute inset-0 -z-10">
+          {/* Success gradient with Material 3 blue */}
+          <div 
+            className="absolute inset-0 opacity-70"
+            style={{
+              background: 'linear-gradient(135deg, #1A73E8 0%, #42A5F5 30%, #2196F3 60%, #1976D2 100%)',
+              animation: 'gradientShift 6s ease-in-out infinite'
+            }}
+          />
+          
+          {/* Success shimmer effect */}
+          <div 
+            className="absolute inset-0 opacity-30"
+            style={{
+              background: 'linear-gradient(90deg, transparent 0%, #E3F2FD 50%, transparent 100%)',
+              animation: 'shimmer 3s linear infinite'
+            }}
+          />
+        </div>
+
         {/* Light Ripple Effect - positioned relative to this content div */}
         <div
           className={`
-            absolute -bottom-8 left-1/2 -translate-x-1/2 w-40 h-16 rounded-full
-            bg-white/30 dark:bg-gray-200/30 blur-2xl -z-10
+            absolute -bottom-8 left-1/2 -translate-x-1/2 w-40 h-16 rounded-full -z-10
+            bg-gradient-to-r from-blue-200/40 via-blue-300/50 to-blue-400/40 blur-2xl
             animate-ripple pointer-events-none
             ${isVisible ? 'opacity-100' : 'opacity-0'}
           `}
@@ -268,6 +337,67 @@ const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
   );
 };
 
+// Add CSS animations to the document head
+if (typeof document !== 'undefined') {
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes gradientShift {
+      0%, 100% { 
+        background-position: 0% 50%; 
+        transform: scale(1) rotate(0deg);
+      }
+      25% { 
+        background-position: 100% 50%; 
+        transform: scale(1.05) rotate(1deg);
+      }
+      50% { 
+        background-position: 200% 50%; 
+        transform: scale(1) rotate(0deg);
+      }
+      75% { 
+        background-position: 300% 50%; 
+        transform: scale(1.05) rotate(-1deg);
+      }
+    }
+    
+    @keyframes slideAcross {
+      0% { 
+        transform: translateX(-100%) rotate(45deg); 
+        opacity: 0;
+      }
+      50% { 
+        opacity: 1; 
+      }
+      100% { 
+        transform: translateX(200%) rotate(45deg); 
+        opacity: 0;
+      }
+    }
+    
+    @keyframes float {
+      0%, 100% { 
+        transform: translateY(0px) scale(1); 
+      }
+      50% { 
+        transform: translateY(-10px) scale(1.1); 
+      }
+    }
+    
+    @keyframes shimmer {
+      0% { 
+        transform: translateX(-100%); 
+      }
+      100% { 
+        transform: translateX(100%); 
+      }
+    }
+  `;
+  
+  if (!document.head.querySelector('style[data-pwa-animations]')) {
+    style.setAttribute('data-pwa-animations', 'true');
+    document.head.appendChild(style);
+  }
+}
 
 // ===============================================
 // Main PWA Installer Component
