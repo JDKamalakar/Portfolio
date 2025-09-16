@@ -136,11 +136,11 @@ const Footer = () => {
 
         <div className="backdrop-blur-xl bg-white/10 dark:bg-white/5 rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/30 p-12 relative overflow-hidden hover:shadow-3xl hover:scale-[1.02] transition-all duration-500 group">
 
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-indigo-500/10 dark:from-blue-400/5 dark:via-purple-400/5 dark:to-indigo-400/5 rounded-3xl"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-cyan-500/10 to-indigo-500/10 dark:from-blue-400/5 dark:via-cyan-400/5 dark:to-indigo-400/5 rounded-3xl"></div>
 
           <div className="absolute top-0 left-1/4 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 dark:bg-gradient-to-br dark:from-blue-300/10 dark:to-cyan-300/10 rounded-full blur-2xl animate-pulse -z-10"></div>
 
-          <div className="absolute bottom-0 right-1/4 w-40 h-40 bg-gradient-to-br from-purple-400/20 to-pink-400/20 dark:bg-gradient-to-br dark:from-purple-300/10 dark:to-pink-300/10 rounded-full blur-2xl animate-pulse delay-1000 -z-10"></div>
+          <div className="absolute bottom-0 right-1/4 w-40 h-40 bg-gradient-to-br from-cyan-400/20 to-indigo-400/20 dark:bg-gradient-to-br dark:from-cyan-300/10 dark:to-indigo-300/10 rounded-full blur-2xl animate-pulse delay-1000 -z-10"></div>
 
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-br from-indigo-400/20 to-blue-400/20 dark:bg-gradient-to-br dark:from-indigo-300/10 dark:to-blue-300/10 rounded-full blur-xl animate-bounce delay-500 -z-10"></div>
 
@@ -298,13 +298,13 @@ const Footer = () => {
 
           
 
-          <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+          <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
 
         </div>
 
         
 
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-indigo-500/10 rounded-3xl blur-2xl transform translate-y-4 opacity-50 -z-20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-indigo-500/10 rounded-3xl blur-2xl transform translate-y-4 opacity-50 -z-20"></div>
 
       </footer>
 
@@ -316,11 +316,11 @@ const Footer = () => {
 
         className={`fixed bottom-8 right-8 p-4 text-white rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 ease-out group z-50
 
-          backdrop-blur-xl border border-white/30 hover:-translate-y-2
+          backdrop-blur-xs border border-white/30 hover:-translate-y-2
 
-          bg-gradient-to-r from-blue-500/60 to-purple-600/60 dark:from-blue-500/40 dark:to-purple-600/40
+          bg-gradient-to-r from-blue-500/60 to-cyan-600/60 dark:from-blue-500/40 dark:to-cyan-600/40
 
-          hover:from-blue-500/80 hover:to-purple-600/80 dark:hover:from-blue-500/60 dark:hover:to-purple-600/60
+          hover:from-blue-500/80 hover:to-cyan-600/80 dark:hover:from-blue-500/60 dark:hover:to-cyan-600/60
 
           ${
 
@@ -364,7 +364,7 @@ const Footer = () => {
 
         
 
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400 to-purple-500 blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-500 -z-10 scale-150"></div>
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400 to-cyan-500 blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-500 -z-10 scale-150"></div>
 
       </button>
 

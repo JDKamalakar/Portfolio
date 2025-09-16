@@ -47,21 +47,38 @@ const Education = () => {
       className="py-20 px-6 relative overflow-hidden bg-gray-50 dark:bg-gray-900 transition-all duration-700 ease-in-out"
     >
       {/* Animated Background Flairs */}
-      <div className="absolute top-0 left-1/3 w-80 h-80 bg-gradient-to-br from-green-200/30 via-emerald-200/20 to-green-300/30 dark:from-green-900/20 dark:via-emerald-900/15 dark:to-green-800/20 rounded-full blur-3xl transition-all duration-1000 animate-pulse"></div>
-      <div className="absolute bottom-0 right-1/3 w-96 h-96 bg-gradient-to-br from-blue-200/30 via-sky-200/20 to-blue-300/30 dark:from-blue-900/20 dark:via-sky-900/15 dark:to-blue-800/20 rounded-full blur-3xl transition-all duration-1000 animate-pulse delay-1000"></div>
+      <div className="absolute top-0 left-1/3 w-80 h-80 bg-gradient-to-br from-green-200/30 via-emerald-200/20 to-teal-300/30 dark:from-green-900/20 dark:via-emerald-900/15 dark:to-teal-800/20 rounded-full blur-3xl transition-all duration-1000 animate-pulse"></div>
+      <div className="absolute bottom-0 right-1/3 w-96 h-96 bg-gradient-to-br from-blue-200/30 via-cyan-200/20 to-blue-300/30 dark:from-blue-900/20 dark:via-cyan-900/15 dark:to-blue-800/20 rounded-full blur-3xl transition-all duration-1000 animate-pulse delay-1000"></div>
       
       {/* Floating animated orbs */}
-      <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-gradient-to-br from-teal-300/25 to-green-400/25 dark:from-teal-800/15 dark:to-green-900/15 rounded-full blur-2xl animate-bounce delay-700"></div>
-      <div className="absolute bottom-1/4 left-1/4 w-24 h-24 bg-gradient-to-br from-cyan-300/25 to-blue-400/25 dark:from-cyan-800/15 dark:to-blue-900/15 rounded-full blur-2xl animate-bounce delay-1200"></div>
+      <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-gradient-to-br from-teal-300/25 to-blue-400/25 dark:from-teal-800/15 dark:to-blue-900/15 rounded-full blur-2xl animate-bounce delay-700"></div>
+      <div className="absolute bottom-1/4 left-1/4 w-24 h-24 bg-gradient-to-br from-cyan-300/25 to-indigo-400/25 dark:from-cyan-800/15 dark:to-indigo-900/15 rounded-full blur-2xl animate-bounce delay-1200"></div>
+      
+      {/* Moving Elements */}
+      <div className="absolute top-1/5 left-0 w-6 h-6 bg-blue-400/20 dark:bg-blue-600/15 rounded-full blur-sm" 
+           style={{ 
+             animation: 'educationFloat 20s ease-in-out infinite',
+             animationDelay: '0s'
+           }}></div>
+      <div className="absolute bottom-1/5 right-0 w-8 h-8 bg-green-400/20 dark:bg-green-600/15 rounded-full blur-sm" 
+           style={{ 
+             animation: 'educationFloat 16s ease-in-out infinite reverse',
+             animationDelay: '4s'
+           }}></div>
+      <div className="absolute top-1/2 left-1/3 w-5 h-5 bg-cyan-400/20 dark:bg-cyan-600/15 rounded-full blur-sm" 
+           style={{ 
+             animation: 'academicOrbit 24s linear infinite',
+             animationDelay: '1s'
+           }}></div>
       
       <div className="max-w-6xl mx-auto relative z-10">
         <div className={`text-center mb-16 transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
-          <h2 className="text-5xl font-bold text-gray-800 dark:text-gray-200 mb-4 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-300 cursor-default">
+          <h2 className="text-5xl font-bold text-gray-800 dark:text-gray-200 mb-4 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300 cursor-default">
             Education & Certifications
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-green-500 to-blue-600 mx-auto rounded-full hover:w-32 transition-all duration-300"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-600 mx-auto rounded-full hover:w-32 transition-all duration-300"></div>
         </div>
         
         <div className="grid lg:grid-cols-2 gap-12">
@@ -204,7 +221,7 @@ const Education = () => {
                       )}
                       
                       <div className="flex items-center justify-between text-gray-600 dark:text-gray-400">
-                        <span className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-300">
+                        <span className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors duration-300">
                           {cert.year}
                         </span>
                         {cert.grade && (
@@ -221,6 +238,29 @@ const Education = () => {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes educationFloat {
+          0%, 100% { 
+            transform: translateX(0px) translateY(0px) scale(1); 
+          }
+          33% { 
+            transform: translateX(80px) translateY(-60px) scale(1.2); 
+          }
+          66% { 
+            transform: translateX(40px) translateY(-120px) scale(0.8); 
+          }
+        }
+        
+        @keyframes academicOrbit {
+          0% { 
+            transform: rotate(0deg) translateX(120px) rotate(0deg); 
+          }
+          100% { 
+            transform: rotate(360deg) translateX(120px) rotate(-360deg); 
+          }
+        }
+      `}</style>
     </section>
   );
 };

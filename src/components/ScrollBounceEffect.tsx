@@ -22,7 +22,7 @@ const ScrollBounceEffect = () => {
 
       // Condition to show the top bounce effect
       if (scrollTop <= 5 && isScrollingUp) {
-        // Clear any existing hide/clear timeouts before setting new ones for the bounce
+        // Clear any existing timeouts
         if (hideTimeoutRef.current) {
           clearTimeout(hideTimeoutRef.current);
           hideTimeoutRef.current = null;
@@ -35,18 +35,18 @@ const ScrollBounceEffect = () => {
         setBounceDirection('top');
         setIsVisible(true);
         
-        // Set a timeout to hide the elements after 300 milliseconds
+        // Set a timeout to hide the elements after 2 seconds
         hideTimeoutRef.current = setTimeout(() => {
           setIsVisible(false);
           // After elements fade out, clear the direction
           clearDirectionTimeoutRef.current = setTimeout(() => {
             setBounceDirection(null);
           }, 500); // This duration should match the opacity transition duration
-        }, 300); // Popup display duration
+        }, 2000); // Show for 2 seconds before auto-hide
       }
       // Condition to show the bottom bounce effect
       else if (scrollBottom >= scrollHeight - 5 && isScrollingDown) {
-        // Clear any existing hide/clear timeouts before setting new ones for the bounce
+        // Clear any existing timeouts
         if (hideTimeoutRef.current) {
           clearTimeout(hideTimeoutRef.current);
           hideTimeoutRef.current = null;
@@ -59,19 +59,19 @@ const ScrollBounceEffect = () => {
         setBounceDirection('bottom');
         setIsVisible(true);
         
-        // Set a timeout to hide the elements after 300 milliseconds
+        // Set a timeout to hide the elements after 2 seconds
         hideTimeoutRef.current = setTimeout(() => {
           setIsVisible(false);
           // After elements fade out, clear the direction
           clearDirectionTimeoutRef.current = setTimeout(() => {
             setBounceDirection(null);
           }, 500); // This duration should match the opacity transition duration
-        }, 300); // Popup display duration
+        }, 2000); // Show for 2 seconds before auto-hide
       }
       // Condition to hide if currently visible and scrolling away from the boundary
       else if (isVisible) {
         // Define a small threshold to consider "away from boundary"
-        const threshold = 10; 
+        const threshold = 50; // Increased threshold for better UX
 
         const isAwayFromTop = bounceDirection === 'top' && (scrollTop > threshold || isScrollingDown);
         const isAwayFromBottom = bounceDirection === 'bottom' && (scrollBottom < scrollHeight - threshold || isScrollingUp);
@@ -139,11 +139,11 @@ const ScrollBounceEffect = () => {
             <div className="relative w-6 h-6 flex items-center justify-center">
               {/* Ripple effects - perfectly centered using same dimensions as main element */}
               <div className="absolute inset-0 w-6 h-6 bg-blue-500/20 dark:bg-blue-400/10 rounded-full animate-ping scale-150"></div>
-              <div className="absolute inset-0 w-6 h-6 bg-purple-500/20 dark:bg-purple-400/10 rounded-full animate-ping scale-150 delay-200"></div>
+              <div className="absolute inset-0 w-6 h-6 bg-cyan-500/20 dark:bg-cyan-400/10 rounded-full animate-ping scale-150 delay-200"></div>
               
               {/* Main bounce element */}
-              <div className="w-6 h-6 bg-gradient-to-br from-blue-500/40 to-purple-600/40 dark:from-blue-400/30 dark:to-purple-500/30 rounded-full backdrop-blur-xl border border-white/40 dark:border-gray-700/40 flex items-center justify-center animate-bounce shadow-xl relative z-10">
-                <div className="w-3 h-3 bg-gradient-to-br from-blue-600 to-purple-700 rounded-full animate-pulse"></div>
+              <div className="w-6 h-6 bg-gradient-to-br from-blue-500/40 to-cyan-600/40 dark:from-blue-400/30 dark:to-cyan-500/30 rounded-full backdrop-blur-xl border border-white/40 dark:border-gray-700/40 flex items-center justify-center animate-bounce shadow-xl relative z-10">
+                <div className="w-3 h-3 bg-gradient-to-br from-blue-600 to-cyan-700 rounded-full animate-pulse"></div>
               </div>
             </div>
             
@@ -173,12 +173,12 @@ const ScrollBounceEffect = () => {
             {/* Bounce Indicator Container */}
             <div className="relative w-6 h-6 flex items-center justify-center">
               {/* Ripple effects - perfectly centered using same dimensions as main element */}
-              <div className="absolute inset-0 w-6 h-6 bg-purple-500/20 dark:bg-purple-400/10 rounded-full animate-ping scale-150"></div>
+              <div className="absolute inset-0 w-6 h-6 bg-blue-500/20 dark:bg-blue-400/10 rounded-full animate-ping scale-150"></div>
               <div className="absolute inset-0 w-6 h-6 bg-indigo-500/20 dark:bg-indigo-400/10 rounded-full animate-ping scale-150 delay-200"></div>
               
               {/* Main bounce element */}
-              <div className="w-6 h-6 bg-gradient-to-br from-purple-500/40 to-indigo-600/40 dark:from-purple-400/30 dark:to-indigo-500/30 rounded-full backdrop-blur-xl border border-white/40 dark:border-gray-700/40 flex items-center justify-center animate-bounce shadow-xl relative z-10">
-                <div className="w-3 h-3 bg-gradient-to-br from-purple-600 to-indigo-700 rounded-full animate-pulse"></div>
+              <div className="w-6 h-6 bg-gradient-to-br from-blue-500/40 to-indigo-600/40 dark:from-blue-400/30 dark:to-indigo-500/30 rounded-full backdrop-blur-xl border border-white/40 dark:border-gray-700/40 flex items-center justify-center animate-bounce shadow-xl relative z-10">
+                <div className="w-3 h-3 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-full animate-pulse"></div>
               </div>
             </div>
           </div>

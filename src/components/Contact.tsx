@@ -89,15 +89,32 @@ const Contact = () => {
       className="py-20 px-6 relative overflow-hidden bg-gray-900 dark:bg-black transition-all duration-700 ease-in-out"
     >
       {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 dark:from-black dark:via-blue-900 dark:to-purple-900 transition-colors duration-500"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-cyan-900 dark:from-black dark:via-blue-900 dark:to-cyan-900 transition-colors duration-500"></div>
       
       {/* Animated Background Flairs */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-500/20 via-cyan-500/15 to-blue-600/20 dark:from-blue-400/10 dark:via-cyan-400/8 dark:to-blue-500/10 rounded-full blur-3xl transition-all duration-1000 animate-pulse"></div>
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-br from-purple-500/20 via-pink-500/15 to-purple-600/20 dark:from-purple-400/10 dark:via-pink-400/8 dark:to-purple-500/10 rounded-full blur-3xl transition-all duration-1000 animate-pulse delay-1000"></div>
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-br from-cyan-500/20 via-indigo-500/15 to-blue-600/20 dark:from-cyan-400/10 dark:via-indigo-400/8 dark:to-blue-500/10 rounded-full blur-3xl transition-all duration-1000 animate-pulse delay-1000"></div>
       
       {/* Floating animated orbs */}
       <div className="absolute top-1/4 right-1/3 w-32 h-32 bg-gradient-to-br from-indigo-400/20 to-blue-500/20 dark:from-indigo-300/10 dark:to-blue-400/10 rounded-full blur-2xl animate-bounce delay-700"></div>
-      <div className="absolute bottom-1/4 left-1/3 w-24 h-24 bg-gradient-to-br from-violet-400/20 to-purple-500/20 dark:from-violet-300/10 dark:to-purple-400/10 rounded-full blur-2xl animate-bounce delay-1200"></div>
+      <div className="absolute bottom-1/4 left-1/3 w-24 h-24 bg-gradient-to-br from-cyan-400/20 to-indigo-500/20 dark:from-cyan-300/10 dark:to-indigo-400/10 rounded-full blur-2xl animate-bounce delay-1200"></div>
+      
+      {/* Moving Elements */}
+      <div className="absolute top-1/3 left-0 w-6 h-6 bg-blue-400/20 dark:bg-blue-600/15 rounded-full blur-sm" 
+           style={{ 
+             animation: 'glide 25s linear infinite',
+             animationDelay: '0s'
+           }}></div>
+      <div className="absolute bottom-1/3 right-0 w-8 h-8 bg-cyan-400/20 dark:bg-cyan-600/15 rounded-full blur-sm" 
+           style={{ 
+             animation: 'glide 22s linear infinite reverse',
+             animationDelay: '5s'
+           }}></div>
+      <div className="absolute top-2/3 left-1/4 w-5 h-5 bg-indigo-400/20 dark:bg-indigo-600/15 rounded-full blur-sm" 
+           style={{ 
+             animation: 'verticalFloat 12s ease-in-out infinite',
+             animationDelay: '2s'
+           }}></div>
       
       <div className="max-w-6xl mx-auto relative z-10">
         <div className={`text-center mb-16 transition-all duration-1000 ${
@@ -106,7 +123,7 @@ const Contact = () => {
           <h2 className="text-5xl font-bold text-white mb-4 hover:text-blue-400 transition-colors duration-300 cursor-default">
             Get In Touch
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full hover:w-32 transition-all duration-300"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-600 mx-auto rounded-full hover:w-32 transition-all duration-300"></div>
           <p className="text-gray-300 dark:text-gray-400 mt-6 text-lg hover:text-gray-200 dark:hover:text-gray-300 transition-colors duration-300 cursor-default">
             Let's discuss opportunities and create something amazing together
           </p>
@@ -122,7 +139,7 @@ const Contact = () => {
               className="block backdrop-blur-md bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group"
             >
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-blue-500 dark:bg-blue-600 rounded-full group-hover:scale-110 transition-transform duration-300">
+                <div className="p-3 bg-blue-500 dark:bg-blue-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
                   <Phone className="text-white group-hover:animate-pulse" size={24} />
                 </div>
                 <div>
@@ -137,11 +154,11 @@ const Contact = () => {
               className="block backdrop-blur-md bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group"
             >
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-purple-500 dark:bg-purple-600 rounded-full group-hover:scale-110 transition-transform duration-300">
+                <div className="p-3 bg-cyan-500 dark:bg-cyan-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
                   <Mail className="text-white group-hover:animate-pulse" size={24} />
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold text-lg group-hover:text-purple-300 transition-colors duration-300">Email</h3>
+                  <h3 className="text-white font-semibold text-lg group-hover:text-cyan-300 transition-colors duration-300">Email</h3>
                   <p className="text-gray-300 dark:text-gray-400 group-hover:text-gray-200 dark:group-hover:text-gray-300 transition-colors duration-300">{personal.email}</p>
                 </div>
               </div>
@@ -152,7 +169,7 @@ const Contact = () => {
               className="w-full backdrop-blur-md bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group"
             >
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-indigo-500 dark:bg-indigo-600 rounded-full group-hover:scale-110 transition-transform duration-300">
+                <div className="p-3 bg-indigo-500 dark:bg-indigo-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
                   <MapPin className="text-white group-hover:animate-pulse" size={24} />
                 </div>
                 <div className="text-left">
@@ -215,12 +232,12 @@ const Contact = () => {
                     ? 'bg-green-500 hover:bg-green-600' 
                     : submitStatus === 'error'
                     ? 'bg-red-500 hover:bg-red-600'
-                    : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700'
+                    : 'bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700'
                 } text-white hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100`}
               >
                 {isSubmitting ? (
                   <>
-                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-xl animate-spin"></div>
                     Opening Email Client...
                   </>
                 ) : submitStatus === 'success' ? (
@@ -248,6 +265,34 @@ const Contact = () => {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes glide {
+          0% { 
+            transform: translateX(-50px) translateY(0px); 
+            opacity: 0;
+          }
+          10% { 
+            opacity: 1;
+          }
+          90% { 
+            opacity: 1;
+          }
+          100% { 
+            transform: translateX(calc(100vw + 50px)) translateY(-30px); 
+            opacity: 0;
+          }
+        }
+        
+        @keyframes verticalFloat {
+          0%, 100% { 
+            transform: translateY(0px); 
+          }
+          50% { 
+            transform: translateY(-80px); 
+          }
+        }
+      `}</style>
     </section>
   );
 };

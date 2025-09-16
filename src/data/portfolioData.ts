@@ -158,7 +158,7 @@ export const portfolioData = {
       description: "Created a responsive web application designed for analyzing & finding deleted videos from a playlist with powerfull Backup, Restore & Compare feature",
       technologies: ["HTML5", "CSS3", "TypeScript", "JavaScript", "Local Storage", "REST APIs"],
       githubUrl: "https://github.com/JDKamalakar/MissingTube",
-      demoUrl: ""
+      demoUrl: "https://missingtube.netlify.app/"
     },
     {
       title: "Student Portal",
@@ -190,10 +190,10 @@ export const portfolioData = {
     excludeRepos: ["JDKamalakar", "config-files", "dotfiles"]
   },
 
-  // Theme Colors (Easy to customize)
+  // Theme Colors (Updated to blue-focused)
   theme: {
     primary: "blue",
-    secondary: "purple",
+    secondary: "cyan",
     accent: "indigo"
   }
 }

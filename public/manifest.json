@@ -42,6 +42,64 @@
       "purpose": "maskable"
     }
   ],
+  "screenshots": [
+    {
+      "src": "/screenshot/D1.webp",
+      "sizes": "1280x720",
+      "type": "image/webp",
+      "form_factor": "wide",
+      "label": "Desktop view of the portfolio homepage."
+    },
+    {
+      "src": "/screenshot/D2.webp",
+      "sizes": "1280x720",
+      "type": "image/webp",
+      "form_factor": "wide",
+      "label": "Desktop view of the skills and expertise section."
+    },
+    {
+      "src": "/screenshot/D3.webp",
+      "sizes": "1280x720",
+      "type": "image/webp",
+      "form_factor": "wide",
+      "label": "Desktop view of the projects showcase."
+    },
+    {
+      "src": "/screenshot/D4.webp",
+      "sizes": "1280x720",
+      "type": "image/webp",
+      "form_factor": "wide",
+      "label": "Desktop view of the contact form."
+    },
+    {
+      "src": "/screenshot/M1.webp",
+      "sizes": "720x1280",
+      "type": "image/webp",
+      "form_factor": "narrow",
+      "label": "Mobile view of the portfolio homepage."
+    },
+    {
+      "src": "/screenshot/M2.webp",
+      "sizes": "720x1280",
+      "type": "image/webp",
+      "form_factor": "narrow",
+      "label": "Mobile view of the skills and expertise section."
+    },
+    {
+      "src": "/screenshot/M3.webp",
+      "sizes": "720x1280",
+      "type": "image/webp",
+      "form_factor": "narrow",
+      "label": "Mobile view of the projects showcase."
+    },
+    {
+      "src": "/screenshot/M4.webp",
+      "sizes": "720x1280",
+      "type": "image/webp",
+      "form_factor": "narrow",
+      "label": "Mobile view of the contact form."
+    }
+  ],
   "shortcuts": [
     {
       "name": "View Projects",

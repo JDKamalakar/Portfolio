@@ -1,20 +1,57 @@
 import React, { useState, useRef, useEffect } from 'react';
+// 1. Import icons from lucide-react (Smartphone is removed)
 import { Sun, Moon, Monitor } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
+
+// 2. Create a custom Pixel-style smartphone icon component
+// This component mimics the props of lucide-react icons for easy swapping.
+const PixelSmartphoneIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({ className, size = 24, ...props }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    {...props}
+  >
+    <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+    {/* This path creates the distinctive camera bar of a Pixel phone */}
+    <path d="M5 7h14" />
+    {/* This path is the standard bottom dot on the smartphone icon */}
+    <path d="M12 18h.01" />
+  </svg>
+);
+
 
 const ThemeToggle = () => {
   const { theme, setTheme, isDark } = useTheme();
   const [showOptions, setShowOptions] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const themeToggleRef = useRef<HTMLDivElement>(null);
 
-  // Derive active states based on the 'theme' value from useTheme
   const isSystemActive = theme === 'system';
   const isLightActive = theme === 'light';
   const isDarkActive = theme === 'dark';
 
-  // Handle scroll detection for positioning
+  useEffect(() => {
+    const checkDeviceType = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkDeviceType(); // Check on initial render
+    window.addEventListener('resize', checkDeviceType); // Add listener for screen resize
+
+    // Cleanup the listener when the component unmounts
+    return () => window.removeEventListener('resize', checkDeviceType);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -24,7 +61,6 @@ const ThemeToggle = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Handle click outside to close the options popover
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (themeToggleRef.current && !themeToggleRef.current.contains(event.target as Node)) {
@@ -43,24 +79,26 @@ const ThemeToggle = () => {
     };
   }, [showOptions]);
 
-  // Handlers for theme selection
   const handleSystemTheme = () => {
-    setTheme('system'); // Set theme to 'system'
+    setTheme('system');
     setShowOptions(false);
   };
 
   const handleManualTheme = (isDarkModeSelected: boolean) => {
-    setTheme(isDarkModeSelected ? 'dark' : 'light'); // Set theme to 'dark' or 'light'
+    setTheme(isDarkModeSelected ? 'dark' : 'light');
     setShowOptions(false);
   };
+
+  // 3. Conditionally choose the icon, now using the custom Pixel icon
+  const SystemIcon = isMobile ? PixelSmartphoneIcon : Monitor;
 
   return (
     <div
       ref={themeToggleRef}
       className={`fixed z-50 transition-all duration-300 ease-in-out ${
         isScrolled
-          ? 'top-4 right-4' // When scrolled, position next to navbar buttons
-          : 'top-6 right-6' // When not scrolled, position as if part of MissingTube area
+          ? 'top-4 right-4'
+          : 'top-6 right-6'
       }`}
     >
       <button
@@ -68,41 +106,40 @@ const ThemeToggle = () => {
         className="p-3 rounded-2xl bg-white/25 dark:bg-gray-800/25 backdrop-blur-md border border-gray-300/40 dark:border-gray-700/40 hover:bg-white/30 dark:hover:bg-gray-800/30 transition-all duration-300 hover:scale-110 group shadow-xl"
         aria-label="Toggle theme"
       >
-        {/* Outer div to handle the 360-degree rotation when popover opens/closes */}
         <div className={`relative w-6 h-6 flex items-center justify-center
-                           transition-transform duration-700 ease-in-out
-                           ${showOptions ? 'rotate-[360deg]' : 'rotate-0'}`}>
+                          transition-transform duration-700 ease-in-out
+                          ${showOptions ? 'rotate-[360deg]' : 'rotate-0'}`}>
 
-          {/* System Theme Icon (Main Button - UNCHANGED) */}
-          <Monitor
+          {/* System Theme Icon (PC/Mobile) - UPDATED */}
+          <SystemIcon
             className={`absolute inset-0 transition-all duration-500 ease-out
-                         ${isSystemActive
-                            ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:animate-pulse'
-                            : 'opacity-0 scale-50 rotate-[-90deg]'
-                         }
-                         text-blue-500 dark:text-blue-400`}
+                          ${isSystemActive
+                ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:animate-pulse'
+                : 'opacity-0 scale-50 rotate-[-90deg]'
+              }
+                          ${isSystemActive && (isDark ? 'text-blue-400' : 'text-yellow-500')}`}
             size={24}
           />
 
-          {/* Light Theme Icon (Main Button - UNCHANGED) */}
+          {/* Light Theme Icon */}
           <Sun
             className={`absolute inset-0 transition-all duration-500 ease-out
-                         ${isLightActive
-                            ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:rotate-180'
-                            : 'opacity-0 scale-50 rotate-[90deg]'
-                         }
-                         text-yellow-500`}
+                          ${isLightActive
+                ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:rotate-180'
+                : 'opacity-0 scale-50 rotate-[90deg]'
+              }
+                          text-yellow-500`}
             size={24}
           />
 
-          {/* Dark Theme Icon (Main Button - UNCHANGED) */}
+          {/* Dark Theme Icon */}
           <Moon
             className={`absolute inset-0 transition-all duration-500 ease-out
-                         ${isDarkActive
-                            ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:animate-pulse group-hover:rotate-[360deg]'
-                            : 'opacity-0 scale-50 rotate-[-90deg]'
-                         }
-                         text-blue-400`}
+                          ${isDarkActive
+                ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:animate-pulse group-hover:rotate-[360deg]'
+                : 'opacity-0 scale-50 rotate-[-90deg]'
+              }
+                          text-blue-400`}
             size={24}
           />
         </div>
@@ -128,14 +165,17 @@ const ThemeToggle = () => {
             opacity: showOptions ? 1 : 0
           }}
         >
-          {/* Icon always visible, only animates */}
-          <Monitor
+          {/* Icon always visible, only animates - UPDATED */}
+          <SystemIcon
             size={18}
-            className={`text-blue-500 transition-all duration-300
+            className={`transition-all duration-300
+              ${isSystemActive
+                ? (isDark ? 'text-blue-400' : 'text-yellow-500')
+                : 'text-blue-500'
+              }
               ${isSystemActive ? 'scale-110' : ''}
               group-hover:rotate-12 group-hover:scale-110`}
           />
-          {/* Span scales on hover */}
           <span className="text-sm font-medium inline-block group-hover:scale-110 transition-transform duration-300">System</span>
         </button>
 
@@ -153,14 +193,12 @@ const ThemeToggle = () => {
             opacity: showOptions ? 1 : 0
           }}
         >
-          {/* Icon always visible, only animates */}
           <Sun
             size={18}
             className={`text-yellow-500 transition-all duration-300
               ${isLightActive ? 'scale-110' : ''}
               group-hover:rotate-180 group-hover:scale-110`}
           />
-          {/* Span scales on hover */}
           <span className="text-sm font-medium inline-block group-hover:scale-110 transition-transform duration-300">Light</span>
         </button>
 
@@ -178,14 +216,12 @@ const ThemeToggle = () => {
             opacity: showOptions ? 1 : 0
           }}
         >
-          {/* Icon always visible, only animates */}
           <Moon
             size={18}
             className={`text-blue-500 dark:text-blue-400 transition-all duration-300
               ${isDarkActive ? 'scale-110' : ''}
               group-hover:rotate-[360deg] group-hover:scale-110`}
           />
-          {/* Span scales on hover */}
           <span className="text-sm font-medium inline-block group-hover:scale-110 transition-transform duration-300">Dark</span>
         </button>
       </div>

@@ -1,5 +1,3 @@
-// src/components/pwaInstaller.tsx
-
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react'; // Keep X icon imported
@@ -114,25 +112,25 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
         {/* Moving Background Animation */}
         <div className="absolute inset-0 -z-10">
           {/* Primary moving gradient */}
-          <div 
+          <div
             className="absolute inset-0 opacity-60"
             style={{
               background: 'linear-gradient(135deg, #1A73E8 0%, #42A5F5 25%, #2196F3 50%, #1976D2 75%, #1565C0 100%)',
               animation: 'gradientShift 8s ease-in-out infinite'
             }}
           />
-          
+
           {/* Secondary moving layer */}
-          <div 
+          <div
             className="absolute inset-0 opacity-40"
             style={{
               background: 'linear-gradient(45deg, transparent 30%, #42A5F5 50%, transparent 70%)',
               animation: 'slideAcross 6s linear infinite'
             }}
           />
-          
+
           {/* Floating orbs */}
-          <div 
+          <div
             className="absolute w-8 h-8 rounded-full opacity-30"
             style={{
               background: 'radial-gradient(circle, #E3F2FD 0%, #1A73E8 100%)',
@@ -141,7 +139,7 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
               animation: 'float 4s ease-in-out infinite'
             }}
           />
-          <div 
+          <div
             className="absolute w-6 h-6 rounded-full opacity-25"
             style={{
               background: 'radial-gradient(circle, #BBDEFB 0%, #2196F3 100%)',
@@ -150,7 +148,7 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
               animation: 'float 5s ease-in-out infinite reverse'
             }}
           />
-          <div 
+          <div
             className="absolute w-4 h-4 rounded-full opacity-20"
             style={{
               background: 'radial-gradient(circle, #90CAF9 0%, #1976D2 100%)',
@@ -175,12 +173,23 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
         />
 
         {/* Header Section: Icon and text content */}
-        <div className="flex items-center gap-4 mb-3 relative">
-          <div className="text-3xl drop-shadow-md"> {/* Removed animate-bounce-slow from here */}
+        {/* UPDATED: Reduced gap from gap-4 to gap-3 */}
+        <div className="flex items-center gap-3 mb-3 relative">
+          <div className="text-3xl drop-shadow-md">
             {isMobile ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smartphone text-gray-900 dark:text-white group-hover:scale-110 transition-transform duration-200"></svg>
+              // UPDATED: Added Pixel-style phone icon with correct SVG path
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-pixel-smartphone text-gray-900 dark:text-white group-hover:scale-110 transition-transform duration-200">
+                <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+                {/* Pixel's distinctive camera bar */}
+                <path d="M5 7h14" />
+                {/* Centered dot often on the bottom bezel */}
+                <path d="M12 18h.01" />
+              </svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-laptop text-gray-900 dark:text-white group-hover:scale-110 transition-transform duration-200"></svg>
+              // UPDATED: Added Laptop icon with correct SVG path
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-laptop text-gray-900 dark:text-white group-hover:scale-110 transition-transform duration-200">
+                  <path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55A1 1 0 0 1 20.7 20H3.3a1 1 0 0 1-.58-1.45L4 16"/>
+              </svg>
             )}
           </div>
           <div className="flex-1">
@@ -220,7 +229,7 @@ const InstallBanner: React.FC<InstallBannerProps> = ({ onInstall, onDismiss }) =
             "
           >
             {/* X Icon with 360-degree rotation on hover */}
-            <X className="w-5 h-5 text-red-700 transition-transform duration-200 group-hover:rotate-[360deg] shrink-0" />
+            <X className="w-5 h-5 text-red-700 transition-transform duration-1000 group-hover:rotate-[360deg] shrink-0" />
             <span>Cancel</span>
           </button>
         </div>
@@ -287,16 +296,16 @@ const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
         {/* Moving Background Animation for Thank You Banner */}
         <div className="absolute inset-0 -z-10">
           {/* Success gradient with Material 3 blue */}
-          <div 
+          <div
             className="absolute inset-0 opacity-70"
             style={{
               background: 'linear-gradient(135deg, #1A73E8 0%, #42A5F5 30%, #2196F3 60%, #1976D2 100%)',
               animation: 'gradientShift 6s ease-in-out infinite'
             }}
           />
-          
+
           {/* Success shimmer effect */}
-          <div 
+          <div
             className="absolute inset-0 opacity-30"
             style={{
               background: 'linear-gradient(90deg, transparent 0%, #E3F2FD 50%, transparent 100%)',
@@ -321,9 +330,19 @@ const ThankYouBanner: React.FC<ThankYouBannerProps> = ({ onDismiss }) => {
         <div className="flex items-center gap-3">
           <div className="text-2xl drop-shadow-md">
             {isMobile ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smartphone-check text-gray-900 dark:text-white"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="m9 12 2 2 4-4"/><path d="M12 18h.01"/></svg>
+              // FIXED: Added correct path for smartphone-check icon
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-smartphone-check text-gray-900 dark:text-white">
+                <rect width="14" height="20" x="5" y="2" rx="2" ry="2"/>
+                <path d="m9 12 2 2 4-4"/>
+                <path d="M12 18h.01"/>
+              </svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-laptop-check text-gray-900 dark:text-white"><path d="M11 20H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5"/><path d="M2 15h12"/><path d="m18 22 4-4"/></svg>
+              // FIXED: Added correct path for laptop-check icon
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-laptop-check text-gray-900 dark:text-white">
+                <path d="M20 16V7a2 2 0 0 1-2-2H6a2 2 0 0 1-2 2v9h16Z"/>
+                <path d="m12 19 2 2 4-4"/>
+                <path d="M4 16h16"/>
+              </svg>
             )}
           </div>
           <div>
@@ -342,57 +361,57 @@ if (typeof document !== 'undefined') {
   const style = document.createElement('style');
   style.textContent = `
     @keyframes gradientShift {
-      0%, 100% { 
-        background-position: 0% 50%; 
+      0%, 100% {
+        background-position: 0% 50%;
         transform: scale(1) rotate(0deg);
       }
-      25% { 
-        background-position: 100% 50%; 
+      25% {
+        background-position: 100% 50%;
         transform: scale(1.05) rotate(1deg);
       }
-      50% { 
-        background-position: 200% 50%; 
+      50% {
+        background-position: 200% 50%;
         transform: scale(1) rotate(0deg);
       }
-      75% { 
-        background-position: 300% 50%; 
+      75% {
+        background-position: 300% 50%;
         transform: scale(1.05) rotate(-1deg);
       }
     }
-    
+
     @keyframes slideAcross {
-      0% { 
-        transform: translateX(-100%) rotate(45deg); 
+      0% {
+        transform: translateX(-100%) rotate(45deg);
         opacity: 0;
       }
-      50% { 
-        opacity: 1; 
+      50% {
+        opacity: 1;
       }
-      100% { 
-        transform: translateX(200%) rotate(45deg); 
+      100% {
+        transform: translateX(200%) rotate(45deg);
         opacity: 0;
       }
     }
-    
+
     @keyframes float {
-      0%, 100% { 
-        transform: translateY(0px) scale(1); 
+      0%, 100% {
+        transform: translateY(0px) scale(1);
       }
-      50% { 
-        transform: translateY(-10px) scale(1.1); 
+      50% {
+        transform: translateY(-10px) scale(1.1);
       }
     }
-    
+
     @keyframes shimmer {
-      0% { 
-        transform: translateX(-100%); 
+      0% {
+        transform: translateX(-100%);
       }
-      100% { 
-        transform: translateX(100%); 
+      100% {
+        transform: translateX(100%);
       }
     }
   `;
-  
+
   if (!document.head.querySelector('style[data-pwa-animations]')) {
     style.setAttribute('data-pwa-animations', 'true');
     document.head.appendChild(style);
