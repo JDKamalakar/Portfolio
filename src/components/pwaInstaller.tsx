@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react'; // Keep X icon imported
-import { useRegisterSW } from 'virtual:pwa-register/react';
 
 // IMPORTANT: This 'declare global' block ensures that BeforeInstallPromptEvent
 // is recognized by TypeScript across your project, even though this file is a module.
@@ -24,6 +23,22 @@ declare global {
 
 let deferredPrompt: BeforeInstallPromptEvent | null = null;
 let installPromptShown = false; // To prevent showing the banner multiple times
+
+/**
+ * Checks if Service Workers are supported in the current environment.
+ * @returns {boolean} True if Service Workers are supported and not in a known unsupported environment (like StackBlitz).
+ */
+function isServiceWorkerSupported(): boolean {
+  if (!('serviceWorker' in navigator)) {
+    return false;
+  }
+  const isStackBlitz =
+    window.location.hostname.includes('stackblitz') ||
+    window.location.hostname.includes('webcontainer') ||
+    (window.location.hostname.includes('localhost') &&
+      window.navigator.userAgent.includes('WebContainer'));
+  return !isStackBlitz;
+}
 
 // Simple component to detect if it's likely a mobile device based on user agent
 const isMobileDevice = () => {
@@ -410,37 +425,41 @@ if (typeof document !== 'undefined') {
 const PWAInstaller: React.FC = () => {
   const [showInstallBanner, setShowInstallBanner] = useState(false);
   const [showThankYouBanner, setShowThankYouBanner] = useState(false);
-  
-  // Use vite-plugin-pwa's service worker registration
-  const {
-    offlineReady: [offlineReady, setOfflineReady],
-    needRefresh: [needRefresh, setNeedRefresh],
-    updateServiceWorker,
-  } = useRegisterSW({
-    onRegistered(r) {
-      console.log('✅ SW Registered: ' + r);
-    },
-    onRegisterError(error) {
-      console.log('❌ SW registration error', error);
-    },
-  });
 
   useEffect(() => {
-    // Handle offline ready state
-    if (offlineReady) {
-      console.log('🔄 App is ready to work offline');
+    // 1. Service Worker Registration
+    if (isServiceWorkerSupported()) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('/sw.js')
+          .then((registration) => {
+            console.log('✅ SW registered successfully:', registration);
+
+            registration.addEventListener('updatefound', () => {
+              const newWorker = registration.installing;
+              if (newWorker) {
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    if (confirm('🔄 New version available! Click OK to update.')) {
+                      window.location.reload();
+                    }
+                  }
+                });
+              }
+            });
+          })
+          .catch((registrationError) => {
+            console.warn(
+              '⚠️ SW registration failed (this is expected in some environments):',
+              registrationError.message
+            );
+          });
+      });
+    } else {
+      console.log('ℹ️ Service Workers not supported in this environment - PWA features will be limited');
     }
 
-    // Handle need refresh state
-    if (needRefresh) {
-      if (confirm('🔄 New version available! Click OK to update.')) {
-        updateServiceWorker(true);
-      }
-    }
-  }, [offlineReady, needRefresh, updateServiceWorker]);
-
-  useEffect(() => {
-    // Before Install Prompt Listener
+    // 2. Before Install Prompt Listener
     const handleBeforeInstallPrompt = (e: BeforeInstallPromptEvent) => {
       console.log('🚀 PWA install prompt triggered');
       e.preventDefault();
@@ -453,7 +472,7 @@ const PWAInstaller: React.FC = () => {
     };
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
-    // App Installed Listener
+    // 3. App Installed Listener
     const handleAppInstalled = () => {
       console.log('🎉 PWA was installed successfully');
       installPromptShown = true;
@@ -464,9 +483,9 @@ const PWAInstaller: React.FC = () => {
     };
     window.addEventListener('appinstalled', handleAppInstalled);
 
-    // Debug Logging
+    // 4. Debug Logging
     console.log('🔍 PWA Installation Criteria Check:');
-    console.log('- Service Worker:', 'serviceWorker' in navigator ? '✅' : '❌');
+    console.log('- Service Worker:', isServiceWorkerSupported() ? '✅' : '❌ (Not supported in this environment)');
     console.log('- HTTPS:', location.protocol === 'https:' || location.hostname === 'localhost' ? '✅' : '❌');
     console.log('- Manifest:', document.querySelector('link[rel="manifest"]') ? '✅' : '❌');
 
@@ -475,7 +494,7 @@ const PWAInstaller: React.FC = () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
       window.removeEventListener('appinstalled', handleAppInstalled);
     };
-  }, []);
+  }, []); // Empty dependency array means this runs once on mount
 
   const handleInstallClick = async () => {
     console.log('🎯 User clicked install button');
