@@ -23,3 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# PWA build outputs
+sw.js
+workbox-*.js
+.pwa-assets/
