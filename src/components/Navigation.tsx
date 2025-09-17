@@ -140,7 +140,7 @@ const Navigation = () => {
                   }`}
                   style={{ 
                     transitionDelay: isOpen ? `${index * 50}ms` : '0ms',
-          _          transform: isOpen ? 'translateX(0)' : 'translateX(-20px)',
+                    transform: isOpen ? 'translateX(0)' : 'translateX(-20px)',
                     opacity: isOpen ? 1 : 0
                   }}
                 >
