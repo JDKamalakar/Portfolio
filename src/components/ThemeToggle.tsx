@@ -3,8 +3,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Sun, Moon, Monitor } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 
-// 2. Create a custom Pixel-style smartphone icon component
-// This component mimics the props of lucide-react icons for easy swapping.
+// 2. UPDATED: Custom Pixel-style smartphone icon component
+// Dot removed and 'G' added.
 const PixelSmartphoneIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({ className, size = 24, ...props }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -22,8 +22,8 @@ const PixelSmartphoneIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({ classNam
     <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
     {/* This path creates the distinctive camera bar of a Pixel phone */}
     <path d="M5 7h14" />
-    {/* This path is the standard bottom dot on the smartphone icon */}
-    <path d="M12 18h.01" />
+    {/* This text element creates the 'G' logo, inheriting color */}
+    <text x="12" y="15" fill="currentColor" fontSize="6px" fontFamily="sans-serif" fontWeight="bold" textAnchor="middle" dominantBaseline="middle" stroke="none">G</text>
   </svg>
 );
 

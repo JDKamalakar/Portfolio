@@ -1,136 +1,53 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+// 1. Import the VitePWA plugin
 import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
+    // 2. Add the VitePWA plugin and its configuration
     VitePWA({
       registerType: 'autoUpdate',
-      workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg,pdf}'],
-        runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
-              },
-              cacheKeyWillBeUsed: async ({ request }) => {
-                return `${request.url}?${Date.now()}`;
-              }
-            }
-          },
-          {
-            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'gstatic-fonts-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
-              }
-            }
-          },
-          {
-            urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico)$/,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'images-cache',
-              expiration: {
-                maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
-              }
-            }
-          }
-        ]
-      },
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      // This will create a manifest.webmanifest file in your dist folder.
+      // You can customize the details below.
       manifest: {
         name: 'Jayraj Kamalakar - Portfolio',
         short_name: 'JK Portfolio',
-        description: 'Professional portfolio website showcasing skills, experience, and projects of Jayraj Kamalakar - B.Tech CSE Graduate',
-        theme_color: '#3b82f6',
-        background_color: '#1e293b',
-        display: 'standalone',
-        orientation: 'portrait-primary',
-        scope: '/',
-        start_url: '/',
+        description: 'A personal portfolio website showcasing the projects and skills of Jayraj Kamalakar.',
+        theme_color: '#1a73e8', // A nice blue theme color
+        background_color: '#ffffff',
         icons: [
           {
-            src: '/assets/cv.png',
-            sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: '/assets/cv.png',
-            sizes: '512x512',
-            type: 'image/png'
-          },
-          {
-            src: '/assets/cv.png',
+            src: 'pwa-192x192.png', // path is relative to the public folder
             sizes: '192x192',
             type: 'image/png',
-            purpose: 'maskable'
           },
           {
-            src: '/assets/cv.png',
+            src: 'pwa-512x512.png', // path is relative to the public folder
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'maskable'
-          }
+          },
+          {
+            src: 'pwa-512x512.png', // for Apple touch icon
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable',
+          },
         ],
-        shortcuts: [
-          {
-            name: 'View Projects',
-            short_name: 'Projects',
-            description: 'View my latest projects and work',
-            url: '/#projects',
-            icons: [
-              {
-                src: '/assets/cv.png',
-                sizes: '192x192',
-                type: 'image/png'
-              }
-            ]
-          },
-          {
-            name: 'Contact Me',
-            short_name: 'Contact',
-            description: 'Get in touch with me',
-            url: '/#contact',
-            icons: [
-              {
-                src: '/assets/cv.png',
-                sizes: '192x192',
-                type: 'image/png'
-              }
-            ]
-          },
-          {
-            name: 'Download CV',
-            short_name: 'CV',
-            description: 'Download my resume/CV',
-            url: '/assets/jayraj-kamalakar-cv.pdf',
-            icons: [
-              {
-                src: '/assets/cv.png',
-                sizes: '192x192',
-                type: 'image/png'
-              }
-            ]
-          }
-        ]
       },
+      // This part configures the service worker for offline caching
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+      },
+      // (Optional) Enable the service worker in development for testing
       devOptions: {
-        enabled: true
-      }
-    })
+        enabled: true,
+      },
+    }),
   ],
+  // Your existing configurations are kept
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
@@ -139,9 +56,10 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          icons: ['lucide-react']
-        }
-      }
-    }
-  }
+          icons: ['lucide-react'],
+        },
+      },
+    },
+  },
+  // The old server header is now removed as it's no longer necessary
 });

@@ -5,6 +5,7 @@ import { useTheme } from '../contexts/ThemeContext'; // You need to provide a Th
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('header');
+  const [isScrolled, setIsScrolled] = useState(false); // 1. Added state for scroll detection
   const { isDark } = useTheme(); // Hook to get the current theme state
 
   const navItems = [
@@ -19,6 +20,9 @@ const Navigation = () => {
 
   useEffect(() => {
     const handleScroll = () => {
+      // 2. Added logic to update isScrolled state for the "tuck-in" effect
+      setIsScrolled(window.scrollY > 20);
+
       const sections = navItems.map(item => document.getElementById(item.id));
       const scrollPosition = window.scrollY + 100;
 
@@ -53,7 +57,10 @@ const Navigation = () => {
       {/* Mobile Menu Button with enhanced transparency */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-6 left-6 z-50 p-3 rounded-2xl backdrop-blur-xl bg-white/15 dark:bg-gray-800/15 border border-gray-300/20 dark:border-gray-700/20 hover:bg-white/25 dark:hover:bg-gray-800/25 transition-all duration-300 hover:scale-110 md:hidden shadow-lg group"
+        // 3. Updated className to be dynamic based on isScrolled state
+        className={`fixed z-50 p-3 rounded-2xl backdrop-blur-xl bg-white/15 dark:bg-gray-800/15 border border-gray-300/20 dark:border-gray-700/20 hover:bg-white/25 dark:hover:bg-gray-800/25 transition-all duration-300 hover:scale-110 md:hidden shadow-lg group ${
+          isScrolled ? 'top-4 left-4' : 'top-6 left-6'
+        }`}
         aria-label="Toggle menu"
       >
         <div className="relative w-6 h-6">
@@ -133,7 +140,7 @@ const Navigation = () => {
                   }`}
                   style={{ 
                     transitionDelay: isOpen ? `${index * 50}ms` : '0ms',
-                    transform: isOpen ? 'translateX(0)' : 'translateX(-20px)',
+                    transform: isOpen ? 'translateX(0)' : 'translateX(-20px)',
                     opacity: isOpen ? 1 : 0
                   }}
                 >
