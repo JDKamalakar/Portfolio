@@ -68,10 +68,8 @@ const ThemeToggle = () => {
     };
   }, [showOptions]);
 
-  // Conditionally choose the icon for the "System" option
   const SystemIcon = isMobile ? PixelSmartphoneIcon : Monitor;
 
-  // Array of options for the popup menu for cleaner, dynamic rendering
   const themePopoverOptions = [
     {
       label: 'System',
@@ -102,7 +100,6 @@ const ThemeToggle = () => {
     }
   ];
 
-  // Single handler function to set the theme
   const handleThemeSelect = (selectedTheme: 'system' | 'light' | 'dark') => {
     setTheme(selectedTheme);
     setShowOptions(false);
@@ -152,9 +149,9 @@ const ThemeToggle = () => {
         </div>
       </button>
 
-      {/* REFACTORED: Theme Options Popover */}
       <div
-        className={`absolute top-full mt-2 right-0 bg-white/20 dark:bg-gray-800/20 backdrop-blur-xl border border-gray-300/30 dark:border-gray-700/30 rounded-2xl shadow-xl p-2 flex flex-col gap-1 min-w-[180px] transform transition-all duration-500 ease-out origin-top-right ${
+        // MODIFIED: Added hover:gap-2, changed duration, and matched min-w
+        className={`absolute top-full mt-2 right-0 bg-white/20 dark:bg-gray-800/20 backdrop-blur-xl border border-gray-300/30 dark:border-gray-700/30 rounded-2xl shadow-xl p-2 flex flex-col gap-1 hover:gap-2 min-w-[160px] transform transition-all duration-700 ease-out origin-top-right ${
           showOptions
             ? 'opacity-100 scale-100 translate-y-0 rotate-0 pointer-events-auto'
             : 'opacity-0 scale-75 -translate-y-4 rotate-12 pointer-events-none'
@@ -194,4 +191,4 @@ const ThemeToggle = () => {
   );
 };
 
-export default ThemeToggle;2222
+export default ThemeToggle;
