@@ -1,4 +1,4 @@
-import React, (useState, useRef, useEffect } from 'react';
+import React, useState, useRef, useEffect } from 'react';
 import { Sun, Moon, Monitor } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 
@@ -17,10 +17,9 @@ const PixelSmartphoneIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({ classNam
     className={className}
     {...props}
   >
-    <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
-    {/* MODIFIED: Replaced stroked path with a filled rectangle to prevent cropping */}
-    <rect x="5" y="6" width="14" height="2" fill="currentColor" stroke="none" />
-    <text x="12" y="15" fill="currentColor" fontSize="6px" fontFamily="sans-serif" fontWeight="bold" textAnchor="middle" dominantBaseline="middle" stroke="none">G</text>
+    <rect width="14" height="20" x="5" y="3" rx="2" ry="2" /> {/* y was 2 */}
+    <rect x="5" y="7" width="14" height="2" fill="currentColor" stroke="none" /> {/* y was 6 */}
+    <text x="12" y="16" fill="currentColor" fontSize="6px" fontFamily="sans-serif" fontWeight="bold" textAnchor="middle" dominantBaseline="middle" stroke="none">G</text> {/* y was 15 */}
   </svg>
 );
 
@@ -203,4 +202,4 @@ const ThemeToggle = () => {
   );
 };
 
-export default ThemeToggle;4242423
+export default ThemeToggle;
