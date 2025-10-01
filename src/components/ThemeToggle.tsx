@@ -116,7 +116,7 @@ const ThemeToggle = () => {
                           ${isSystemActive
                 ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:animate-pulse'
                 : 'opacity-0 scale-50 rotate-[-90deg]'
-              }
+            }
                           ${isSystemActive && (isDark ? 'text-blue-400' : 'text-yellow-500')}`}
             size={24}
           />
@@ -127,7 +127,7 @@ const ThemeToggle = () => {
                           ${isLightActive
                 ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:rotate-180'
                 : 'opacity-0 scale-50 rotate-[90deg]'
-              }
+            }
                           text-yellow-500`}
             size={24}
           />
@@ -138,7 +138,7 @@ const ThemeToggle = () => {
                           ${isDarkActive
                 ? 'opacity-100 scale-100 rotate-0 group-hover:scale-110 group-hover:animate-pulse group-hover:rotate-[360deg]'
                 : 'opacity-0 scale-50 rotate-[-90deg]'
-              }
+            }
                           text-blue-400`}
             size={24}
           />
@@ -154,10 +154,10 @@ const ThemeToggle = () => {
         {/* System Theme Button (Popup) */}
         <button
           onClick={handleSystemTheme}
-          className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm mb-2 transform origin-center
+          className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm mb-2 transform origin-center transition-shadow
             ${isSystemActive
-              ? 'bg-blue-500/40 text-blue-700 dark:text-blue-300 shadow-lg scale-105 border border-blue-300/30 dark:border-blue-500/30'
-              : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-gray-700/30'
+              ? 'bg-blue-500/40 text-blue-700 dark:text-blue-300 shadow-lg scale-105 border border-blue-300/30 dark:border-blue-500/30 dark:shadow-[0_0_20px_rgba(59,130,246,0.5)]'
+              : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-gray-700/30 dark:shadow-[0_0_8px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_12px_rgba(59,130,246,0.4)]'
             }
             hover:scale-105 hover:-translate-y-1`}
           style={{
@@ -182,10 +182,10 @@ const ThemeToggle = () => {
         {/* Light Theme Button (Popup) */}
         <button
           onClick={() => handleManualTheme(false)}
-          className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm mb-2 transform origin-center
+          className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm mb-2 transform origin-center transition-shadow
             ${isLightActive
-              ? 'bg-yellow-500/40 text-yellow-700 dark:text-yellow-300 shadow-lg scale-105 border border-yellow-300/30 dark:border-yellow-500/30'
-              : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-gray-700/30'
+              ? 'bg-yellow-500/40 text-yellow-700 dark:text-yellow-300 shadow-lg scale-105 border border-yellow-300/30 dark:border-yellow-500/30 dark:shadow-[0_0_20px_rgba(59,130,246,0.5)]'
+              : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-gray-700/30 dark:shadow-[0_0_8px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_12px_rgba(59,130,246,0.4)]'
             }
             hover:scale-105 hover:-translate-y-1`}
           style={{
@@ -205,10 +205,10 @@ const ThemeToggle = () => {
         {/* Dark Theme Button (Popup) */}
         <button
           onClick={() => handleManualTheme(true)}
-          className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm transform origin-center
+          className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-sm transform origin-center transition-shadow
             ${isDarkActive
-              ? 'bg-blue-500/40 text-blue-700 dark:text-blue-300 shadow-lg scale-105 border border-blue-300/30 dark:border-blue-500/30'
-              : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-gray-700/30'
+              ? 'bg-blue-500/40 text-blue-700 dark:text-blue-300 shadow-lg scale-105 border border-blue-300/30 dark:border-blue-500/30 dark:shadow-[0_0_20px_rgba(59,130,246,0.5)]'
+              : 'text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-gray-700/30 dark:shadow-[0_0_8px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_12px_rgba(59,130,246,0.4)]'
             }
             hover:scale-105 hover:-translate-y-1`}
           style={{
@@ -229,4 +229,4 @@ const ThemeToggle = () => {
   );
 };
 
-export default ThemeToggle;1111
+export default ThemeToggle;
