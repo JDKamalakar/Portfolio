@@ -24,8 +24,8 @@ const Experience = () => {
   }, []);
 
   const toggleExpanded = (index: number) => {
-    setExpandedItems(prev => 
-      prev.includes(index) 
+    setExpandedItems(prev =>
+      prev.includes(index)
         ? prev.filter(i => i !== index)
         : [...prev, index]
     );
@@ -36,12 +36,12 @@ const Experience = () => {
   };
 
   return (
-    <section 
+    <section
       id="experience"
       ref={sectionRef}
       className="py-20 px-6 relative overflow-hidden bg-gray-50 dark:bg-gray-900 transition-all duration-700 ease-in-out"
     >
-      {/* Background elements are unchanged... */}
+      {/* Background elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-200/50 via-cyan-200/40 to-blue-300/50 dark:from-blue-900/30 dark:via-cyan-900/25 dark:to-blue-800/30 rounded-full blur-3xl transition-all duration-1000 animate-pulse"></div>
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-br from-indigo-200/50 via-blue-200/40 to-cyan-300/50 dark:from-indigo-900/30 dark:via-blue-900/25 dark:to-cyan-800/30 rounded-full blur-3xl transition-all duration-1000 animate-pulse delay-1000"></div>
       <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-gradient-to-br from-indigo-200/40 via-blue-300/30 to-cyan-300/40 dark:from-indigo-900/25 dark:via-blue-800/20 dark:to-cyan-900/25 rounded-full blur-2xl animate-pulse delay-500 transition-all duration-1000"></div>
@@ -52,21 +52,9 @@ const Experience = () => {
       <div className="absolute bottom-16 right-16 w-20 h-20 bg-gradient-to-br from-sky-300/35 to-blue-400/35 dark:from-sky-800/25 dark:to-blue-900/25 rounded-full blur-xl animate-bounce delay-800"></div>
       <div className="absolute top-3/4 right-10 w-12 h-12 bg-gradient-to-br from-cyan-300/35 to-blue-400/35 dark:from-cyan-800/25 dark:to-blue-900/25 rounded-full blur-lg animate-pulse delay-600"></div>
       <div className="absolute top-10 right-1/2 w-14 h-14 bg-gradient-to-br from-blue-300/35 to-indigo-400/35 dark:from-blue-800/25 dark:to-indigo-900/25 rounded-full blur-lg animate-pulse delay-1100"></div>
-      <div className="absolute top-1/3 left-0 w-8 h-8 bg-blue-400/20 dark:bg-blue-600/15 rounded-full blur-sm" 
-           style={{ 
-             animation: 'moveAcross 20s linear infinite',
-             animationDelay: '0s'
-           }}></div>
-      <div className="absolute bottom-1/4 right-0 w-6 h-6 bg-cyan-400/20 dark:bg-cyan-600/15 rounded-full blur-sm" 
-           style={{ 
-             animation: 'moveAcross 18s linear infinite reverse',
-             animationDelay: '5s'
-           }}></div>
-      <div className="absolute top-2/3 left-1/3 w-5 h-5 bg-indigo-400/20 dark:bg-indigo-600/15 rounded-full blur-sm" 
-           style={{ 
-             animation: 'orbitalMove 15s ease-in-out infinite',
-             animationDelay: '2s'
-           }}></div>
+      <div className="absolute top-1/3 left-0 w-8 h-8 bg-blue-400/20 dark:bg-blue-600/15 rounded-full blur-sm" style={{ animation: 'moveAcross 20s linear infinite', animationDelay: '0s' }}></div>
+      <div className="absolute bottom-1/4 right-0 w-6 h-6 bg-cyan-400/20 dark:bg-cyan-600/15 rounded-full blur-sm" style={{ animation: 'moveAcross 18s linear infinite reverse', animationDelay: '5s' }}></div>
+      <div className="absolute top-2/3 left-1/3 w-5 h-5 bg-indigo-400/20 dark:bg-indigo-600/15 rounded-full blur-sm" style={{ animation: 'orbitalMove 15s ease-in-out infinite', animationDelay: '2s' }}></div>
       
       <div className="max-w-6xl mx-auto relative z-10">
         <div className={`text-center mb-16 transition-all duration-1000 ${
@@ -77,25 +65,20 @@ const Experience = () => {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-600 mx-auto rounded-full hover:w-32 transition-all duration-300"></div>
         </div>
-        
+
         <div className="space-y-8">
           {experience.map((exp, index) => {
             const isExpanded = expandedItems.includes(index);
             const previewAchievements = getPreviewAchievements(exp.achievements);
             const hasMoreContent = exp.achievements.length > 2;
 
-            // Determine the card's current background color for the gradient fade
-            // This will ensure the fade blends perfectly with the card's background
-            const cardBgClass = isExpanded 
-              ? 'bg-white/25 dark:bg-gray-800/25' 
-              : 'bg-white/15 dark:bg-gray-800/15'; // Default or non-hovered state
-            
             return (
-              <div 
-                key={index} 
-                className={`backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/20 hover:shadow-3xl transition-all duration-500 group ${hasMoreContent ? 'cursor-pointer' : 'cursor-default'} ${
+              <div
+                key={index}
+                // MODIFIED: Added glow and fixed transition delay
+                className={`backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/20 transition-transform duration-500 transition-[box-shadow] duration-200 group ${hasMoreContent ? 'cursor-pointer' : 'cursor-default'} ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                } ${cardBgClass} ${isExpanded ? 'scale-[1.02] shadow-3xl' : 'hover:scale-[1.02] hover:bg-white/20 dark:hover:bg-gray-800/20'}`} // Apply cardBgClass here
+                } bg-white/15 dark:bg-gray-800/15 ${isExpanded ? 'scale-[1.02] shadow-3xl bg-white/25 dark:bg-gray-800/25' : 'hover:scale-[1.02] hover:bg-white/20 dark:hover:bg-gray-800/20'} hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]`}
                 style={{ transitionDelay: `${index * 200}ms` }}
                 onClick={() => hasMoreContent && toggleExpanded(index)}
               >
@@ -115,7 +98,7 @@ const Experience = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   {hasMoreContent && (
                     <div className="mt-4 md:mt-0 flex items-center gap-2 text-blue-600 dark:text-blue-400">
                       <span className="text-sm font-medium">
@@ -129,15 +112,15 @@ const Experience = () => {
                     </div>
                   )}
                 </div>
-                
+
                 <div className={`relative overflow-hidden transition-all duration-700 ease-in-out ${
                   isExpanded ? 'max-h-96' : 'max-h-30'
                 }`}>
                   <div className={`transform transition-all duration-500`}>
                     <ul className="space-y-3">
                       {(isExpanded ? exp.achievements : previewAchievements).map((achievement, i) => (
-                        <li 
-                          key={i} 
+                        <li
+                          key={i}
                           className="flex items-start gap-3 hover:translate-x-2 transition-all duration-300 group/item"
                         >
                           <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-full mt-2 flex-shrink-0 group-hover/item:scale-150 transition-transform duration-300"></div>
@@ -149,22 +132,10 @@ const Experience = () => {
                     </ul>
                   </div>
 
-                  {/* --- START OF CHANGE --- */}
-                  {/* Using a style attribute to dynamically set the gradient colors based on the card's background */}
+                  {/* MODIFIED: Simplified the fade-out effect */}
                   {!isExpanded && hasMoreContent && (
-                    <div 
-                      className="absolute bottom-0 left-0 w-full h-12 pointer-events-none"
-                      style={{
-                        background: `linear-gradient(to top, 
-                                     var(--tw-gradient-from-color, rgba(255, 255, 255, 0.15)) 0%, 
-                                     transparent 100%)`, // Light mode default
-                        // Override for dark mode
-                        // Note: Tailwind's 'dark:' prefix doesn't work in inline style, so we need to rely on the CSS variable fallback
-                        // Or, for a perfect match, we'd need a separate component or a more complex solution for dark mode detection
-                      }}
-                    ></div>
+                    <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-white/15 to-transparent dark:from-gray-800/15 pointer-events-none"></div>
                   )}
-                  {/* --- END OF CHANGE --- */}
                 </div>
 
                 {hasMoreContent && !isExpanded && (
@@ -179,58 +150,37 @@ const Experience = () => {
       </div>
 
       <style jsx>{`
-        /* This CSS variable fallback is essential for the inline style to work across themes */
-        :root {
-          --tw-gradient-from-color: rgba(255, 255, 255, 0.15); /* bg-white/15 */
-        }
-        .dark {
-          --tw-gradient-from-color: rgba(31, 41, 55, 0.15); /* dark:bg-gray-800/15 */
-        }
-        /* Adjust for hover states if necessary, though the base cardBgClass should cover it */
-        .group:hover {
-          --tw-gradient-from-color: rgba(255, 255, 255, 0.20); /* bg-white/20 */
-        }
-        .dark .group:hover {
-          --tw-gradient-from-color: rgba(31, 41, 55, 0.20); /* dark:bg-gray-800/20 */
-        }
-        .group.is-expanded { /* You'd need to add 'is-expanded' class when expanded, or adjust the logic */
-          --tw-gradient-from-color: rgba(255, 255, 255, 0.25); /* bg-white/25 */
-        }
-        .dark .group.is-expanded {
-          --tw-gradient-from-color: rgba(31, 41, 55, 0.25); /* dark:bg-gray-800/25 */
-        }
-
         @keyframes moveAcross {
-          0% { 
-            transform: translateX(-50px); 
+          0% {
+            transform: translateX(-50px);
             opacity: 0;
           }
-          10% { 
+          10% {
             opacity: 1;
           }
-          90% { 
+          90% {
             opacity: 1;
           }
-          100% { 
-            transform: translateX(calc(100vw + 50px)); 
+          100% {
+            transform: translateX(calc(100vw + 50px));
             opacity: 0;
           }
         }
         
         @keyframes orbitalMove {
-          0% { 
+          0% {
             transform: translateX(0) translateY(0) rotate(0deg);
           }
-          25% { 
+          25% {
             transform: translateX(100px) translateY(-50px) rotate(90deg);
           }
-          50% { 
+          50% {
             transform: translateX(50px) translateY(-100px) rotate(180deg);
           }
-          75% { 
+          75% {
             transform: translateX(-50px) translateY(-50px) rotate(270deg);
           }
-          100% { 
+          100% {
             transform: translateX(0) translateY(0) rotate(360deg);
           }
         }
@@ -239,4 +189,4 @@ const Experience = () => {
   );
 };
 
-export default Experience;55555
+export default Experience;
