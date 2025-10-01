@@ -78,8 +78,8 @@ const ThemeToggle = () => {
       active: isSystemActive,
       color: isSystemActive ? (isDark ? 'text-blue-400' : 'text-yellow-500') : 'text-blue-500',
       activeClass: 'bg-blue-500/30 text-blue-700 dark:text-blue-300 shadow-md scale-105 border border-blue-300/50 dark:border-blue-500/50 dark:shadow-[0_0_10px_rgba(59,130,246,0.3)]',
-      // MODIFIED: Added light mode hover glow
-      hoverGlowClass: 'hover:shadow-md hover:shadow-blue-500/20 dark:shadow-[0_0_8px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_12px_rgba(59,130,246,0.4)]'
+      // MODIFIED: Increased shadow size and opacity for light mode
+      hoverGlowClass: 'hover:shadow-lg hover:shadow-blue-500/40 dark:shadow-[0_0_8px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_12px_rgba(59,130,246,0.4)]'
     },
     {
       label: 'Light',
@@ -88,8 +88,8 @@ const ThemeToggle = () => {
       active: isLightActive,
       color: 'text-yellow-500',
       activeClass: 'bg-yellow-500/30 text-yellow-700 dark:text-yellow-300 shadow-md scale-105 border border-yellow-300/50 dark:border-yellow-500/50 dark:shadow-[0_0_10px_rgba(234,179,8,0.3)]',
-      // MODIFIED: Added light mode hover glow
-      hoverGlowClass: 'hover:shadow-md hover:shadow-yellow-500/20 dark:shadow-[0_0_8px_rgba(234,179,8,0.2)] dark:hover:shadow-[0_0_12px_rgba(234,179,8,0.4)]'
+      // MODIFIED: Increased shadow size and opacity for light mode
+      hoverGlowClass: 'hover:shadow-lg hover:shadow-yellow-500/40 dark:shadow-[0_0_8px_rgba(234,179,8,0.2)] dark:hover:shadow-[0_0_12px_rgba(234,179,8,0.4)]'
     },
     {
       label: 'Dark',
@@ -98,8 +98,8 @@ const ThemeToggle = () => {
       active: isDarkActive,
       color: 'text-blue-500 dark:text-blue-400',
       activeClass: 'bg-blue-500/30 text-blue-700 dark:text-blue-300 shadow-md scale-105 border border-blue-300/50 dark:border-blue-500/50 dark:shadow-[0_0_10px_rgba(59,130,246,0.3)]',
-      // MODIFIED: Added light mode hover glow
-      hoverGlowClass: 'hover:shadow-md hover:shadow-blue-500/20 dark:shadow-[0_0_8px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_12px_rgba(59,130,246,0.4)]'
+      // MODIFIED: Increased shadow size and opacity for light mode
+      hoverGlowClass: 'hover:shadow-lg hover:shadow-blue-500/40 dark:shadow-[0_0_8px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_12px_rgba(59,130,246,0.4)]'
     }
   ];
 
@@ -193,4 +193,4 @@ const ThemeToggle = () => {
   );
 };
 
-export default ThemeToggle;11111
+export default ThemeToggle;
