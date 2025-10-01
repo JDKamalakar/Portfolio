@@ -80,7 +80,8 @@ const Education = () => {
                   <div
                     key={index}
                     onClick={() => hasInstitution && toggleEducationExpanded(index)}
-                    className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/20 transition-all duration-500 group ${hasInstitution ? 'cursor-pointer' : 'cursor-default'} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'} ${isExpanded ? 'scale-[1.02] shadow-2xl' : 'hover:scale-[1.02]'} hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]`}
+                    // MODIFIED: Replaced transition-all with specific transitions
+                    className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/20 transition-transform duration-500 transition-[box-shadow] duration-200 group ${hasInstitution ? 'cursor-pointer' : 'cursor-default'} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'} ${isExpanded ? 'scale-[1.02] shadow-2xl' : 'hover:scale-[1.02]'} hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]`}
                     style={{ transitionDelay: `${index * 150}ms` }}
                   >
                     <div className="p-6">
@@ -116,7 +117,8 @@ const Education = () => {
                   <div
                     key={index}
                     onClick={() => hasInstitution && toggleCertificationExpanded(index)}
-                    className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/20 transition-all duration-500 group ${hasInstitution ? 'cursor-pointer' : 'cursor-default'} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'} ${isExpanded ? 'scale-[1.02] shadow-2xl' : 'hover:scale-[1.02]'} hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]`}
+                    // MODIFIED: Replaced transition-all with specific transitions
+                    className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/20 transition-transform duration-500 transition-[box-shadow] duration-200 group ${hasInstitution ? 'cursor-pointer' : 'cursor-default'} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'} ${isExpanded ? 'scale-[1.02] shadow-2xl' : 'hover:scale-[1.02]'} hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]`}
                     style={{ transitionDelay: `${index * 150}ms` }}
                   >
                     <div className="p-6">
@@ -158,4 +160,4 @@ const Education = () => {
   );
 };
 
-export default Education;3333
+export default Education;
