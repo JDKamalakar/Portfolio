@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Sun, Moon, Monitor } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 
@@ -17,9 +17,9 @@ const PixelSmartphoneIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({ classNam
     className={className}
     {...props}
   >
-    <rect width="14" height="20" x="5" y="3" rx="2" ry="2" /> {/* y was 2 */}
-    <rect x="5" y="7" width="14" height="2" fill="currentColor" stroke="none" /> {/* y was 6 */}
-    <text x="12" y="16" fill="currentColor" fontSize="6px" fontFamily="sans-serif" fontWeight="bold" textAnchor="middle" dominantBaseline="middle" stroke="none">G</text> {/* y was 15 */}
+    <rect width="14" height="20" x="5" y="3" rx="2" ry="2" />
+    <rect x="5" y="7" width="14" height="2" fill="currentColor" stroke="none" />
+    <text x="12" y="16" fill="currentColor" fontSize="6px" fontFamily="sans-serif" fontWeight="bold" textAnchor="middle" dominantBaseline="middle" stroke="none">G</text>
   </svg>
 );
 
@@ -186,7 +186,8 @@ const ThemeToggle = () => {
               }}
             >
               <option.icon
-                className={`transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-110 ${option.color} ${option.hoverAnim} ${
+                // MODIFIED: Added inline-block to ensure scaling works reliably
+                className={`inline-block transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-110 ${option.color} ${option.hoverAnim} ${
                   option.active ? 'scale-110' : ''
                 }`}
                 size={18}
@@ -202,4 +203,4 @@ const ThemeToggle = () => {
   );
 };
 
-export default ThemeToggle;242142
+export default ThemeToggle;
