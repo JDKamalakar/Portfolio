@@ -80,14 +80,14 @@ const Education = () => {
                   <div
                     key={index}
                     onClick={() => hasInstitution && toggleEducationExpanded(index)}
-                    // MODIFIED: Replaced transition-all with specific transitions
-                    className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/20 transition-transform duration-500 transition-[box-shadow] duration-200 group ${hasInstitution ? 'cursor-pointer' : 'cursor-default'} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'} ${isExpanded ? 'scale-[1.02] shadow-2xl' : 'hover:scale-[1.02]'} hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]`}
+                    // MODIFIED: Added custom easing function for smoother scaling
+                    className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/20 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] transition-[box-shadow] duration-200 group ${hasInstitution ? 'cursor-pointer' : 'cursor-default'} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'} ${isExpanded ? 'scale-[1.02] shadow-2xl' : 'hover:scale-[1.02]'} hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]`}
                     style={{ transitionDelay: `${index * 150}ms` }}
                   >
                     <div className="p-6">
                       <div className="flex justify-between items-start mb-3">
                         <h4 className="text-lg font-bold text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 flex-1">{edu.degree}</h4>
-                        {hasInstitution && (<div className="flex items-center gap-2 ml-2"><div className={`transform transition-all duration-500 ease-in-out ${isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'}`}><ChevronDown size={20} className="text-blue-600 dark:text-blue-400 group-hover:animate-bounce flex-shrink-0" /></div></div>)}
+                        {hasInstitution && (<div className="flex items-center gap-2 ml-2"><div className={`transform transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'}`}><ChevronDown size={20} className="text-blue-600 dark:text-blue-400 group-hover:animate-bounce flex-shrink-0" /></div></div>)}
                       </div>
                       <div className={`transition-all duration-700 ease-in-out ${isExpanded ? 'max-h-40 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'}`}>
                         <div className={`transform transition-all duration-500 ${isExpanded ? 'translate-y-0 scale-100' : 'translate-y-4 scale-95'}`}>
@@ -117,14 +117,14 @@ const Education = () => {
                   <div
                     key={index}
                     onClick={() => hasInstitution && toggleCertificationExpanded(index)}
-                    // MODIFIED: Replaced transition-all with specific transitions
-                    className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/20 transition-transform duration-500 transition-[box-shadow] duration-200 group ${hasInstitution ? 'cursor-pointer' : 'cursor-default'} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'} ${isExpanded ? 'scale-[1.02] shadow-2xl' : 'hover:scale-[1.02]'} hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]`}
+                    // MODIFIED: Added custom easing function for smoother scaling
+                    className={`backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/20 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] transition-[box-shadow] duration-200 group ${hasInstitution ? 'cursor-pointer' : 'cursor-default'} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'} ${isExpanded ? 'scale-[1.02] shadow-2xl' : 'hover:scale-[1.02]'} hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]`}
                     style={{ transitionDelay: `${index * 150}ms` }}
                   >
                     <div className="p-6">
                       <div className="flex justify-between items-start mb-3">
                         <h4 className="text-lg font-bold text-gray-800 dark:text-gray-200 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-300 flex-1">{cert.title}</h4>
-                        {hasInstitution && (<div className="flex items-center gap-2 ml-2"><div className={`transform transition-all duration-500 ease-in-out ${isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'}`}><ChevronDown size={20} className="text-green-600 dark:text-green-400 group-hover:animate-bounce flex-shrink-0" /></div></div>)}
+                        {hasInstitution && (<div className="flex items-center gap-2 ml-2"><div className={`transform transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'}`}><ChevronDown size={20} className="text-green-600 dark:text-green-400 group-hover:animate-bounce flex-shrink-0" /></div></div>)}
                       </div>
                       <div className={`transition-all duration-700 ease-in-out ${isExpanded ? 'max-h-40 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'}`}>
                         <div className={`transform transition-all duration-500 ${isExpanded ? 'translate-y-0 scale-100' : 'translate-y-4 scale-95'}`}>
@@ -160,4 +160,4 @@ const Education = () => {
   );
 };
 
-export default Education;55555
+export default Education;
