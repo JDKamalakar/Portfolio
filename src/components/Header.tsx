@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Download, ExternalLink, Camera, Heart } from 'lucide-react';
+import { useTheme } from '../contexts/ThemeContext'; // 1. Imported useTheme
 import { portfolioData } from '../data/portfolioData';
 
 const Header = () => {
   const { personal } = portfolioData;
   const [isVisible, setIsVisible] = useState(false);
   const [likedButtons, setLikedButtons] = useState<Set<string>>(new Set());
+  const { isDark } = useTheme(); // 2. Added isDark state
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -28,13 +30,6 @@ const Header = () => {
       window.open(personal.cvDownloadUrl, '_blank');
     } else {
       alert('CV download link not configured. Please update the cvDownloadUrl in portfolioData.ts');
-    }
-  };
-
-  const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      alert('Photo upload functionality would be implemented here. Update the profilePhoto URL in portfolioData.ts');
     }
   };
 
@@ -86,15 +81,11 @@ const Header = () => {
       }`}>
         {/* Profile Image */}
         <div className="mb-8 relative group">
-          {/* MODIFIED: Added blue hover glow */}
-          <div className="w-48 h-48 mx-auto rounded-full bg-gradient-to-r from-blue-500 to-cyan-600 p-1 shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer relative hover:shadow-[0_0_25px_rgba(59,130,246,0.6)]">
+          {/* MODIFIED: Made ring and glow theme-aware */}
+          <div className={`w-48 h-48 mx-auto rounded-full bg-gradient-to-r p-1 shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer relative hover:shadow-[0_0_25px_rgba(234,179,8,0.6)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] ${isDark ? 'from-blue-500 to-cyan-600' : 'from-yellow-400 to-amber-500'}`}>
             <div className="w-full h-full rounded-full bg-gray-800 dark:bg-gray-700 flex items-center justify-center text-6xl font-bold transition-colors duration-300 group-hover:bg-gray-700 dark:group-hover:bg-gray-600 overflow-hidden">
               {personal.profilePhoto ? (
-                <img
-                  src={personal.profilePhoto}
-                  alt={personal.name}
-                  className="w-full h-full object-cover rounded-full"
-                />
+                <img src={personal.profilePhoto} alt={personal.name} className="w-full h-full object-cover rounded-full" />
               ) : (
                 personal.initials
               )}
@@ -113,24 +104,24 @@ const Header = () => {
         <div className="flex flex-wrap justify-center gap-6 mb-8 text-lg">
           <a
             href={`tel:${personal.phone}`}
-            // MODIFIED: Added blue hover glow and fixed transition
-            className="flex items-center gap-2 hover:text-blue-300 dark:hover:text-blue-200 transition-colors duration-300 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 hover:scale-105 group border border-white/20 transition-transform duration-300 transition-[box-shadow] duration-200 hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]"
+            // MODIFIED: Added theme-aware glow
+            className="flex items-center gap-2 hover:text-blue-300 dark:hover:text-blue-200 transition-colors duration-300 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 hover:scale-105 group border border-white/20 transition-transform duration-300 transition-[box-shadow] duration-200 hover:shadow-[0_0_20px_rgba(234,179,8,0.6)] dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]"
           >
             <Phone size={20} className="group-hover:animate-pulse group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
             {personal.phone}
           </a>
           <a
             href={`mailto:${personal.email}`}
-            // MODIFIED: Added blue hover glow and fixed transition
-            className="flex items-center gap-2 hover:text-blue-300 dark:hover:text-blue-200 transition-colors duration-300 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 hover:scale-105 group border border-white/20 transition-transform duration-300 transition-[box-shadow] duration-200 hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]"
+            // MODIFIED: Added theme-aware glow
+            className="flex items-center gap-2 hover:text-blue-300 dark:hover:text-blue-200 transition-colors duration-300 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 hover:scale-105 group border border-white/20 transition-transform duration-300 transition-[box-shadow] duration-200 hover:shadow-[0_0_20px_rgba(234,179,8,0.6)] dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]"
           >
             <Mail size={20} className="group-hover:animate-pulse group-hover:scale-110 group-hover:-rotate-12 transition-all duration-300" />
             {personal.email}
           </a>
           <button
             onClick={openGoogleMaps}
-            // MODIFIED: Added blue hover glow and fixed transition
-            className="flex items-center gap-2 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 transition-colors duration-300 hover:scale-105 group cursor-pointer hover:text-blue-300 dark:hover:text-blue-200 border border-white/20 transition-transform duration-300 transition-[box-shadow] duration-200 hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]"
+            // MODIFIED: Added theme-aware glow
+            className="flex items-center gap-2 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 transition-colors duration-300 hover:scale-105 group cursor-pointer hover:text-blue-300 dark:hover:text-blue-200 border border-white/20 transition-transform duration-300 transition-[box-shadow] duration-200 hover:shadow-[0_0_20px_rgba(234,179,8,0.6)] dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]"
           >
             <MapPin size={20} className="group-hover:animate-pulse group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
             {personal.location}
@@ -141,16 +132,16 @@ const Header = () => {
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           <button
             onClick={handleDownloadCV}
-            // MODIFIED: Added blue hover glow
-            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 rounded-xl transition-all duration-300 hover:scale-105 group backdrop-blur-sm border border-white/20 hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]"
+            // MODIFIED: Added theme-aware glow
+            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 rounded-xl transition-all duration-300 hover:scale-105 group backdrop-blur-sm border border-white/20 hover:shadow-[0_0_20px_rgba(234,179,8,0.6)] dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]"
           >
             <Download size={20} className="group-hover:animate-bounce group-hover:scale-110 transition-all duration-300" />
             Download CV
           </button>
           <button
             onClick={scrollToContact}
-            // MODIFIED: Added blue hover glow
-            className="flex items-center gap-2 px-6 py-3 border-2 border-white/30 hover:border-white/50 rounded-xl transition-all duration-300 hover:scale-105 hover:bg-white/10 group backdrop-blur-sm hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]"
+            // MODIFIED: Added theme-aware glow
+            className="flex items-center gap-2 px-6 py-3 border-2 border-white/30 hover:border-white/50 rounded-xl transition-all duration-300 hover:scale-105 hover:bg-white/10 group backdrop-blur-sm hover:shadow-[0_0_20px_rgba(234,179,8,0.6)] dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]"
           >
             <ExternalLink size={20} className="group-hover:animate-pulse group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
             Get In Touch
@@ -161,8 +152,8 @@ const Header = () => {
         <div className="flex justify-center gap-4">
           <button
             onClick={() => handleSocialClick('github', personal.socialLinks.github)}
-            // MODIFIED: Added blue hover glow
-            className={`relative p-3 backdrop-blur-md rounded-xl transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]
+            // MODIFIED: Added theme-aware glow
+            className={`relative p-3 backdrop-blur-md rounded-xl transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden hover:shadow-[0_0_20px_rgba(234,179,8,0.6)] dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]
               ${likedButtons.has('github') ? 'bg-red-500/30 scale-125' : 'bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10'}
             `}
             aria-label="GitHub Profile"
@@ -170,11 +161,10 @@ const Header = () => {
             <Github size={24} className={`transition-transform duration-300 ${likedButtons.has('github') ? 'scale-125 rotate-12' : 'group-hover:animate-pulse group-hover:scale-125 group-hover:-rotate-12'}`} />
             {likedButtons.has('github') && (<> <Heart className="absolute -top-1 -right-1 w-3 h-3 text-red-400 animate-ping" /> <Heart className="absolute -top-0 -left-0 w-2 h-2 text-red-400 animate-ping delay-200" /> </>)}
           </button>
-
           <button
             onClick={() => handleSocialClick('linkedin', personal.socialLinks.linkedin)}
-            // MODIFIED: Added blue hover glow
-            className={`relative p-3 backdrop-blur-md rounded-xl transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]
+            // MODIFIED: Added theme-aware glow
+            className={`relative p-3 backdrop-blur-md rounded-xl transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden hover:shadow-[0_0_20px_rgba(234,179,8,0.6)] dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]
               ${likedButtons.has('linkedin') ? 'bg-red-500/30 scale-125' : 'bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10'}
             `}
             aria-label="LinkedIn Profile"
@@ -182,11 +172,10 @@ const Header = () => {
             <Linkedin size={24} className={`transition-transform duration-300 ${likedButtons.has('linkedin') ? 'scale-125 -rotate-12' : 'group-hover:animate-pulse group-hover:scale-125 group-hover:rotate-12'}`} />
             {likedButtons.has('linkedin') && (<> <Heart className="absolute -top-1 -right-1 w-3 h-3 text-red-400 animate-ping" /> <Heart className="absolute -top-0 -left-0 w-2 h-2 text-red-400 animate-ping delay-200" /> </>)}
           </button>
-
           <button
             onClick={() => handleSocialClick('twitter', personal.socialLinks.twitter)}
-            // MODIFIED: Added blue hover glow
-            className={`relative p-3 backdrop-blur-md rounded-xl transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]
+            // MODIFIED: Added theme-aware glow
+            className={`relative p-3 backdrop-blur-md rounded-xl transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden hover:shadow-[0_0_20px_rgba(234,179,8,0.6)] dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]
               ${likedButtons.has('twitter') ? 'bg-red-500/30 scale-125' : 'bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10'}
             `}
             aria-label="Twitter Profile"
@@ -196,7 +185,6 @@ const Header = () => {
           </button>
         </div>
       </div>
-
       <style jsx>{`
         @keyframes drift {
           0%, 100% { transform: translateX(0px) translateY(0px); }
@@ -213,4 +201,4 @@ const Header = () => {
   );
 };
 
-export default Header;55555
+export default Header;
