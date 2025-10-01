@@ -2,13 +2,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Sun, Moon, Monitor } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 
-// Custom Pixel-style smartphone icon component
+// MODIFIED: The icon has been completely redrawn to be properly centered and sized within its viewBox.
+// This provides a safe margin on all sides and permanently fixes the clipping issue.
 const PixelSmartphoneIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({ className, size = 24, ...props }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    viewBox="0 0 24"
+    viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
     strokeWidth="2"
@@ -17,9 +18,12 @@ const PixelSmartphoneIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({ classNam
     className={className}
     {...props}
   >
-    <rect width="14" height="20" x="5" y="3" rx="2" ry="2" />
-    <rect x="5" y="7" width="14" height="2" fill="currentColor" stroke="none" />
-    <text x="12" y="16" fill="currentColor" fontSize="6px" fontFamily="sans-serif" fontWeight="bold" textAnchor="middle" dominantBaseline="middle" stroke="none">G</text>
+    {/* Centered phone body with padding */}
+    <rect width="12" height="18" x="6" y="3" rx="2" ry="2" />
+    {/* Centered camera bar */}
+    <rect x="6" y="6" width="12" height="2" fill="currentColor" stroke="none" />
+    {/* Centered 'G' logo */}
+    <text x="12" y="14.5" fill="currentColor" fontSize="5px" fontFamily="sans-serif" fontWeight="bold" textAnchor="middle" dominantBaseline="middle" stroke="none">G</text>
   </svg>
 );
 
@@ -186,7 +190,6 @@ const ThemeToggle = () => {
               }}
             >
               <option.icon
-                // MODIFIED: Added inline-block to ensure scaling works reliably
                 className={`inline-block transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-110 ${option.color} ${option.hoverAnim} ${
                   option.active ? 'scale-110' : ''
                 }`}
@@ -203,4 +206,4 @@ const ThemeToggle = () => {
   );
 };
 
-export default ThemeToggle;35334
+export default ThemeToggle;
