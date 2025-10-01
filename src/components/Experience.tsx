@@ -75,8 +75,8 @@ const Experience = () => {
             return (
               <div
                 key={index}
-                // MODIFIED: Added glow and fixed transition delay
-                className={`backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/20 transition-transform duration-500 transition-[box-shadow] duration-200 group ${hasMoreContent ? 'cursor-pointer' : 'cursor-default'} ${
+                // MODIFIED: Added custom easing for smoother scaling
+                className={`backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/20 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] transition-[box-shadow] duration-200 group ${hasMoreContent ? 'cursor-pointer' : 'cursor-default'} ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 } bg-white/15 dark:bg-gray-800/15 ${isExpanded ? 'scale-[1.02] shadow-3xl bg-white/25 dark:bg-gray-800/25' : 'hover:scale-[1.02] hover:bg-white/20 dark:hover:bg-gray-800/20'} hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]`}
                 style={{ transitionDelay: `${index * 200}ms` }}
@@ -104,7 +104,8 @@ const Experience = () => {
                       <span className="text-sm font-medium">
                         {isExpanded ? 'Show Less' : 'Show More'}
                       </span>
-                      <div className={`transform transition-all duration-500 ease-in-out ${
+                      {/* MODIFIED: Added custom easing for smoother rotation */}
+                      <div className={`transform transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                         isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'
                       }`}>
                         <ChevronDown size={20} className="group-hover:animate-bounce" />
@@ -113,7 +114,8 @@ const Experience = () => {
                   )}
                 </div>
 
-                <div className={`relative overflow-hidden transition-all duration-700 ease-in-out ${
+                {/* MODIFIED: Added custom easing for smoother expand/collapse */}
+                <div className={`relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                   isExpanded ? 'max-h-96' : 'max-h-30'
                 }`}>
                   <div className={`transform transition-all duration-500`}>
@@ -132,7 +134,6 @@ const Experience = () => {
                     </ul>
                   </div>
 
-                  {/* MODIFIED: Simplified the fade-out effect */}
                   {!isExpanded && hasMoreContent && (
                     <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-white/15 to-transparent dark:from-gray-800/15 pointer-events-none"></div>
                   )}
@@ -151,42 +152,21 @@ const Experience = () => {
 
       <style jsx>{`
         @keyframes moveAcross {
-          0% {
-            transform: translateX(-50px);
-            opacity: 0;
-          }
-          10% {
-            opacity: 1;
-          }
-          90% {
-            opacity: 1;
-          }
-          100% {
-            transform: translateX(calc(100vw + 50px));
-            opacity: 0;
-          }
+          0% { transform: translateX(-50px); opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { transform: translateX(calc(100vw + 50px)); opacity: 0; }
         }
-        
         @keyframes orbitalMove {
-          0% {
-            transform: translateX(0) translateY(0) rotate(0deg);
-          }
-          25% {
-            transform: translateX(100px) translateY(-50px) rotate(90deg);
-          }
-          50% {
-            transform: translateX(50px) translateY(-100px) rotate(180deg);
-          }
-          75% {
-            transform: translateX(-50px) translateY(-50px) rotate(270deg);
-          }
-          100% {
-            transform: translateX(0) translateY(0) rotate(360deg);
-          }
+          0% { transform: translateX(0) translateY(0) rotate(0deg); }
+          25% { transform: translateX(100px) translateY(-50px) rotate(90deg); }
+          50% { transform: translateX(50px) translateY(-100px) rotate(180deg); }
+          75% { transform: translateX(-50px) translateY(-50px) rotate(270deg); }
+          100% { transform: translateX(0) translateY(0) rotate(360deg); }
         }
       `}</style>
     </section>
   );
 };
 
-export default Experience;77777
+export default Experience;
