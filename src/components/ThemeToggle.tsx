@@ -167,10 +167,10 @@ const ThemeToggle = () => {
             roundingClass = 'rounded-xl';
           } else {
             roundingClass = isFirst
-              ? 'rounded-t-xl'
+              ? 'rounded-t-xl rounded'
               : isLast
-                ? 'rounded-b-xl'
-                : '';
+                ? 'rounded-b-xl rounded'
+                : 'rounded';
           }
 
           return (
