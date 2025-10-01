@@ -162,7 +162,7 @@ const ThemeToggle = () => {
         {themePopoverOptions.map((option, index) => {
           const isFirst = index === 0;
           const isLast = index === themePopoverOptions.length - 1;
-          let roundingClass = option.active ? 'rounded-xl' : isFirst ? 'rounded-t-xl' : isLast ? 'rounded-b-xl' : '';
+          let roundingClass = option.active ? 'rounded-xl' : isFirst ? 'rounded-t-xl' 'rounded' : isLast ? 'rounded-b-xl' 'rounded' : '';
 
           return (
             <button
