@@ -18,7 +18,7 @@ const PixelSmartphoneIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({ classNam
     {...props}
   >
     <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
-    <path d="M5 7h14" />
+    <rect x="5" y="6" width="14" height="2" fill="currentColor" stroke="none" />
     <text x="12" y="15" fill="currentColor" fontSize="6px" fontFamily="sans-serif" fontWeight="bold" textAnchor="middle" dominantBaseline="middle" stroke="none">G</text>
   </svg>
 );
