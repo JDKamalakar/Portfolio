@@ -77,7 +77,7 @@ const ThemeToggle = () => {
       icon: SystemIcon,
       active: isSystemActive,
       color: isSystemActive ? (isDark ? 'text-blue-400' : 'text-yellow-500') : 'text-blue-500',
-      activeClass: 'bg-blue-500/30 text-blue-700 dark:text-blue-300 shadow-md scale-105 border border-blue-300/50 dark:border-blue-500/50 dark:shadow-[0_0_10px_rgba(59,130,246,0.3)]',
+      activeClass: 'bg-blue-500/30 text-blue-700 dark:text-blue-300 shadow-md border border-blue-300/50 dark:border-blue-500/50 dark:shadow-[0_0_10px_rgba(59,130,246,0.3)]',
       hoverGlowClass: 'shadow-[0_0_10px_rgba(59,130,246,0.4)] hover:shadow-[0_0_16px_rgba(59,130,246,0.5)] dark:shadow-[0_0_8px_rgba(59,130,246,0.3)] dark:hover:shadow-[0_0_12px_rgba(59,130,246,0.4)]'
     },
     {
