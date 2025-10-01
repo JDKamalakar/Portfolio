@@ -77,7 +77,7 @@ const ThemeToggle = () => {
       icon: SystemIcon,
       active: isSystemActive,
       color: isSystemActive ? (isDark ? 'text-blue-400' : 'text-yellow-500') : 'text-blue-500',
-      activeClass: 'bg-blue-500/30 text-blue-700 dark:text-blue-300 shadow-md scale-105 border border-blue-300/50 dark:border-blue-500/50 dark:shadow-[0_0_10px_rgba(59,130,246,0.3)]', // Subtler glow
+      activeClass: 'bg-blue-500/30 text-blue-700 dark:text-blue-300 shadow-md scale-105 border border-blue-300/50 dark:border-blue-500/50 dark:shadow-[0_0_10px_rgba(59,130,246,0.3)]',
       hoverAnim: 'group-hover:rotate-12'
     },
     {
@@ -86,7 +86,7 @@ const ThemeToggle = () => {
       icon: Sun,
       active: isLightActive,
       color: 'text-yellow-500',
-      activeClass: 'bg-yellow-500/30 text-yellow-700 dark:text-yellow-300 shadow-md scale-105 border border-yellow-300/50 dark:border-yellow-500/50 dark:shadow-[0_0_10px_rgba(234,179,8,0.3)]', // Subtler glow
+      activeClass: 'bg-yellow-500/30 text-yellow-700 dark:text-yellow-300 shadow-md scale-105 border border-yellow-300/50 dark:border-yellow-500/50 dark:shadow-[0_0_10px_rgba(234,179,8,0.3)]',
       hoverAnim: 'group-hover:rotate-180'
     },
     {
@@ -95,7 +95,7 @@ const ThemeToggle = () => {
       icon: Moon,
       active: isDarkActive,
       color: 'text-blue-500 dark:text-blue-400',
-      activeClass: 'bg-blue-500/30 text-blue-700 dark:text-blue-300 shadow-md scale-105 border border-blue-300/50 dark:border-blue-500/50 dark:shadow-[0_0_10px_rgba(59,130,246,0.3)]', // Subtler glow
+      activeClass: 'bg-blue-500/30 text-blue-700 dark:text-blue-300 shadow-md scale-105 border border-blue-300/50 dark:border-blue-500/50 dark:shadow-[0_0_10px_rgba(59,130,246,0.3)]',
       hoverAnim: 'group-hover:rotate-[360deg]'
     }
   ];
@@ -150,7 +150,10 @@ const ThemeToggle = () => {
       </button>
 
       <div
-        className={`absolute top-full mt-2 right-0 bg-white/20 dark:bg-gray-800/20 backdrop-blur-xl border border-gray-300/30 dark:border-gray-700/30 rounded-2xl shadow-xl p-2 flex flex-col gap-1 hover:gap-2 min-w-[160px] transform transition-all duration-700 ease-out origin-top-right ${
+        // MODIFIED: Added classes for the background flair
+        className={`relative overflow-hidden absolute top-full mt-2 right-0 bg-white/20 dark:bg-gray-800/20 backdrop-blur-xl border border-gray-300/30 dark:border-gray-700/30 rounded-2xl shadow-xl p-2 flex flex-col gap-1 hover:gap-2 min-w-[160px] transform transition-all duration-700 ease-out origin-top-right 
+          before:content-[''] before:absolute before:inset-0 before:-z-10 before:rounded-2xl before:bg-[radial-gradient(circle_at_top_left,_var(--tw-gradient-stops))] before:from-purple-500/10 dark:before:from-purple-400/10 before:to-transparent
+          ${
           showOptions
             ? 'opacity-100 scale-100 translate-y-0 rotate-0 pointer-events-auto'
             : 'opacity-0 scale-75 -translate-y-4 rotate-12 pointer-events-none'
@@ -190,4 +193,4 @@ const ThemeToggle = () => {
   );
 };
 
-export default ThemeToggle;1111
+export default ThemeToggle;
