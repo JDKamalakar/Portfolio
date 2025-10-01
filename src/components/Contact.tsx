@@ -74,7 +74,7 @@ const Contact = () => {
 
   const openGoogleMaps = () => {
     const encodedAddress = encodeURIComponent(personal.fullAddress);
-    const mapsUrl = `https://maps.google.com/?q=${encodedAddress}`;
+    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
     window.open(mapsUrl, '_blank');
   };
 
@@ -126,11 +126,11 @@ const Contact = () => {
           }`}>
             <a
               href={`tel:${personal.phone}`}
-              // MODIFIED: Added glow effect
               className="block backdrop-blur-md bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]"
             >
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-blue-500 dark:bg-blue-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                {/* MODIFIED: Added transparency */}
+                <div className="p-3 bg-blue-500/40 dark:bg-blue-600/40 rounded-xl group-hover:scale-110 transition-transform duration-300">
                   <Phone className="text-white group-hover:animate-pulse" size={24} />
                 </div>
                 <div>
@@ -142,11 +142,11 @@ const Contact = () => {
 
             <a
               href={`mailto:${personal.email}`}
-              // MODIFIED: Added glow effect
               className="block backdrop-blur-md bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]"
             >
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-cyan-500 dark:bg-cyan-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                {/* MODIFIED: Added transparency */}
+                <div className="p-3 bg-cyan-500/40 dark:bg-cyan-600/40 rounded-xl group-hover:scale-110 transition-transform duration-300">
                   <Mail className="text-white group-hover:animate-pulse" size={24} />
                 </div>
                 <div>
@@ -158,11 +158,11 @@ const Contact = () => {
 
             <button
               onClick={openGoogleMaps}
-              // MODIFIED: Added glow effect
               className="w-full backdrop-blur-md bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]"
             >
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-indigo-500 dark:bg-indigo-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                {/* MODIFIED: Added transparency */}
+                <div className="p-3 bg-indigo-500/40 dark:bg-indigo-600/40 rounded-xl group-hover:scale-110 transition-transform duration-300">
                   <MapPin className="text-white group-hover:animate-pulse" size={24} />
                 </div>
                 <div className="text-left">
@@ -174,7 +174,6 @@ const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          {/* MODIFIED: Added glow effect */}
           <div className={`backdrop-blur-md bg-white/10 dark:bg-white/5 p-8 rounded-2xl border border-white/20 dark:border-white/10 hover:bg-white/15 dark:hover:bg-white/10 transition-all duration-500 ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
           } hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]`}>
@@ -291,4 +290,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;1111
+export default Contact;
