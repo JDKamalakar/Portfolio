@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, Twitter, Heart, ArrowUp } from 'lucide-react';
-import { useTheme } from '../contexts/ThemeContext'; // 1. Imported useTheme
+import { useTheme } from '../contexts/ThemeContext';
 import { portfolioData } from '../data/portfolioData';
 
 const Footer = () => {
@@ -8,7 +8,7 @@ const Footer = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [likedButtons, setLikedButtons] = useState<Set<string>>(new Set());
   const [isVisible, setIsVisible] = useState(false);
-  const { isDark } = useTheme(); // 2. Added isDark state
+  const { isDark } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -68,8 +68,8 @@ const Footer = () => {
       <footer className={`max-w-8xl mx-auto relative transition-all duration-1000 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}>
-        {/* MODIFIED: Added glow and fixed transition delay */}
-        <div className={`backdrop-blur-xl bg-white/10 dark:bg-white/5 rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/30 p-12 relative overflow-hidden transition-transform duration-500 transition-[box-shadow] duration-200 group ${isDark ? '' : 'hover:shadow-[0_0_30px_rgba(234,179,8,0.4)]'} dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:scale-[1.02]`}>
+        {/* MODIFIED: Added custom easing for scale and changed dark mode background color */}
+        <div className={`backdrop-blur-xl bg-white/10 dark:bg-gray-900/25 rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/30 p-12 relative overflow-hidden transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] transition-[box-shadow] duration-200 group ${isDark ? '' : 'hover:shadow-[0_0_30px_rgba(234,179,8,0.4)]'} dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:scale-[1.02]`}>
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-cyan-500/10 to-indigo-500/10 dark:from-blue-400/5 dark:via-cyan-400/5 dark:to-indigo-400/5 rounded-3xl"></div>
           <div className="absolute top-0 left-1/4 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 dark:bg-gradient-to-br dark:from-blue-300/10 dark:to-cyan-300/10 rounded-full blur-2xl animate-pulse -z-10"></div>
           <div className="absolute bottom-0 right-1/4 w-40 h-40 bg-gradient-to-br from-cyan-400/20 to-indigo-400/20 dark:bg-gradient-to-br dark:from-cyan-300/10 dark:to-indigo-300/10 rounded-full blur-2xl animate-pulse delay-1000 -z-10"></div>
@@ -86,7 +86,6 @@ const Footer = () => {
             <div className="flex justify-center gap-6 mb-10">
               <button
                 onClick={() => handleSocialClick('github', personal.socialLinks.github)}
-                // MODIFIED: Added theme-aware glow
                 className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg border border-white/10 overflow-hidden ${isDark ? '' : 'hover:shadow-[0_0_20px_rgba(234,179,8,0.6)]'} dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]
                   ${likedButtons.has('github') ? 'animate-pulse bg-red-500/30 scale-125' : ''}
                 `}
@@ -104,7 +103,6 @@ const Footer = () => {
 
               <button
                 onClick={() => handleSocialClick('linkedin', personal.socialLinks.linkedin)}
-                // MODIFIED: Added theme-aware glow
                 className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg border border-white/10 overflow-hidden ${isDark ? '' : 'hover:shadow-[0_0_20px_rgba(234,179,8,0.6)]'} dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]
                   ${likedButtons.has('linkedin') ? 'animate-pulse bg-red-500/30 scale-125' : ''}
                 `}
@@ -122,7 +120,6 @@ const Footer = () => {
 
               <button
                 onClick={() => handleSocialClick('twitter', personal.socialLinks.twitter)}
-                // MODIFIED: Added theme-aware glow
                 className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg border border-white/10 overflow-hidden ${isDark ? '' : 'hover:shadow-[0_0_20px_rgba(234,179,8,0.6)]'} dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]
                   ${likedButtons.has('twitter') ? 'animate-pulse bg-red-500/30 scale-125' : ''}
                 `}
@@ -185,11 +182,10 @@ const Footer = () => {
           className="group-hover:animate-bounce transition-transform duration-300 group-hover:scale-110"
         />
         <div className="absolute inset-0 rounded-2xl bg-white/20 scale-0 group-hover:scale-150 transition-transform duration-700 ease-out opacity-80 group-hover:opacity-100"></div>
-        {/* MODIFIED: Made scroll-to-top glow theme-aware */}
         <div className={`absolute inset-0 rounded-2xl blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-500 -z-10 scale-150 bg-gradient-to-r ${isDark ? 'from-blue-400 to-cyan-500' : 'from-yellow-400 to-amber-500'}`}></div>
       </button>
     </div>
   );
 };
 
-export default Footer;6666
+export default Footer;
