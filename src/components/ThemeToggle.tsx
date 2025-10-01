@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, useState, useRef, useEffect } from 'react';
 import { Sun, Moon, Monitor } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 
@@ -18,6 +18,7 @@ const PixelSmartphoneIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({ classNam
     {...props}
   >
     <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+    {/* MODIFIED: Replaced stroked path with a filled rectangle to prevent cropping */}
     <rect x="5" y="6" width="14" height="2" fill="currentColor" stroke="none" />
     <text x="12" y="15" fill="currentColor" fontSize="6px" fontFamily="sans-serif" fontWeight="bold" textAnchor="middle" dominantBaseline="middle" stroke="none">G</text>
   </svg>
@@ -150,7 +151,6 @@ const ThemeToggle = () => {
       </button>
 
       <div
-        // MODIFIED: Reverted gap to match reference code
         className={`absolute top-full mt-2 right-0 bg-white/20 dark:bg-gray-800/20 backdrop-blur-xl border border-gray-300/30 dark:border-gray-700/30 rounded-2xl shadow-xl p-2 flex flex-col gap-1.5 hover:gap-2 min-w-[160px] transform transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] origin-top-right ${
           showOptions
             ? 'opacity-100 scale-100 translate-y-0 rotate-0 pointer-events-auto'
@@ -158,7 +158,6 @@ const ThemeToggle = () => {
         }`}
       >
         {themePopoverOptions.map((option, index) => {
-          // MODIFIED: Re-introduced exact rounding logic from reference code
           const isFirst = index === 0;
           const isLast = index === themePopoverOptions.length - 1;
 
@@ -204,4 +203,4 @@ const ThemeToggle = () => {
   );
 };
 
-export default ThemeToggle;6567456
+export default ThemeToggle;
