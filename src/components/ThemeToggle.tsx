@@ -78,7 +78,8 @@ const ThemeToggle = () => {
       active: isSystemActive,
       color: isSystemActive ? (isDark ? 'text-blue-400' : 'text-yellow-500') : 'text-blue-500',
       activeClass: 'bg-blue-500/30 text-blue-700 dark:text-blue-300 shadow-md scale-105 border border-blue-300/50 dark:border-blue-500/50 dark:shadow-[0_0_10px_rgba(59,130,246,0.3)]',
-      hoverGlowClass: 'dark:shadow-[0_0_8px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_12px_rgba(59,130,246,0.4)]'
+      // MODIFIED: Added light mode hover glow
+      hoverGlowClass: 'hover:shadow-md hover:shadow-blue-500/20 dark:shadow-[0_0_8px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_12px_rgba(59,130,246,0.4)]'
     },
     {
       label: 'Light',
@@ -87,7 +88,8 @@ const ThemeToggle = () => {
       active: isLightActive,
       color: 'text-yellow-500',
       activeClass: 'bg-yellow-500/30 text-yellow-700 dark:text-yellow-300 shadow-md scale-105 border border-yellow-300/50 dark:border-yellow-500/50 dark:shadow-[0_0_10px_rgba(234,179,8,0.3)]',
-      hoverGlowClass: 'dark:shadow-[0_0_8px_rgba(234,179,8,0.2)] dark:hover:shadow-[0_0_12px_rgba(234,179,8,0.4)]' // Yellow hover glow
+      // MODIFIED: Added light mode hover glow
+      hoverGlowClass: 'hover:shadow-md hover:shadow-yellow-500/20 dark:shadow-[0_0_8px_rgba(234,179,8,0.2)] dark:hover:shadow-[0_0_12px_rgba(234,179,8,0.4)]'
     },
     {
       label: 'Dark',
@@ -96,7 +98,8 @@ const ThemeToggle = () => {
       active: isDarkActive,
       color: 'text-blue-500 dark:text-blue-400',
       activeClass: 'bg-blue-500/30 text-blue-700 dark:text-blue-300 shadow-md scale-105 border border-blue-300/50 dark:border-blue-500/50 dark:shadow-[0_0_10px_rgba(59,130,246,0.3)]',
-      hoverGlowClass: 'dark:shadow-[0_0_8px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_12px_rgba(59,130,246,0.4)]'
+      // MODIFIED: Added light mode hover glow
+      hoverGlowClass: 'hover:shadow-md hover:shadow-blue-500/20 dark:shadow-[0_0_8px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_12px_rgba(59,130,246,0.4)]'
     }
   ];
 
@@ -150,7 +153,6 @@ const ThemeToggle = () => {
       </button>
 
       <div
-        // MODIFIED: Increased gap from gap-1 to gap-1.5
         className={`absolute top-full mt-2 right-0 bg-white/20 dark:bg-gray-800/20 backdrop-blur-xl border border-gray-300/30 dark:border-gray-700/30 rounded-2xl shadow-xl p-2 flex flex-col gap-1.5 hover:gap-2 min-w-[160px] transform transition-all duration-700 ease-out origin-top-right ${
           showOptions
             ? 'opacity-100 scale-100 translate-y-0 rotate-0 pointer-events-auto'
@@ -166,7 +168,6 @@ const ThemeToggle = () => {
             <button
               key={option.value}
               onClick={() => handleThemeSelect(option.value)}
-              // MODIFIED: Now uses a dynamic hover glow based on the theme
               className={`group w-full flex items-center gap-3 px-4 py-3 transition-all duration-300 backdrop-blur-sm transform origin-center hover:scale-105 hover:-translate-y-1 hover:rounded-xl text-sm font-medium ${roundingClass} ${
                 option.active
                   ? option.activeClass
@@ -192,4 +193,4 @@ const ThemeToggle = () => {
   );
 };
 
-export default ThemeToggle;1111
+export default ThemeToggle;
