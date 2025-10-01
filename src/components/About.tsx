@@ -70,7 +70,6 @@ const About = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 items-start">
-          {/* MODIFIED: Added blue/yellow hover glow */}
           <div className={`backdrop-blur-xl bg-white/20 dark:bg-gray-800/20 p-8 rounded-lg shadow-2xl border border-white/20 dark:border-gray-700/20 hover:scale-[1.02] transition-all duration-500 group ${hasMoreContent ? 'cursor-pointer' : 'cursor-default'} ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
           } ${isExpanded ? 'scale-[1.02] shadow-3xl bg-white/30 dark:bg-gray-800/30' : ''} hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]`} onClick={() => hasMoreContent && setIsExpanded(!isExpanded)}>
@@ -137,26 +136,25 @@ const About = () => {
           <div className={`space-y-6 ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
           } transition-all duration-1000 delay-300`}>
-            {/* MODIFIED: Added blue/yellow hover glow */}
             <div className="backdrop-blur-xl bg-white/20 dark:bg-gray-800/20 p-6 rounded-xl shadow-2xl border border-white/20 dark:border-gray-700/20 hover:scale-[1.02] hover:bg-white/30 dark:hover:bg-gray-800/30 transition-all duration-300 group hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]">
               <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
                 Languages
               </h3>
               <div className="flex flex-wrap gap-2">
                 {about.languages.map((lang, index) => (
+                  // MODIFIED: Restructured tag for guaranteed transparency
                   <span
                     key={lang}
-                    // MODIFIED: Added transparency to language tags
-                    className="px-3 py-1 bg-gradient-to-r from-blue-500/90 to-cyan-600/90 text-white rounded-lg text-sm hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer backdrop-blur-sm"
+                    className="relative isolate px-3 py-1 bg-gradient-to-r from-blue-500 to-cyan-600 text-white rounded-lg text-sm hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    {lang}
+                    <span className="relative z-10">{lang}</span>
+                    <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
                   </span>
                 ))}
               </div>
             </div>
 
-            {/* MODIFIED: Added blue/yellow hover glow */}
             <div className="backdrop-blur-xl bg-white/20 dark:bg-gray-800/20 p-6 rounded-xl shadow-2xl border border-white/20 dark:border-gray-700/20 hover:scale-[1.02] hover:bg-white/30 dark:hover:bg-gray-800/30 transition-all duration-300 group hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]">
               <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
                 Hobbies
@@ -182,11 +180,12 @@ const About = () => {
                         href={link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        // MODIFIED: Added transparency to hobby tags
-                        className="px-3 py-1 bg-gradient-to-r from-cyan-500/90 to-indigo-600/90 text-white rounded-lg text-sm hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer backdrop-blur-sm"
+                        // MODIFIED: Restructured tag for guaranteed transparency
+                        className="relative isolate px-3 py-1 bg-gradient-to-r from-cyan-500 to-indigo-600 text-white rounded-lg text-sm hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden"
                         style={{ animationDelay: `${index * 50}ms` }}
                       >
-                        {hobby}
+                        <span className="relative z-10">{hobby}</span>
+                        <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
                       </a>
                     );
                   }
@@ -194,11 +193,12 @@ const About = () => {
                   return (
                     <span
                       key={hobby}
-                      // MODIFIED: Added transparency to hobby tags
-                      className="px-3 py-1 bg-gradient-to-r from-cyan-500/90 to-indigo-600/90 text-white rounded-lg text-sm hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer backdrop-blur-sm"
+                      // MODIFIED: Restructured tag for guaranteed transparency
+                      className="relative isolate px-3 py-1 bg-gradient-to-r from-cyan-500 to-indigo-600 text-white rounded-lg text-sm hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden"
                       style={{ animationDelay: `${index * 50}ms` }}
                     >
-                      {hobby}
+                      <span className="relative z-10">{hobby}</span>
+                      <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
                     </span>
                   );
                 })}
@@ -242,4 +242,4 @@ const About = () => {
   );
 };
 
-export default About;1111
+export default About;
