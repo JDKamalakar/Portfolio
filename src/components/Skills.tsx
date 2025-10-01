@@ -148,4 +148,4 @@ const Skills = () => {
   );
 };
 
-export default Skills;5454
+export default Skills;
