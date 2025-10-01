@@ -39,9 +39,8 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
-      // Create mailto link with form data
       const subject = encodeURIComponent(`Portfolio Contact: Message from ${formData.name}`);
       const body = encodeURIComponent(
         `Name: ${formData.name}\n` +
@@ -49,27 +48,24 @@ const Contact = () => {
         `Message:\n${formData.message}\n\n` +
         `---\nSent from Portfolio Website`
       );
-      
+
       const mailtoLink = `mailto:${personal.email}?subject=${subject}&body=${body}`;
-      
-      // Open email client
       window.location.href = mailtoLink;
-      
-      // Show success message
+
       setTimeout(() => {
         setIsSubmitting(false);
         setSubmitStatus('success');
         setFormData({ name: '', email: '', message: '' });
-        
+
         setTimeout(() => {
           setSubmitStatus('idle');
         }, 3000);
       }, 1000);
-      
+
     } catch (error) {
       setIsSubmitting(false);
       setSubmitStatus('error');
-      
+
       setTimeout(() => {
         setSubmitStatus('idle');
       }, 3000);
@@ -78,44 +74,38 @@ const Contact = () => {
 
   const openGoogleMaps = () => {
     const encodedAddress = encodeURIComponent(personal.fullAddress);
-    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+    const mapsUrl = `https://maps.google.com/?q=${encodedAddress}`;
     window.open(mapsUrl, '_blank');
   };
 
   return (
-    <section 
+    <section
       id="contact"
       ref={sectionRef}
       className="py-20 px-6 relative overflow-hidden bg-gray-900 dark:bg-black transition-all duration-700 ease-in-out"
     >
       {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-cyan-900 dark:from-black dark:via-blue-900 dark:to-cyan-900 transition-colors duration-500"></div>
-      
-      {/* Animated Background Flairs */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-500/20 via-cyan-500/15 to-blue-600/20 dark:from-blue-400/10 dark:via-cyan-400/8 dark:to-blue-500/10 rounded-full blur-3xl transition-all duration-1000 animate-pulse"></div>
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-br from-cyan-500/20 via-indigo-500/15 to-blue-600/20 dark:from-cyan-400/10 dark:via-indigo-400/8 dark:to-blue-500/10 rounded-full blur-3xl transition-all duration-1000 animate-pulse delay-1000"></div>
-      
-      {/* Floating animated orbs */}
       <div className="absolute top-1/4 right-1/3 w-32 h-32 bg-gradient-to-br from-indigo-400/20 to-blue-500/20 dark:from-indigo-300/10 dark:to-blue-400/10 rounded-full blur-2xl animate-bounce delay-700"></div>
       <div className="absolute bottom-1/4 left-1/3 w-24 h-24 bg-gradient-to-br from-cyan-400/20 to-indigo-500/20 dark:from-cyan-300/10 dark:to-indigo-400/10 rounded-full blur-2xl animate-bounce delay-1200"></div>
-      
-      {/* Moving Elements */}
-      <div className="absolute top-1/3 left-0 w-6 h-6 bg-blue-400/20 dark:bg-blue-600/15 rounded-full blur-sm" 
-           style={{ 
+      <div className="absolute top-1/3 left-0 w-6 h-6 bg-blue-400/20 dark:bg-blue-600/15 rounded-full blur-sm"
+           style={{
              animation: 'glide 25s linear infinite',
              animationDelay: '0s'
            }}></div>
-      <div className="absolute bottom-1/3 right-0 w-8 h-8 bg-cyan-400/20 dark:bg-cyan-600/15 rounded-full blur-sm" 
-           style={{ 
+      <div className="absolute bottom-1/3 right-0 w-8 h-8 bg-cyan-400/20 dark:bg-cyan-600/15 rounded-full blur-sm"
+           style={{
              animation: 'glide 22s linear infinite reverse',
              animationDelay: '5s'
            }}></div>
-      <div className="absolute top-2/3 left-1/4 w-5 h-5 bg-indigo-400/20 dark:bg-indigo-600/15 rounded-full blur-sm" 
-           style={{ 
+      <div className="absolute top-2/3 left-1/4 w-5 h-5 bg-indigo-400/20 dark:bg-indigo-600/15 rounded-full blur-sm"
+           style={{
              animation: 'verticalFloat 12s ease-in-out infinite',
              animationDelay: '2s'
            }}></div>
-      
+
       <div className="max-w-6xl mx-auto relative z-10">
         <div className={`text-center mb-16 transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
@@ -128,7 +118,7 @@ const Contact = () => {
             Let's discuss opportunities and create something amazing together
           </p>
         </div>
-        
+
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Info */}
           <div className={`space-y-8 transition-all duration-1000 ${
@@ -136,7 +126,8 @@ const Contact = () => {
           }`}>
             <a
               href={`tel:${personal.phone}`}
-              className="block backdrop-blur-md bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group"
+              // MODIFIED: Added glow effect
+              className="block backdrop-blur-md bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]"
             >
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-blue-500 dark:bg-blue-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
@@ -148,10 +139,11 @@ const Contact = () => {
                 </div>
               </div>
             </a>
-            
+
             <a
               href={`mailto:${personal.email}`}
-              className="block backdrop-blur-md bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group"
+              // MODIFIED: Added glow effect
+              className="block backdrop-blur-md bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]"
             >
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-cyan-500 dark:bg-cyan-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
@@ -163,10 +155,11 @@ const Contact = () => {
                 </div>
               </div>
             </a>
-            
+
             <button
               onClick={openGoogleMaps}
-              className="w-full backdrop-blur-md bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group"
+              // MODIFIED: Added glow effect
+              className="w-full backdrop-blur-md bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]"
             >
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-indigo-500 dark:bg-indigo-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
@@ -179,16 +172,17 @@ const Contact = () => {
               </div>
             </button>
           </div>
-          
+
           {/* Contact Form */}
+          {/* MODIFIED: Added glow effect */}
           <div className={`backdrop-blur-md bg-white/10 dark:bg-white/5 p-8 rounded-2xl border border-white/20 dark:border-white/10 hover:bg-white/15 dark:hover:bg-white/10 transition-all duration-500 ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
-          }`}>
+          } hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]`}>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-white font-medium mb-2">Name</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
@@ -197,11 +191,11 @@ const Contact = () => {
                   placeholder="Your Name"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-white font-medium mb-2">Email</label>
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
@@ -210,10 +204,10 @@ const Contact = () => {
                   placeholder="your.email@example.com"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-white font-medium mb-2">Message</label>
-                <textarea 
+                <textarea
                   rows={5}
                   name="message"
                   value={formData.message}
@@ -223,13 +217,13 @@ const Contact = () => {
                   placeholder="Your message..."
                 ></textarea>
               </div>
-              
-              <button 
+
+              <button
                 type="submit"
                 disabled={isSubmitting}
                 className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm ${
-                  submitStatus === 'success' 
-                    ? 'bg-green-500 hover:bg-green-600' 
+                  submitStatus === 'success'
+                    ? 'bg-green-500 hover:bg-green-600'
                     : submitStatus === 'error'
                     ? 'bg-red-500 hover:bg-red-600'
                     : 'bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700'
@@ -257,7 +251,7 @@ const Contact = () => {
                   </>
                 )}
               </button>
-              
+
               <p className="text-xs text-gray-400 dark:text-gray-500 text-center">
                 This will open your default email client with the message pre-filled
               </p>
@@ -268,28 +262,28 @@ const Contact = () => {
 
       <style jsx>{`
         @keyframes glide {
-          0% { 
-            transform: translateX(-50px) translateY(0px); 
+          0% {
+            transform: translateX(-50px) translateY(0px);
             opacity: 0;
           }
-          10% { 
+          10% {
             opacity: 1;
           }
-          90% { 
+          90% {
             opacity: 1;
           }
-          100% { 
-            transform: translateX(calc(100vw + 50px)) translateY(-30px); 
+          100% {
+            transform: translateX(calc(100vw + 50px)) translateY(-30px);
             opacity: 0;
           }
         }
         
         @keyframes verticalFloat {
-          0%, 100% { 
-            transform: translateY(0px); 
+          0%, 100% {
+            transform: translateY(0px);
           }
-          50% { 
-            transform: translateY(-80px); 
+          50% {
+            transform: translateY(-80px);
           }
         }
       `}</style>
@@ -297,4 +291,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;1111
+export default Contact;
