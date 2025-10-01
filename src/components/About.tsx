@@ -75,7 +75,7 @@ const About = () => {
           } ${isExpanded ? 'scale-[1.02] shadow-3xl bg-white/30 dark:bg-gray-800/30' : ''} hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]`} onClick={() => hasMoreContent && setIsExpanded(!isExpanded)}>
             <div className="relative">
               <div className={`overflow-hidden transition-all duration-700 ease-in-out ${
-                isExpanded ? 'max-h-96' : 'max-h-32'
+                isExpanded ? 'max-h-96' : 'max-h-34'
               }`}>
                 <div className={`transform transition-all duration-500 ${
                   isExpanded ? 'translate-y-0 scale-100' : 'translate-y-0 scale-100'
