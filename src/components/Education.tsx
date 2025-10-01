@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { GraduationCap, Calendar, Award, ChevronDown, MoreHorizontal } from 'lucide-react';
-import { useTheme } from '../contexts/ThemeContext';
+import { useTheme } from '../contexts/ThemeContext'; // Assuming this context exists
 import { portfolioData } from '../data/portfolioData';
 
 const Education = () => {
@@ -47,24 +47,18 @@ const Education = () => {
     const { left, top } = card.getBoundingClientRect();
     const x = e.clientX - left;
     const y = e.clientY - top;
-    // Set properties on the inner glow div
-    const glow = card.querySelector('.glow-effect') as HTMLDivElement;
-    if (glow) {
-      glow.style.setProperty('--mouse-x', `${x}px`);
-      glow.style.setProperty('--mouse-y', `${y}px`);
-      glow.style.setProperty('--glow-opacity', '1');
-    }
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
+    card.style.setProperty('--glow-opacity', '1');
   };
 
   const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
-    const glow = card.querySelector('.glow-effect') as HTMLDivElement;
-    if (glow) {
-      glow.style.setProperty('--glow-opacity', '0');
-    }
+    card.style.setProperty('--glow-opacity', '0');
   };
-
-  const cardBaseClasses = `relative ${isExpanded ? 'scale-[1.02] shadow-2xl' : 'hover:scale-[1.02]'} transition-transform duration-500`;
+  
+  // MODIFIED: Removed 'overflow-hidden'
+  const cardBaseClasses = `relative group backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/20 transition-transform duration-500`;
 
   return (
     <section
@@ -97,7 +91,7 @@ const Education = () => {
               <h3 className="text-3xl font-bold text-gray-800 dark:text-gray-200">Education</h3>
             </div>
             <div className="space-y-6">
-              {education.map((edu, index) => {
+              {education?.map((edu, index) => {
                 const isExpanded = expandedEducation.includes(index);
                 const hasInstitution = edu.institution && edu.institution.trim() !== '';
                 return (
@@ -105,21 +99,20 @@ const Education = () => {
                     key={index}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={handleMouseLeave}
-                    className={`${cardBaseClasses} ${hasInstitution ? 'cursor-pointer' : 'cursor-default'} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
+                    className={`${cardBaseClasses} ${hasInstitution ? 'cursor-pointer' : 'cursor-default'} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'} ${isExpanded ? 'scale-[1.02] shadow-2xl' : 'hover:scale-[1.02]'}`}
                     style={{ transitionDelay: `${index * 150}ms` }}
                     onClick={() => hasInstitution && toggleEducationExpanded(index)}
                   >
-                    {/* MODIFIED: Glow layer now sits behind the content */}
                     <div
-                      className="glow-effect absolute -inset-12 z-[-1] rounded-xl transition-opacity duration-300"
+                      className="absolute inset-0 z-0 rounded-xl transition-opacity duration-300"
                       style={{
                         background: isDark
-                          ? `radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(59, 130, 246, 0.25), transparent 80%)`
-                          : `radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(234, 179, 8, 0.25), transparent 80%)`,
+                          ? `radial-gradient(350px circle at var(--mouse-x) var(--mouse-y), rgba(59, 130, 246, 0.2), transparent 80%)`
+                          : `radial-gradient(350px circle at var(--mouse-x) var(--mouse-y), rgba(234, 179, 8, 0.2), transparent 80%)`,
                         opacity: 'var(--glow-opacity, 0)',
                       }}
                     />
-                    <div className="relative z-10 p-6 bg-white/80 dark:bg-gray-800/80 rounded-xl backdrop-blur-sm shadow-lg border border-white/20 dark:border-gray-700/20">
+                    <div className="relative z-10 p-6">
                       <div className="flex justify-between items-start mb-3">
                         <h4 className="text-lg font-bold text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 flex-1">{edu.degree}</h4>
                         {hasInstitution && (<div className="flex items-center gap-2 ml-2"><div className={`transform transition-all duration-500 ease-in-out ${isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'}`}><ChevronDown size={20} className="text-blue-600 dark:text-blue-400 group-hover:animate-bounce flex-shrink-0" /></div></div>)}
@@ -145,7 +138,7 @@ const Education = () => {
           <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
             <div className="flex items-center gap-3 mb-8"><Award className="text-green-600 dark:text-green-400" size={32} /><h3 className="text-3xl font-bold text-gray-800 dark:text-gray-200">Certifications</h3></div>
             <div className="space-y-6">
-              {certifications.map((cert, index) => {
+              {certifications?.map((cert, index) => {
                 const isExpanded = expandedCertifications.includes(index);
                 const hasInstitution = cert.institution && cert.institution.trim() !== '';
                 return (
@@ -153,20 +146,20 @@ const Education = () => {
                     key={index}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={handleMouseLeave}
-                    className={`${cardBaseClasses} ${hasInstitution ? 'cursor-pointer' : 'cursor-default'} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
+                    className={`${cardBaseClasses} ${hasInstitution ? 'cursor-pointer' : 'cursor-default'} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'} ${isExpanded ? 'scale-[1.02] shadow-2xl' : 'hover:scale-[1.02]'}`}
                     style={{ transitionDelay: `${index * 150}ms` }}
                     onClick={() => hasInstitution && toggleCertificationExpanded(index)}
                   >
                     <div
-                      className="glow-effect absolute -inset-12 z-[-1] rounded-xl transition-opacity duration-300"
+                      className="absolute inset-0 z-0 rounded-xl transition-opacity duration-300"
                       style={{
                         background: isDark
-                          ? `radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(59, 130, 246, 0.25), transparent 80%)`
-                          : `radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(234, 179, 8, 0.25), transparent 80%)`,
+                          ? `radial-gradient(350px circle at var(--mouse-x) var(--mouse-y), rgba(59, 130, 246, 0.2), transparent 80%)`
+                          : `radial-gradient(350px circle at var(--mouse-x) var(--mouse-y), rgba(234, 179, 8, 0.2), transparent 80%)`,
                         opacity: 'var(--glow-opacity, 0)',
                       }}
                     />
-                    <div className="relative z-10 p-6 bg-white/80 dark:bg-gray-800/80 rounded-xl backdrop-blur-sm shadow-lg border border-white/20 dark:border-gray-700/20">
+                    <div className="relative z-10 p-6">
                       <div className="flex justify-between items-start mb-3">
                         <h4 className="text-lg font-bold text-gray-800 dark:text-gray-200 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-300 flex-1">{cert.title}</h4>
                         {hasInstitution && (<div className="flex items-center gap-2 ml-2"><div className={`transform transition-all duration-500 ease-in-out ${isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'}`}><ChevronDown size={20} className="text-green-600 dark:text-green-400 group-hover:animate-bounce flex-shrink-0" /></div></div>)}
