@@ -88,8 +88,8 @@ const Navigation = () => {
                 className={`group relative p-3 rounded-xl transition-all duration-500 ease-out hover:scale-110 block w-full mb-2 last:mb-0 transform ${
                   activeSection === item.id
                     ? 'bg-blue-500/40 text-blue-700 dark:text-blue-300 shadow-lg backdrop-blur-sm border border-blue-300/30 dark:border-blue-500/30 scale-105'
-                    // MODIFIED: Changed to a bottom-only glow
-                    : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-white/30 dark:hover:bg-gray-700/30 hover:shadow-[0px_10px_20px_-10px_rgba(234,179,8,0.5)] dark:hover:shadow-[0px_10px_20px_-10px_rgba(59,130,246,0.4)]'
+                    // MODIFIED: Added yellow glow for light mode hover, blue glow for dark mode hover
+                    : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-white/30 dark:hover:bg-gray-700/30 hover:shadow-[0_0_16px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_16px_rgba(59,130,246,0.4)]'
                 }`}
                 title={item.label}
               >
@@ -130,8 +130,8 @@ const Navigation = () => {
                   className={`flex items-center gap-3 w-full p-3 rounded-xl transition-all duration-300 hover:scale-105 mb-2 transform backdrop-blur-sm group ${
                     activeSection === item.id
                       ? 'bg-blue-500/60 text-white shadow-lg scale-105'
-                      // MODIFIED: Changed to a bottom-only glow
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100/30 dark:hover:bg-gray-800/30 hover:shadow-[0px_10px_20px_-10px_rgba(234,179,8,0.5)] dark:hover:shadow-[0px_10px_20px_-10px_rgba(59,130,246,0.4)]'
+                      // MODIFIED: Added yellow glow for light mode hover, blue glow for dark mode hover
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100/30 dark:hover:bg-gray-800/30 hover:shadow-[0_0_16px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_16px_rgba(59,130,246,0.4)]'
                   }`}
                   style={{
                     transitionDelay: isOpen ? `${index * 50}ms` : '0ms',
