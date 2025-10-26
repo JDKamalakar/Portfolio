@@ -27,7 +27,7 @@ const Header = () => {
 
   const handleDownloadCV = () => {
     if (personal.cvDownloadUrl) {
-      window.open(personal.cvDownloadUrl, './public/assests/jayraj-kamalakar-cv');
+      window.open(personal.cvDownloadUrl, '_blank');
     } else {
       alert('CV download link not configured. Please update the cvDownloadUrl in portfolioData.ts');
     }
