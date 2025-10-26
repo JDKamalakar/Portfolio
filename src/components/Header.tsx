@@ -25,13 +25,28 @@ const Header = () => {
     return () => observer.disconnect();
   }, []);
 
-  const handleDownloadCV = () => {
-    if (personal.cvDownloadUrl) {
-      window.open(personal.cvDownloadUrl, '_blank');
-    } else {
-      alert('CV download link not configured. Please update the cvDownloadUrl in portfolioData.ts');
-    }
-  };
+const handleDownloadCV = () => {
+    if (personal.cvDownloadUrl) {
+        // --- 1. Create a temporary anchor element ---
+        const link = document.createElement('a');
+
+        // --- 2. Set the link URL (the correct path) ---
+        link.href = personal.cvDownloadUrl;
+
+        // --- 3. Use the 'download' attribute to tell the browser to download the file ---
+        // This attribute ensures the browser treats it as a file, not a page.
+        link.setAttribute('download', 'Jayraj-Kamalakar-CV.pdf'); 
+
+        // --- 4. Append and click the link to trigger the download ---
+        // This is a programmatic way to trigger a click that respects the 'download' attribute.
+        // It should also bypass any single-page application router logic.
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    } else {
+      alert('CV download link not configured. Please update the cvDownloadUrl in portfolioData.ts');
+    }
+  };
 
   const openGoogleMaps = () => {
     const encodedAddress = encodeURIComponent(personal.fullAddress);
