@@ -96,15 +96,27 @@ const handleDownloadCV = () => {
       }`}>
         {/* Profile Image */}
         <div className="mb-8 relative group">
-          <div className={`w-48 h-48 mx-auto rounded-full bg-gradient-to-r p-1 shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer relative hover:shadow-[0_0_15px_rgba(234,179,8,0.4)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] ${isDark ? 'from-blue-500 to-cyan-600' : 'from-yellow-400 to-amber-500'}`}>
-            <div className="w-full h-full rounded-full bg-gray-800 dark:bg-gray-700 flex items-center justify-center text-6xl font-bold transition-colors duration-300 group-hover:bg-gray-700 dark:group-hover:bg-gray-600 overflow-hidden">
+          <div className="w-48 h-48 mx-auto rounded-full relative shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer">
+            {/* Profile Photo/Initials - positioned behind the border */}
+            <div className="absolute inset-3 rounded-full bg-gray-800 dark:bg-gray-700 flex items-center justify-center text-6xl font-bold transition-colors duration-300 group-hover:bg-gray-700 dark:group-hover:bg-gray-600 overflow-hidden z-0">
               {personal.profilePhoto ? (
                 <img src={personal.profilePhoto} alt={personal.name} className="w-full h-full object-cover rounded-full" />
               ) : (
                 personal.initials
               )}
             </div>
-            <div className="absolute inset-0 w-48 h-48 mx-auto rounded-full bg-white/10 backdrop-blur-sm animate-ping opacity-20 -z-10"></div>
+
+            {/* Translucent Border with Blur - Similar to Nav Bar */}
+            <div className={`absolute inset-0 rounded-full backdrop-blur-md border-[6px] transition-all duration-300 pointer-events-none z-10 ${
+              isDark
+                ? 'bg-blue-500/20 border-blue-400/30 group-hover:bg-blue-500/30 group-hover:border-blue-400/40 group-hover:shadow-[0_0_25px_rgba(59,130,246,0.6)]'
+                : 'bg-yellow-400/20 border-yellow-400/30 group-hover:bg-yellow-400/30 group-hover:border-yellow-400/40 group-hover:shadow-[0_0_15px_rgba(234,179,8,0.4)]'
+            }`}></div>
+
+            {/* Animated Glow Effect */}
+            <div className={`absolute inset-0 w-48 h-48 rounded-full animate-ping opacity-20 -z-10 ${
+              isDark ? 'bg-blue-400/30' : 'bg-yellow-400/30'
+            }`}></div>
           </div>
         </div>
 
