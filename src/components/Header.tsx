@@ -8,7 +8,6 @@ const Header = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [likedButtons, setLikedButtons] = useState<Set<string>>(new Set());
   const { isDark } = useTheme();
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -16,44 +15,38 @@ const Header = () => {
       },
       { threshold: 0.1 }
     );
-
     const headerElement = document.getElementById('header');
     if (headerElement) {
       observer.observe(headerElement);
     }
-
     return () => observer.disconnect();
   }, []);
 
 const handleDownloadCV = () => {
-    if (personal.cvDownloadUrl) {
+
+    if (personal.cvDownloadUrl) {
         // --- 1. Create a temporary anchor element ---
-        const link = document.createElement('a');
-
+        const link = document.createElement('a');
         // --- 2. Set the link URL (the correct path) ---
-        link.href = personal.cvDownloadUrl;
-
+        link.href = personal.cvDownloadUrl;
         // --- 3. Use the 'download' attribute to tell the browser to download the file ---
         // This attribute ensures the browser treats it as a file, not a page.
-        link.setAttribute('download', 'Jayraj-Kamalakar-CV.pdf'); 
-
+        link.setAttribute('download', 'Jayraj-Kamalakar-CV.pdf'); 
         // --- 4. Append and click the link to trigger the download ---
         // This is a programmatic way to trigger a click that respects the 'download' attribute.
         // It should also bypass any single-page application router logic.
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    } else {
-      alert('CV download link not configured. Please update the cvDownloadUrl in portfolioData.ts');
-    }
-  };
-
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    } else {
+      alert('CV download link not configured. Please update the cvDownloadUrl in portfolioData.ts');
+    }
+  };
   const openGoogleMaps = () => {
     const encodedAddress = encodeURIComponent(personal.fullAddress);
     const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
     window.open(mapsUrl, '_blank');
   };
-
   const handleSocialClick = (platform: string, url: string) => {
     setLikedButtons(prev => new Set(prev).add(platform));
     setTimeout(() => {
@@ -63,21 +56,19 @@ const handleDownloadCV = () => {
         return newSet;
       });
     }, 2000);
-
     if (url) {
       window.open(url, '_blank');
     } else {
       console.warn(`Social link for ${platform} is missing or invalid.`);
     }
   };
-
   const scrollToContact = () => {
     const contactElement = document.getElementById('contact');
     if (contactElement) {
       contactElement.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
+  
   return (
     <header id="header" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-cyan-900 to-indigo-900 dark:from-gray-900 dark:via-blue-900 dark:to-cyan-900 transition-colors duration-500">
       {/* Background elements */}
@@ -96,24 +87,32 @@ const handleDownloadCV = () => {
       }`}>
         {/* Profile Image */}
         <div className="mb-8 relative group">
-          <div className={`w-48 h-48 mx-auto rounded-full bg-gradient-to-r p-1 shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer relative hover:shadow-[0_0_15px_rgba(234,179,8,0.4)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] ${isDark ? 'from-blue-500 to-cyan-600' : 'from-yellow-400 to-amber-500'}`}>
-            <div className="w-full h-full rounded-full bg-gray-800 dark:bg-gray-700 flex items-center justify-center text-6xl font-bold transition-colors duration-300 group-hover:bg-gray-700 dark:group-hover:bg-gray-600 overflow-hidden">
+          <div className="w-48 h-48 mx-auto rounded-full relative shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer">
+            {/* Profile Photo/Initials */}
+            <div className="absolute inset-0 rounded-full bg-gray-800 dark:bg-gray-700 flex items-center justify-center text-6xl font-bold transition-colors duration-300 group-hover:bg-gray-700 dark:group-hover:bg-gray-600 overflow-hidden z-10">
               {personal.profilePhoto ? (
                 <img src={personal.profilePhoto} alt={personal.name} className="w-full h-full object-cover rounded-full" />
               ) : (
                 personal.initials
               )}
             </div>
-            <div className="absolute inset-0 w-48 h-48 mx-auto rounded-full bg-white/10 backdrop-blur-sm animate-ping opacity-20 -z-10"></div>
+            {/* Translucent Border with Blur - Similar to Nav Bar (no backdrop blur, only border) */}
+            <div className={`absolute inset-0 rounded-full border-[6px] transition-all duration-300 pointer-events-none z-20 ${
+              isDark
+                ? 'border-blue-400/30 bg-gradient-to-br from-blue-500/15 to-blue-500/5 group-hover:border-blue-400/50 group-hover:from-blue-500/25 group-hover:to-blue-500/10 group-hover:shadow-[0_0_25px_rgba(59,130,246,0.6)]'
+                : 'border-yellow-400/30 bg-gradient-to-br from-yellow-400/15 to-yellow-400/5 group-hover:border-yellow-400/50 group-hover:from-yellow-400/25 group-hover:to-yellow-400/10 group-hover:shadow-[0_0_15px_rgba(234,179,8,0.4)]'
+            }`}></div>
+            {/* Animated Glow Effect */}
+            <div className={`absolute inset-0 w-48 h-48 rounded-full animate-ping opacity-20 -z-10 ${
+              isDark ? 'bg-blue-400/30' : 'bg-yellow-400/30'
+            }`}></div>
           </div>
         </div>
-
         {/* Name and Title */}
         <h1 className="text-6xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent hover:from-blue-200 hover:to-cyan-200 transition-all duration-300 cursor-default">
           {personal.name}
         </h1>
         <p className="text-2xl md:text-3xl text-blue-200 dark:text-blue-300 mb-8 font-light hover:text-blue-100 dark:hover:text-blue-200 transition-colors duration-300 cursor-default">{personal.title}</p>
-
         {/* Contact Info */}
         <div className="flex flex-wrap justify-center gap-6 mb-8 text-lg">
           <a
@@ -138,7 +137,6 @@ const handleDownloadCV = () => {
             {personal.location}
           </button>
         </div>
-
         {/* Action Buttons */}
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           <button
@@ -156,7 +154,6 @@ const handleDownloadCV = () => {
             Get In Touch
           </button>
         </div>
-
         {/* Social Links */}
         <div className="flex justify-center gap-4">
           <button
@@ -206,5 +203,7 @@ const handleDownloadCV = () => {
     </header>
   );
 };
+
+
 
 export default Header;
