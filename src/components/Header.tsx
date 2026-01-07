@@ -97,8 +97,8 @@ const handleDownloadCV = () => {
         {/* Profile Image */}
         <div className="mb-8 relative group">
           <div className="w-48 h-48 mx-auto rounded-full relative shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer">
-            {/* Profile Photo/Initials - positioned behind the border */}
-            <div className="absolute inset-3 rounded-full bg-gray-800 dark:bg-gray-700 flex items-center justify-center text-6xl font-bold transition-colors duration-300 group-hover:bg-gray-700 dark:group-hover:bg-gray-600 overflow-hidden z-0">
+            {/* Profile Photo/Initials */}
+            <div className="absolute inset-0 rounded-full bg-gray-800 dark:bg-gray-700 flex items-center justify-center text-6xl font-bold transition-colors duration-300 group-hover:bg-gray-700 dark:group-hover:bg-gray-600 overflow-hidden z-10">
               {personal.profilePhoto ? (
                 <img src={personal.profilePhoto} alt={personal.name} className="w-full h-full object-cover rounded-full" />
               ) : (
@@ -106,11 +106,11 @@ const handleDownloadCV = () => {
               )}
             </div>
 
-            {/* Translucent Border with Blur - Similar to Nav Bar */}
-            <div className={`absolute inset-0 rounded-full backdrop-blur-md border-[6px] transition-all duration-300 pointer-events-none z-10 ${
+            {/* Translucent Border with Blur - Similar to Nav Bar (no backdrop blur, only border) */}
+            <div className={`absolute inset-0 rounded-full border-[6px] transition-all duration-300 pointer-events-none z-20 ${
               isDark
-                ? 'bg-blue-500/20 border-blue-400/30 group-hover:bg-blue-500/30 group-hover:border-blue-400/40 group-hover:shadow-[0_0_25px_rgba(59,130,246,0.6)]'
-                : 'bg-yellow-400/20 border-yellow-400/30 group-hover:bg-yellow-400/30 group-hover:border-yellow-400/40 group-hover:shadow-[0_0_15px_rgba(234,179,8,0.4)]'
+                ? 'border-blue-400/30 bg-gradient-to-br from-blue-500/15 to-blue-500/5 group-hover:border-blue-400/50 group-hover:from-blue-500/25 group-hover:to-blue-500/10 group-hover:shadow-[0_0_25px_rgba(59,130,246,0.6)]'
+                : 'border-yellow-400/30 bg-gradient-to-br from-yellow-400/15 to-yellow-400/5 group-hover:border-yellow-400/50 group-hover:from-yellow-400/25 group-hover:to-yellow-400/10 group-hover:shadow-[0_0_15px_rgba(234,179,8,0.4)]'
             }`}></div>
 
             {/* Animated Glow Effect */}
