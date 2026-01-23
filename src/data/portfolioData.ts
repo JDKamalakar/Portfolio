@@ -46,12 +46,25 @@ export const portfolioData = {
 
   // Experience Section
   experience: [
+        {
+      company: "GSFC University",
+      location: "Gujarat - India",
+      period: "2025 - Current",
+      achievements: [
+        "Taking care of all the lab equipment making sure everything is Working, i.e.: Computer Hardware, Software.",
+        "Explaining, Doubt Solving & Guiding Students With Lab Practicals & Tasks",
+        "Implemented digital tracking systems that reduced inventory discrepancies by 40%",
+        "Helping Teaching Faculties With Academic Related Tasks.",
+        "Taking Part In Admission Duty",
+        "Taking Part In Exam Invisilator Duty"
+      ]
+    },
     {
       company: "Hi Class",
       location: "West Africa",
       period: "2023 - 2024 (1 Year)",
       achievements: [
-        "Trained new employees on software applications and standard procedures, improving team efficiency by 25%",
+        "Trained new employees on software applications and standard procedures, improving team efficiency by 30%",
         "Managed daily warehouse operations, including inventory control and order fulfillment",
         "Implemented digital tracking systems that reduced inventory discrepancies by 40%",
         "Led cross-functional teams to optimize workflow processes",
@@ -152,6 +165,24 @@ export const portfolioData = {
   // Projects Section
   projects: [
      {
+      title: "System Poratls Explorer",
+      subtitle: "Extension - HTML, CSS, TS",
+      period: "Jan 2026 - Present",
+      description: "Created a website to trigger differrent types of system portals, can be used to check oyour xdg portals on Linux",
+      technologies: ["HTML5", "CSS3", "TypeScript"],
+      githubUrl: "https://github.com/JDKamalakar/System-Portal-Explorer",
+      demoUrl: ""
+     },
+     {
+      title: "M Collection",
+      subtitle: "Extension - HTML, CSS, JS, TS",
+      period: "Oct 2025 - Present",
+      description: "Created an Extension TO save various posts / series from various sites like Reddit, etc",
+      technologies: ["HTML5", "CSS3", "TypeScript", "JavaScript", "Local Storage"],
+      githubUrl: "https://github.com/JDKamalakar/M-Collection-Extension",
+      demoUrl: ""
+     },
+     {
       title: "MissingTube",
       subtitle: "Website - HTML, CSS, JS, TS",
       period: "Jul 2025 - Present",
@@ -159,6 +190,15 @@ export const portfolioData = {
       technologies: ["HTML5", "CSS3", "TypeScript", "JavaScript", "Local Storage", "REST APIs"],
       githubUrl: "https://github.com/JDKamalakar/MissingTube",
       demoUrl: "https://missingtube.netlify.app/"
+    },
+    {
+      title: "Rounded Web",
+      subtitle: "Extension - HTML, CSS, JS, TS",
+      period: "Jun 2025 - Aug 2025",
+      description: "Created an Extension TO add rounded corners to the websites",
+      technologies: ["HTML5", "CSS3", "TypeScript", "JavaScript", "Local Storage"],
+      githubUrl: "https://github.com/JDKamalakar/Rounded_Web",
+      demoUrl: ""
     },
     {
       title: "Student Portal",
