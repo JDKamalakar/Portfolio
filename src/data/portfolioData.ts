@@ -177,7 +177,7 @@ export const portfolioData = {
       title: "M Collection",
       subtitle: "Extension - HTML, CSS, JS, TS",
       period: "Oct 2025 - Present",
-      description: "Created an Extension TO save various posts / series from various sites like Reddit, etc",
+      description: "Created an Extension to save various posts / series from various sites like Reddit, etc",
       technologies: ["HTML5", "CSS3", "TypeScript", "JavaScript", "Local Storage"],
       githubUrl: "https://github.com/JDKamalakar/M-Collection-Extension",
       demoUrl: ""
@@ -195,7 +195,7 @@ export const portfolioData = {
       title: "Rounded Web",
       subtitle: "Extension - HTML, CSS, JS, TS",
       period: "Jun 2025 - Aug 2025",
-      description: "Created an Extension TO add rounded corners to the websites",
+      description: "Created an Extension to add rounded corners to the websites",
       technologies: ["HTML5", "CSS3", "TypeScript", "JavaScript", "Local Storage"],
       githubUrl: "https://github.com/JDKamalakar/Rounded_Web",
       demoUrl: ""
