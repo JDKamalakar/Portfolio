@@ -25,28 +25,28 @@ const Header = () => {
     return () => observer.disconnect();
   }, []);
 
-const handleDownloadCV = () => {
-    if (personal.cvDownloadUrl) {
-        // --- 1. Create a temporary anchor element ---
-        const link = document.createElement('a');
+  const handleDownloadCV = () => {
+    if (personal.cvDownloadUrl) {
+      // --- 1. Create a temporary anchor element ---
+      const link = document.createElement('a');
 
-        // --- 2. Set the link URL (the correct path) ---
-        link.href = personal.cvDownloadUrl;
+      // --- 2. Set the link URL (the correct path) ---
+      link.href = personal.cvDownloadUrl;
 
-        // --- 3. Use the 'download' attribute to tell the browser to download the file ---
-        // This attribute ensures the browser treats it as a file, not a page.
-        link.setAttribute('download', 'Jayraj-Kamalakar-CV.pdf'); 
+      // --- 3. Use the 'download' attribute to tell the browser to download the file ---
+      // This attribute ensures the browser treats it as a file, not a page.
+      link.setAttribute('download', 'Jayraj-Kamalakar-CV.pdf');
 
-        // --- 4. Append and click the link to trigger the download ---
-        // This is a programmatic way to trigger a click that respects the 'download' attribute.
-        // It should also bypass any single-page application router logic.
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    } else {
-      alert('CV download link not configured. Please update the cvDownloadUrl in portfolioData.ts');
-    }
-  };
+      // --- 4. Append and click the link to trigger the download ---
+      // This is a programmatic way to trigger a click that respects the 'download' attribute.
+      // It should also bypass any single-page application router logic.
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      alert('CV download link not configured. Please update the cvDownloadUrl in portfolioData.ts');
+    }
+  };
 
   const openGoogleMaps = () => {
     const encodedAddress = encodeURIComponent(personal.fullAddress);
@@ -90,13 +90,12 @@ const handleDownloadCV = () => {
       <div className="absolute top-1/3 left-10 w-6 h-6 bg-blue-400/30 dark:bg-blue-600/20 rounded-full blur-sm" style={{ animation: 'drift 10s ease-in-out infinite', animationDelay: '0s' }}></div>
       <div className="absolute bottom-1/3 right-10 w-8 h-8 bg-cyan-400/30 dark:bg-cyan-600/20 rounded-full blur-sm" style={{ animation: 'drift 12s ease-in-out infinite reverse', animationDelay: '2s' }}></div>
       <div className="absolute top-2/3 left-1/4 w-4 h-4 bg-indigo-400/30 dark:bg-indigo-600/20 rounded-full blur-sm" style={{ animation: 'float 8s ease-in-out infinite', animationDelay: '1s' }}></div>
-      
-      <div className={`relative z-10 text-center text-white px-6 max-w-4xl mx-auto transition-all duration-1000 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-      }`}>
+
+      <div className={`relative z-10 text-center text-white px-6 max-w-4xl mx-auto transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}>
         {/* Profile Image */}
         <div className="mb-8 relative group">
-          <div className={`w-48 h-48 mx-auto rounded-full bg-gradient-to-r p-1 shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer relative hover:shadow-[0_0_15px_rgba(234,179,8,0.4)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] ${isDark ? 'from-blue-500 to-cyan-600' : 'from-yellow-400 to-amber-500'}`}>
+          <div className={`w-48 h-48 mx-auto rounded-full bg-gradient-to-r p-1 shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer relative theme-glow ${isDark ? 'from-blue-500 to-cyan-600' : 'from-yellow-400 to-amber-500'}`}>
             <div className="w-full h-full rounded-full bg-gray-800 dark:bg-gray-700 flex items-center justify-center text-6xl font-bold transition-colors duration-300 group-hover:bg-gray-700 dark:group-hover:bg-gray-600 overflow-hidden">
               {personal.profilePhoto ? (
                 <img src={personal.profilePhoto} alt={personal.name} className="w-full h-full object-cover rounded-full" />
@@ -118,21 +117,21 @@ const handleDownloadCV = () => {
         <div className="flex flex-wrap justify-center gap-6 mb-8 text-lg">
           <a
             href={`tel:${personal.phone}`}
-            className="flex items-center gap-2 hover:text-blue-300 dark:hover:text-blue-200 transition-colors duration-300 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 hover:scale-105 group border border-white/20 transition-transform duration-300 transition-[box-shadow] duration-200 hover:shadow-[0_0_15px_rgba(234,179,8,0.4)] dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]"
+            className="flex items-center gap-2 hover:text-blue-300 dark:hover:text-blue-200 transition-colors duration-300 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 hover:scale-105 group border border-white/20 transition-transform duration-300 theme-glow"
           >
             <Phone size={20} className="group-hover:animate-pulse group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
             {personal.phone}
           </a>
           <a
             href={`mailto:${personal.email}`}
-            className="flex items-center gap-2 hover:text-blue-300 dark:hover:text-blue-200 transition-colors duration-300 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 hover:scale-105 group border border-white/20 transition-transform duration-300 transition-[box-shadow] duration-200 hover:shadow-[0_0_15px_rgba(234,179,8,0.4)] dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]"
+            className="flex items-center gap-2 hover:text-blue-300 dark:hover:text-blue-200 transition-colors duration-300 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 hover:scale-105 group border border-white/20 transition-transform duration-300 theme-glow"
           >
             <Mail size={20} className="group-hover:animate-pulse group-hover:scale-110 group-hover:-rotate-12 transition-all duration-300" />
             {personal.email}
           </a>
           <button
             onClick={openGoogleMaps}
-            className="flex items-center gap-2 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 transition-colors duration-300 hover:scale-105 group cursor-pointer hover:text-blue-300 dark:hover:text-blue-200 border border-white/20 transition-transform duration-300 transition-[box-shadow] duration-200 hover:shadow-[0_0_15px_rgba(234,179,8,0.4)] dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]"
+            className="flex items-center gap-2 backdrop-blur-md bg-white/10 dark:bg-white/5 px-4 py-2 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 transition-colors duration-300 hover:scale-105 group cursor-pointer hover:text-blue-300 dark:hover:text-blue-200 border border-white/20 transition-transform duration-300 transition-[box-shadow] duration-200 theme-glow"
           >
             <MapPin size={20} className="group-hover:animate-pulse group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
             {personal.location}
@@ -143,14 +142,14 @@ const handleDownloadCV = () => {
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           <button
             onClick={handleDownloadCV}
-            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 rounded-xl transition-all duration-300 hover:scale-105 group backdrop-blur-sm border border-white/20 hover:shadow-[0_0_15px_rgba(234,179,8,0.4)] dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]"
+            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 rounded-xl transition-all duration-300 hover:scale-105 group backdrop-blur-sm border border-white/20 theme-glow"
           >
             <Download size={20} className="group-hover:animate-bounce group-hover:scale-110 transition-all duration-300" />
             Download CV
           </button>
           <button
             onClick={scrollToContact}
-            className="flex items-center gap-2 px-6 py-3 border-2 border-white/30 hover:border-white/50 rounded-xl transition-all duration-300 hover:scale-105 hover:bg-white/10 group backdrop-blur-sm hover:shadow-[0_0_15px_rgba(234,179,8,0.4)] dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]"
+            className="flex items-center gap-2 px-6 py-3 border-2 border-white/30 hover:border-white/50 rounded-xl transition-all duration-300 hover:scale-105 hover:bg-white/10 group backdrop-blur-sm theme-glow"
           >
             <ExternalLink size={20} className="group-hover:animate-pulse group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
             Get In Touch
@@ -161,7 +160,7 @@ const handleDownloadCV = () => {
         <div className="flex justify-center gap-4">
           <button
             onClick={() => handleSocialClick('github', personal.socialLinks.github)}
-            className={`relative p-3 backdrop-blur-md rounded-xl transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden hover:shadow-[0_0_15px_rgba(234,179,8,0.4)] dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]
+            className={`relative p-3 backdrop-blur-md rounded-xl transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden theme-glow
               ${likedButtons.has('github') ? 'bg-red-500/30 scale-125' : 'bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10'}
             `}
             aria-label="GitHub Profile"
@@ -171,7 +170,7 @@ const handleDownloadCV = () => {
           </button>
           <button
             onClick={() => handleSocialClick('linkedin', personal.socialLinks.linkedin)}
-            className={`relative p-3 backdrop-blur-md rounded-xl transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden hover:shadow-[0_0_15px_rgba(234,179,8,0.4)] dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]
+            className={`relative p-3 backdrop-blur-md rounded-xl transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden theme-glow
               ${likedButtons.has('linkedin') ? 'bg-red-500/30 scale-125' : 'bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10'}
             `}
             aria-label="LinkedIn Profile"
@@ -181,7 +180,7 @@ const handleDownloadCV = () => {
           </button>
           <button
             onClick={() => handleSocialClick('twitter', personal.socialLinks.twitter)}
-            className={`relative p-3 backdrop-blur-md rounded-xl transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden hover:shadow-[0_0_15px_rgba(234,179,8,0.4)] dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]
+            className={`relative p-3 backdrop-blur-md rounded-xl transition-all duration-300 hover:scale-110 group border border-white/20 overflow-hidden theme-glow
               ${likedButtons.has('twitter') ? 'bg-red-500/30 scale-125' : 'bg-white/10 dark:bg-white/5 hover:bg-white/20 dark:hover:bg-white/10'}
             `}
             aria-label="Twitter Profile"

@@ -65,11 +65,10 @@ const Footer = () => {
 
   return (
     <div className="bg-gray-900 dark:bg-black py-12 px-6 relative">
-      <footer className={`max-w-8xl mx-auto relative transition-all duration-1000 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-      }`}>
+      <footer className={`max-w-8xl mx-auto relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}>
         {/* MODIFIED: Added custom easing for scale and changed dark mode background color */}
-        <div className={`backdrop-blur-xl bg-white/10 dark:bg-gray-900/25 rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/30 p-12 relative overflow-hidden transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] transition-[box-shadow] duration-200 group ${isDark ? '' : 'hover:shadow-[0_0_30px_rgba(234,179,8,0.4)]'} dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:scale-[1.02]`}>
+        <div className={`backdrop-blur-xl bg-white/10 dark:bg-gray-900/25 rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/30 p-12 relative overflow-hidden transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] transition-[box-shadow] duration-200 group hover:scale-[1.02] theme-glow`}>
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-cyan-500/10 to-indigo-500/10 dark:from-blue-400/5 dark:via-cyan-400/5 dark:to-indigo-400/5 rounded-3xl"></div>
           <div className="absolute top-0 left-1/4 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 dark:bg-gradient-to-br dark:from-blue-300/10 dark:to-cyan-300/10 rounded-full blur-2xl animate-pulse -z-10"></div>
           <div className="absolute bottom-0 right-1/4 w-40 h-40 bg-gradient-to-br from-cyan-400/20 to-indigo-400/20 dark:bg-gradient-to-br dark:from-cyan-300/10 dark:to-indigo-300/10 rounded-full blur-2xl animate-pulse delay-1000 -z-10"></div>
@@ -86,7 +85,7 @@ const Footer = () => {
             <div className="flex justify-center gap-6 mb-10">
               <button
                 onClick={() => handleSocialClick('github', personal.socialLinks.github)}
-                className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg border border-white/10 overflow-hidden ${isDark ? '' : 'hover:shadow-[0_0_20px_rgba(234,179,8,0.6)]'} dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]
+                className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg border border-white/10 overflow-hidden theme-glow
                   ${likedButtons.has('github') ? 'animate-pulse bg-red-500/30 scale-125' : ''}
                 `}
                 aria-label="GitHub Profile"
@@ -103,7 +102,7 @@ const Footer = () => {
 
               <button
                 onClick={() => handleSocialClick('linkedin', personal.socialLinks.linkedin)}
-                className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg border border-white/10 overflow-hidden ${isDark ? '' : 'hover:shadow-[0_0_20px_rgba(234,179,8,0.6)]'} dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]
+                className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg border border-white/10 overflow-hidden theme-glow
                   ${likedButtons.has('linkedin') ? 'animate-pulse bg-red-500/30 scale-125' : ''}
                 `}
                 aria-label="LinkedIn Profile"
@@ -120,7 +119,7 @@ const Footer = () => {
 
               <button
                 onClick={() => handleSocialClick('twitter', personal.socialLinks.twitter)}
-                className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg border border-white/10 overflow-hidden ${isDark ? '' : 'hover:shadow-[0_0_20px_rgba(234,179,8,0.6)]'} dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.6)]
+                className={`relative p-5 bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl transition-all duration-300 hover:scale-110 hover:-translate-y-2 group/social shadow-lg border border-white/10 overflow-hidden theme-glow
                   ${likedButtons.has('twitter') ? 'animate-pulse bg-red-500/30 scale-125' : ''}
                 `}
                 aria-label="Twitter Profile"
@@ -163,10 +162,9 @@ const Footer = () => {
           backdrop-blur-xs border border-white/30 hover:-translate-y-2
           bg-gradient-to-r from-blue-500/60 to-cyan-600/60 dark:from-blue-500/40 dark:to-cyan-600/40
           hover:from-blue-500/80 hover:to-cyan-600/80 dark:hover:from-blue-500/60 dark:hover:to-cyan-600/60
-          ${
-            showScrollTop
-              ? 'opacity-100 scale-100 translate-y-0 rotate-0'
-              : 'opacity-0 scale-75 translate-y-8 rotate-45'
+          ${showScrollTop
+            ? 'opacity-100 scale-100 translate-y-0 rotate-0'
+            : 'opacity-0 scale-75 translate-y-8 rotate-45'
           }
         `}
         style={{

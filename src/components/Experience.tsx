@@ -55,11 +55,10 @@ const Experience = () => {
       <div className="absolute top-1/3 left-0 w-8 h-8 bg-blue-400/20 dark:bg-blue-600/15 rounded-full blur-sm" style={{ animation: 'moveAcross 20s linear infinite', animationDelay: '0s' }}></div>
       <div className="absolute bottom-1/4 right-0 w-6 h-6 bg-cyan-400/20 dark:bg-cyan-600/15 rounded-full blur-sm" style={{ animation: 'moveAcross 18s linear infinite reverse', animationDelay: '5s' }}></div>
       <div className="absolute top-2/3 left-1/3 w-5 h-5 bg-indigo-400/20 dark:bg-indigo-600/15 rounded-full blur-sm" style={{ animation: 'orbitalMove 15s ease-in-out infinite', animationDelay: '2s' }}></div>
-      
+
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className={`text-center mb-16 transition-all duration-1000 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}>
           <h2 className="text-5xl font-bold text-gray-800 dark:text-gray-200 mb-4 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300 cursor-default">
             Experience
           </h2>
@@ -76,9 +75,8 @@ const Experience = () => {
               <div
                 key={index}
                 // MODIFIED: Added custom easing for smoother scaling
-                className={`backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/20 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] transition-[box-shadow] duration-200 group ${hasMoreContent ? 'cursor-pointer' : 'cursor-default'} ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                } bg-white/15 dark:bg-gray-800/15 ${isExpanded ? 'scale-[1.02] shadow-3xl bg-white/25 dark:bg-gray-800/25' : 'hover:scale-[1.02] hover:bg-white/20 dark:hover:bg-gray-800/20'} hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]`}
+                className={`backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/20 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] transition-[box-shadow] duration-200 group ${hasMoreContent ? 'cursor-pointer' : 'cursor-default'} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                  } bg-white/15 dark:bg-gray-800/15 ${isExpanded ? 'scale-[1.02] shadow-3xl bg-white/25 dark:bg-gray-800/25' : 'hover:scale-[1.02] hover:bg-white/20 dark:hover:bg-gray-800/20'} theme-glow`}
                 style={{ transitionDelay: `${index * 200}ms` }}
                 onClick={() => hasMoreContent && toggleExpanded(index)}
               >
@@ -105,9 +103,8 @@ const Experience = () => {
                         {isExpanded ? 'Show Less' : 'Show More'}
                       </span>
                       {/* MODIFIED: Added custom easing for smoother rotation */}
-                      <div className={`transform transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
-                        isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'
-                      }`}>
+                      <div className={`transform transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'
+                        }`}>
                         <ChevronDown size={20} className="group-hover:animate-bounce" />
                       </div>
                     </div>
@@ -115,9 +112,8 @@ const Experience = () => {
                 </div>
 
                 {/* MODIFIED: Added custom easing for smoother expand/collapse */}
-                <div className={`relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
-                  isExpanded ? 'max-h-96' : 'max-h-30'
-                }`}>
+                <div className={`relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${isExpanded ? 'max-h-96' : 'max-h-30'
+                  }`}>
                   <div className={`transform transition-all duration-500`}>
                     <ul className="space-y-3">
                       {(isExpanded ? exp.achievements : previewAchievements).map((achievement, i) => (

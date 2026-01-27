@@ -91,25 +91,24 @@ const Contact = () => {
       <div className="absolute top-1/4 right-1/3 w-32 h-32 bg-gradient-to-br from-indigo-400/20 to-blue-500/20 dark:from-indigo-300/10 dark:to-blue-400/10 rounded-full blur-2xl animate-bounce delay-700"></div>
       <div className="absolute bottom-1/4 left-1/3 w-24 h-24 bg-gradient-to-br from-cyan-400/20 to-indigo-500/20 dark:from-cyan-300/10 dark:to-indigo-400/10 rounded-full blur-2xl animate-bounce delay-1200"></div>
       <div className="absolute top-1/3 left-0 w-6 h-6 bg-blue-400/20 dark:bg-blue-600/15 rounded-full blur-sm"
-           style={{
-             animation: 'glide 25s linear infinite',
-             animationDelay: '0s'
-           }}></div>
+        style={{
+          animation: 'glide 25s linear infinite',
+          animationDelay: '0s'
+        }}></div>
       <div className="absolute bottom-1/3 right-0 w-8 h-8 bg-cyan-400/20 dark:bg-cyan-600/15 rounded-full blur-sm"
-           style={{
-             animation: 'glide 22s linear infinite reverse',
-             animationDelay: '5s'
-           }}></div>
+        style={{
+          animation: 'glide 22s linear infinite reverse',
+          animationDelay: '5s'
+        }}></div>
       <div className="absolute top-2/3 left-1/4 w-5 h-5 bg-indigo-400/20 dark:bg-indigo-600/15 rounded-full blur-sm"
-           style={{
-             animation: 'verticalFloat 12s ease-in-out infinite',
-             animationDelay: '2s'
-           }}></div>
+        style={{
+          animation: 'verticalFloat 12s ease-in-out infinite',
+          animationDelay: '2s'
+        }}></div>
 
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className={`text-center mb-16 transition-all duration-1000 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}>
           <h2 className="text-5xl font-bold text-white mb-4 hover:text-blue-400 transition-colors duration-300 cursor-default">
             Get In Touch
           </h2>
@@ -121,9 +120,8 @@ const Contact = () => {
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Info */}
-          <div className={`space-y-8 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-          }`}>
+          <div className={`space-y-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
+            }`}>
             <a
               href={`tel:${personal.phone}`}
               // MODIFIED: Added glow effect
@@ -159,7 +157,7 @@ const Contact = () => {
             <button
               onClick={openGoogleMaps}
               // MODIFIED: Added glow effect
-              className="w-full backdrop-blur-md bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]"
+              className="w-full backdrop-blur-md bg-white/10 dark:bg-white/5 p-6 rounded-xl border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 group theme-glow"
             >
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-indigo-500 dark:bg-indigo-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
@@ -175,9 +173,8 @@ const Contact = () => {
 
           {/* Contact Form */}
           {/* MODIFIED: Added glow effect */}
-          <div className={`backdrop-blur-md bg-white/10 dark:bg-white/5 p-8 rounded-2xl border border-white/20 dark:border-white/10 hover:bg-white/15 dark:hover:bg-white/10 transition-all duration-500 ${
-            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
-          } hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]`}>
+          <div className={`backdrop-blur-md bg-white/10 dark:bg-white/5 p-8 rounded-2xl border border-white/20 dark:border-white/10 hover:bg-white/15 dark:hover:bg-white/10 transition-all duration-500 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
+            } theme-glow`}>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-white font-medium mb-2">Name</label>
@@ -221,13 +218,12 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm ${
-                  submitStatus === 'success'
+                className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm ${submitStatus === 'success'
                     ? 'bg-green-500 hover:bg-green-600'
                     : submitStatus === 'error'
-                    ? 'bg-red-500 hover:bg-red-600'
-                    : 'bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700'
-                } text-white hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100`}
+                      ? 'bg-red-500 hover:bg-red-600'
+                      : 'bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700'
+                  } text-white hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100`}
               >
                 {isSubmitting ? (
                   <>

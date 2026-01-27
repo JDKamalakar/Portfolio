@@ -53,11 +53,10 @@ const Skills = () => {
       <div className="absolute top-1/5 left-0 w-6 h-6 bg-blue-400/20 dark:bg-blue-600/15 rounded-full blur-sm" style={{ animation: 'waveMotion 16s ease-in-out infinite', animationDelay: '0s' }}></div>
       <div className="absolute bottom-1/5 right-0 w-8 h-8 bg-cyan-400/20 dark:bg-cyan-600/15 rounded-full blur-sm" style={{ animation: 'waveMotion 14s ease-in-out infinite reverse', animationDelay: '3s' }}></div>
       <div className="absolute top-1/2 left-1/4 w-5 h-5 bg-indigo-400/20 dark:bg-indigo-600/15 rounded-full blur-sm" style={{ animation: 'circularMotion 18s linear infinite', animationDelay: '1s' }}></div>
-      
+
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className={`text-center mb-16 transition-all duration-1000 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}>
           <h2 className="text-5xl font-bold text-gray-800 dark:text-gray-200 mb-4 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300 cursor-default">
             Skills & Expertise
           </h2>
@@ -66,9 +65,8 @@ const Skills = () => {
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Skills with Progress Bars */}
-          <div className={`backdrop-blur-xl bg-white/15 dark:bg-gray-800/15 p-8 rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/20 hover:bg-white/25 dark:hover:bg-gray-800/25 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] transition-[box-shadow] duration-200 ${
-            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-          } hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(234,179,8,0.4)] dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]`}>
+          <div className={`backdrop-blur-xl bg-white/15 dark:bg-gray-800/15 p-8 rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/20 hover:bg-white/25 dark:hover:bg-gray-800/25 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] transition-[box-shadow] duration-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
+            } hover:scale-[1.02] theme-glow`}>
             <div className="flex items-center gap-3 mb-8">
               <TrendingUp className="text-blue-600 dark:text-blue-400" size={28} />
               <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200">Technical Skills</h3>
@@ -86,9 +84,8 @@ const Skills = () => {
                   </div>
                   <div className={`w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden group-hover:h-4 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:shadow-[0_0_12px_rgba(234,179,8,0.4)] dark:group-hover:shadow-[0_0_12px_rgba(59,130,246,0.4)]`}>
                     <div
-                      className={`h-full bg-gradient-to-r from-blue-500 to-cyan-600 rounded-full transition-all duration-1000 ease-out ${
-                        animatedSkills.includes(index) ? 'animate-pulse' : ''
-                      }`}
+                      className={`h-full bg-gradient-to-r from-blue-500 to-cyan-600 rounded-full transition-all duration-1000 ease-out ${animatedSkills.includes(index) ? 'animate-pulse' : ''
+                        }`}
                       style={{
                         width: animatedSkills.includes(index) ? `${skill.level}%` : '0%',
                         transitionDelay: `${index * 100}ms`
@@ -101,9 +98,8 @@ const Skills = () => {
           </div>
 
           {/* Expertise Areas */}
-          <div className={`backdrop-blur-xl bg-white/15 dark:bg-gray-800/15 p-8 rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/20 hover:bg-white/25 dark:hover:bg-gray-800/25 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] transition-[box-shadow] duration-200 ${
-            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
-          } hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(234,179,8,0.4)] dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]`}>
+          <div className={`backdrop-blur-xl bg-white/15 dark:bg-gray-800/15 p-8 rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/20 hover:bg-white/25 dark:hover:bg-gray-800/25 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] transition-[box-shadow] duration-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
+            } hover:scale-[1.02] theme-glow`}>
             <div className="flex items-center gap-3 mb-8">
               <Award className="text-cyan-600 dark:text-cyan-400" size={28} />
               <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200">Core Expertise</h3>
@@ -112,13 +108,12 @@ const Skills = () => {
               {skills.expertise.map((item, index) => (
                 <div
                   key={index}
-                  className={`transition-all duration-300 ${
-                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
-                  }`}
+                  className={`transition-all duration-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+                    }`}
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >
                   <div
-                    className="flex items-center shadow-md gap-3 p-4 bg-gradient-to-r from-blue-50/50 to-cyan-50/50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl hover:scale-105 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] cursor-pointer group backdrop-blur-sm hover:shadow-[0_0_12px_rgba(234,179,8,0.4)] dark:hover:shadow-[0_0_12px_rgba(59,130,246,0.4)]"
+                    className="flex items-center shadow-md gap-3 p-4 bg-gradient-to-r from-blue-50/50 to-cyan-50/50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl hover:scale-105 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] cursor-pointer group backdrop-blur-sm theme-glow"
                   >
                     <div className="w-3 h-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-full group-hover:scale-150 group-hover:animate-pulse transition-all duration-300"></div>
                     <span className="text-gray-700 dark:text-gray-300 font-medium group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-300">

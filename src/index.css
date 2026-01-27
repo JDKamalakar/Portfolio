@@ -1,3 +1,80 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .theme-glow {
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06),
+      0 0 15px rgba(234, 179, 8, 0.3);
+  }
+
+  .theme-glow:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05),
+      0 0 25px rgba(234, 179, 8, 0.6);
+  }
+
+  :is(.dark .theme-glow) {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3),
+      0 2px 4px -1px rgba(0, 0, 0, 0.15),
+      0 0 15px rgba(59, 130, 246, 0.3);
+  }
+
+  :is(.dark .theme-glow:hover) {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3),
+      0 4px 6px -2px rgba(0, 0, 0, 0.15),
+      0 0 30px rgba(59, 130, 246, 0.7);
+  }
+
+  /* Specific Glows for Theme Toggle - Now with Elevation */
+  .glow-yellow {
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .glow-yellow:hover,
+  .glow-yellow.active-glow {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05),
+      0 0 20px rgba(234, 179, 8, 0.6);
+  }
+
+  .glow-blue {
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .glow-blue:hover,
+  .glow-blue.active-glow {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05),
+      0 0 20px rgba(59, 130, 246, 0.6);
+  }
+
+  /* Disable glow when data-glow is false */
+  :root[data-glow="false"] .theme-glow,
+  :root[data-glow="false"] .theme-glow:hover,
+  :root[data-glow="false"] .glow-yellow,
+  :root[data-glow="false"] .glow-yellow:hover,
+  :root[data-glow="false"] .glow-yellow.active-glow,
+  :root[data-glow="false"] .glow-blue,
+  :root[data-glow="false"] .glow-blue:hover,
+  :root[data-glow="false"] .glow-blue.active-glow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  }
+
+  /* Ensure dark mode elevation is preserved even if glow is off */
+  :root[data-glow="false"].dark .theme-glow,
+  :root[data-glow="false"].dark .theme-glow:hover,
+  :root[data-glow="false"].dark .glow-blue,
+  :root[data-glow="false"].dark .glow-blue:hover,
+  :root[data-glow="false"].dark .glow-blue.active-glow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3),
+      0 2px 4px -1px rgba(0, 0, 0, 0.15) !important;
+  }
+}

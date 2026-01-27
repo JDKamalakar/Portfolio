@@ -56,11 +56,10 @@ const Projects = () => {
       <div className="absolute top-1/5 left-0 w-6 h-6 bg-blue-400/20 dark:bg-blue-600/15 rounded-full blur-sm" style={{ animation: 'slideRight 15s linear infinite', animationDelay: '0s' }}></div>
       <div className="absolute bottom-1/4 right-0 w-8 h-8 bg-cyan-400/20 dark:bg-cyan-600/15 rounded-full blur-sm" style={{ animation: 'slideLeft 12s linear infinite', animationDelay: '3s' }}></div>
       <div className="absolute top-3/5 left-1/2 w-4 h-4 bg-indigo-400/20 dark:bg-indigo-600/15 rounded-full blur-sm" style={{ animation: 'floatVertical 10s ease-in-out infinite', animationDelay: '1.5s' }}></div>
-      
+
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className={`text-center mb-16 transition-all duration-1000 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}>
           <h2 className="text-5xl font-bold text-gray-800 dark:text-gray-200 mb-4 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300 cursor-default">
             Projects
           </h2>
@@ -78,9 +77,8 @@ const Projects = () => {
               <div
                 key={index}
                 // MODIFIED: Added glow, fixed transition, and added smooth easing
-                className={`backdrop-blur-xl bg-white/15 dark:bg-gray-800/15 rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/20 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] transition-[box-shadow] duration-200 group flex flex-col ${hasMoreContent ? 'cursor-pointer' : 'cursor-default'} ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                } ${isExpanded ? 'scale-[1.02] shadow-3xl bg-white/25 dark:bg-gray-800/25' : 'hover:scale-[1.02] hover:bg-white/20 dark:hover:bg-gray-800/20'} hover:shadow-[0_0_25px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]`}
+                className={`backdrop-blur-xl bg-white/15 dark:bg-gray-800/15 rounded-2xl shadow-2xl border border-white/20 dark:border-gray-700/20 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] transition-[box-shadow] duration-200 group flex flex-col ${hasMoreContent ? 'cursor-pointer' : 'cursor-default'} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                  } ${isExpanded ? 'scale-[1.02] shadow-3xl bg-white/25 dark:bg-gray-800/25' : 'hover:scale-[1.02] hover:bg-white/20 dark:hover:bg-gray-800/20'} theme-glow`}
                 style={{ transitionDelay: `${index * 200}ms` }}
                 onClick={() => hasMoreContent && toggleExpanded(index)}
               >
@@ -95,9 +93,8 @@ const Projects = () => {
                         <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
                           {isExpanded ? 'Show Less' : 'Show More'}
                         </span>
-                        <div className={`transform transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
-                          isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'
-                        }`}>
+                        <div className={`transform transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isExpanded ? 'rotate-180 scale-110' : 'rotate-0 scale-100'
+                          }`}>
                           <ChevronDown size={20} className="text-blue-600 dark:text-blue-400 group-hover:animate-bounce" />
                         </div>
                       </div>
@@ -118,9 +115,8 @@ const Projects = () => {
 
                 {/* Description Section */}
                 <div className="px-8 pb-6 flex-1">
-                  <div className={`overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
-                    isExpanded ? 'max-h-96' : 'max-h-20'
-                  }`}>
+                  <div className={`overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${isExpanded ? 'max-h-96' : 'max-h-20'
+                    }`}>
                     <div className={`transform transition-all duration-500`}>
                       <p className="text-gray-700 dark:text-gray-300 leading-relaxed hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
                         {isExpanded ? project.description : previewDescription}
@@ -147,7 +143,7 @@ const Projects = () => {
                       <span
                         key={i}
                         // MODIFIED: Added glow
-                        className="px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-600 text-white rounded-lg text-sm font-medium hover:scale-110 transition-all duration-300 cursor-pointer backdrop-blur-sm hover:shadow-[0_0_15px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_15px_rgba(59,130,246,0.5)]"
+                        className="px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-600 dark:from-blue-900/50 dark:to-cyan-900/50 text-white dark:text-blue-100 rounded-lg text-sm font-medium hover:scale-110 transition-all duration-300 cursor-pointer backdrop-blur-sm theme-glow"
                         style={{ animationDelay: `${i * 50}ms` }}
                         onClick={(e) => e.stopPropagation()}
                       >
@@ -165,7 +161,7 @@ const Projects = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       // MODIFIED: Added glow
-                      className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-600 text-white rounded-xl hover:scale-105 transition-all duration-300 group/btn flex-1 justify-center backdrop-blur-sm hover:shadow-[0_0_15px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_15px_rgba(59,130,246,0.5)]"
+                      className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-600 text-white rounded-xl hover:scale-105 transition-all duration-300 group/btn flex-1 justify-center backdrop-blur-sm theme-glow"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <Github size={16} className="group-hover/btn:animate-pulse" />
@@ -176,11 +172,10 @@ const Projects = () => {
                       target={hasDemoLink ? "_blank" : undefined}
                       rel={hasDemoLink ? "noopener noreferrer" : undefined}
                       // MODIFIED: Added glow
-                      className={`flex items-center gap-2 px-6 py-3 border-2 rounded-xl transition-all duration-300 hover:scale-105 group/btn flex-1 justify-center backdrop-blur-sm hover:shadow-[0_0_15px_rgba(234,179,8,0.5)] dark:hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] ${
-                        hasDemoLink
-                          ? "border-blue-500 dark:border-blue-400 text-blue-600 dark:text-blue-400 hover:bg-blue-500 dark:hover:bg-blue-600 hover:text-white"
-                          : "border-gray-300 dark:border-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed opacity-50"
-                      }`}
+                      className={`flex items-center gap-2 px-6 py-3 border-2 rounded-xl transition-all duration-300 hover:scale-105 group/btn flex-1 justify-center backdrop-blur-sm theme-glow ${hasDemoLink
+                        ? "border-blue-500 dark:border-blue-400 text-blue-600 dark:text-blue-400 hover:bg-blue-500 dark:hover:bg-blue-600 hover:text-white"
+                        : "border-gray-300 dark:border-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed opacity-50"
+                        }`}
                       onClick={(e) => {
                         if (!hasDemoLink) e.preventDefault();
                         e.stopPropagation();

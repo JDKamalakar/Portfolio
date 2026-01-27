@@ -4,6 +4,8 @@ interface ThemeContextType {
   theme: 'system' | 'light' | 'dark';
   setTheme: (theme: 'system' | 'light' | 'dark') => void;
   isDark: boolean;
+  glowMode: 'always' | 'dark-only' | 'light-only' | 'off';
+  setGlowMode: (mode: 'always' | 'dark-only' | 'light-only' | 'off') => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -51,7 +53,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     // Only save to localStorage if it's not the initial load within this function call
     // The public setTheme will handle saving on explicit user actions
     if (!isInitialLoad) {
-       localStorage.setItem('theme', currentTheme);
+      localStorage.setItem('theme', currentTheme);
     }
   }, []); // No dependencies needed for applyTheme as it uses memoized getSystemTheme and direct DOM access
 
@@ -84,15 +86,60 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const publicSetTheme = useCallback((newTheme: 'system' | 'light' | 'dark') => {
     setInternalTheme(newTheme);
     if (typeof window !== 'undefined') {
-      localStorage.setItem('theme', newTheme); // Explicitly save to localStorage here
+      localStorage.setItem('theme', newTheme);
     }
-    // applyTheme will be called by the useEffect above due to theme state change
   }, []);
+
+  // --- GLOW MODE LOGIC ---
+  type GlowMode = 'always' | 'dark-only' | 'light-only' | 'off';
+
+  const [glowMode, setGlowModeInternal] = useState<GlowMode>(() => {
+    if (typeof window !== 'undefined') {
+      const savedGlow = localStorage.getItem('glowMode') as GlowMode | null;
+      if (savedGlow && ['always', 'dark-only', 'light-only', 'off'].includes(savedGlow)) {
+        return savedGlow;
+      }
+    }
+    return 'always';
+  });
+
+  const setGlowMode = useCallback((mode: GlowMode) => {
+    setGlowModeInternal(mode);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('glowMode', mode);
+    }
+  }, []);
+
+  // Apply glow logic
+  useEffect(() => {
+    const root = document.documentElement;
+    let shouldGlow = true;
+
+    switch (glowMode) {
+      case 'off':
+        shouldGlow = false;
+        break;
+      case 'dark-only':
+        shouldGlow = isDark;
+        break;
+      case 'light-only':
+        shouldGlow = !isDark;
+        break;
+      case 'always':
+      default:
+        shouldGlow = true;
+        break;
+    }
+
+    root.setAttribute('data-glow', shouldGlow.toString());
+  }, [glowMode, isDark]);
 
   const value = {
     theme,
-    setTheme: publicSetTheme, // Expose the persisting setter
+    setTheme: publicSetTheme,
     isDark,
+    glowMode,
+    setGlowMode
   };
 
   return (
