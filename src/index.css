@@ -55,6 +55,32 @@
       0 0 20px rgba(59, 130, 246, 0.6);
   }
 
+  .glow-purple {
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .glow-purple:hover,
+  .glow-purple.active-glow {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05),
+      0 0 20px rgba(168, 85, 247, 0.6);
+  }
+
+  .glow-white {
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .glow-white:hover,
+  .glow-white.active-glow {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05),
+      0 0 20px rgba(255, 255, 255, 0.6);
+  }
+
   /* Disable glow when data-glow is false */
   :root[data-glow="false"] .theme-glow,
   :root[data-glow="false"] .theme-glow:hover,
@@ -63,7 +89,13 @@
   :root[data-glow="false"] .glow-yellow.active-glow,
   :root[data-glow="false"] .glow-blue,
   :root[data-glow="false"] .glow-blue:hover,
-  :root[data-glow="false"] .glow-blue.active-glow {
+  :root[data-glow="false"] .glow-blue.active-glow,
+  :root[data-glow="false"] .glow-purple,
+  :root[data-glow="false"] .glow-purple:hover,
+  :root[data-glow="false"] .glow-purple.active-glow,
+  :root[data-glow="false"] .glow-white,
+  :root[data-glow="false"] .glow-white:hover,
+  :root[data-glow="false"] .glow-white.active-glow {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
       0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
   }
@@ -73,7 +105,13 @@
   :root[data-glow="false"].dark .theme-glow:hover,
   :root[data-glow="false"].dark .glow-blue,
   :root[data-glow="false"].dark .glow-blue:hover,
-  :root[data-glow="false"].dark .glow-blue.active-glow {
+  :root[data-glow="false"].dark .glow-blue.active-glow,
+  :root[data-glow="false"].dark .glow-purple,
+  :root[data-glow="false"].dark .glow-purple:hover,
+  :root[data-glow="false"].dark .glow-purple.active-glow,
+  :root[data-glow="false"].dark .glow-white,
+  :root[data-glow="false"].dark .glow-white:hover,
+  :root[data-glow="false"].dark .glow-white.active-glow {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3),
       0 2px 4px -1px rgba(0, 0, 0, 0.15) !important;
   }

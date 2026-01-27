@@ -75,7 +75,7 @@ const Navigation = () => {
 
       {/* Desktop Navigation */}
       <nav className="fixed left-6 top-1/2 transform -translate-y-1/2 z-40 hidden md:block">
-        <div className="backdrop-blur-md bg-white/25 dark:bg-gray-800/25 rounded-2xl border border-gray-300/40 dark:border-gray-700/40 p-2 shadow-xl theme-glow">
+        <div className="backdrop-blur-md bg-white/25 dark:bg-gray-800/25 rounded-2xl border border-gray-300/40 dark:border-gray-700/40 p-2 shadow-xl">
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -84,8 +84,8 @@ const Navigation = () => {
                 onClick={() => scrollToSection(item.id)}
                 className={`group relative p-3 rounded-xl transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-110 block w-full mb-3 last:mb-0 transform hover:-translate-y-1 ${activeSection === item.id
                   ? 'bg-blue-500/40 text-blue-700 dark:text-blue-300 shadow-lg backdrop-blur-sm border border-blue-300/30 dark:border-blue-500/30 scale-105'
-                  // MODIFIED: Reduced gap (mb-3) and added theme-glow to keys
-                  : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-white/30 dark:hover:bg-gray-700/30 theme-glow'
+                  // MODIFIED: Reduced gap (mb-3) and removed theme-glow from keys
+                  : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-white/30 dark:hover:bg-gray-700/30'
                   }`}
                 title={item.label}
               >
@@ -123,7 +123,7 @@ const Navigation = () => {
                   className={`flex items-center gap-3 w-full p-3 rounded-xl transition-all duration-300 hover:scale-105 mb-2 transform backdrop-blur-sm group ${activeSection === item.id
                     ? 'bg-blue-500/60 text-white shadow-lg scale-105'
                     // MODIFIED: Reinstated the neutral "glass" background on hover
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100/30 dark:hover:bg-gray-800/30 theme-glow'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100/30 dark:hover:bg-gray-800/30'
                     }`}
                   style={{
                     transitionDelay: isOpen ? `${index * 50}ms` : '0ms',

@@ -4,7 +4,12 @@ import { useTheme } from '../contexts/ThemeContext';
 
 // MODIFIED: The icon has been completely redrawn to be properly centered and sized within its viewBox.
 // This provides a safe margin on all sides and permanently fixes the clipping issue.
-const PixelSmartphoneIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({ className, size = 24, ...props }) => (
+// This provides a safe margin on all sides and permanently fixes the clipping issue.
+interface IconProps extends React.SVGProps<SVGSVGElement> {
+  size?: number | string;
+}
+
+const PixelSmartphoneIcon: React.FC<IconProps> = ({ className, size = 24, ...props }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -111,8 +116,8 @@ const ThemeToggle = () => {
       icon: Sparkles,
       active: glowMode === 'always',
       color: 'text-purple-500',
-      activeClass: 'bg-purple-500/30 text-purple-700 dark:text-purple-300 shadow-md border border-purple-300/50 dark:border-purple-500/50 theme-glow',
-      hoverGlowClass: 'theme-glow'
+      activeClass: 'bg-purple-500/30 text-purple-700 dark:text-purple-300 shadow-md border border-purple-300/50 dark:border-purple-500/50 glow-purple active-glow',
+      hoverGlowClass: 'glow-purple'
     },
     {
       label: 'Dark Only',
@@ -137,9 +142,9 @@ const ThemeToggle = () => {
       value: 'off' as const,
       icon: PowerOff,
       active: glowMode === 'off',
-      color: 'text-gray-500',
-      activeClass: 'bg-gray-500/30 text-gray-700 dark:text-gray-300 shadow-md border border-gray-300/50 dark:border-gray-500/50',
-      hoverGlowClass: ''
+      color: 'text-gray-500 dark:text-gray-400',
+      activeClass: 'bg-gray-500/30 text-gray-700 dark:text-gray-300 shadow-md border border-gray-300/50 dark:border-gray-500/50 glow-white active-glow',
+      hoverGlowClass: 'glow-white'
     }
   ];
 
@@ -233,8 +238,22 @@ const ThemeToggle = () => {
           );
         })}
 
-        <div className="my-2 h-px bg-gray-300/30 dark:bg-gray-700/30" />
-        <div className="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+        <div
+          className="my-2 h-px bg-gray-300/30 dark:bg-gray-700/30 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
+          style={{
+            transitionDelay: showOptions ? `${100 + themePopoverOptions.length * 50}ms` : '0ms',
+            opacity: showOptions ? 1 : 0,
+            transform: showOptions ? 'scaleX(1)' : 'scaleX(0)'
+          }}
+        />
+        <div
+          className="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
+          style={{
+            transitionDelay: showOptions ? `${100 + themePopoverOptions.length * 50 + 25}ms` : '0ms',
+            opacity: showOptions ? 1 : 0,
+            transform: showOptions ? 'translateY(0)' : 'translateY(-4px)'
+          }}
+        >
           Glow Effect
         </div>
 
@@ -253,8 +272,8 @@ const ThemeToggle = () => {
                 : 'rounded';
           }
 
-          // Calculate delay based on connection to previous list
-          const baseDelay = themePopoverOptions.length * 50;
+          // Calculate delay based on connection to previous list + separator + label
+          const baseDelay = themePopoverOptions.length * 50 + 50; // +50 for separator/label
 
           return (
             <button
