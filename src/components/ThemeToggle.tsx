@@ -120,15 +120,6 @@ const ThemeToggle = () => {
       hoverGlowClass: 'glow-purple'
     },
     {
-      label: 'Dark Only',
-      value: 'dark-only' as const,
-      icon: Moon,
-      active: glowMode === 'dark-only',
-      color: 'text-blue-500',
-      activeClass: 'bg-blue-500/30 text-blue-700 dark:text-blue-300 shadow-md border border-blue-300/50 dark:border-blue-500/50 glow-blue active-glow',
-      hoverGlowClass: 'glow-blue'
-    },
-    {
       label: 'Light Only',
       value: 'light-only' as const,
       icon: Sun,
@@ -136,6 +127,15 @@ const ThemeToggle = () => {
       color: 'text-yellow-500',
       activeClass: 'bg-yellow-500/30 text-yellow-700 dark:text-yellow-300 shadow-md border border-yellow-300/50 dark:border-yellow-500/50 glow-yellow active-glow',
       hoverGlowClass: 'glow-yellow'
+    },
+    {
+      label: 'Dark Only',
+      value: 'dark-only' as const,
+      icon: Moon,
+      active: glowMode === 'dark-only',
+      color: 'text-blue-500',
+      activeClass: 'bg-blue-500/30 text-blue-700 dark:text-blue-300 shadow-md border border-blue-300/50 dark:border-blue-500/50 glow-blue active-glow',
+      hoverGlowClass: 'glow-blue'
     },
     {
       label: 'Off',
@@ -222,7 +222,7 @@ const ThemeToggle = () => {
                 : `text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-gray-700/30 ${option.hoverGlowClass}`
                 }`}
               style={{
-                transitionDelay: showOptions ? `${100 + index * 50}ms` : '0ms',
+                transitionDelay: showOptions ? `${100 + index * 30}ms` : '0ms',
                 opacity: showOptions ? 1 : 0,
               }}
             >
@@ -241,7 +241,7 @@ const ThemeToggle = () => {
         <div
           className="my-2 h-px bg-gray-300/30 dark:bg-gray-700/30 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
           style={{
-            transitionDelay: showOptions ? `${100 + themePopoverOptions.length * 50}ms` : '0ms',
+            transitionDelay: showOptions ? `${100 + themePopoverOptions.length * 30}ms` : '0ms',
             opacity: showOptions ? 1 : 0,
             transform: showOptions ? 'scaleX(1)' : 'scaleX(0)'
           }}
@@ -249,7 +249,7 @@ const ThemeToggle = () => {
         <div
           className="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
           style={{
-            transitionDelay: showOptions ? `${100 + themePopoverOptions.length * 50 + 25}ms` : '0ms',
+            transitionDelay: showOptions ? `${100 + themePopoverOptions.length * 30 + 25}ms` : '0ms',
             opacity: showOptions ? 1 : 0,
             transform: showOptions ? 'translateY(0)' : 'translateY(-4px)'
           }}
@@ -273,7 +273,8 @@ const ThemeToggle = () => {
           }
 
           // Calculate delay based on connection to previous list + separator + label
-          const baseDelay = themePopoverOptions.length * 50 + 50; // +50 for separator/label
+          // Reduced delay multiplier for faster appearance
+          const baseDelay = themePopoverOptions.length * 30 + 50;
 
           return (
             <button
@@ -284,7 +285,7 @@ const ThemeToggle = () => {
                 : `text-gray-700 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-gray-700/30 ${option.hoverGlowClass}`
                 }`}
               style={{
-                transitionDelay: showOptions ? `${100 + baseDelay + index * 50}ms` : '0ms',
+                transitionDelay: showOptions ? `${100 + baseDelay + index * 30}ms` : '0ms',
                 opacity: showOptions ? 1 : 0,
               }}
             >
