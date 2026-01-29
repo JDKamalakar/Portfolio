@@ -6,6 +6,8 @@ interface ThemeContextType {
   isDark: boolean;
   glowMode: 'always' | 'dark-only' | 'light-only' | 'off';
   setGlowMode: (mode: 'always' | 'dark-only' | 'light-only' | 'off') => void;
+  hasVisited: boolean;
+  setHasVisited: (visited: boolean) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -100,13 +102,27 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         return savedGlow;
       }
     }
-    return 'always';
+    return 'dark-only';
   });
 
   const setGlowMode = useCallback((mode: GlowMode) => {
     setGlowModeInternal(mode);
     if (typeof window !== 'undefined') {
       localStorage.setItem('glowMode', mode);
+    }
+  }, []);
+
+  const [hasVisited, setHasVisitedInternal] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('hasVisited') === 'true';
+    }
+    return false;
+  });
+
+  const setHasVisited = useCallback((visited: boolean) => {
+    setHasVisitedInternal(visited);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('hasVisited', visited.toString());
     }
   }, []);
 
@@ -139,7 +155,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setTheme: publicSetTheme,
     isDark,
     glowMode,
-    setGlowMode
+    setGlowMode,
+    hasVisited,
+    setHasVisited
   };
 
   return (

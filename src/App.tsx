@@ -12,6 +12,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ScrollBounceEffect from './components/ScrollBounceEffect';
 import PWAInstaller from './components/pwaInstaller';
+import WelcomeModal from './components/WelcomeModal';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Navigation />
         <ScrollBounceEffect />
         <PWAInstaller />
+        <WelcomeModal />
         <Header />
         <About />
         <Experience />
