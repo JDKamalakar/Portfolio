@@ -1,6 +1,6 @@
 {
-  "name": "Jayraj Kamalakar - Portfolio",
-  "short_name": "JK Portfolio",
+  "name": "JK's Portfolio",
+  "short_name": "JK's Portfolio",
   "description": "Professional portfolio website showcasing skills, experience, and projects of Jayraj Kamalakar - B.Tech CSE Graduate",
   "start_url": "/",
   "display": "standalone",
@@ -43,13 +43,6 @@
     }
   ],
   "screenshots": [
-    {
-      "src": "/screenshot/D1.webp",
-      "sizes": "1280x720",
-      "type": "image/webp",
-      "form_factor": "wide",
-      "label": "Desktop view of the portfolio homepage."
-    },
     {
       "src": "/screenshot/D2.webp",
       "sizes": "1280x720",

@@ -107,6 +107,8 @@ export const portfolioData = {
       { name: "Project Management", level: 76 },
       { name: "Android Development", level: 35 },
       { name: "Web Development", level: 76 },
+      { name: "Linux", level: 70 },
+      { name: "QML", level: 30 },
       { name: "Python", level: 20 },
       { name: "C & Java", level: 40 },
       { name: "Hardware & Software", level: 85 }
@@ -165,15 +167,6 @@ export const portfolioData = {
   // Projects Section
   projects: [
      {
-      title: "System Poratls Explorer",
-      subtitle: "Extension - HTML, CSS, TS",
-      period: "Jan 2026 - Present",
-      description: "Created a website to trigger differrent types of system portals, can be used to check oyour xdg portals on Linux",
-      technologies: ["HTML5", "CSS3", "TypeScript"],
-      githubUrl: "https://github.com/JDKamalakar/System-Portal-Explorer",
-      demoUrl: ""
-     },
-     {
       title: "M Collection",
       subtitle: "Extension - HTML, CSS, JS, TS",
       period: "Oct 2025 - Present",
@@ -181,52 +174,17 @@ export const portfolioData = {
       technologies: ["HTML5", "CSS3", "TypeScript", "JavaScript", "Local Storage"],
       githubUrl: "https://github.com/JDKamalakar/M-Collection-Extension",
       demoUrl: ""
-     },
-     {
-      title: "MissingTube",
-      subtitle: "Website - HTML, CSS, JS, TS",
-      period: "Jul 2025 - Present",
-      description: "Created a responsive web application designed for analyzing & finding deleted videos from a playlist with powerfull Backup, Restore & Compare feature",
-      technologies: ["HTML5", "CSS3", "TypeScript", "JavaScript", "Local Storage", "REST APIs"],
-      githubUrl: "https://github.com/JDKamalakar/MissingTube",
-      demoUrl: "https://missingtube.netlify.app/"
-    },
-    {
-      title: "Rounded Web",
-      subtitle: "Extension - HTML, CSS, JS, TS",
-      period: "Jun 2025 - Aug 2025",
-      description: "Created an Extension to add rounded corners to the websites",
-      technologies: ["HTML5", "CSS3", "TypeScript", "JavaScript", "Local Storage"],
-      githubUrl: "https://github.com/JDKamalakar/Rounded_Web",
-      demoUrl: ""
-    },
-    {
-      title: "Student Portal",
-      subtitle: "Android App - Android Studio, XML, Java",
-      period: "Jan 2022 - Feb 2023",
-      description: "Developed a comprehensive student portal Android app to track academic progress, attendance, and timetables, featuring a secure login system with role-based access control. The app includes real-time notifications, offline data synchronization, and an intuitive user interface designed for students and faculty.",
-      technologies: ["Android Studio", "XML", "Java", "SQLite", "Firebase"],
-      githubUrl: "https://github.com/JDKamalakar/student-portal",
-      demoUrl: "",
-    },
-    {
-      title: "Game Library Manager",
-      subtitle: "Website - HTML, CSS, JS",
-      period: "Jul 2025 - Apr Present",
-      description: "Created a responsive web application designed for managing a personal game library, enabling users to monitor their gaming progress, add games from various platforms, and track achievements. Features include search functionality, filtering options, and integration with popular gaming APIs for automatic game data retrieval.",
-      technologies: ["HTML5", "CSS3", "TypeScript", "JavaScript", "Local Storage", "REST APIs"],
-      githubUrl: "https://github.com/JDKamalakar/Game_Library_Manager",
-      demoUrl: ""
-    }
+     }
   ],
 
   // GitHub Integration Settings
   github: {
     username: "JDKamalakar", // Your GitHub username
+    // Custom worker URL for fetching repositories
+    fetchUrl: "https://github-fetch-repo.jayrajkamalakar-jk.workers.dev/",
     // Set to true to fetch projects from GitHub automatically
-    // Note: This requires additional implementation for API calls
-    autoFetch: false,
-    // Repositories to exclude from auto-fetch (if implemented)
+    autoFetch: true,
+    // Repositories to exclude from auto-fetch
     excludeRepos: ["JDKamalakar", "config-files", "dotfiles"]
   },
 

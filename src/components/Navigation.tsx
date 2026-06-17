@@ -109,10 +109,13 @@ const Navigation = () => {
       {/* Mobile Navigation */}
       <div className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}>
-        <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
-        <div className={`absolute left-0 top-0 h-full w-80 max-w-[80vw] backdrop-blur-xl bg-white/20 dark:bg-gray-900/20 border-r border-white/20 dark:border-gray-700/20 transform transition-all duration-500 ease-out shadow-2xl rounded-r-3xl ${isOpen ? 'translate-x-0' : '-translate-x-full'
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/10 dark:bg-black/40 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
+        
+        {/* Sidebar Container */}
+        <div className={`absolute left-0 top-0 h-full w-80 max-w-[80vw] backdrop-blur-[40px] backdrop-saturate-[200%] bg-white/40 dark:bg-gray-900/50 border-r border-white/40 dark:border-gray-700/50 transform transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] shadow-[10px_0_40px_rgba(0,0,0,0.05)] dark:shadow-[10px_0_40px_rgba(0,0,0,0.3)] rounded-r-3xl flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'
           }`}>
-          <div className="p-6 pt-20">
+          <div className="p-6 pt-24 overflow-y-auto">
             <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-6">Navigation</h3>
             {navItems.map((item, index) => {
               const Icon = item.icon;

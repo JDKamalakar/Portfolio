@@ -13,24 +13,24 @@ export default defineConfig({
       // This will create a manifest.webmanifest file in your dist folder.
       // You can customize the details below.
       manifest: {
-        name: 'Jayraj Kamalakar - Portfolio',
-        short_name: 'JK Portfolio',
+        name: "JK's Portfolio",
+        short_name: "JK's Portfolio",
         description: 'A personal portfolio website showcasing the projects and skills of Jayraj Kamalakar.',
         theme_color: '#1a73e8', // A nice blue theme color
         background_color: '#ffffff',
         icons: [
           {
-            src: 'pwa-192x192.png', // path is relative to the public folder
+            src: 'assets/cv.png', // path is relative to the public folder
             sizes: '192x192',
             type: 'image/png',
           },
           {
-            src: 'pwa-512x512.png', // path is relative to the public folder
+            src: 'assets/cv.png', // path is relative to the public folder
             sizes: '512x512',
             type: 'image/png',
           },
           {
-            src: 'pwa-512x512.png', // for Apple touch icon
+            src: 'assets/cv.png', // for Apple touch icon
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable',
@@ -43,7 +43,7 @@ export default defineConfig({
       },
       // (Optional) Enable the service worker in development for testing
       devOptions: {
-        enabled: true,
+        enabled: false,
       },
     }),
   ],
