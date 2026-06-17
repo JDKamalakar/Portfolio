@@ -32,8 +32,6 @@
     "vite-plugin-pwa": "^1.0.3"
   },
   "overrides": {
-    "@vitejs/plugin-react": {
-      "vite": "$vite"
-    }
+    "vite": "$vite"
   }
 }
